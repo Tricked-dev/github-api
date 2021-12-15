@@ -1,53 +1,53 @@
-use crate::{client::Client, end_points::*};
+use crate::{client::Client, end_points::*, Error};
 use reqwest::Body;
 use serde::{Deserialize, Serialize};
 impl Client {
-    pub async fn get_<T, V>(&self, query: Option<&T>, body: Option<V>) -> GetResponse
+    pub async fn get_<T, V>(&self, query: Option<&T>, body: Option<V>) -> Result<GetResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
-        self.req(EndPoints::Get(), query, body).await.unwrap()
+        self.req(EndPoints::Get(), query, body).await
     }
-    pub async fn get_app<T, V>(&self, query: Option<&T>, body: Option<V>) -> GetAppResponse
+    pub async fn get_app<T, V>(
+        &self,
+        query: Option<&T>,
+        body: Option<V>,
+    ) -> Result<GetAppResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
-        self.req(EndPoints::GetApp(), query, body).await.unwrap()
+        self.req(EndPoints::GetApp(), query, body).await
     }
     pub async fn get_app_hook_config<T, V>(
         &self,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetAppHookConfigResponse
+    ) -> Result<GetAppHookConfigResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
-        self.req(EndPoints::GetAppHookConfig(), query, body)
-            .await
-            .unwrap()
+        self.req(EndPoints::GetAppHookConfig(), query, body).await
     }
     pub async fn patch_app_hook_config<T, V>(
         &self,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PatchAppHookConfigResponse
+    ) -> Result<PatchAppHookConfigResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
-        self.req(EndPoints::PatchAppHookConfig(), query, body)
-            .await
-            .unwrap()
+        self.req(EndPoints::PatchAppHookConfig(), query, body).await
     }
     pub async fn get_app_hook_deliveries_delivery_id<T, V>(
         &self,
         delivery_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetAppHookDeliveriesdeliveryIdResponse
+    ) -> Result<GetAppHookDeliveriesdeliveryIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -58,14 +58,13 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_app_installations_installation_id<T, V>(
         &self,
         installation_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetAppInstallationsinstallationIdResponse
+    ) -> Result<GetAppInstallationsinstallationIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -76,14 +75,13 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_applications_grants_grant_id<T, V>(
         &self,
         grant_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetApplicationsGrantsgrantIdResponse
+    ) -> Result<GetApplicationsGrantsgrantIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -94,14 +92,13 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn post_applications_client_id_token<T, V>(
         &self,
         client_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PostApplicationsclientIdTokenResponse
+    ) -> Result<PostApplicationsclientIdTokenResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -112,14 +109,13 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn patch_applications_client_id_token<T, V>(
         &self,
         client_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PatchApplicationsclientIdTokenResponse
+    ) -> Result<PatchApplicationsclientIdTokenResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -130,14 +126,13 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn post_applications_client_id_token_scoped<T, V>(
         &self,
         client_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PostApplicationsclientIdTokenScopedResponse
+    ) -> Result<PostApplicationsclientIdTokenScopedResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -148,28 +143,26 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_apps_app_slug<T, V>(
         &self,
         app_slug: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetAppsappSlugResponse
+    ) -> Result<GetAppsappSlugResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
         self.req(EndPoints::GetAppsappSlug(app_slug), query, body)
             .await
-            .unwrap()
     }
     pub async fn put_authorizations_clients_client_id<T, V>(
         &self,
         client_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PutAuthorizationsClientsclientIdResponse
+    ) -> Result<PutAuthorizationsClientsclientIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -180,7 +173,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn put_authorizations_clients_client_id_fingerprint<T, V>(
         &self,
@@ -188,7 +180,7 @@ impl Client {
         fingerprint: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PutAuthorizationsClientsclientIdfingerprintResponse
+    ) -> Result<PutAuthorizationsClientsclientIdfingerprintResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -199,14 +191,13 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_authorizations_authorization_id<T, V>(
         &self,
         authorization_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetAuthorizationsauthorizationIdResponse
+    ) -> Result<GetAuthorizationsauthorizationIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -217,14 +208,13 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn patch_authorizations_authorization_id<T, V>(
         &self,
         authorization_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PatchAuthorizationsauthorizationIdResponse
+    ) -> Result<PatchAuthorizationsauthorizationIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -235,28 +225,26 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_codes_of_conduct_key<T, V>(
         &self,
         key: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetCodesOfConductkeyResponse
+    ) -> Result<GetCodesOfConductkeyResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
         self.req(EndPoints::GetCodesOfConductkey(key), query, body)
             .await
-            .unwrap()
     }
     pub async fn get_enterprises_enterprise_actions_permissions<T, V>(
         &self,
         enterprise: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetEnterprisesenterpriseActionsPermissionsResponse
+    ) -> Result<GetEnterprisesenterpriseActionsPermissionsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -267,14 +255,13 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_enterprises_enterprise_actions_permissions_organizations<T, V>(
         &self,
         enterprise: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetEnterprisesenterpriseActionsPermissionsOrganizationsResponse
+    ) -> Result<GetEnterprisesenterpriseActionsPermissionsOrganizationsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -285,14 +272,13 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_enterprises_enterprise_actions_permissions_selected_actions<T, V>(
         &self,
         enterprise: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetEnterprisesenterpriseActionsPermissionsSelectedActionsResponse
+    ) -> Result<GetEnterprisesenterpriseActionsPermissionsSelectedActionsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -303,14 +289,13 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_enterprises_enterprise_actions_runner_groups<T, V>(
         &self,
         enterprise: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetEnterprisesenterpriseActionsRunnerGroupsResponse
+    ) -> Result<GetEnterprisesenterpriseActionsRunnerGroupsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -321,7 +306,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_enterprises_enterprise_actions_runner_groups_runner_group_id<T, V>(
         &self,
@@ -329,7 +313,7 @@ impl Client {
         runner_group_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetEnterprisesenterpriseActionsRunnerGroupsrunnerGroupIdResponse
+    ) -> Result<GetEnterprisesenterpriseActionsRunnerGroupsrunnerGroupIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -343,7 +327,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn patch_enterprises_enterprise_actions_runner_groups_runner_group_id<T, V>(
         &self,
@@ -351,7 +334,7 @@ impl Client {
         runner_group_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PatchEnterprisesenterpriseActionsRunnerGroupsrunnerGroupIdResponse
+    ) -> Result<PatchEnterprisesenterpriseActionsRunnerGroupsrunnerGroupIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -365,7 +348,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_enterprises_enterprise_actions_runner_groups_runner_group_id_organizations<
         T,
@@ -376,7 +358,7 @@ impl Client {
         runner_group_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetEnterprisesenterpriseActionsRunnerGroupsrunnerGroupIdOrganizationsResponse
+    ) -> Result<GetEnterprisesenterpriseActionsRunnerGroupsrunnerGroupIdOrganizationsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -390,7 +372,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_enterprises_enterprise_actions_runner_groups_runner_group_id_runners<T, V>(
         &self,
@@ -398,7 +379,7 @@ impl Client {
         runner_group_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetEnterprisesenterpriseActionsRunnerGroupsrunnerGroupIdRunnersResponse
+    ) -> Result<GetEnterprisesenterpriseActionsRunnerGroupsrunnerGroupIdRunnersResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -412,14 +393,13 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_enterprises_enterprise_actions_runners<T, V>(
         &self,
         enterprise: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetEnterprisesenterpriseActionsRunnersResponse
+    ) -> Result<GetEnterprisesenterpriseActionsRunnersResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -430,7 +410,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_enterprises_enterprise_actions_runners_runner_id<T, V>(
         &self,
@@ -438,7 +417,7 @@ impl Client {
         runner_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetEnterprisesenterpriseActionsRunnersrunnerIdResponse
+    ) -> Result<GetEnterprisesenterpriseActionsRunnersrunnerIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -449,7 +428,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_enterprises_enterprise_actions_runners_runner_id_labels<T, V>(
         &self,
@@ -457,7 +435,7 @@ impl Client {
         runner_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetEnterprisesenterpriseActionsRunnersrunnerIdLabelsResponse
+    ) -> Result<GetEnterprisesenterpriseActionsRunnersrunnerIdLabelsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -468,7 +446,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn post_enterprises_enterprise_actions_runners_runner_id_labels<T, V>(
         &self,
@@ -476,7 +453,7 @@ impl Client {
         runner_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PostEnterprisesenterpriseActionsRunnersrunnerIdLabelsResponse
+    ) -> Result<PostEnterprisesenterpriseActionsRunnersrunnerIdLabelsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -487,7 +464,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn put_enterprises_enterprise_actions_runners_runner_id_labels<T, V>(
         &self,
@@ -495,7 +471,7 @@ impl Client {
         runner_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PutEnterprisesenterpriseActionsRunnersrunnerIdLabelsResponse
+    ) -> Result<PutEnterprisesenterpriseActionsRunnersrunnerIdLabelsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -506,7 +482,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn delete_enterprises_enterprise_actions_runners_runner_id_labels<T, V>(
         &self,
@@ -514,7 +489,7 @@ impl Client {
         runner_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> DeleteEnterprisesenterpriseActionsRunnersrunnerIdLabelsResponse
+    ) -> Result<DeleteEnterprisesenterpriseActionsRunnersrunnerIdLabelsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -527,7 +502,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn delete_enterprises_enterprise_actions_runners_runner_id_labels_name<T, V>(
         &self,
@@ -536,7 +510,7 @@ impl Client {
         name: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> DeleteEnterprisesenterpriseActionsRunnersrunnerIdLabelsnameResponse
+    ) -> Result<DeleteEnterprisesenterpriseActionsRunnersrunnerIdLabelsnameResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -549,14 +523,13 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_enterprises_enterprise_settings_billing_actions<T, V>(
         &self,
         enterprise: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetEnterprisesenterpriseSettingsBillingActionsResponse
+    ) -> Result<GetEnterprisesenterpriseSettingsBillingActionsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -567,14 +540,13 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_enterprises_enterprise_settings_billing_advanced_security<T, V>(
         &self,
         enterprise: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetEnterprisesenterpriseSettingsBillingAdvancedSecurityResponse
+    ) -> Result<GetEnterprisesenterpriseSettingsBillingAdvancedSecurityResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -585,14 +557,13 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_enterprises_enterprise_settings_billing_packages<T, V>(
         &self,
         enterprise: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetEnterprisesenterpriseSettingsBillingPackagesResponse
+    ) -> Result<GetEnterprisesenterpriseSettingsBillingPackagesResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -603,14 +574,13 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_enterprises_enterprise_settings_billing_shared_storage<T, V>(
         &self,
         enterprise: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetEnterprisesenterpriseSettingsBillingSharedStorageResponse
+    ) -> Result<GetEnterprisesenterpriseSettingsBillingSharedStorageResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -621,42 +591,43 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
-    pub async fn get_feeds<T, V>(&self, query: Option<&T>, body: Option<V>) -> GetFeedsResponse
+    pub async fn get_feeds<T, V>(
+        &self,
+        query: Option<&T>,
+        body: Option<V>,
+    ) -> Result<GetFeedsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
-        self.req(EndPoints::GetFeeds(), query, body).await.unwrap()
+        self.req(EndPoints::GetFeeds(), query, body).await
     }
     pub async fn get_gists_gist_id<T, V>(
         &self,
         gist_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetGistsgistIdResponse
+    ) -> Result<GetGistsgistIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
         self.req(EndPoints::GetGistsgistId(gist_id), query, body)
             .await
-            .unwrap()
     }
     pub async fn patch_gists_gist_id<T, V>(
         &self,
         gist_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PatchGistsgistIdResponse
+    ) -> Result<PatchGistsgistIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
         self.req(EndPoints::PatchGistsgistId(gist_id), query, body)
             .await
-            .unwrap()
     }
     pub async fn get_gists_gist_id_comments_comment_id<T, V>(
         &self,
@@ -664,7 +635,7 @@ impl Client {
         comment_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetGistsgistIdCommentscommentIdResponse
+    ) -> Result<GetGistsgistIdCommentscommentIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -675,7 +646,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn patch_gists_gist_id_comments_comment_id<T, V>(
         &self,
@@ -683,7 +653,7 @@ impl Client {
         comment_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PatchGistsgistIdCommentscommentIdResponse
+    ) -> Result<PatchGistsgistIdCommentscommentIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -694,7 +664,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_gists_gist_id_sha<T, V>(
         &self,
@@ -702,62 +671,58 @@ impl Client {
         sha: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetGistsgistIdshaResponse
+    ) -> Result<GetGistsgistIdshaResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
         self.req(EndPoints::GetGistsgistIdsha(gist_id, sha), query, body)
             .await
-            .unwrap()
     }
     pub async fn get_gitignore_templates_name<T, V>(
         &self,
         name: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetGitignoreTemplatesnameResponse
+    ) -> Result<GetGitignoreTemplatesnameResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
         self.req(EndPoints::GetGitignoreTemplatesname(name), query, body)
             .await
-            .unwrap()
     }
     pub async fn get_installation_repositories<T, V>(
         &self,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetInstallationRepositoriesResponse
+    ) -> Result<GetInstallationRepositoriesResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
         self.req(EndPoints::GetInstallationRepositories(), query, body)
             .await
-            .unwrap()
     }
     pub async fn get_licenses_license<T, V>(
         &self,
         license: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetLicenseslicenseResponse
+    ) -> Result<GetLicenseslicenseResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
         self.req(EndPoints::GetLicenseslicense(license), query, body)
             .await
-            .unwrap()
     }
     pub async fn get_marketplace_listing_accounts_account_id<T, V>(
         &self,
         account_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetMarketplaceListingAccountsaccountIdResponse
+    ) -> Result<GetMarketplaceListingAccountsaccountIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -768,14 +733,13 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_marketplace_listing_stubbed_accounts_account_id<T, V>(
         &self,
         account_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetMarketplaceListingStubbedAccountsaccountIdResponse
+    ) -> Result<GetMarketplaceListingStubbedAccountsaccountIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -786,21 +750,24 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
-    pub async fn get_meta<T, V>(&self, query: Option<&T>, body: Option<V>) -> GetMetaResponse
+    pub async fn get_meta<T, V>(
+        &self,
+        query: Option<&T>,
+        body: Option<V>,
+    ) -> Result<GetMetaResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
-        self.req(EndPoints::GetMeta(), query, body).await.unwrap()
+        self.req(EndPoints::GetMeta(), query, body).await
     }
     pub async fn get_notifications_threads_thread_id<T, V>(
         &self,
         thread_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetNotificationsThreadsthreadIdResponse
+    ) -> Result<GetNotificationsThreadsthreadIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -811,14 +778,13 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_notifications_threads_thread_id_subscription<T, V>(
         &self,
         thread_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetNotificationsThreadsthreadIdSubscriptionResponse
+    ) -> Result<GetNotificationsThreadsthreadIdSubscriptionResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -829,14 +795,13 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn put_notifications_threads_thread_id_subscription<T, V>(
         &self,
         thread_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PutNotificationsThreadsthreadIdSubscriptionResponse
+    ) -> Result<PutNotificationsThreadsthreadIdSubscriptionResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -847,14 +812,13 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_organizations_organization_id_custom_roles<T, V>(
         &self,
         organization_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetOrganizationsorganizationIdCustomRolesResponse
+    ) -> Result<GetOrganizationsorganizationIdCustomRolesResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -865,56 +829,50 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_orgs_org<T, V>(
         &self,
         org: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetOrgsorgResponse
+    ) -> Result<GetOrgsorgResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
-        self.req(EndPoints::GetOrgsorg(org), query, body)
-            .await
-            .unwrap()
+        self.req(EndPoints::GetOrgsorg(org), query, body).await
     }
     pub async fn patch_orgs_org<T, V>(
         &self,
         org: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PatchOrgsorgResponse
+    ) -> Result<PatchOrgsorgResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
-        self.req(EndPoints::PatchOrgsorg(org), query, body)
-            .await
-            .unwrap()
+        self.req(EndPoints::PatchOrgsorg(org), query, body).await
     }
     pub async fn get_orgs_org_actions_permissions<T, V>(
         &self,
         org: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetOrgsorgActionsPermissionsResponse
+    ) -> Result<GetOrgsorgActionsPermissionsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
         self.req(EndPoints::GetOrgsorgActionsPermissions(org), query, body)
             .await
-            .unwrap()
     }
     pub async fn get_orgs_org_actions_permissions_repositories<T, V>(
         &self,
         org: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetOrgsorgActionsPermissionsRepositoriesResponse
+    ) -> Result<GetOrgsorgActionsPermissionsRepositoriesResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -925,14 +883,13 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_orgs_org_actions_permissions_selected_actions<T, V>(
         &self,
         org: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetOrgsorgActionsPermissionsSelectedActionsResponse
+    ) -> Result<GetOrgsorgActionsPermissionsSelectedActionsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -943,21 +900,19 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_orgs_org_actions_runner_groups<T, V>(
         &self,
         org: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetOrgsorgActionsRunnerGroupsResponse
+    ) -> Result<GetOrgsorgActionsRunnerGroupsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
         self.req(EndPoints::GetOrgsorgActionsRunnerGroups(org), query, body)
             .await
-            .unwrap()
     }
     pub async fn get_orgs_org_actions_runner_groups_runner_group_id<T, V>(
         &self,
@@ -965,7 +920,7 @@ impl Client {
         runner_group_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetOrgsorgActionsRunnerGroupsrunnerGroupIdResponse
+    ) -> Result<GetOrgsorgActionsRunnerGroupsrunnerGroupIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -976,7 +931,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn patch_orgs_org_actions_runner_groups_runner_group_id<T, V>(
         &self,
@@ -984,7 +938,7 @@ impl Client {
         runner_group_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PatchOrgsorgActionsRunnerGroupsrunnerGroupIdResponse
+    ) -> Result<PatchOrgsorgActionsRunnerGroupsrunnerGroupIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -995,7 +949,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_orgs_org_actions_runner_groups_runner_group_id_repositories<T, V>(
         &self,
@@ -1003,7 +956,7 @@ impl Client {
         runner_group_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetOrgsorgActionsRunnerGroupsrunnerGroupIdRepositoriesResponse
+    ) -> Result<GetOrgsorgActionsRunnerGroupsrunnerGroupIdRepositoriesResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -1014,7 +967,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_orgs_org_actions_runner_groups_runner_group_id_runners<T, V>(
         &self,
@@ -1022,7 +974,7 @@ impl Client {
         runner_group_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetOrgsorgActionsRunnerGroupsrunnerGroupIdRunnersResponse
+    ) -> Result<GetOrgsorgActionsRunnerGroupsrunnerGroupIdRunnersResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -1033,21 +985,19 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_orgs_org_actions_runners<T, V>(
         &self,
         org: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetOrgsorgActionsRunnersResponse
+    ) -> Result<GetOrgsorgActionsRunnersResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
         self.req(EndPoints::GetOrgsorgActionsRunners(org), query, body)
             .await
-            .unwrap()
     }
     pub async fn get_orgs_org_actions_runners_runner_id<T, V>(
         &self,
@@ -1055,7 +1005,7 @@ impl Client {
         runner_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetOrgsorgActionsRunnersrunnerIdResponse
+    ) -> Result<GetOrgsorgActionsRunnersrunnerIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -1066,7 +1016,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_orgs_org_actions_runners_runner_id_labels<T, V>(
         &self,
@@ -1074,7 +1023,7 @@ impl Client {
         runner_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetOrgsorgActionsRunnersrunnerIdLabelsResponse
+    ) -> Result<GetOrgsorgActionsRunnersrunnerIdLabelsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -1085,7 +1034,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn post_orgs_org_actions_runners_runner_id_labels<T, V>(
         &self,
@@ -1093,7 +1041,7 @@ impl Client {
         runner_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PostOrgsorgActionsRunnersrunnerIdLabelsResponse
+    ) -> Result<PostOrgsorgActionsRunnersrunnerIdLabelsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -1104,7 +1052,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn put_orgs_org_actions_runners_runner_id_labels<T, V>(
         &self,
@@ -1112,7 +1059,7 @@ impl Client {
         runner_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PutOrgsorgActionsRunnersrunnerIdLabelsResponse
+    ) -> Result<PutOrgsorgActionsRunnersrunnerIdLabelsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -1123,7 +1070,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn delete_orgs_org_actions_runners_runner_id_labels<T, V>(
         &self,
@@ -1131,7 +1077,7 @@ impl Client {
         runner_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> DeleteOrgsorgActionsRunnersrunnerIdLabelsResponse
+    ) -> Result<DeleteOrgsorgActionsRunnersrunnerIdLabelsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -1142,7 +1088,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn delete_orgs_org_actions_runners_runner_id_labels_name<T, V>(
         &self,
@@ -1151,7 +1096,7 @@ impl Client {
         name: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> DeleteOrgsorgActionsRunnersrunnerIdLabelsnameResponse
+    ) -> Result<DeleteOrgsorgActionsRunnersrunnerIdLabelsnameResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -1162,28 +1107,26 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_orgs_org_actions_secrets<T, V>(
         &self,
         org: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetOrgsorgActionsSecretsResponse
+    ) -> Result<GetOrgsorgActionsSecretsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
         self.req(EndPoints::GetOrgsorgActionsSecrets(org), query, body)
             .await
-            .unwrap()
     }
     pub async fn get_orgs_org_actions_secrets_public_key<T, V>(
         &self,
         org: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetOrgsorgActionsSecretsPublicKeyResponse
+    ) -> Result<GetOrgsorgActionsSecretsPublicKeyResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -1194,7 +1137,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_orgs_org_actions_secrets_secret_name<T, V>(
         &self,
@@ -1202,7 +1144,7 @@ impl Client {
         secret_name: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetOrgsorgActionsSecretssecretNameResponse
+    ) -> Result<GetOrgsorgActionsSecretssecretNameResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -1213,7 +1155,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_orgs_org_actions_secrets_secret_name_repositories<T, V>(
         &self,
@@ -1221,7 +1162,7 @@ impl Client {
         secret_name: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetOrgsorgActionsSecretssecretNameRepositoriesResponse
+    ) -> Result<GetOrgsorgActionsSecretssecretNameRepositoriesResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -1232,7 +1173,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_orgs_org_external_group_group_id<T, V>(
         &self,
@@ -1240,7 +1180,7 @@ impl Client {
         group_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetOrgsorgExternalGroupgroupIdResponse
+    ) -> Result<GetOrgsorgExternalGroupgroupIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -1251,21 +1191,19 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_orgs_org_external_groups<T, V>(
         &self,
         org: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetOrgsorgExternalGroupsResponse
+    ) -> Result<GetOrgsorgExternalGroupsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
         self.req(EndPoints::GetOrgsorgExternalGroups(org), query, body)
             .await
-            .unwrap()
     }
     pub async fn get_orgs_org_hooks_hook_id<T, V>(
         &self,
@@ -1273,14 +1211,13 @@ impl Client {
         hook_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetOrgsorgHookshookIdResponse
+    ) -> Result<GetOrgsorgHookshookIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
         self.req(EndPoints::GetOrgsorgHookshookId(org, hook_id), query, body)
             .await
-            .unwrap()
     }
     pub async fn patch_orgs_org_hooks_hook_id<T, V>(
         &self,
@@ -1288,7 +1225,7 @@ impl Client {
         hook_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PatchOrgsorgHookshookIdResponse
+    ) -> Result<PatchOrgsorgHookshookIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -1299,7 +1236,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_orgs_org_hooks_hook_id_config<T, V>(
         &self,
@@ -1307,7 +1243,7 @@ impl Client {
         hook_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetOrgsorgHookshookIdConfigResponse
+    ) -> Result<GetOrgsorgHookshookIdConfigResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -1318,7 +1254,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn patch_orgs_org_hooks_hook_id_config<T, V>(
         &self,
@@ -1326,7 +1261,7 @@ impl Client {
         hook_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PatchOrgsorgHookshookIdConfigResponse
+    ) -> Result<PatchOrgsorgHookshookIdConfigResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -1337,7 +1272,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_orgs_org_hooks_hook_id_deliveries_delivery_id<T, V>(
         &self,
@@ -1346,7 +1280,7 @@ impl Client {
         delivery_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetOrgsorgHookshookIdDeliveriesdeliveryIdResponse
+    ) -> Result<GetOrgsorgHookshookIdDeliveriesdeliveryIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -1357,49 +1291,45 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_orgs_org_installation<T, V>(
         &self,
         org: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetOrgsorgInstallationResponse
+    ) -> Result<GetOrgsorgInstallationResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
         self.req(EndPoints::GetOrgsorgInstallation(org), query, body)
             .await
-            .unwrap()
     }
     pub async fn get_orgs_org_installations<T, V>(
         &self,
         org: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetOrgsorgInstallationsResponse
+    ) -> Result<GetOrgsorgInstallationsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
         self.req(EndPoints::GetOrgsorgInstallations(org), query, body)
             .await
-            .unwrap()
     }
     pub async fn put_orgs_org_interaction_limits<T, V>(
         &self,
         org: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PutOrgsorgInteractionLimitsResponse
+    ) -> Result<PutOrgsorgInteractionLimitsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
         self.req(EndPoints::PutOrgsorgInteractionLimits(org), query, body)
             .await
-            .unwrap()
     }
     pub async fn get_orgs_org_memberships_username<T, V>(
         &self,
@@ -1407,7 +1337,7 @@ impl Client {
         username: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetOrgsorgMembershipsusernameResponse
+    ) -> Result<GetOrgsorgMembershipsusernameResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -1418,7 +1348,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn put_orgs_org_memberships_username<T, V>(
         &self,
@@ -1426,7 +1355,7 @@ impl Client {
         username: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PutOrgsorgMembershipsusernameResponse
+    ) -> Result<PutOrgsorgMembershipsusernameResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -1437,7 +1366,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_orgs_org_migrations_migration_id<T, V>(
         &self,
@@ -1445,7 +1373,7 @@ impl Client {
         migration_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetOrgsorgMigrationsmigrationIdResponse
+    ) -> Result<GetOrgsorgMigrationsmigrationIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -1456,7 +1384,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_orgs_org_packages_package_type_package_name<T, V>(
         &self,
@@ -1465,7 +1392,7 @@ impl Client {
         package_name: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetOrgsorgPackagespackageTypepackageNameResponse
+    ) -> Result<GetOrgsorgPackagespackageTypepackageNameResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -1476,7 +1403,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_orgs_org_packages_package_type_package_name_versions_package_version_id<T, V>(
         &self,
@@ -1486,7 +1412,7 @@ impl Client {
         package_version_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetOrgsorgPackagespackageTypepackageNameVersionspackageVersionIdResponse
+    ) -> Result<GetOrgsorgPackagespackageTypepackageNameVersionspackageVersionIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -1502,14 +1428,13 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_orgs_org_settings_billing_actions<T, V>(
         &self,
         org: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetOrgsorgSettingsBillingActionsResponse
+    ) -> Result<GetOrgsorgSettingsBillingActionsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -1520,14 +1445,13 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_orgs_org_settings_billing_advanced_security<T, V>(
         &self,
         org: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetOrgsorgSettingsBillingAdvancedSecurityResponse
+    ) -> Result<GetOrgsorgSettingsBillingAdvancedSecurityResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -1538,14 +1462,13 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_orgs_org_settings_billing_packages<T, V>(
         &self,
         org: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetOrgsorgSettingsBillingPackagesResponse
+    ) -> Result<GetOrgsorgSettingsBillingPackagesResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -1556,14 +1479,13 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_orgs_org_settings_billing_shared_storage<T, V>(
         &self,
         org: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetOrgsorgSettingsBillingSharedStorageResponse
+    ) -> Result<GetOrgsorgSettingsBillingSharedStorageResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -1574,21 +1496,19 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_orgs_org_team_sync_groups<T, V>(
         &self,
         org: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetOrgsorgTeamSyncGroupsResponse
+    ) -> Result<GetOrgsorgTeamSyncGroupsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
         self.req(EndPoints::GetOrgsorgTeamSyncGroups(org), query, body)
             .await
-            .unwrap()
     }
     pub async fn get_orgs_org_teams_team_slug<T, V>(
         &self,
@@ -1596,7 +1516,7 @@ impl Client {
         team_slug: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetOrgsorgTeamsteamSlugResponse
+    ) -> Result<GetOrgsorgTeamsteamSlugResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -1607,7 +1527,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_orgs_org_teams_team_slug_discussions_discussion_number<T, V>(
         &self,
@@ -1616,7 +1535,7 @@ impl Client {
         discussion_number: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetOrgsorgTeamsteamSlugDiscussionsdiscussionNumberResponse
+    ) -> Result<GetOrgsorgTeamsteamSlugDiscussionsdiscussionNumberResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -1631,7 +1550,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn patch_orgs_org_teams_team_slug_discussions_discussion_number<T, V>(
         &self,
@@ -1640,7 +1558,7 @@ impl Client {
         discussion_number: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PatchOrgsorgTeamsteamSlugDiscussionsdiscussionNumberResponse
+    ) -> Result<PatchOrgsorgTeamsteamSlugDiscussionsdiscussionNumberResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -1655,7 +1573,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_orgs_org_teams_team_slug_discussions_discussion_number_comments_comment_number<
         T,
@@ -1668,7 +1585,10 @@ impl Client {
         comment_number: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetOrgsorgTeamsteamSlugDiscussionsdiscussionNumberCommentscommentNumberResponse
+    ) -> Result<
+        GetOrgsorgTeamsteamSlugDiscussionsdiscussionNumberCommentscommentNumberResponse,
+        Error,
+    >
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -1684,7 +1604,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn patch_orgs_org_teams_team_slug_discussions_discussion_number_comments_comment_number<
         T,
@@ -1697,7 +1616,10 @@ impl Client {
         comment_number: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PatchOrgsorgTeamsteamSlugDiscussionsdiscussionNumberCommentscommentNumberResponse
+    ) -> Result<
+        PatchOrgsorgTeamsteamSlugDiscussionsdiscussionNumberCommentscommentNumberResponse,
+        Error,
+    >
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -1713,7 +1635,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn post_orgs_org_teams_team_slug_discussions_discussion_number_comments_comment_number_reactions<
         T,
@@ -1726,12 +1647,15 @@ impl Client {
         comment_number: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PostOrgsorgTeamsteamSlugDiscussionsdiscussionNumberCommentscommentNumberReactionsResponse
+    ) -> Result<
+        PostOrgsorgTeamsteamSlugDiscussionsdiscussionNumberCommentscommentNumberReactionsResponse,
+        Error,
+    >
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
-        self.req(EndPoints::PostOrgsorgTeamsteamSlugDiscussionsdiscussionNumberCommentscommentNumberReactions(org, team_slug, discussion_number, comment_number), query, body).await.unwrap()
+        self.req(EndPoints::PostOrgsorgTeamsteamSlugDiscussionsdiscussionNumberCommentscommentNumberReactions(org, team_slug, discussion_number, comment_number), query, body).await
     }
     pub async fn post_orgs_org_teams_team_slug_discussions_discussion_number_reactions<T, V>(
         &self,
@@ -1740,7 +1664,7 @@ impl Client {
         discussion_number: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PostOrgsorgTeamsteamSlugDiscussionsdiscussionNumberReactionsResponse
+    ) -> Result<PostOrgsorgTeamsteamSlugDiscussionsdiscussionNumberReactionsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -1755,7 +1679,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn patch_orgs_org_teams_team_slug_external_groups<T, V>(
         &self,
@@ -1763,7 +1686,7 @@ impl Client {
         team_slug: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PatchOrgsorgTeamsteamSlugExternalGroupsResponse
+    ) -> Result<PatchOrgsorgTeamsteamSlugExternalGroupsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -1774,7 +1697,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_orgs_org_teams_team_slug_memberships_username<T, V>(
         &self,
@@ -1783,7 +1705,7 @@ impl Client {
         username: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetOrgsorgTeamsteamSlugMembershipsusernameResponse
+    ) -> Result<GetOrgsorgTeamsteamSlugMembershipsusernameResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -1794,7 +1716,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn put_orgs_org_teams_team_slug_memberships_username<T, V>(
         &self,
@@ -1803,7 +1724,7 @@ impl Client {
         username: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PutOrgsorgTeamsteamSlugMembershipsusernameResponse
+    ) -> Result<PutOrgsorgTeamsteamSlugMembershipsusernameResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -1814,7 +1735,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_orgs_org_teams_team_slug_projects_project_id<T, V>(
         &self,
@@ -1823,7 +1743,7 @@ impl Client {
         project_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetOrgsorgTeamsteamSlugProjectsprojectIdResponse
+    ) -> Result<GetOrgsorgTeamsteamSlugProjectsprojectIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -1834,7 +1754,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_orgs_org_teams_team_slug_repos_owner_repo<T, V>(
         &self,
@@ -1844,7 +1763,7 @@ impl Client {
         repo: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetOrgsorgTeamsteamSlugReposownerrepoResponse
+    ) -> Result<GetOrgsorgTeamsteamSlugReposownerrepoResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -1855,7 +1774,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_orgs_org_teams_team_slug_team_sync_group_mappings<T, V>(
         &self,
@@ -1863,7 +1781,7 @@ impl Client {
         team_slug: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetOrgsorgTeamsteamSlugTeamSyncGroupMappingsResponse
+    ) -> Result<GetOrgsorgTeamsteamSlugTeamSyncGroupMappingsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -1874,7 +1792,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn patch_orgs_org_teams_team_slug_team_sync_group_mappings<T, V>(
         &self,
@@ -1882,7 +1799,7 @@ impl Client {
         team_slug: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PatchOrgsorgTeamsteamSlugTeamSyncGroupMappingsResponse
+    ) -> Result<PatchOrgsorgTeamsteamSlugTeamSyncGroupMappingsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -1893,14 +1810,13 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_projects_columns_cards_card_id<T, V>(
         &self,
         card_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetProjectsColumnsCardscardIdResponse
+    ) -> Result<GetProjectsColumnsCardscardIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -1911,14 +1827,13 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn patch_projects_columns_cards_card_id<T, V>(
         &self,
         card_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PatchProjectsColumnsCardscardIdResponse
+    ) -> Result<PatchProjectsColumnsCardscardIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -1929,14 +1844,13 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_projects_columns_column_id<T, V>(
         &self,
         column_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetProjectsColumnscolumnIdResponse
+    ) -> Result<GetProjectsColumnscolumnIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -1947,14 +1861,13 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn patch_projects_columns_column_id<T, V>(
         &self,
         column_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PatchProjectsColumnscolumnIdResponse
+    ) -> Result<PatchProjectsColumnscolumnIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -1965,35 +1878,32 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_projects_project_id<T, V>(
         &self,
         project_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetProjectsprojectIdResponse
+    ) -> Result<GetProjectsprojectIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
         self.req(EndPoints::GetProjectsprojectId(project_id), query, body)
             .await
-            .unwrap()
     }
     pub async fn patch_projects_project_id<T, V>(
         &self,
         project_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PatchProjectsprojectIdResponse
+    ) -> Result<PatchProjectsprojectIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
         self.req(EndPoints::PatchProjectsprojectId(project_id), query, body)
             .await
-            .unwrap()
     }
     pub async fn get_projects_project_id_collaborators_username_permission<T, V>(
         &self,
@@ -2001,7 +1911,7 @@ impl Client {
         username: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetProjectsprojectIdCollaboratorsusernamePermissionResponse
+    ) -> Result<GetProjectsprojectIdCollaboratorsusernamePermissionResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -2012,20 +1922,17 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_rate_limit<T, V>(
         &self,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetRateLimitResponse
+    ) -> Result<GetRateLimitResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
-        self.req(EndPoints::GetRateLimit(), query, body)
-            .await
-            .unwrap()
+        self.req(EndPoints::GetRateLimit(), query, body).await
     }
     pub async fn get_repos_owner_repo<T, V>(
         &self,
@@ -2033,14 +1940,13 @@ impl Client {
         repo: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoResponse
+    ) -> Result<GetReposownerrepoResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
         self.req(EndPoints::GetReposownerrepo(owner, repo), query, body)
             .await
-            .unwrap()
     }
     pub async fn patch_repos_owner_repo<T, V>(
         &self,
@@ -2048,14 +1954,13 @@ impl Client {
         repo: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PatchReposownerrepoResponse
+    ) -> Result<PatchReposownerrepoResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
         self.req(EndPoints::PatchReposownerrepo(owner, repo), query, body)
             .await
-            .unwrap()
     }
     pub async fn get_repos_owner_repo_actions_artifacts<T, V>(
         &self,
@@ -2063,7 +1968,7 @@ impl Client {
         repo: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoActionsArtifactsResponse
+    ) -> Result<GetReposownerrepoActionsArtifactsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -2074,7 +1979,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_actions_artifacts_artifact_id<T, V>(
         &self,
@@ -2083,7 +1987,7 @@ impl Client {
         artifact_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoActionsArtifactsartifactIdResponse
+    ) -> Result<GetReposownerrepoActionsArtifactsartifactIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -2094,7 +1998,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_actions_jobs_job_id<T, V>(
         &self,
@@ -2103,7 +2006,7 @@ impl Client {
         job_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoActionsJobsjobIdResponse
+    ) -> Result<GetReposownerrepoActionsJobsjobIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -2114,7 +2017,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_actions_permissions<T, V>(
         &self,
@@ -2122,7 +2024,7 @@ impl Client {
         repo: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoActionsPermissionsResponse
+    ) -> Result<GetReposownerrepoActionsPermissionsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -2133,7 +2035,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_actions_permissions_selected_actions<T, V>(
         &self,
@@ -2141,7 +2042,7 @@ impl Client {
         repo: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoActionsPermissionsSelectedActionsResponse
+    ) -> Result<GetReposownerrepoActionsPermissionsSelectedActionsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -2152,7 +2053,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_actions_runners<T, V>(
         &self,
@@ -2160,7 +2060,7 @@ impl Client {
         repo: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoActionsRunnersResponse
+    ) -> Result<GetReposownerrepoActionsRunnersResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -2171,7 +2071,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_actions_runners_runner_id<T, V>(
         &self,
@@ -2180,7 +2079,7 @@ impl Client {
         runner_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoActionsRunnersrunnerIdResponse
+    ) -> Result<GetReposownerrepoActionsRunnersrunnerIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -2191,7 +2090,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_actions_runners_runner_id_labels<T, V>(
         &self,
@@ -2200,7 +2098,7 @@ impl Client {
         runner_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoActionsRunnersrunnerIdLabelsResponse
+    ) -> Result<GetReposownerrepoActionsRunnersrunnerIdLabelsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -2211,7 +2109,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn post_repos_owner_repo_actions_runners_runner_id_labels<T, V>(
         &self,
@@ -2220,7 +2117,7 @@ impl Client {
         runner_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PostReposownerrepoActionsRunnersrunnerIdLabelsResponse
+    ) -> Result<PostReposownerrepoActionsRunnersrunnerIdLabelsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -2231,7 +2128,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn put_repos_owner_repo_actions_runners_runner_id_labels<T, V>(
         &self,
@@ -2240,7 +2136,7 @@ impl Client {
         runner_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PutReposownerrepoActionsRunnersrunnerIdLabelsResponse
+    ) -> Result<PutReposownerrepoActionsRunnersrunnerIdLabelsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -2251,7 +2147,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn delete_repos_owner_repo_actions_runners_runner_id_labels<T, V>(
         &self,
@@ -2260,7 +2155,7 @@ impl Client {
         runner_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> DeleteReposownerrepoActionsRunnersrunnerIdLabelsResponse
+    ) -> Result<DeleteReposownerrepoActionsRunnersrunnerIdLabelsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -2271,7 +2166,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn delete_repos_owner_repo_actions_runners_runner_id_labels_name<T, V>(
         &self,
@@ -2281,7 +2175,7 @@ impl Client {
         name: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> DeleteReposownerrepoActionsRunnersrunnerIdLabelsnameResponse
+    ) -> Result<DeleteReposownerrepoActionsRunnersrunnerIdLabelsnameResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -2294,7 +2188,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_actions_runs<T, V>(
         &self,
@@ -2302,7 +2195,7 @@ impl Client {
         repo: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoActionsRunsResponse
+    ) -> Result<GetReposownerrepoActionsRunsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -2313,7 +2206,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_actions_runs_run_id<T, V>(
         &self,
@@ -2322,7 +2214,7 @@ impl Client {
         run_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoActionsRunsrunIdResponse
+    ) -> Result<GetReposownerrepoActionsRunsrunIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -2333,7 +2225,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_actions_runs_run_id_artifacts<T, V>(
         &self,
@@ -2342,7 +2233,7 @@ impl Client {
         run_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoActionsRunsrunIdArtifactsResponse
+    ) -> Result<GetReposownerrepoActionsRunsrunIdArtifactsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -2353,7 +2244,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_actions_runs_run_id_attempts_attempt_number<T, V>(
         &self,
@@ -2363,7 +2253,7 @@ impl Client {
         attempt_number: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoActionsRunsrunIdAttemptsattemptNumberResponse
+    ) -> Result<GetReposownerrepoActionsRunsrunIdAttemptsattemptNumberResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -2379,7 +2269,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_actions_runs_run_id_attempts_attempt_number_jobs<T, V>(
         &self,
@@ -2389,7 +2278,7 @@ impl Client {
         attempt_number: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoActionsRunsrunIdAttemptsattemptNumberJobsResponse
+    ) -> Result<GetReposownerrepoActionsRunsrunIdAttemptsattemptNumberJobsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -2405,7 +2294,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_actions_runs_run_id_jobs<T, V>(
         &self,
@@ -2414,7 +2302,7 @@ impl Client {
         run_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoActionsRunsrunIdJobsResponse
+    ) -> Result<GetReposownerrepoActionsRunsrunIdJobsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -2425,7 +2313,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_actions_runs_run_id_timing<T, V>(
         &self,
@@ -2434,7 +2321,7 @@ impl Client {
         run_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoActionsRunsrunIdTimingResponse
+    ) -> Result<GetReposownerrepoActionsRunsrunIdTimingResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -2445,7 +2332,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_actions_secrets<T, V>(
         &self,
@@ -2453,7 +2339,7 @@ impl Client {
         repo: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoActionsSecretsResponse
+    ) -> Result<GetReposownerrepoActionsSecretsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -2464,7 +2350,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_actions_secrets_public_key<T, V>(
         &self,
@@ -2472,7 +2357,7 @@ impl Client {
         repo: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoActionsSecretsPublicKeyResponse
+    ) -> Result<GetReposownerrepoActionsSecretsPublicKeyResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -2483,7 +2368,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_actions_secrets_secret_name<T, V>(
         &self,
@@ -2492,7 +2376,7 @@ impl Client {
         secret_name: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoActionsSecretssecretNameResponse
+    ) -> Result<GetReposownerrepoActionsSecretssecretNameResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -2503,7 +2387,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_actions_workflows<T, V>(
         &self,
@@ -2511,7 +2394,7 @@ impl Client {
         repo: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoActionsWorkflowsResponse
+    ) -> Result<GetReposownerrepoActionsWorkflowsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -2522,7 +2405,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_actions_workflows_workflow_id<T, V>(
         &self,
@@ -2531,7 +2413,7 @@ impl Client {
         workflow_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoActionsWorkflowsworkflowIdResponse
+    ) -> Result<GetReposownerrepoActionsWorkflowsworkflowIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -2542,7 +2424,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_actions_workflows_workflow_id_runs<T, V>(
         &self,
@@ -2551,7 +2432,7 @@ impl Client {
         workflow_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoActionsWorkflowsworkflowIdRunsResponse
+    ) -> Result<GetReposownerrepoActionsWorkflowsworkflowIdRunsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -2562,7 +2443,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_actions_workflows_workflow_id_timing<T, V>(
         &self,
@@ -2571,7 +2451,7 @@ impl Client {
         workflow_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoActionsWorkflowsworkflowIdTimingResponse
+    ) -> Result<GetReposownerrepoActionsWorkflowsworkflowIdTimingResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -2582,7 +2462,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_autolinks_autolink_id<T, V>(
         &self,
@@ -2591,7 +2470,7 @@ impl Client {
         autolink_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoAutolinksautolinkIdResponse
+    ) -> Result<GetReposownerrepoAutolinksautolinkIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -2602,7 +2481,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_branches_branch<T, V>(
         &self,
@@ -2611,7 +2489,7 @@ impl Client {
         branch: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoBranchesbranchResponse
+    ) -> Result<GetReposownerrepoBranchesbranchResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -2622,7 +2500,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_branches_branch_protection<T, V>(
         &self,
@@ -2631,7 +2508,7 @@ impl Client {
         branch: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoBranchesbranchProtectionResponse
+    ) -> Result<GetReposownerrepoBranchesbranchProtectionResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -2642,7 +2519,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn put_repos_owner_repo_branches_branch_protection<T, V>(
         &self,
@@ -2651,7 +2527,7 @@ impl Client {
         branch: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PutReposownerrepoBranchesbranchProtectionResponse
+    ) -> Result<PutReposownerrepoBranchesbranchProtectionResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -2662,7 +2538,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_branches_branch_protection_enforce_admins<T, V>(
         &self,
@@ -2671,7 +2546,7 @@ impl Client {
         branch: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoBranchesbranchProtectionEnforceAdminsResponse
+    ) -> Result<GetReposownerrepoBranchesbranchProtectionEnforceAdminsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -2682,7 +2557,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn post_repos_owner_repo_branches_branch_protection_enforce_admins<T, V>(
         &self,
@@ -2691,7 +2565,7 @@ impl Client {
         branch: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PostReposownerrepoBranchesbranchProtectionEnforceAdminsResponse
+    ) -> Result<PostReposownerrepoBranchesbranchProtectionEnforceAdminsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -2702,7 +2576,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_branches_branch_protection_required_pull_request_reviews<
         T,
@@ -2714,7 +2587,7 @@ impl Client {
         branch: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoBranchesbranchProtectionRequiredPullRequestReviewsResponse
+    ) -> Result<GetReposownerrepoBranchesbranchProtectionRequiredPullRequestReviewsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -2727,7 +2600,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn patch_repos_owner_repo_branches_branch_protection_required_pull_request_reviews<
         T,
@@ -2739,7 +2611,7 @@ impl Client {
         branch: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PatchReposownerrepoBranchesbranchProtectionRequiredPullRequestReviewsResponse
+    ) -> Result<PatchReposownerrepoBranchesbranchProtectionRequiredPullRequestReviewsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -2752,7 +2624,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_branches_branch_protection_required_signatures<T, V>(
         &self,
@@ -2761,7 +2632,7 @@ impl Client {
         branch: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoBranchesbranchProtectionRequiredSignaturesResponse
+    ) -> Result<GetReposownerrepoBranchesbranchProtectionRequiredSignaturesResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -2774,7 +2645,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn post_repos_owner_repo_branches_branch_protection_required_signatures<T, V>(
         &self,
@@ -2783,7 +2653,7 @@ impl Client {
         branch: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PostReposownerrepoBranchesbranchProtectionRequiredSignaturesResponse
+    ) -> Result<PostReposownerrepoBranchesbranchProtectionRequiredSignaturesResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -2796,7 +2666,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_branches_branch_protection_required_status_checks<T, V>(
         &self,
@@ -2805,7 +2674,7 @@ impl Client {
         branch: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoBranchesbranchProtectionRequiredStatusChecksResponse
+    ) -> Result<GetReposownerrepoBranchesbranchProtectionRequiredStatusChecksResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -2818,7 +2687,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn patch_repos_owner_repo_branches_branch_protection_required_status_checks<T, V>(
         &self,
@@ -2827,7 +2695,7 @@ impl Client {
         branch: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PatchReposownerrepoBranchesbranchProtectionRequiredStatusChecksResponse
+    ) -> Result<PatchReposownerrepoBranchesbranchProtectionRequiredStatusChecksResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -2840,7 +2708,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_branches_branch_protection_restrictions<T, V>(
         &self,
@@ -2849,7 +2716,7 @@ impl Client {
         branch: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoBranchesbranchProtectionRestrictionsResponse
+    ) -> Result<GetReposownerrepoBranchesbranchProtectionRestrictionsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -2860,7 +2727,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_check_runs_check_run_id<T, V>(
         &self,
@@ -2869,7 +2735,7 @@ impl Client {
         check_run_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoCheckRunscheckRunIdResponse
+    ) -> Result<GetReposownerrepoCheckRunscheckRunIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -2880,7 +2746,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn patch_repos_owner_repo_check_runs_check_run_id<T, V>(
         &self,
@@ -2889,7 +2754,7 @@ impl Client {
         check_run_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PatchReposownerrepoCheckRunscheckRunIdResponse
+    ) -> Result<PatchReposownerrepoCheckRunscheckRunIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -2900,7 +2765,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn post_repos_owner_repo_check_suites<T, V>(
         &self,
@@ -2908,7 +2772,7 @@ impl Client {
         repo: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PostReposownerrepoCheckSuitesResponse
+    ) -> Result<PostReposownerrepoCheckSuitesResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -2919,7 +2783,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn patch_repos_owner_repo_check_suites_preferences<T, V>(
         &self,
@@ -2927,7 +2790,7 @@ impl Client {
         repo: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PatchReposownerrepoCheckSuitesPreferencesResponse
+    ) -> Result<PatchReposownerrepoCheckSuitesPreferencesResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -2938,7 +2801,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_check_suites_check_suite_id<T, V>(
         &self,
@@ -2947,7 +2809,7 @@ impl Client {
         check_suite_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoCheckSuitescheckSuiteIdResponse
+    ) -> Result<GetReposownerrepoCheckSuitescheckSuiteIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -2958,7 +2820,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_check_suites_check_suite_id_check_runs<T, V>(
         &self,
@@ -2967,7 +2828,7 @@ impl Client {
         check_suite_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoCheckSuitescheckSuiteIdCheckRunsResponse
+    ) -> Result<GetReposownerrepoCheckSuitescheckSuiteIdCheckRunsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -2982,7 +2843,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_code_scanning_alerts_alert_number<T, V>(
         &self,
@@ -2991,7 +2851,7 @@ impl Client {
         alert_number: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoCodeScanningAlertsalertNumberResponse
+    ) -> Result<GetReposownerrepoCodeScanningAlertsalertNumberResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -3002,7 +2862,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn patch_repos_owner_repo_code_scanning_alerts_alert_number<T, V>(
         &self,
@@ -3011,7 +2870,7 @@ impl Client {
         alert_number: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PatchReposownerrepoCodeScanningAlertsalertNumberResponse
+    ) -> Result<PatchReposownerrepoCodeScanningAlertsalertNumberResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -3022,7 +2881,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_code_scanning_analyses_analysis_id<T, V>(
         &self,
@@ -3031,7 +2889,7 @@ impl Client {
         analysis_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoCodeScanningAnalysesanalysisIdResponse
+    ) -> Result<GetReposownerrepoCodeScanningAnalysesanalysisIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -3042,7 +2900,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn delete_repos_owner_repo_code_scanning_analyses_analysis_id<T, V>(
         &self,
@@ -3051,7 +2908,7 @@ impl Client {
         analysis_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> DeleteReposownerrepoCodeScanningAnalysesanalysisIdResponse
+    ) -> Result<DeleteReposownerrepoCodeScanningAnalysesanalysisIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -3062,7 +2919,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_code_scanning_sarifs_sarif_id<T, V>(
         &self,
@@ -3071,7 +2927,7 @@ impl Client {
         sarif_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoCodeScanningSarifssarifIdResponse
+    ) -> Result<GetReposownerrepoCodeScanningSarifssarifIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -3082,7 +2938,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_codespaces<T, V>(
         &self,
@@ -3090,7 +2945,7 @@ impl Client {
         repo: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoCodespacesResponse
+    ) -> Result<GetReposownerrepoCodespacesResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -3101,7 +2956,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_codespaces_machines<T, V>(
         &self,
@@ -3109,7 +2963,7 @@ impl Client {
         repo: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoCodespacesMachinesResponse
+    ) -> Result<GetReposownerrepoCodespacesMachinesResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -3120,7 +2974,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_collaborators_username_permission<T, V>(
         &self,
@@ -3129,7 +2982,7 @@ impl Client {
         username: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoCollaboratorsusernamePermissionResponse
+    ) -> Result<GetReposownerrepoCollaboratorsusernamePermissionResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -3140,7 +2993,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_comments_comment_id<T, V>(
         &self,
@@ -3149,7 +3001,7 @@ impl Client {
         comment_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoCommentscommentIdResponse
+    ) -> Result<GetReposownerrepoCommentscommentIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -3160,7 +3012,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn patch_repos_owner_repo_comments_comment_id<T, V>(
         &self,
@@ -3169,7 +3020,7 @@ impl Client {
         comment_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PatchReposownerrepoCommentscommentIdResponse
+    ) -> Result<PatchReposownerrepoCommentscommentIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -3180,7 +3031,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn post_repos_owner_repo_comments_comment_id_reactions<T, V>(
         &self,
@@ -3189,7 +3039,7 @@ impl Client {
         comment_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PostReposownerrepoCommentscommentIdReactionsResponse
+    ) -> Result<PostReposownerrepoCommentscommentIdReactionsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -3200,7 +3050,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_commits_aref<T, V>(
         &self,
@@ -3209,7 +3058,7 @@ impl Client {
         aref: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoCommitsrefResponse
+    ) -> Result<GetReposownerrepoCommitsrefResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -3220,7 +3069,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_commits_aref_check_runs<T, V>(
         &self,
@@ -3229,7 +3077,7 @@ impl Client {
         aref: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoCommitsrefCheckRunsResponse
+    ) -> Result<GetReposownerrepoCommitsrefCheckRunsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -3240,7 +3088,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_commits_aref_check_suites<T, V>(
         &self,
@@ -3249,7 +3096,7 @@ impl Client {
         aref: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoCommitsrefCheckSuitesResponse
+    ) -> Result<GetReposownerrepoCommitsrefCheckSuitesResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -3260,7 +3107,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_commits_aref_status<T, V>(
         &self,
@@ -3269,7 +3115,7 @@ impl Client {
         aref: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoCommitsrefStatusResponse
+    ) -> Result<GetReposownerrepoCommitsrefStatusResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -3280,7 +3126,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_community_profile<T, V>(
         &self,
@@ -3288,7 +3133,7 @@ impl Client {
         repo: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoCommunityProfileResponse
+    ) -> Result<GetReposownerrepoCommunityProfileResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -3299,7 +3144,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_compare_basehead<T, V>(
         &self,
@@ -3308,7 +3152,7 @@ impl Client {
         basehead: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoComparebaseheadResponse
+    ) -> Result<GetReposownerrepoComparebaseheadResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -3319,7 +3163,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn put_repos_owner_repo_contents_path<T, V>(
         &self,
@@ -3328,7 +3171,7 @@ impl Client {
         path: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PutReposownerrepoContentspathResponse
+    ) -> Result<PutReposownerrepoContentspathResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -3339,7 +3182,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn delete_repos_owner_repo_contents_path<T, V>(
         &self,
@@ -3348,7 +3190,7 @@ impl Client {
         path: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> DeleteReposownerrepoContentspathResponse
+    ) -> Result<DeleteReposownerrepoContentspathResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -3359,7 +3201,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_deployments_deployment_id<T, V>(
         &self,
@@ -3368,7 +3209,7 @@ impl Client {
         deployment_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoDeploymentsdeploymentIdResponse
+    ) -> Result<GetReposownerrepoDeploymentsdeploymentIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -3379,7 +3220,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_deployments_deployment_id_statuses_status_id<T, V>(
         &self,
@@ -3389,7 +3229,7 @@ impl Client {
         status_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoDeploymentsdeploymentIdStatusesstatusIdResponse
+    ) -> Result<GetReposownerrepoDeploymentsdeploymentIdStatusesstatusIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -3405,7 +3245,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_environments<T, V>(
         &self,
@@ -3413,7 +3252,7 @@ impl Client {
         repo: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoEnvironmentsResponse
+    ) -> Result<GetReposownerrepoEnvironmentsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -3424,7 +3263,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_environments_environment_name<T, V>(
         &self,
@@ -3433,7 +3271,7 @@ impl Client {
         environment_name: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoEnvironmentsenvironmentNameResponse
+    ) -> Result<GetReposownerrepoEnvironmentsenvironmentNameResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -3444,7 +3282,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn put_repos_owner_repo_environments_environment_name<T, V>(
         &self,
@@ -3453,7 +3290,7 @@ impl Client {
         environment_name: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PutReposownerrepoEnvironmentsenvironmentNameResponse
+    ) -> Result<PutReposownerrepoEnvironmentsenvironmentNameResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -3464,7 +3301,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_git_blobs_file_sha<T, V>(
         &self,
@@ -3473,7 +3309,7 @@ impl Client {
         file_sha: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoGitBlobsfileShaResponse
+    ) -> Result<GetReposownerrepoGitBlobsfileShaResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -3484,7 +3320,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_git_commits_commit_sha<T, V>(
         &self,
@@ -3493,7 +3328,7 @@ impl Client {
         commit_sha: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoGitCommitscommitShaResponse
+    ) -> Result<GetReposownerrepoGitCommitscommitShaResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -3504,7 +3339,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_git_ref_aref<T, V>(
         &self,
@@ -3513,7 +3347,7 @@ impl Client {
         aref: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoGitRefrefResponse
+    ) -> Result<GetReposownerrepoGitRefrefResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -3524,7 +3358,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn patch_repos_owner_repo_git_refs_aref<T, V>(
         &self,
@@ -3533,7 +3366,7 @@ impl Client {
         aref: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PatchReposownerrepoGitRefsrefResponse
+    ) -> Result<PatchReposownerrepoGitRefsrefResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -3544,7 +3377,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_git_tags_tag_sha<T, V>(
         &self,
@@ -3553,7 +3385,7 @@ impl Client {
         tag_sha: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoGitTagstagShaResponse
+    ) -> Result<GetReposownerrepoGitTagstagShaResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -3564,7 +3396,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_git_trees_tree_sha<T, V>(
         &self,
@@ -3573,7 +3404,7 @@ impl Client {
         tree_sha: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoGitTreestreeShaResponse
+    ) -> Result<GetReposownerrepoGitTreestreeShaResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -3584,7 +3415,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_hooks_hook_id<T, V>(
         &self,
@@ -3593,7 +3423,7 @@ impl Client {
         hook_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoHookshookIdResponse
+    ) -> Result<GetReposownerrepoHookshookIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -3604,7 +3434,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn patch_repos_owner_repo_hooks_hook_id<T, V>(
         &self,
@@ -3613,7 +3442,7 @@ impl Client {
         hook_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PatchReposownerrepoHookshookIdResponse
+    ) -> Result<PatchReposownerrepoHookshookIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -3624,7 +3453,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_hooks_hook_id_config<T, V>(
         &self,
@@ -3633,7 +3461,7 @@ impl Client {
         hook_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoHookshookIdConfigResponse
+    ) -> Result<GetReposownerrepoHookshookIdConfigResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -3644,7 +3472,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn patch_repos_owner_repo_hooks_hook_id_config<T, V>(
         &self,
@@ -3653,7 +3480,7 @@ impl Client {
         hook_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PatchReposownerrepoHookshookIdConfigResponse
+    ) -> Result<PatchReposownerrepoHookshookIdConfigResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -3664,7 +3491,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_hooks_hook_id_deliveries_delivery_id<T, V>(
         &self,
@@ -3674,7 +3500,7 @@ impl Client {
         delivery_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoHookshookIdDeliveriesdeliveryIdResponse
+    ) -> Result<GetReposownerrepoHookshookIdDeliveriesdeliveryIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -3690,7 +3516,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_import<T, V>(
         &self,
@@ -3698,14 +3523,13 @@ impl Client {
         repo: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoImportResponse
+    ) -> Result<GetReposownerrepoImportResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
         self.req(EndPoints::GetReposownerrepoImport(owner, repo), query, body)
             .await
-            .unwrap()
     }
     pub async fn patch_repos_owner_repo_import<T, V>(
         &self,
@@ -3713,7 +3537,7 @@ impl Client {
         repo: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PatchReposownerrepoImportResponse
+    ) -> Result<PatchReposownerrepoImportResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -3724,7 +3548,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn patch_repos_owner_repo_import_authors_author_id<T, V>(
         &self,
@@ -3733,7 +3556,7 @@ impl Client {
         author_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PatchReposownerrepoImportAuthorsauthorIdResponse
+    ) -> Result<PatchReposownerrepoImportAuthorsauthorIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -3744,7 +3567,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn patch_repos_owner_repo_import_lfs<T, V>(
         &self,
@@ -3752,7 +3574,7 @@ impl Client {
         repo: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PatchReposownerrepoImportLfsResponse
+    ) -> Result<PatchReposownerrepoImportLfsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -3763,7 +3585,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_installation<T, V>(
         &self,
@@ -3771,7 +3592,7 @@ impl Client {
         repo: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoInstallationResponse
+    ) -> Result<GetReposownerrepoInstallationResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -3782,7 +3603,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn put_repos_owner_repo_interaction_limits<T, V>(
         &self,
@@ -3790,7 +3610,7 @@ impl Client {
         repo: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PutReposownerrepoInteractionLimitsResponse
+    ) -> Result<PutReposownerrepoInteractionLimitsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -3801,7 +3621,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn patch_repos_owner_repo_invitations_invitation_id<T, V>(
         &self,
@@ -3810,7 +3629,7 @@ impl Client {
         invitation_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PatchReposownerrepoInvitationsinvitationIdResponse
+    ) -> Result<PatchReposownerrepoInvitationsinvitationIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -3821,7 +3640,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_issues_comments_comment_id<T, V>(
         &self,
@@ -3830,7 +3648,7 @@ impl Client {
         comment_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoIssuesCommentscommentIdResponse
+    ) -> Result<GetReposownerrepoIssuesCommentscommentIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -3841,7 +3659,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn patch_repos_owner_repo_issues_comments_comment_id<T, V>(
         &self,
@@ -3850,7 +3667,7 @@ impl Client {
         comment_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PatchReposownerrepoIssuesCommentscommentIdResponse
+    ) -> Result<PatchReposownerrepoIssuesCommentscommentIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -3861,7 +3678,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn post_repos_owner_repo_issues_comments_comment_id_reactions<T, V>(
         &self,
@@ -3870,7 +3686,7 @@ impl Client {
         comment_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PostReposownerrepoIssuesCommentscommentIdReactionsResponse
+    ) -> Result<PostReposownerrepoIssuesCommentscommentIdReactionsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -3881,7 +3697,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_issues_events_event_id<T, V>(
         &self,
@@ -3890,7 +3705,7 @@ impl Client {
         event_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoIssuesEventseventIdResponse
+    ) -> Result<GetReposownerrepoIssuesEventseventIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -3901,7 +3716,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_issues_issue_number<T, V>(
         &self,
@@ -3910,7 +3724,7 @@ impl Client {
         issue_number: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoIssuesissueNumberResponse
+    ) -> Result<GetReposownerrepoIssuesissueNumberResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -3921,7 +3735,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn patch_repos_owner_repo_issues_issue_number<T, V>(
         &self,
@@ -3930,7 +3743,7 @@ impl Client {
         issue_number: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PatchReposownerrepoIssuesissueNumberResponse
+    ) -> Result<PatchReposownerrepoIssuesissueNumberResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -3941,7 +3754,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn delete_repos_owner_repo_issues_issue_number_assignees<T, V>(
         &self,
@@ -3950,7 +3762,7 @@ impl Client {
         issue_number: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> DeleteReposownerrepoIssuesissueNumberAssigneesResponse
+    ) -> Result<DeleteReposownerrepoIssuesissueNumberAssigneesResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -3961,7 +3773,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn post_repos_owner_repo_issues_issue_number_reactions<T, V>(
         &self,
@@ -3970,7 +3781,7 @@ impl Client {
         issue_number: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PostReposownerrepoIssuesissueNumberReactionsResponse
+    ) -> Result<PostReposownerrepoIssuesissueNumberReactionsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -3981,7 +3792,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_keys_key_id<T, V>(
         &self,
@@ -3990,7 +3800,7 @@ impl Client {
         key_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoKeyskeyIdResponse
+    ) -> Result<GetReposownerrepoKeyskeyIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -4001,7 +3811,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_labels_name<T, V>(
         &self,
@@ -4010,7 +3819,7 @@ impl Client {
         name: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoLabelsnameResponse
+    ) -> Result<GetReposownerrepoLabelsnameResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -4021,7 +3830,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn patch_repos_owner_repo_labels_name<T, V>(
         &self,
@@ -4030,7 +3838,7 @@ impl Client {
         name: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PatchReposownerrepoLabelsnameResponse
+    ) -> Result<PatchReposownerrepoLabelsnameResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -4041,7 +3849,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_license<T, V>(
         &self,
@@ -4049,7 +3856,7 @@ impl Client {
         repo: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoLicenseResponse
+    ) -> Result<GetReposownerrepoLicenseResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -4060,7 +3867,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn post_repos_owner_repo_merge_upstream<T, V>(
         &self,
@@ -4068,7 +3874,7 @@ impl Client {
         repo: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PostReposownerrepoMergeUpstreamResponse
+    ) -> Result<PostReposownerrepoMergeUpstreamResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -4079,7 +3885,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_milestones_milestone_number<T, V>(
         &self,
@@ -4088,7 +3893,7 @@ impl Client {
         milestone_number: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoMilestonesmilestoneNumberResponse
+    ) -> Result<GetReposownerrepoMilestonesmilestoneNumberResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -4099,7 +3904,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn patch_repos_owner_repo_milestones_milestone_number<T, V>(
         &self,
@@ -4108,7 +3912,7 @@ impl Client {
         milestone_number: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PatchReposownerrepoMilestonesmilestoneNumberResponse
+    ) -> Result<PatchReposownerrepoMilestonesmilestoneNumberResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -4119,7 +3923,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_pages<T, V>(
         &self,
@@ -4127,14 +3930,13 @@ impl Client {
         repo: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoPagesResponse
+    ) -> Result<GetReposownerrepoPagesResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
         self.req(EndPoints::GetReposownerrepoPages(owner, repo), query, body)
             .await
-            .unwrap()
     }
     pub async fn get_repos_owner_repo_pages_builds_latest<T, V>(
         &self,
@@ -4142,7 +3944,7 @@ impl Client {
         repo: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoPagesBuildsLatestResponse
+    ) -> Result<GetReposownerrepoPagesBuildsLatestResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -4153,7 +3955,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_pages_builds_build_id<T, V>(
         &self,
@@ -4162,7 +3963,7 @@ impl Client {
         build_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoPagesBuildsbuildIdResponse
+    ) -> Result<GetReposownerrepoPagesBuildsbuildIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -4173,7 +3974,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_pages_health<T, V>(
         &self,
@@ -4181,7 +3981,7 @@ impl Client {
         repo: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoPagesHealthResponse
+    ) -> Result<GetReposownerrepoPagesHealthResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -4192,7 +3992,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_pulls_comments_comment_id<T, V>(
         &self,
@@ -4201,7 +4000,7 @@ impl Client {
         comment_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoPullsCommentscommentIdResponse
+    ) -> Result<GetReposownerrepoPullsCommentscommentIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -4212,7 +4011,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn patch_repos_owner_repo_pulls_comments_comment_id<T, V>(
         &self,
@@ -4221,7 +4019,7 @@ impl Client {
         comment_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PatchReposownerrepoPullsCommentscommentIdResponse
+    ) -> Result<PatchReposownerrepoPullsCommentscommentIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -4232,7 +4030,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn post_repos_owner_repo_pulls_comments_comment_id_reactions<T, V>(
         &self,
@@ -4241,7 +4038,7 @@ impl Client {
         comment_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PostReposownerrepoPullsCommentscommentIdReactionsResponse
+    ) -> Result<PostReposownerrepoPullsCommentscommentIdReactionsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -4252,7 +4049,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_pulls_pull_number<T, V>(
         &self,
@@ -4261,7 +4057,7 @@ impl Client {
         pull_number: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoPullspullNumberResponse
+    ) -> Result<GetReposownerrepoPullspullNumberResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -4272,7 +4068,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn patch_repos_owner_repo_pulls_pull_number<T, V>(
         &self,
@@ -4281,7 +4076,7 @@ impl Client {
         pull_number: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PatchReposownerrepoPullspullNumberResponse
+    ) -> Result<PatchReposownerrepoPullspullNumberResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -4292,7 +4087,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn put_repos_owner_repo_pulls_pull_number_merge<T, V>(
         &self,
@@ -4301,7 +4095,7 @@ impl Client {
         pull_number: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PutReposownerrepoPullspullNumberMergeResponse
+    ) -> Result<PutReposownerrepoPullspullNumberMergeResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -4312,7 +4106,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_pulls_pull_number_requested_reviewers<T, V>(
         &self,
@@ -4321,7 +4114,7 @@ impl Client {
         pull_number: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoPullspullNumberRequestedReviewersResponse
+    ) -> Result<GetReposownerrepoPullspullNumberRequestedReviewersResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -4332,7 +4125,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn delete_repos_owner_repo_pulls_pull_number_requested_reviewers<T, V>(
         &self,
@@ -4341,7 +4133,7 @@ impl Client {
         pull_number: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> DeleteReposownerrepoPullspullNumberRequestedReviewersResponse
+    ) -> Result<DeleteReposownerrepoPullspullNumberRequestedReviewersResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -4356,7 +4148,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn post_repos_owner_repo_pulls_pull_number_reviews<T, V>(
         &self,
@@ -4365,7 +4156,7 @@ impl Client {
         pull_number: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PostReposownerrepoPullspullNumberReviewsResponse
+    ) -> Result<PostReposownerrepoPullspullNumberReviewsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -4376,7 +4167,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_pulls_pull_number_reviews_review_id<T, V>(
         &self,
@@ -4386,7 +4176,7 @@ impl Client {
         review_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoPullspullNumberReviewsreviewIdResponse
+    ) -> Result<GetReposownerrepoPullspullNumberReviewsreviewIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -4402,7 +4192,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn put_repos_owner_repo_pulls_pull_number_reviews_review_id<T, V>(
         &self,
@@ -4412,7 +4201,7 @@ impl Client {
         review_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PutReposownerrepoPullspullNumberReviewsreviewIdResponse
+    ) -> Result<PutReposownerrepoPullspullNumberReviewsreviewIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -4428,7 +4217,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn delete_repos_owner_repo_pulls_pull_number_reviews_review_id<T, V>(
         &self,
@@ -4438,7 +4226,7 @@ impl Client {
         review_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> DeleteReposownerrepoPullspullNumberReviewsreviewIdResponse
+    ) -> Result<DeleteReposownerrepoPullspullNumberReviewsreviewIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -4454,7 +4242,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn put_repos_owner_repo_pulls_pull_number_reviews_review_id_dismissals<T, V>(
         &self,
@@ -4464,7 +4251,7 @@ impl Client {
         review_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PutReposownerrepoPullspullNumberReviewsreviewIdDismissalsResponse
+    ) -> Result<PutReposownerrepoPullspullNumberReviewsreviewIdDismissalsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -4480,7 +4267,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn post_repos_owner_repo_pulls_pull_number_reviews_review_id_events<T, V>(
         &self,
@@ -4490,7 +4276,7 @@ impl Client {
         review_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PostReposownerrepoPullspullNumberReviewsreviewIdEventsResponse
+    ) -> Result<PostReposownerrepoPullspullNumberReviewsreviewIdEventsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -4506,7 +4292,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_readme<T, V>(
         &self,
@@ -4514,14 +4299,13 @@ impl Client {
         repo: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoReadmeResponse
+    ) -> Result<GetReposownerrepoReadmeResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
         self.req(EndPoints::GetReposownerrepoReadme(owner, repo), query, body)
             .await
-            .unwrap()
     }
     pub async fn get_repos_owner_repo_readme_dir<T, V>(
         &self,
@@ -4530,7 +4314,7 @@ impl Client {
         dir: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoReadmedirResponse
+    ) -> Result<GetReposownerrepoReadmedirResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -4541,7 +4325,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_releases_assets_asset_id<T, V>(
         &self,
@@ -4550,7 +4333,7 @@ impl Client {
         asset_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoReleasesAssetsassetIdResponse
+    ) -> Result<GetReposownerrepoReleasesAssetsassetIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -4561,7 +4344,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn patch_repos_owner_repo_releases_assets_asset_id<T, V>(
         &self,
@@ -4570,7 +4352,7 @@ impl Client {
         asset_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PatchReposownerrepoReleasesAssetsassetIdResponse
+    ) -> Result<PatchReposownerrepoReleasesAssetsassetIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -4581,7 +4363,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn post_repos_owner_repo_releases_generate_notes<T, V>(
         &self,
@@ -4589,7 +4370,7 @@ impl Client {
         repo: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PostReposownerrepoReleasesGenerateNotesResponse
+    ) -> Result<PostReposownerrepoReleasesGenerateNotesResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -4600,7 +4381,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_releases_latest<T, V>(
         &self,
@@ -4608,7 +4388,7 @@ impl Client {
         repo: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoReleasesLatestResponse
+    ) -> Result<GetReposownerrepoReleasesLatestResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -4619,7 +4399,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_releases_tags_tag<T, V>(
         &self,
@@ -4628,7 +4407,7 @@ impl Client {
         tag: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoReleasesTagstagResponse
+    ) -> Result<GetReposownerrepoReleasesTagstagResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -4639,7 +4418,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_releases_release_id<T, V>(
         &self,
@@ -4648,7 +4426,7 @@ impl Client {
         release_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoReleasesreleaseIdResponse
+    ) -> Result<GetReposownerrepoReleasesreleaseIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -4659,7 +4437,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn patch_repos_owner_repo_releases_release_id<T, V>(
         &self,
@@ -4668,7 +4445,7 @@ impl Client {
         release_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PatchReposownerrepoReleasesreleaseIdResponse
+    ) -> Result<PatchReposownerrepoReleasesreleaseIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -4679,7 +4456,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn post_repos_owner_repo_releases_release_id_reactions<T, V>(
         &self,
@@ -4688,7 +4464,7 @@ impl Client {
         release_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PostReposownerrepoReleasesreleaseIdReactionsResponse
+    ) -> Result<PostReposownerrepoReleasesreleaseIdReactionsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -4699,7 +4475,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_secret_scanning_alerts_alert_number<T, V>(
         &self,
@@ -4708,7 +4483,7 @@ impl Client {
         alert_number: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoSecretScanningAlertsalertNumberResponse
+    ) -> Result<GetReposownerrepoSecretScanningAlertsalertNumberResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -4719,7 +4494,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn patch_repos_owner_repo_secret_scanning_alerts_alert_number<T, V>(
         &self,
@@ -4728,7 +4502,7 @@ impl Client {
         alert_number: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PatchReposownerrepoSecretScanningAlertsalertNumberResponse
+    ) -> Result<PatchReposownerrepoSecretScanningAlertsalertNumberResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -4743,7 +4517,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_stats_participation<T, V>(
         &self,
@@ -4751,7 +4524,7 @@ impl Client {
         repo: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoStatsParticipationResponse
+    ) -> Result<GetReposownerrepoStatsParticipationResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -4762,7 +4535,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_subscription<T, V>(
         &self,
@@ -4770,7 +4542,7 @@ impl Client {
         repo: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoSubscriptionResponse
+    ) -> Result<GetReposownerrepoSubscriptionResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -4781,7 +4553,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn put_repos_owner_repo_subscription<T, V>(
         &self,
@@ -4789,7 +4560,7 @@ impl Client {
         repo: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PutReposownerrepoSubscriptionResponse
+    ) -> Result<PutReposownerrepoSubscriptionResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -4800,7 +4571,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_topics<T, V>(
         &self,
@@ -4808,14 +4578,13 @@ impl Client {
         repo: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoTopicsResponse
+    ) -> Result<GetReposownerrepoTopicsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
         self.req(EndPoints::GetReposownerrepoTopics(owner, repo), query, body)
             .await
-            .unwrap()
     }
     pub async fn put_repos_owner_repo_topics<T, V>(
         &self,
@@ -4823,14 +4592,13 @@ impl Client {
         repo: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PutReposownerrepoTopicsResponse
+    ) -> Result<PutReposownerrepoTopicsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
         self.req(EndPoints::PutReposownerrepoTopics(owner, repo), query, body)
             .await
-            .unwrap()
     }
     pub async fn get_repos_owner_repo_traffic_clones<T, V>(
         &self,
@@ -4838,7 +4606,7 @@ impl Client {
         repo: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoTrafficClonesResponse
+    ) -> Result<GetReposownerrepoTrafficClonesResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -4849,7 +4617,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repos_owner_repo_traffic_views<T, V>(
         &self,
@@ -4857,7 +4624,7 @@ impl Client {
         repo: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetReposownerrepoTrafficViewsResponse
+    ) -> Result<GetReposownerrepoTrafficViewsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -4868,7 +4635,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repositories_repository_id_environments_environment_name_secrets<T, V>(
         &self,
@@ -4876,7 +4642,7 @@ impl Client {
         environment_name: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetRepositoriesrepositoryIdEnvironmentsenvironmentNameSecretsResponse
+    ) -> Result<GetRepositoriesrepositoryIdEnvironmentsenvironmentNameSecretsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -4890,7 +4656,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repositories_repository_id_environments_environment_name_secrets_public_key<
         T,
@@ -4901,7 +4666,7 @@ impl Client {
         environment_name: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetRepositoriesrepositoryIdEnvironmentsenvironmentNameSecretsPublicKeyResponse
+    ) -> Result<GetRepositoriesrepositoryIdEnvironmentsenvironmentNameSecretsPublicKeyResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -4915,7 +4680,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_repositories_repository_id_environments_environment_name_secrets_secret_name<
         T,
@@ -4927,7 +4691,10 @@ impl Client {
         secret_name: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetRepositoriesrepositoryIdEnvironmentsenvironmentNameSecretssecretNameResponse
+    ) -> Result<
+        GetRepositoriesrepositoryIdEnvironmentsenvironmentNameSecretssecretNameResponse,
+        Error,
+    >
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -4942,14 +4709,13 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_scim_v2_enterprises_enterprise_Groups<T, V>(
         &self,
         enterprise: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetScimV2EnterprisesenterpriseGroupsResponse
+    ) -> Result<GetScimV2EnterprisesenterpriseGroupsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -4960,7 +4726,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_scim_v2_enterprises_enterprise_Groups_scim_group_id<T, V>(
         &self,
@@ -4968,7 +4733,7 @@ impl Client {
         scim_group_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetScimV2EnterprisesenterpriseGroupsscimGroupIdResponse
+    ) -> Result<GetScimV2EnterprisesenterpriseGroupsscimGroupIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -4979,7 +4744,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn put_scim_v2_enterprises_enterprise_Groups_scim_group_id<T, V>(
         &self,
@@ -4987,7 +4751,7 @@ impl Client {
         scim_group_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PutScimV2EnterprisesenterpriseGroupsscimGroupIdResponse
+    ) -> Result<PutScimV2EnterprisesenterpriseGroupsscimGroupIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -4998,7 +4762,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn patch_scim_v2_enterprises_enterprise_Groups_scim_group_id<T, V>(
         &self,
@@ -5006,7 +4769,7 @@ impl Client {
         scim_group_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PatchScimV2EnterprisesenterpriseGroupsscimGroupIdResponse
+    ) -> Result<PatchScimV2EnterprisesenterpriseGroupsscimGroupIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -5017,14 +4780,13 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_scim_v2_enterprises_enterprise_Users<T, V>(
         &self,
         enterprise: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetScimV2EnterprisesenterpriseUsersResponse
+    ) -> Result<GetScimV2EnterprisesenterpriseUsersResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -5035,7 +4797,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_scim_v2_enterprises_enterprise_Users_scim_user_id<T, V>(
         &self,
@@ -5043,7 +4804,7 @@ impl Client {
         scim_user_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetScimV2EnterprisesenterpriseUsersscimUserIdResponse
+    ) -> Result<GetScimV2EnterprisesenterpriseUsersscimUserIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -5054,7 +4815,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn put_scim_v2_enterprises_enterprise_Users_scim_user_id<T, V>(
         &self,
@@ -5062,7 +4822,7 @@ impl Client {
         scim_user_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PutScimV2EnterprisesenterpriseUsersscimUserIdResponse
+    ) -> Result<PutScimV2EnterprisesenterpriseUsersscimUserIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -5073,7 +4833,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn patch_scim_v2_enterprises_enterprise_Users_scim_user_id<T, V>(
         &self,
@@ -5081,7 +4840,7 @@ impl Client {
         scim_user_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PatchScimV2EnterprisesenterpriseUsersscimUserIdResponse
+    ) -> Result<PatchScimV2EnterprisesenterpriseUsersscimUserIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -5092,126 +4851,110 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_search_code<T, V>(
         &self,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetSearchCodeResponse
+    ) -> Result<GetSearchCodeResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
-        self.req(EndPoints::GetSearchCode(), query, body)
-            .await
-            .unwrap()
+        self.req(EndPoints::GetSearchCode(), query, body).await
     }
     pub async fn get_search_commits<T, V>(
         &self,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetSearchCommitsResponse
+    ) -> Result<GetSearchCommitsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
-        self.req(EndPoints::GetSearchCommits(), query, body)
-            .await
-            .unwrap()
+        self.req(EndPoints::GetSearchCommits(), query, body).await
     }
     pub async fn get_search_issues<T, V>(
         &self,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetSearchIssuesResponse
+    ) -> Result<GetSearchIssuesResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
-        self.req(EndPoints::GetSearchIssues(), query, body)
-            .await
-            .unwrap()
+        self.req(EndPoints::GetSearchIssues(), query, body).await
     }
     pub async fn get_search_labels<T, V>(
         &self,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetSearchLabelsResponse
+    ) -> Result<GetSearchLabelsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
-        self.req(EndPoints::GetSearchLabels(), query, body)
-            .await
-            .unwrap()
+        self.req(EndPoints::GetSearchLabels(), query, body).await
     }
     pub async fn get_search_repositories<T, V>(
         &self,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetSearchRepositoriesResponse
+    ) -> Result<GetSearchRepositoriesResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
         self.req(EndPoints::GetSearchRepositories(), query, body)
             .await
-            .unwrap()
     }
     pub async fn get_search_topics<T, V>(
         &self,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetSearchTopicsResponse
+    ) -> Result<GetSearchTopicsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
-        self.req(EndPoints::GetSearchTopics(), query, body)
-            .await
-            .unwrap()
+        self.req(EndPoints::GetSearchTopics(), query, body).await
     }
     pub async fn get_search_users<T, V>(
         &self,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetSearchUsersResponse
+    ) -> Result<GetSearchUsersResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
-        self.req(EndPoints::GetSearchUsers(), query, body)
-            .await
-            .unwrap()
+        self.req(EndPoints::GetSearchUsers(), query, body).await
     }
     pub async fn get_teams_team_id<T, V>(
         &self,
         team_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetTeamsteamIdResponse
+    ) -> Result<GetTeamsteamIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
         self.req(EndPoints::GetTeamsteamId(team_id), query, body)
             .await
-            .unwrap()
     }
     pub async fn patch_teams_team_id<T, V>(
         &self,
         team_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PatchTeamsteamIdResponse
+    ) -> Result<PatchTeamsteamIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
         self.req(EndPoints::PatchTeamsteamId(team_id), query, body)
             .await
-            .unwrap()
     }
     pub async fn get_teams_team_id_discussions_discussion_number<T, V>(
         &self,
@@ -5219,7 +4962,7 @@ impl Client {
         discussion_number: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetTeamsteamIdDiscussionsdiscussionNumberResponse
+    ) -> Result<GetTeamsteamIdDiscussionsdiscussionNumberResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -5230,7 +4973,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn patch_teams_team_id_discussions_discussion_number<T, V>(
         &self,
@@ -5238,7 +4980,7 @@ impl Client {
         discussion_number: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PatchTeamsteamIdDiscussionsdiscussionNumberResponse
+    ) -> Result<PatchTeamsteamIdDiscussionsdiscussionNumberResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -5249,7 +4991,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_teams_team_id_discussions_discussion_number_comments_comment_number<T, V>(
         &self,
@@ -5258,7 +4999,7 @@ impl Client {
         comment_number: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetTeamsteamIdDiscussionsdiscussionNumberCommentscommentNumberResponse
+    ) -> Result<GetTeamsteamIdDiscussionsdiscussionNumberCommentscommentNumberResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -5273,7 +5014,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn patch_teams_team_id_discussions_discussion_number_comments_comment_number<T, V>(
         &self,
@@ -5282,7 +5022,7 @@ impl Client {
         comment_number: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PatchTeamsteamIdDiscussionsdiscussionNumberCommentscommentNumberResponse
+    ) -> Result<PatchTeamsteamIdDiscussionsdiscussionNumberCommentscommentNumberResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -5297,7 +5037,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_teams_team_id_memberships_username<T, V>(
         &self,
@@ -5305,7 +5044,7 @@ impl Client {
         username: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetTeamsteamIdMembershipsusernameResponse
+    ) -> Result<GetTeamsteamIdMembershipsusernameResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -5316,7 +5055,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn put_teams_team_id_memberships_username<T, V>(
         &self,
@@ -5324,7 +5062,7 @@ impl Client {
         username: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PutTeamsteamIdMembershipsusernameResponse
+    ) -> Result<PutTeamsteamIdMembershipsusernameResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -5335,7 +5073,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_teams_team_id_projects_project_id<T, V>(
         &self,
@@ -5343,7 +5080,7 @@ impl Client {
         project_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetTeamsteamIdProjectsprojectIdResponse
+    ) -> Result<GetTeamsteamIdProjectsprojectIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -5354,7 +5091,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_teams_team_id_repos_owner_repo<T, V>(
         &self,
@@ -5363,7 +5099,7 @@ impl Client {
         repo: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetTeamsteamIdReposownerrepoResponse
+    ) -> Result<GetTeamsteamIdReposownerrepoResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -5374,14 +5110,13 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_teams_team_id_team_sync_group_mappings<T, V>(
         &self,
         team_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetTeamsteamIdTeamSyncGroupMappingsResponse
+    ) -> Result<GetTeamsteamIdTeamSyncGroupMappingsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -5392,14 +5127,13 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn patch_teams_team_id_team_sync_group_mappings<T, V>(
         &self,
         team_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PatchTeamsteamIdTeamSyncGroupMappingsResponse
+    ) -> Result<PatchTeamsteamIdTeamSyncGroupMappingsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -5410,60 +5144,59 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
-    pub async fn patch_user<T, V>(&self, query: Option<&T>, body: Option<V>) -> PatchUserResponse
+    pub async fn patch_user<T, V>(
+        &self,
+        query: Option<&T>,
+        body: Option<V>,
+    ) -> Result<PatchUserResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
-        self.req(EndPoints::PatchUser(), query, body).await.unwrap()
+        self.req(EndPoints::PatchUser(), query, body).await
     }
     pub async fn get_user_codespaces<T, V>(
         &self,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetUserCodespacesResponse
+    ) -> Result<GetUserCodespacesResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
-        self.req(EndPoints::GetUserCodespaces(), query, body)
-            .await
-            .unwrap()
+        self.req(EndPoints::GetUserCodespaces(), query, body).await
     }
     pub async fn get_user_codespaces_secrets<T, V>(
         &self,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetUserCodespacesSecretsResponse
+    ) -> Result<GetUserCodespacesSecretsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
         self.req(EndPoints::GetUserCodespacesSecrets(), query, body)
             .await
-            .unwrap()
     }
     pub async fn get_user_codespaces_secrets_public_key<T, V>(
         &self,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetUserCodespacesSecretsPublicKeyResponse
+    ) -> Result<GetUserCodespacesSecretsPublicKeyResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
         self.req(EndPoints::GetUserCodespacesSecretsPublicKey(), query, body)
             .await
-            .unwrap()
     }
     pub async fn get_user_codespaces_secrets_secret_name<T, V>(
         &self,
         secret_name: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetUserCodespacesSecretssecretNameResponse
+    ) -> Result<GetUserCodespacesSecretssecretNameResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -5474,14 +5207,13 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_user_codespaces_secrets_secret_name_repositories<T, V>(
         &self,
         secret_name: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetUserCodespacesSecretssecretNameRepositoriesResponse
+    ) -> Result<GetUserCodespacesSecretssecretNameRepositoriesResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -5492,14 +5224,13 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_user_codespaces_codespace_name<T, V>(
         &self,
         codespace_name: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetUserCodespacescodespaceNameResponse
+    ) -> Result<GetUserCodespacescodespaceNameResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -5510,14 +5241,13 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn patch_user_codespaces_codespace_name<T, V>(
         &self,
         codespace_name: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PatchUserCodespacescodespaceNameResponse
+    ) -> Result<PatchUserCodespacescodespaceNameResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -5528,14 +5258,13 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_user_codespaces_codespace_name_machines<T, V>(
         &self,
         codespace_name: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetUserCodespacescodespaceNameMachinesResponse
+    ) -> Result<GetUserCodespacescodespaceNameMachinesResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -5546,14 +5275,13 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn post_user_codespaces_codespace_name_start<T, V>(
         &self,
         codespace_name: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PostUserCodespacescodespaceNameStartResponse
+    ) -> Result<PostUserCodespacescodespaceNameStartResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -5564,14 +5292,13 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn post_user_codespaces_codespace_name_stop<T, V>(
         &self,
         codespace_name: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PostUserCodespacescodespaceNameStopResponse
+    ) -> Result<PostUserCodespacescodespaceNameStopResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -5582,41 +5309,38 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_user_gpg_keys_gpg_key_id<T, V>(
         &self,
         gpg_key_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetUserGpgKeysgpgKeyIdResponse
+    ) -> Result<GetUserGpgKeysgpgKeyIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
         self.req(EndPoints::GetUserGpgKeysgpgKeyId(gpg_key_id), query, body)
             .await
-            .unwrap()
     }
     pub async fn get_user_installations<T, V>(
         &self,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetUserInstallationsResponse
+    ) -> Result<GetUserInstallationsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
         self.req(EndPoints::GetUserInstallations(), query, body)
             .await
-            .unwrap()
     }
     pub async fn get_user_installations_installation_id_repositories<T, V>(
         &self,
         installation_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetUserInstallationsinstallationIdRepositoriesResponse
+    ) -> Result<GetUserInstallationsinstallationIdRepositoriesResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -5627,69 +5351,64 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn put_user_interaction_limits<T, V>(
         &self,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PutUserInteractionLimitsResponse
+    ) -> Result<PutUserInteractionLimitsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
         self.req(EndPoints::PutUserInteractionLimits(), query, body)
             .await
-            .unwrap()
     }
     pub async fn get_user_keys_key_id<T, V>(
         &self,
         key_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetUserKeyskeyIdResponse
+    ) -> Result<GetUserKeyskeyIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
         self.req(EndPoints::GetUserKeyskeyId(key_id), query, body)
             .await
-            .unwrap()
     }
     pub async fn get_user_memberships_orgs_org<T, V>(
         &self,
         org: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetUserMembershipsOrgsorgResponse
+    ) -> Result<GetUserMembershipsOrgsorgResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
         self.req(EndPoints::GetUserMembershipsOrgsorg(org), query, body)
             .await
-            .unwrap()
     }
     pub async fn patch_user_memberships_orgs_org<T, V>(
         &self,
         org: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> PatchUserMembershipsOrgsorgResponse
+    ) -> Result<PatchUserMembershipsOrgsorgResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
         self.req(EndPoints::PatchUserMembershipsOrgsorg(org), query, body)
             .await
-            .unwrap()
     }
     pub async fn get_user_migrations_migration_id<T, V>(
         &self,
         migration_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetUserMigrationsmigrationIdResponse
+    ) -> Result<GetUserMigrationsmigrationIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -5700,7 +5419,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_user_packages_package_type_package_name<T, V>(
         &self,
@@ -5708,7 +5426,7 @@ impl Client {
         package_name: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetUserPackagespackageTypepackageNameResponse
+    ) -> Result<GetUserPackagespackageTypepackageNameResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -5719,7 +5437,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_user_packages_package_type_package_name_versions_package_version_id<T, V>(
         &self,
@@ -5728,7 +5445,7 @@ impl Client {
         package_version_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetUserPackagespackageTypepackageNameVersionspackageVersionIdResponse
+    ) -> Result<GetUserPackagespackageTypepackageNameVersionspackageVersionIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -5743,28 +5460,26 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_users_username_hovercard<T, V>(
         &self,
         username: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetUsersusernameHovercardResponse
+    ) -> Result<GetUsersusernameHovercardResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
         self.req(EndPoints::GetUsersusernameHovercard(username), query, body)
             .await
-            .unwrap()
     }
     pub async fn get_users_username_installation<T, V>(
         &self,
         username: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetUsersusernameInstallationResponse
+    ) -> Result<GetUsersusernameInstallationResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -5775,7 +5490,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_users_username_packages_package_type_package_name<T, V>(
         &self,
@@ -5784,7 +5498,7 @@ impl Client {
         package_name: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetUsersusernamePackagespackageTypepackageNameResponse
+    ) -> Result<GetUsersusernamePackagespackageTypepackageNameResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -5799,7 +5513,6 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_users_username_packages_package_type_package_name_versions_package_version_id<
         T,
@@ -5812,7 +5525,7 @@ impl Client {
         package_version_id: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetUsersusernamePackagespackageTypepackageNameVersionspackageVersionIdResponse
+    ) -> Result<GetUsersusernamePackagespackageTypepackageNameVersionspackageVersionIdResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -5828,14 +5541,13 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_users_username_settings_billing_actions<T, V>(
         &self,
         username: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetUsersusernameSettingsBillingActionsResponse
+    ) -> Result<GetUsersusernameSettingsBillingActionsResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -5846,14 +5558,13 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_users_username_settings_billing_packages<T, V>(
         &self,
         username: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetUsersusernameSettingsBillingPackagesResponse
+    ) -> Result<GetUsersusernameSettingsBillingPackagesResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -5864,14 +5575,13 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
     pub async fn get_users_username_settings_billing_shared_storage<T, V>(
         &self,
         username: String,
         query: Option<&T>,
         body: Option<V>,
-    ) -> GetUsersusernameSettingsBillingSharedStorageResponse
+    ) -> Result<GetUsersusernameSettingsBillingSharedStorageResponse, Error>
     where
         T: Serialize + ?Sized,
         V: Into<Body>,
@@ -5882,6 +5592,5 @@ impl Client {
             body,
         )
         .await
-        .unwrap()
     }
 }

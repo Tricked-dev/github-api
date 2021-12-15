@@ -135,13 +135,13 @@ for (const key of data) {
 					.replace(/{|}/gim, '')
 			}<T, V>(&self,${key.vars
 				.map((x) => `${x}:String`)
-				.join(', ')}, query: Option<&T>, body: Option<V>) -> ${
+				.join(', ')}, query: Option<&T>, body: Option<V>) -> Result<${
 				key.name
-			}Response where
+			}Response,Error> where
         T: Serialize + ?Sized,
         V: Into<Body>, { self.req(EndPoints::${key.name}(${key.vars.join(
 				', '
-			)}), query, body).await.unwrap()  }`.replace(',,', ',')
+			)}), query, body).await  }`.replace(',,', ',')
 		);
 	}
 
@@ -170,7 +170,7 @@ toWrite.push(`impl EndPoints {  ${implementsFunctions.join('\n')} }`);
 toWrite.push(structs.join('\n'));
 Deno.writeTextFileSync(
 	'src/implements.rs',
-	`use crate::{client::Client, end_points::*};\nuse reqwest::Body;\nuse serde::{Deserialize, Serialize};\nimpl Client {\n${functions.join(
+	`use crate::{client::Client, end_points::*, Error};\nuse reqwest::Body;\nuse serde::{Deserialize, Serialize};\nimpl Client {\n${functions.join(
 		'\n'
 	)} \n}`
 );

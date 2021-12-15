@@ -1,8 +1,5 @@
 #!/bin/deno
-import { GithubAPIInterface } from './interface.ts';
-const api: GithubAPIInterface = JSON.parse(
-	Deno.readTextFileSync('scripts/api.json')
-);
+const api = JSON.parse(Deno.readTextFileSync('scripts/api.json'));
 
 const data = [];
 
@@ -85,7 +82,8 @@ for (const [key, val] of Object.entries(api.paths)) {
 let toWrite = [
 	`use serde::{Deserialize, Serialize};\n` +
 		`use serde_json::Value;\n` +
-		`use std::collections::HashMap;\n`,
+		`use std::collections::HashMap;\n` +
+		``,
 	`pub enum Methods { \n    ${Array.from(methods).join(',\n    ')} \n}`,
 ];
 let enums = [];
@@ -93,6 +91,7 @@ const getMethod = [];
 const getPath = [];
 const implementsFunctions = [];
 const structs = [];
+const functions = [];
 for (const key of data) {
 	enums.push(
 		key.docs
@@ -126,7 +125,26 @@ for (const key of data) {
 				key.name
 			}Response {\n ${items.join(',\n	')} \n}`
 		);
+		functions.push(
+			`pub async fn ${
+				key.method +
+				key.path
+					.split(/\/|\-|_/gim)
+					.map((x: string) => x)
+					.join('_')
+					.replace(/{|}/gim, '')
+			}<T, V>(&self,${key.vars
+				.map((x) => `${x}:String`)
+				.join(', ')}, query: Option<&T>, body: Option<V>) -> ${
+				key.name
+			}Response where
+        T: Serialize + ?Sized,
+        V: Into<Body>, { self.req(EndPoints::${key.name}(${key.vars.join(
+				', '
+			)}), query, body).await.unwrap()  }`.replace(',,', ',')
+		);
 	}
+
 	getMethod.push([key.name, upperFirst(key.method)]);
 	getPath.push([key.name, key.path, key.vars]);
 }
@@ -150,6 +168,12 @@ implementsFunctions.push(
 toWrite.push(`pub enum EndPoints { \n    ${enums.join(',\n    ')} \n}`);
 toWrite.push(`impl EndPoints {  ${implementsFunctions.join('\n')} }`);
 toWrite.push(structs.join('\n'));
+Deno.writeTextFileSync(
+	'src/implements.rs',
+	`use crate::{client::Client, end_points::*};\nuse reqwest::Body;\nuse serde::{Deserialize, Serialize};\nimpl Client {\n${functions.join(
+		'\n'
+	)} \n}`
+);
 Deno.writeTextFileSync('src/end_points.rs', toWrite.join('\n\n'));
 // console.log(`enum EndPoints { ${enums.join(',\n')} }`);
 // console.log(data);

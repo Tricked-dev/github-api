@@ -2,7 +2,7 @@ use crate::{
     end_points::{EndPoints, Methods},
     Error,
 };
-use reqwest::{Body, header};
+use reqwest::{header, Body};
 use serde::{de::DeserializeOwned, Serialize};
 
 pub struct Client {}
@@ -17,12 +17,15 @@ impl Client {
         T: Serialize + ?Sized,
         V: Into<Body>,
     {
-          let mut headers = header::HeaderMap::new();
-            headers.insert(
+        let mut headers = header::HeaderMap::new();
+        headers.insert(
             header::USER_AGENT,
             header::HeaderValue::from_str("tricked.pro/v2").unwrap(),
         );
-        let client = reqwest::Client::builder().default_headers(headers).build().unwrap();
+        let client = reqwest::Client::builder()
+            .default_headers(headers)
+            .build()
+            .unwrap();
         let path = format!("https://api.github.com{}", url.path());
         let mut req = match url.method() {
             Methods::Get => client.get(path),

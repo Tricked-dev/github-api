@@ -64,7 +64,7 @@ mod test {
     #[tokio::test]
     pub async fn aaa() {
         let client = Client {};
-        println!("{:#?}", client.get_::<String,String>(None,None).await)
+        println!("{:#?}", client.get_::<String, String>(None, None).await)
     }
 
     #[test]

@@ -9710,4144 +9710,7417 @@ impl EndPoints {
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetResponse {
+    ///
     current_user_url: String,
+    ///
     current_user_authorizations_html_url: String,
+    ///
     authorizations_url: String,
+    ///
     code_search_url: String,
+    ///
     commit_search_url: String,
+    ///
     emails_url: String,
+    ///
     emojis_url: String,
+    ///
     events_url: String,
+    ///
     feeds_url: String,
+    ///
     followers_url: String,
+    ///
     following_url: String,
+    ///
     gists_url: String,
+    ///
     hub_url: String,
+    ///
     issue_search_url: String,
+    ///
     issues_url: String,
+    ///
     keys_url: String,
+    ///
     label_search_url: String,
+    ///
     notifications_url: String,
+    ///
     organization_url: String,
+    ///
     organization_repositories_url: String,
+    ///
     organization_teams_url: String,
+    ///
     public_gists_url: String,
+    ///
     rate_limit_url: String,
+    ///
     repository_url: String,
+    ///
     repository_search_url: String,
+    ///
     current_user_repositories_url: String,
+    ///
     starred_url: String,
+    ///
     starred_gists_url: String,
+    ///
     topic_search_url: String,
+    ///
     user_url: String,
+    ///
     user_organizations_url: String,
+    ///
     user_repositories_url: String,
+    ///
     user_search_url: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetAppResponse {
+    /// * example - 37
     id: i64,
+    /// * example - probot-owners
     slug: String,
+    /// * example - MDExOkludGVncmF0aW9uMQ==
     node_id: String,
+    /// Simple User
     owner: Value,
+    /// * example - Probot Owners
     name: String,
+    /// * example - The description of the app.
     description: String,
+    /// * example - https://example.com
     external_url: String,
+    /// * example - https://github.com/apps/super-ci
     html_url: String,
+    /// * example - 2017-07-08T16:18:44-04:00
     created_at: String,
+    /// * example - 2017-07-08T16:18:44-04:00
     updated_at: String,
+    /// * example - [object Object]
     permissions: Value,
+    /// * example - label,deployment
     events: Vec<String>,
+    /// * example - 5
     installations_count: i64,
+    /// * example - "Iv1.25b5d1e65ffc4022"
     client_id: String,
+    /// * example - "1d4b2097ac622ba702d19de498f005747a8b21d3"
     client_secret: String,
+    /// * example - "6fba8f2fc8a7e8f2cca5577eddd82ca7586b3b6b"
     webhook_secret: String,
+    /// * example - "-----BEGIN RSA PRIVATE KEY-----\nMIIEogIBAAKCAQEArYxrNYD/iT5CZVpRJu4rBKmmze3PVmT/gCo2ATUvDvZTPTey\nxcGJ3vvrJXazKk06pN05TN29o98jrYz4cengG3YGsXPNEpKsIrEl8NhbnxapEnM9\nJCMRe0P5JcPsfZlX6hmiT7136GRWiGOUba2X9+HKh8QJVLG5rM007TBER9/z9mWm\nrJuNh+m5l320oBQY/Qq3A7wzdEfZw8qm/mIN0FCeoXH1L6B8xXWaAYBwhTEh6SSn\nZHlO1Xu1JWDmAvBCi0RO5aRSKM8q9QEkvvHP4yweAtK3N8+aAbZ7ovaDhyGz8r6r\nzhU1b8Uo0Z2ysf503WqzQgIajr7Fry7/kUwpgQIDAQABAoIBADwJp80Ko1xHPZDy\nfcCKBDfIuPvkmSW6KumbsLMaQv1aGdHDwwTGv3t0ixSay8CGlxMRtRDyZPib6SvQ\n6OH/lpfpbMdW2ErkksgtoIKBVrDilfrcAvrNZu7NxRNbhCSvN8q0s4ICecjbbVQh\nnueSdlA6vGXbW58BHMq68uRbHkP+k+mM9U0mDJ1HMch67wlg5GbayVRt63H7R2+r\nVxcna7B80J/lCEjIYZznawgiTvp3MSanTglqAYi+m1EcSsP14bJIB9vgaxS79kTu\noiSo93leJbBvuGo8QEiUqTwMw4tDksmkLsoqNKQ1q9P7LZ9DGcujtPy4EZsamSJT\ny8OJt0ECgYEA2lxOxJsQk2kI325JgKFjo92mQeUObIvPfSNWUIZQDTjniOI6Gv63\nGLWVFrZcvQBWjMEQraJA9xjPbblV8PtfO87MiJGLWCHFxmPz2dzoedN+2Coxom8m\nV95CLz8QUShuao6u/RYcvUaZEoYs5bHcTmy5sBK80JyEmafJPtCQVxMCgYEAy3ar\nZr3yv4xRPEPMat4rseswmuMooSaK3SKub19WFI5IAtB/e7qR1Rj9JhOGcZz+OQrl\nT78O2OFYlgOIkJPvRMrPpK5V9lslc7tz1FSh3BZMRGq5jSyD7ETSOQ0c8T2O/s7v\nbeEPbVbDe4mwvM24XByH0GnWveVxaDl51ABD65sCgYB3ZAspUkOA5egVCh8kNpnd\nSd6SnuQBE3ySRlT2WEnCwP9Ph6oPgn+oAfiPX4xbRqkL8q/k0BdHQ4h+zNwhk7+h\nWtPYRAP1Xxnc/F+jGjb+DVaIaKGU18MWPg7f+FI6nampl3Q0KvfxwX0GdNhtio8T\nTj1E+SnFwh56SRQuxSh2gwKBgHKjlIO5NtNSflsUYFM+hyQiPiqnHzddfhSG+/3o\nm5nNaSmczJesUYreH5San7/YEy2UxAugvP7aSY2MxB+iGsiJ9WD2kZzTUlDZJ7RV\nUzWsoqBR+eZfVJ2FUWWvy8TpSG6trh4dFxImNtKejCR1TREpSiTV3Zb1dmahK9GV\nrK9NAoGAbBxRLoC01xfxCTgt5BDiBcFVh4fp5yYKwavJPLzHSpuDOrrI9jDn1oKN\nonq5sDU1i391zfQvdrbX4Ova48BN+B7p63FocP/MK5tyyBoT8zQEk2+vWDOw7H/Z\nu5dTCPxTIsoIwUw1I+7yIxqJzLPFgR2gVBwY1ra/8iAqCj+zeBw=\n-----END RSA PRIVATE KEY-----\n"
     pem: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetAppHookConfigResponse {
+    /// * example - https://example.com/webhook
     url: String,
+    /// * example - "json"
     content_type: String,
+    /// * example - "********"
     secret: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PatchAppHookConfigResponse {
+    /// * example - https://example.com/webhook
     url: String,
+    /// * example - "json"
     content_type: String,
+    /// * example - "********"
     secret: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetAppHookDeliveriesdeliveryIdResponse {
+    /// * example - 42
     id: i64,
+    /// * example - 58474f00-b361-11eb-836d-0e4f3503ccbe
     guid: String,
+    /// * example - 2021-05-12T20:33:44Z
     delivered_at: String,
+    /// Whether the delivery is a redelivery.
     redelivery: bool,
+    /// * example - 0.03
     duration: f64,
+    /// * example - failed to connect
     status: String,
+    /// * example - 502
     status_code: i64,
+    /// * example - issues
     event: String,
+    /// * example - opened
     action: String,
+    /// * example - 123
     installation_id: i64,
+    /// * example - 123
     repository_id: i64,
+    /// * example - https://www.example.com
     url: String,
+    ///
     request: Value,
+    ///
     response: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetAppInstallationsinstallationIdResponse {
+    /// * example - 1
     id: i64,
+    /// Describe whether all repositories have been selected or there's a selection involved
     repository_selection: String,
+    /// * example - https://api.github.com/installations/1/access_tokens
     access_tokens_url: String,
+    /// * example - https://api.github.com/installation/repositories
     repositories_url: String,
+    /// * example - https://github.com/organizations/github/settings/installations/1
     html_url: String,
+    /// * example - 1
     app_id: i64,
+    /// The ID of the user or organization this token is being scoped to.
     target_id: i64,
+    /// * example - Organization
     target_type: String,
+    /// * example - [object Object]
     permissions: Value,
+    ///
     events: Vec<String>,
+    ///
     created_at: String,
+    ///
     updated_at: String,
+    /// * example - config.yaml
     single_file_name: String,
+    /// * example - true
     has_multiple_single_files: bool,
+    /// * example - config.yml,.github/issue_TEMPLATE.md
     single_file_paths: Vec<String>,
+    /// * example - github-actions
     app_slug: String,
+    /// Simple User
     suspended_by: Value,
+    ///
     suspended_at: String,
+    /// * example - "test_13f1e99741e3e004@d7e1eb0bc0a1ba12.com"
     contact_email: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetApplicationsGrantsgrantIdResponse {
+    /// * example - 1
     id: i64,
+    /// * example - https://api.github.com/applications/grants/1
     url: String,
+    ///
     app: Value,
+    /// * example - 2011-09-06T17:26:27Z
     created_at: String,
+    /// * example - 2011-09-06T20:39:23Z
     updated_at: String,
+    /// * example - public_repo
     scopes: Vec<String>,
+    /// Simple User
     user: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PostApplicationsclientIdTokenResponse {
+    ///
     id: i64,
+    ///
     url: String,
+    /// A list of scopes that this authorization is in.
     scopes: Vec<String>,
+    ///
     token: String,
+    ///
     token_last_eight: String,
+    ///
     hashed_token: String,
+    ///
     app: Value,
+    ///
     note: String,
+    ///
     note_url: String,
+    ///
     updated_at: String,
+    ///
     created_at: String,
+    ///
     fingerprint: String,
+    /// Simple User
     user: Value,
+    ///
     installation: Value,
+    ///
     expires_at: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PatchApplicationsclientIdTokenResponse {
+    ///
     id: i64,
+    ///
     url: String,
+    /// A list of scopes that this authorization is in.
     scopes: Vec<String>,
+    ///
     token: String,
+    ///
     token_last_eight: String,
+    ///
     hashed_token: String,
+    ///
     app: Value,
+    ///
     note: String,
+    ///
     note_url: String,
+    ///
     updated_at: String,
+    ///
     created_at: String,
+    ///
     fingerprint: String,
+    /// Simple User
     user: Value,
+    ///
     installation: Value,
+    ///
     expires_at: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PostApplicationsclientIdTokenScopedResponse {
+    ///
     id: i64,
+    ///
     url: String,
+    /// A list of scopes that this authorization is in.
     scopes: Vec<String>,
+    ///
     token: String,
+    ///
     token_last_eight: String,
+    ///
     hashed_token: String,
+    ///
     app: Value,
+    ///
     note: String,
+    ///
     note_url: String,
+    ///
     updated_at: String,
+    ///
     created_at: String,
+    ///
     fingerprint: String,
+    /// Simple User
     user: Value,
+    ///
     installation: Value,
+    ///
     expires_at: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetAppsappSlugResponse {
+    /// * example - 37
     id: i64,
+    /// * example - probot-owners
     slug: String,
+    /// * example - MDExOkludGVncmF0aW9uMQ==
     node_id: String,
+    /// Simple User
     owner: Value,
+    /// * example - Probot Owners
     name: String,
+    /// * example - The description of the app.
     description: String,
+    /// * example - https://example.com
     external_url: String,
+    /// * example - https://github.com/apps/super-ci
     html_url: String,
+    /// * example - 2017-07-08T16:18:44-04:00
     created_at: String,
+    /// * example - 2017-07-08T16:18:44-04:00
     updated_at: String,
+    /// * example - [object Object]
     permissions: Value,
+    /// * example - label,deployment
     events: Vec<String>,
+    /// * example - 5
     installations_count: i64,
+    /// * example - "Iv1.25b5d1e65ffc4022"
     client_id: String,
+    /// * example - "1d4b2097ac622ba702d19de498f005747a8b21d3"
     client_secret: String,
+    /// * example - "6fba8f2fc8a7e8f2cca5577eddd82ca7586b3b6b"
     webhook_secret: String,
+    /// * example - "-----BEGIN RSA PRIVATE KEY-----\nMIIEogIBAAKCAQEArYxrNYD/iT5CZVpRJu4rBKmmze3PVmT/gCo2ATUvDvZTPTey\nxcGJ3vvrJXazKk06pN05TN29o98jrYz4cengG3YGsXPNEpKsIrEl8NhbnxapEnM9\nJCMRe0P5JcPsfZlX6hmiT7136GRWiGOUba2X9+HKh8QJVLG5rM007TBER9/z9mWm\nrJuNh+m5l320oBQY/Qq3A7wzdEfZw8qm/mIN0FCeoXH1L6B8xXWaAYBwhTEh6SSn\nZHlO1Xu1JWDmAvBCi0RO5aRSKM8q9QEkvvHP4yweAtK3N8+aAbZ7ovaDhyGz8r6r\nzhU1b8Uo0Z2ysf503WqzQgIajr7Fry7/kUwpgQIDAQABAoIBADwJp80Ko1xHPZDy\nfcCKBDfIuPvkmSW6KumbsLMaQv1aGdHDwwTGv3t0ixSay8CGlxMRtRDyZPib6SvQ\n6OH/lpfpbMdW2ErkksgtoIKBVrDilfrcAvrNZu7NxRNbhCSvN8q0s4ICecjbbVQh\nnueSdlA6vGXbW58BHMq68uRbHkP+k+mM9U0mDJ1HMch67wlg5GbayVRt63H7R2+r\nVxcna7B80J/lCEjIYZznawgiTvp3MSanTglqAYi+m1EcSsP14bJIB9vgaxS79kTu\noiSo93leJbBvuGo8QEiUqTwMw4tDksmkLsoqNKQ1q9P7LZ9DGcujtPy4EZsamSJT\ny8OJt0ECgYEA2lxOxJsQk2kI325JgKFjo92mQeUObIvPfSNWUIZQDTjniOI6Gv63\nGLWVFrZcvQBWjMEQraJA9xjPbblV8PtfO87MiJGLWCHFxmPz2dzoedN+2Coxom8m\nV95CLz8QUShuao6u/RYcvUaZEoYs5bHcTmy5sBK80JyEmafJPtCQVxMCgYEAy3ar\nZr3yv4xRPEPMat4rseswmuMooSaK3SKub19WFI5IAtB/e7qR1Rj9JhOGcZz+OQrl\nT78O2OFYlgOIkJPvRMrPpK5V9lslc7tz1FSh3BZMRGq5jSyD7ETSOQ0c8T2O/s7v\nbeEPbVbDe4mwvM24XByH0GnWveVxaDl51ABD65sCgYB3ZAspUkOA5egVCh8kNpnd\nSd6SnuQBE3ySRlT2WEnCwP9Ph6oPgn+oAfiPX4xbRqkL8q/k0BdHQ4h+zNwhk7+h\nWtPYRAP1Xxnc/F+jGjb+DVaIaKGU18MWPg7f+FI6nampl3Q0KvfxwX0GdNhtio8T\nTj1E+SnFwh56SRQuxSh2gwKBgHKjlIO5NtNSflsUYFM+hyQiPiqnHzddfhSG+/3o\nm5nNaSmczJesUYreH5San7/YEy2UxAugvP7aSY2MxB+iGsiJ9WD2kZzTUlDZJ7RV\nUzWsoqBR+eZfVJ2FUWWvy8TpSG6trh4dFxImNtKejCR1TREpSiTV3Zb1dmahK9GV\nrK9NAoGAbBxRLoC01xfxCTgt5BDiBcFVh4fp5yYKwavJPLzHSpuDOrrI9jDn1oKN\nonq5sDU1i391zfQvdrbX4Ova48BN+B7p63FocP/MK5tyyBoT8zQEk2+vWDOw7H/Z\nu5dTCPxTIsoIwUw1I+7yIxqJzLPFgR2gVBwY1ra/8iAqCj+zeBw=\n-----END RSA PRIVATE KEY-----\n"
     pem: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PutAuthorizationsClientsclientIdResponse {
+    ///
     id: i64,
+    ///
     url: String,
+    /// A list of scopes that this authorization is in.
     scopes: Vec<String>,
+    ///
     token: String,
+    ///
     token_last_eight: String,
+    ///
     hashed_token: String,
+    ///
     app: Value,
+    ///
     note: String,
+    ///
     note_url: String,
+    ///
     updated_at: String,
+    ///
     created_at: String,
+    ///
     fingerprint: String,
+    /// Simple User
     user: Value,
+    ///
     installation: Value,
+    ///
     expires_at: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PutAuthorizationsClientsclientIdfingerprintResponse {
+    ///
     id: i64,
+    ///
     url: String,
+    /// A list of scopes that this authorization is in.
     scopes: Vec<String>,
+    ///
     token: String,
+    ///
     token_last_eight: String,
+    ///
     hashed_token: String,
+    ///
     app: Value,
+    ///
     note: String,
+    ///
     note_url: String,
+    ///
     updated_at: String,
+    ///
     created_at: String,
+    ///
     fingerprint: String,
+    /// Simple User
     user: Value,
+    ///
     installation: Value,
+    ///
     expires_at: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetAuthorizationsauthorizationIdResponse {
+    ///
     id: i64,
+    ///
     url: String,
+    /// A list of scopes that this authorization is in.
     scopes: Vec<String>,
+    ///
     token: String,
+    ///
     token_last_eight: String,
+    ///
     hashed_token: String,
+    ///
     app: Value,
+    ///
     note: String,
+    ///
     note_url: String,
+    ///
     updated_at: String,
+    ///
     created_at: String,
+    ///
     fingerprint: String,
+    /// Simple User
     user: Value,
+    ///
     installation: Value,
+    ///
     expires_at: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PatchAuthorizationsauthorizationIdResponse {
+    ///
     id: i64,
+    ///
     url: String,
+    /// A list of scopes that this authorization is in.
     scopes: Vec<String>,
+    ///
     token: String,
+    ///
     token_last_eight: String,
+    ///
     hashed_token: String,
+    ///
     app: Value,
+    ///
     note: String,
+    ///
     note_url: String,
+    ///
     updated_at: String,
+    ///
     created_at: String,
+    ///
     fingerprint: String,
+    /// Simple User
     user: Value,
+    ///
     installation: Value,
+    ///
     expires_at: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetCodesOfConductkeyResponse {
+    /// * example - contributor_covenant
     key: String,
+    /// * example - Contributor Covenant
     name: String,
+    /// * example - https://api.github.com/codes_of_conduct/contributor_covenant
     url: String,
+    /// * example - # Contributor Covenant Code of Conduct
+    ///
+    /// ## Our Pledge
+    ///
+    /// In the interest of fostering an open and welcoming environment, we as contributors and maintainers pledge to making participation in our project and our community a harassment-free experience for everyone, regardless of age, body size, disability, ethnicity, gender identity and expression, level of experience, nationality, personal appearance, race, religion, or sexual identity and orientation.
+    ///
+    /// ## Our Standards
+    ///
+    /// Examples of behavior that contributes to creating a positive environment include:
+    ///
+    /// * Using welcoming and inclusive language
+    /// * Being respectful of differing viewpoints and experiences
+    /// * Gracefully accepting constructive criticism
+    /// * Focusing on what is best for the community
+    /// * Showing empathy towards other community members
+    ///
+    /// Examples of unacceptable behavior by participants include:
+    ///
+    /// * The use of sexualized language or imagery and unwelcome sexual attention or advances
+    /// * Trolling, insulting/derogatory comments, and personal or political attacks
+    /// * Public or private harassment
+    /// * Publishing others' private information, such as a physical or electronic address, without explicit permission
+    /// * Other conduct which could reasonably be considered inappropriate in a professional setting
+    ///
+    /// ## Our Responsibilities
+    ///
+    /// Project maintainers are responsible for clarifying the standards of acceptable behavior and are expected to take appropriate and fair corrective action in response
+    ///                   to any instances of unacceptable behavior.
+    ///
+    /// Project maintainers have the right and responsibility to remove, edit, or reject comments, commits, code, wiki edits, issues, and other contributions that are not aligned to this Code of Conduct, or to ban temporarily or permanently any contributor for other behaviors that they deem inappropriate, threatening, offensive, or harmful.
+    ///
+    /// ## Scope
+    ///
+    /// This Code of Conduct applies both within project spaces and in public spaces when an individual is representing the project or its community. Examples of representing a project or community include using an official project e-mail address,
+    ///                   posting via an official social media account, or acting as an appointed representative at an online or offline event. Representation of a project may be further defined and clarified by project maintainers.
+    ///
+    /// ## Enforcement
+    ///
+    /// Instances of abusive, harassing, or otherwise unacceptable behavior may be reported by contacting the project team at [EMAIL]. The project team will review and investigate all complaints, and will respond in a way that it deems appropriate to the circumstances. The project team is obligated to maintain confidentiality with regard to the reporter of an incident. Further details of specific enforcement policies may be posted separately.
+    ///
+    /// Project maintainers who do not follow or enforce the Code of Conduct in good faith may face temporary or permanent repercussions as determined by other members of the project's leadership.
+    ///
+    /// ## Attribution
+    ///
+    /// This Code of Conduct is adapted from the [Contributor Covenant][homepage], version 1.4, available at [http://contributor-covenant.org/version/1/4][version]
+    ///
+    /// [homepage]: http://contributor-covenant.org
+    /// [version]: http://contributor-covenant.org/version/1/4/
     body: String,
+    ///
     html_url: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetEnterprisesenterpriseActionsPermissionsResponse {
+    /// The policy that controls the organizations in the enterprise that are allowed to run GitHub Actions. Can be one of: `all`, `none`, or `selected`.
     enabled_organizations: String,
+    /// The API URL to use to get or set the selected organizations that are allowed to run GitHub Actions, when `enabled_organizations` is set to `selected`.
     selected_organizations_url: String,
+    /// The permissions policy that controls the actions that are allowed to run. Can be one of: `all`, `local_only`, or `selected`.
     allowed_actions: String,
+    /// The API URL to use to get or set the actions that are allowed to run, when `allowed_actions` is set to `selected`.
     selected_actions_url: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetEnterprisesenterpriseActionsPermissionsOrganizationsResponse {
+    ///
     total_count: f64,
+    ///
     organizations: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetEnterprisesenterpriseActionsPermissionsSelectedActionsResponse {
+    /// Whether GitHub-owned actions are allowed. For example, this includes the actions in the `actions` organization.
     github_owned_allowed: bool,
+    /// Whether actions in GitHub Marketplace from verified creators are allowed. Set to `true` to allow all GitHub Marketplace actions by verified creators.
     verified_allowed: bool,
+    /// Specifies a list of string-matching patterns to allow specific action(s). Wildcards, tags, and SHAs are allowed. For example, `monalisa/octocat@*`, `monalisa/octocat@v2`, `monalisa/*`."
     patterns_allowed: Vec<String>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetEnterprisesenterpriseActionsRunnerGroupsResponse {
+    ///
     total_count: f64,
+    ///
     runner_groups: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetEnterprisesenterpriseActionsRunnerGroupsrunnerGroupIdResponse {
+    ///
     id: f64,
+    ///
     name: String,
+    ///
     visibility: String,
+    ///
     default: bool,
+    ///
     selected_organizations_url: String,
+    ///
     runners_url: String,
+    ///
     allows_public_repositories: bool,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PatchEnterprisesenterpriseActionsRunnerGroupsrunnerGroupIdResponse {
+    ///
     id: f64,
+    ///
     name: String,
+    ///
     visibility: String,
+    ///
     default: bool,
+    ///
     selected_organizations_url: String,
+    ///
     runners_url: String,
+    ///
     allows_public_repositories: bool,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetEnterprisesenterpriseActionsRunnerGroupsrunnerGroupIdOrganizationsResponse {
+    ///
     total_count: f64,
+    ///
     organizations: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetEnterprisesenterpriseActionsRunnerGroupsrunnerGroupIdRunnersResponse {
+    ///
     total_count: f64,
+    ///
     runners: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetEnterprisesenterpriseActionsRunnersResponse {
+    ///
     total_count: f64,
+    ///
     runners: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetEnterprisesenterpriseActionsRunnersrunnerIdResponse {
+    /// * example - 5
     id: i64,
+    /// * example - iMac
     name: String,
+    /// * example - macos
     os: String,
+    /// * example - online
     status: String,
+    ///
     busy: bool,
+    ///
     labels: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetEnterprisesenterpriseActionsRunnersrunnerIdLabelsResponse {
+    ///
     total_count: i64,
+    ///
     labels: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PostEnterprisesenterpriseActionsRunnersrunnerIdLabelsResponse {
+    ///
     total_count: i64,
+    ///
     labels: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PutEnterprisesenterpriseActionsRunnersrunnerIdLabelsResponse {
+    ///
     total_count: i64,
+    ///
     labels: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct DeleteEnterprisesenterpriseActionsRunnersrunnerIdLabelsResponse {
+    ///
     total_count: i64,
+    ///
     labels: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct DeleteEnterprisesenterpriseActionsRunnersrunnerIdLabelsnameResponse {
+    ///
     total_count: i64,
+    ///
     labels: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetEnterprisesenterpriseSettingsBillingActionsResponse {
+    /// The sum of the free and paid GitHub Actions minutes used.
     total_minutes_used: i64,
+    /// The total paid GitHub Actions minutes used.
     total_paid_minutes_used: i64,
+    /// The amount of free GitHub Actions minutes available.
     included_minutes: i64,
+    ///
     minutes_used_breakdown: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetEnterprisesenterpriseSettingsBillingAdvancedSecurityResponse {
+    /// * example - 25
     total_advanced_security_committers: i64,
+    ///
     repositories: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetEnterprisesenterpriseSettingsBillingPackagesResponse {
+    /// Sum of the free and paid storage space (GB) for GitHuub Packages.
     total_gigabytes_bandwidth_used: i64,
+    /// Total paid storage space (GB) for GitHuub Packages.
     total_paid_gigabytes_bandwidth_used: i64,
+    /// Free storage space (GB) for GitHub Packages.
     included_gigabytes_bandwidth: i64,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetEnterprisesenterpriseSettingsBillingSharedStorageResponse {
+    /// Numbers of days left in billing cycle.
     days_left_in_billing_cycle: i64,
+    /// Estimated storage space (GB) used in billing cycle.
     estimated_paid_storage_for_month: i64,
+    /// Estimated sum of free and paid storage space (GB) used in billing cycle.
     estimated_storage_for_month: i64,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetFeedsResponse {
+    /// * example - https://github.com/timeline
     timeline_url: String,
+    /// * example - https://github.com/{user}
     user_url: String,
+    /// * example - https://github.com/octocat
     current_user_public_url: String,
+    /// * example - https://github.com/octocat.private?token=abc123
     current_user_url: String,
+    /// * example - https://github.com/octocat.private.actor?token=abc123
     current_user_actor_url: String,
+    /// * example - https://github.com/octocat-org
     current_user_organization_url: String,
+    /// * example - https://github.com/organizations/github/octocat.private.atom?token=abc123
     current_user_organization_urls: Vec<String>,
+    /// * example - https://github.com/security-advisories
     security_advisories_url: String,
+    ///
     _links: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetGistsgistIdResponse {
+    ///
     forks: Vec<Value>,
+    ///
     history: Vec<Value>,
+    /// Gist
     fork_of: Value,
+    ///
     url: String,
+    ///
     forks_url: String,
+    ///
     commits_url: String,
+    ///
     id: String,
+    ///
     node_id: String,
+    ///
     git_pull_url: String,
+    ///
     git_push_url: String,
+    ///
     html_url: String,
+    ///
     files: Value,
+    ///
     public: bool,
+    ///
     created_at: String,
+    ///
     updated_at: String,
+    ///
     description: String,
+    ///
     comments: i64,
+    ///
     user: String,
+    ///
     comments_url: String,
+    /// Simple User
     owner: Value,
+    ///
     truncated: bool,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PatchGistsgistIdResponse {
+    ///
     forks: Vec<Value>,
+    ///
     history: Vec<Value>,
+    /// Gist
     fork_of: Value,
+    ///
     url: String,
+    ///
     forks_url: String,
+    ///
     commits_url: String,
+    ///
     id: String,
+    ///
     node_id: String,
+    ///
     git_pull_url: String,
+    ///
     git_push_url: String,
+    ///
     html_url: String,
+    ///
     files: Value,
+    ///
     public: bool,
+    ///
     created_at: String,
+    ///
     updated_at: String,
+    ///
     description: String,
+    ///
     comments: i64,
+    ///
     user: String,
+    ///
     comments_url: String,
+    /// Simple User
     owner: Value,
+    ///
     truncated: bool,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetGistsgistIdCommentscommentIdResponse {
+    /// * example - 1
     id: i64,
+    /// * example - MDExOkdpc3RDb21tZW50MQ==
     node_id: String,
+    /// * example - https://api.github.com/gists/a6db0bec360bb87e9418/comments/1
     url: String,
+    /// * example - Body of the attachment
     body: String,
+    /// Simple User
     user: Value,
+    /// * example - 2011-04-18T23:23:56Z
     created_at: String,
+    /// * example - 2011-04-18T23:23:56Z
     updated_at: String,
+    /// * example - OWNER
     author_association: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PatchGistsgistIdCommentscommentIdResponse {
+    /// * example - 1
     id: i64,
+    /// * example - MDExOkdpc3RDb21tZW50MQ==
     node_id: String,
+    /// * example - https://api.github.com/gists/a6db0bec360bb87e9418/comments/1
     url: String,
+    /// * example - Body of the attachment
     body: String,
+    /// Simple User
     user: Value,
+    /// * example - 2011-04-18T23:23:56Z
     created_at: String,
+    /// * example - 2011-04-18T23:23:56Z
     updated_at: String,
+    /// * example - OWNER
     author_association: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetGistsgistIdshaResponse {
+    ///
     forks: Vec<Value>,
+    ///
     history: Vec<Value>,
+    /// Gist
     fork_of: Value,
+    ///
     url: String,
+    ///
     forks_url: String,
+    ///
     commits_url: String,
+    ///
     id: String,
+    ///
     node_id: String,
+    ///
     git_pull_url: String,
+    ///
     git_push_url: String,
+    ///
     html_url: String,
+    ///
     files: Value,
+    ///
     public: bool,
+    ///
     created_at: String,
+    ///
     updated_at: String,
+    ///
     description: String,
+    ///
     comments: i64,
+    ///
     user: String,
+    ///
     comments_url: String,
+    /// Simple User
     owner: Value,
+    ///
     truncated: bool,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetGitignoreTemplatesnameResponse {
+    /// * example - C
     name: String,
+    /// * example - # Object files
+    /// *.o
+    ///
+    /// # Libraries
+    /// *.lib
+    /// *.a
+    ///
+    /// # Shared objects (inc. Windows DLLs)
+    /// *.dll
+    /// *.so
+    /// *.so.*
+    /// *.dylib
+    ///
+    /// # Executables
+    /// *.exe
+    /// *.out
+    /// *.app
     source: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetInstallationRepositoriesResponse {
+    ///
     total_count: i64,
+    ///
     repositories: Vec<Value>,
+    /// * example - selected
     repository_selection: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetLicenseslicenseResponse {
+    /// * example - mit
     key: String,
+    /// * example - MIT License
     name: String,
+    /// * example - MIT
     spdx_id: String,
+    /// * example - https://api.github.com/licenses/mit
     url: String,
+    /// * example - MDc6TGljZW5zZW1pdA==
     node_id: String,
+    /// * example - http://choosealicense.com/licenses/mit/
     html_url: String,
+    /// * example - A permissive license that is short and to the point. It lets people do anything with your code with proper attribution and without warranty.
     description: String,
+    /// * example - Create a text file (typically named LICENSE or LICENSE.txt) in the root of your source code and copy the text of the license into the file. Replace [year] with the current year and [fullname] with the name (or names) of the copyright holders.
     implementation: String,
+    /// * example - commercial-use,modifications,distribution,sublicense,private-use
     permissions: Vec<String>,
+    /// * example - include-copyright
     conditions: Vec<String>,
+    /// * example - no-liability
     limitations: Vec<String>,
+    /// * example -
+    ///
+    /// The MIT License (MIT)
+    ///
+    /// Copyright (c) [year] [fullname]
+    ///
+    /// Permission is hereby granted, free of charge, to any person obtaining a copy
+    /// of this software and associated documentation files (the "Software"), to deal
+    /// in the Software without restriction, including without limitation the rights
+    /// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    /// copies of the Software, and to permit persons to whom the Software is
+    /// furnished to do so, subject to the following conditions:
+    ///
+    /// The above copyright notice and this permission notice shall be included in all
+    /// copies or substantial portions of the Software.
+    ///
+    /// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    /// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    /// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    /// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    /// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+    /// SOFTWARE.
     body: String,
+    /// * example - true
     featured: bool,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetMarketplaceListingAccountsaccountIdResponse {
+    ///
     url: String,
+    ///
     #[serde(rename = "type")]
     atype: String,
+    ///
     id: i64,
+    ///
     login: String,
+    ///
     organization_billing_email: String,
+    ///
     email: String,
+    ///
     marketplace_pending_change: Value,
+    ///
     marketplace_purchase: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetMarketplaceListingStubbedAccountsaccountIdResponse {
+    ///
     url: String,
+    ///
     #[serde(rename = "type")]
     atype: String,
+    ///
     id: i64,
+    ///
     login: String,
+    ///
     organization_billing_email: String,
+    ///
     email: String,
+    ///
     marketplace_pending_change: Value,
+    ///
     marketplace_purchase: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetMetaResponse {
+    /// * example - true
     verifiable_password_authentication: bool,
+    ///
     ssh_key_fingerprints: Value,
+    /// * example - 127.0.0.1/32
     hooks: Vec<String>,
+    /// * example - 127.0.0.1/32
     web: Vec<String>,
+    /// * example - 127.0.0.1/32
     api: Vec<String>,
+    /// * example - 127.0.0.1/32
     git: Vec<String>,
+    /// * example - 13.65.0.0/16,157.55.204.33/32,2a01:111:f403:f90c::/62
     packages: Vec<String>,
+    /// * example - 192.30.252.153/32,192.30.252.154/32
     pages: Vec<String>,
+    /// * example - 54.158.161.132,54.226.70.38
     importer: Vec<String>,
+    /// * example - 13.64.0.0/16,13.65.0.0/16
     actions: Vec<String>,
+    /// * example - 192.168.7.15/32,192.168.7.16/32
     dependabot: Vec<String>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetNotificationsThreadsthreadIdResponse {
+    ///
     id: String,
+    /// Minimal Repository
     repository: Value,
+    ///
     subject: Value,
+    ///
     reason: String,
+    ///
     unread: bool,
+    ///
     updated_at: String,
+    ///
     last_read_at: String,
+    ///
     url: String,
+    /// * example - https://api.github.com/notifications/threads/2/subscription
     subscription_url: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetNotificationsThreadsthreadIdSubscriptionResponse {
+    /// * example - true
     subscribed: bool,
+    ///
     ignored: bool,
+    ///
     reason: String,
+    /// * example - 2012-10-06T21:34:12Z
     created_at: String,
+    /// * example - https://api.github.com/notifications/threads/1/subscription
     url: String,
+    /// * example - https://api.github.com/notifications/threads/1
     thread_url: String,
+    /// * example - https://api.github.com/repos/1
     repository_url: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PutNotificationsThreadsthreadIdSubscriptionResponse {
+    /// * example - true
     subscribed: bool,
+    ///
     ignored: bool,
+    ///
     reason: String,
+    /// * example - 2012-10-06T21:34:12Z
     created_at: String,
+    /// * example - https://api.github.com/notifications/threads/1/subscription
     url: String,
+    /// * example - https://api.github.com/notifications/threads/1
     thread_url: String,
+    /// * example - https://api.github.com/repos/1
     repository_url: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetOrganizationsorganizationIdCustomRolesResponse {
+    /// * example - 3
     total_count: i64,
+    ///
     custom_roles: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetOrgsorgResponse {
+    /// * example - github
     login: String,
+    /// * example - 1
     id: i64,
+    /// * example - MDEyOk9yZ2FuaXphdGlvbjE=
     node_id: String,
+    /// * example - https://api.github.com/orgs/github
     url: String,
+    /// * example - https://api.github.com/orgs/github/repos
     repos_url: String,
+    /// * example - https://api.github.com/orgs/github/events
     events_url: String,
+    /// * example - https://api.github.com/orgs/github/hooks
     hooks_url: String,
+    /// * example - https://api.github.com/orgs/github/issues
     issues_url: String,
+    /// * example - https://api.github.com/orgs/github/members{/member}
     members_url: String,
+    /// * example - https://api.github.com/orgs/github/public_members{/member}
     public_members_url: String,
+    /// * example - https://github.com/images/error/octocat_happy.gif
     avatar_url: String,
+    /// * example - A great organization
     description: String,
+    /// * example - github
     name: String,
+    /// * example - GitHub
     company: String,
+    /// * example - https://github.com/blog
     blog: String,
+    /// * example - San Francisco
     location: String,
+    /// * example - octocat@github.com
     email: String,
+    /// * example - github
     twitter_username: String,
+    /// * example - true
     is_verified: bool,
+    /// * example - true
     has_organization_projects: bool,
+    /// * example - true
     has_repository_projects: bool,
+    /// * example - 2
     public_repos: i64,
+    /// * example - 1
     public_gists: i64,
+    /// * example - 20
     followers: i64,
+    ///
     following: i64,
+    /// * example - https://github.com/octocat
     html_url: String,
+    /// * example - 2008-01-14T04:33:35Z
     created_at: String,
+    /// * example - Organization
     #[serde(rename = "type")]
     atype: String,
+    /// * example - 100
     total_private_repos: i64,
+    /// * example - 100
     owned_private_repos: i64,
+    /// * example - 81
     private_gists: i64,
+    /// * example - 10000
     disk_usage: i64,
+    /// * example - 8
     collaborators: i64,
+    /// * example - org@example.com
     billing_email: String,
+    ///
     plan: Value,
+    ///
     default_repository_permission: String,
+    /// * example - true
     members_can_create_repositories: bool,
+    /// * example - true
     two_factor_requirement_enabled: bool,
+    /// * example - all
     members_allowed_repository_creation_type: String,
+    /// * example - true
     members_can_create_public_repositories: bool,
+    /// * example - true
     members_can_create_private_repositories: bool,
+    /// * example - true
     members_can_create_internal_repositories: bool,
+    /// * example - true
     members_can_create_pages: bool,
+    /// * example - true
     members_can_create_public_pages: bool,
+    /// * example - true
     members_can_create_private_pages: bool,
+    ///
     updated_at: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PatchOrgsorgResponse {
+    /// * example - github
     login: String,
+    /// * example - 1
     id: i64,
+    /// * example - MDEyOk9yZ2FuaXphdGlvbjE=
     node_id: String,
+    /// * example - https://api.github.com/orgs/github
     url: String,
+    /// * example - https://api.github.com/orgs/github/repos
     repos_url: String,
+    /// * example - https://api.github.com/orgs/github/events
     events_url: String,
+    /// * example - https://api.github.com/orgs/github/hooks
     hooks_url: String,
+    /// * example - https://api.github.com/orgs/github/issues
     issues_url: String,
+    /// * example - https://api.github.com/orgs/github/members{/member}
     members_url: String,
+    /// * example - https://api.github.com/orgs/github/public_members{/member}
     public_members_url: String,
+    /// * example - https://github.com/images/error/octocat_happy.gif
     avatar_url: String,
+    /// * example - A great organization
     description: String,
+    /// * example - github
     name: String,
+    /// * example - GitHub
     company: String,
+    /// * example - https://github.com/blog
     blog: String,
+    /// * example - San Francisco
     location: String,
+    /// * example - octocat@github.com
     email: String,
+    /// * example - github
     twitter_username: String,
+    /// * example - true
     is_verified: bool,
+    /// * example - true
     has_organization_projects: bool,
+    /// * example - true
     has_repository_projects: bool,
+    /// * example - 2
     public_repos: i64,
+    /// * example - 1
     public_gists: i64,
+    /// * example - 20
     followers: i64,
+    ///
     following: i64,
+    /// * example - https://github.com/octocat
     html_url: String,
+    /// * example - 2008-01-14T04:33:35Z
     created_at: String,
+    /// * example - Organization
     #[serde(rename = "type")]
     atype: String,
+    /// * example - 100
     total_private_repos: i64,
+    /// * example - 100
     owned_private_repos: i64,
+    /// * example - 81
     private_gists: i64,
+    /// * example - 10000
     disk_usage: i64,
+    /// * example - 8
     collaborators: i64,
+    /// * example - org@example.com
     billing_email: String,
+    ///
     plan: Value,
+    ///
     default_repository_permission: String,
+    /// * example - true
     members_can_create_repositories: bool,
+    /// * example - true
     two_factor_requirement_enabled: bool,
+    /// * example - all
     members_allowed_repository_creation_type: String,
+    /// * example - true
     members_can_create_public_repositories: bool,
+    /// * example - true
     members_can_create_private_repositories: bool,
+    /// * example - true
     members_can_create_internal_repositories: bool,
+    /// * example - true
     members_can_create_pages: bool,
+    /// * example - true
     members_can_create_public_pages: bool,
+    /// * example - true
     members_can_create_private_pages: bool,
+    ///
     updated_at: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetOrgsorgActionsPermissionsResponse {
+    /// The policy that controls the repositories in the organization that are allowed to run GitHub Actions. Can be one of: `all`, `none`, or `selected`.
     enabled_repositories: String,
+    /// The API URL to use to get or set the selected repositories that are allowed to run GitHub Actions, when `enabled_repositories` is set to `selected`.
     selected_repositories_url: String,
+    /// The permissions policy that controls the actions that are allowed to run. Can be one of: `all`, `local_only`, or `selected`.
     allowed_actions: String,
+    /// The API URL to use to get or set the actions that are allowed to run, when `allowed_actions` is set to `selected`.
     selected_actions_url: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetOrgsorgActionsPermissionsRepositoriesResponse {
+    ///
     total_count: f64,
+    ///
     repositories: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetOrgsorgActionsPermissionsSelectedActionsResponse {
+    /// Whether GitHub-owned actions are allowed. For example, this includes the actions in the `actions` organization.
     github_owned_allowed: bool,
+    /// Whether actions in GitHub Marketplace from verified creators are allowed. Set to `true` to allow all GitHub Marketplace actions by verified creators.
     verified_allowed: bool,
+    /// Specifies a list of string-matching patterns to allow specific action(s). Wildcards, tags, and SHAs are allowed. For example, `monalisa/octocat@*`, `monalisa/octocat@v2`, `monalisa/*`."
     patterns_allowed: Vec<String>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetOrgsorgActionsRunnerGroupsResponse {
+    ///
     total_count: f64,
+    ///
     runner_groups: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetOrgsorgActionsRunnerGroupsrunnerGroupIdResponse {
+    ///
     id: f64,
+    ///
     name: String,
+    ///
     visibility: String,
+    ///
     default: bool,
+    /// Link to the selected repositories resource for this runner group. Not present unless visibility was set to `selected`
     selected_repositories_url: String,
+    ///
     runners_url: String,
+    ///
     inherited: bool,
+    ///
     inherited_allows_public_repositories: bool,
+    ///
     allows_public_repositories: bool,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PatchOrgsorgActionsRunnerGroupsrunnerGroupIdResponse {
+    ///
     id: f64,
+    ///
     name: String,
+    ///
     visibility: String,
+    ///
     default: bool,
+    /// Link to the selected repositories resource for this runner group. Not present unless visibility was set to `selected`
     selected_repositories_url: String,
+    ///
     runners_url: String,
+    ///
     inherited: bool,
+    ///
     inherited_allows_public_repositories: bool,
+    ///
     allows_public_repositories: bool,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetOrgsorgActionsRunnerGroupsrunnerGroupIdRepositoriesResponse {
+    ///
     total_count: f64,
+    ///
     repositories: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetOrgsorgActionsRunnerGroupsrunnerGroupIdRunnersResponse {
+    ///
     total_count: f64,
+    ///
     runners: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetOrgsorgActionsRunnersResponse {
+    ///
     total_count: i64,
+    ///
     runners: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetOrgsorgActionsRunnersrunnerIdResponse {
+    /// * example - 5
     id: i64,
+    /// * example - iMac
     name: String,
+    /// * example - macos
     os: String,
+    /// * example - online
     status: String,
+    ///
     busy: bool,
+    ///
     labels: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetOrgsorgActionsRunnersrunnerIdLabelsResponse {
+    ///
     total_count: i64,
+    ///
     labels: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PostOrgsorgActionsRunnersrunnerIdLabelsResponse {
+    ///
     total_count: i64,
+    ///
     labels: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PutOrgsorgActionsRunnersrunnerIdLabelsResponse {
+    ///
     total_count: i64,
+    ///
     labels: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct DeleteOrgsorgActionsRunnersrunnerIdLabelsResponse {
+    ///
     total_count: i64,
+    ///
     labels: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct DeleteOrgsorgActionsRunnersrunnerIdLabelsnameResponse {
+    ///
     total_count: i64,
+    ///
     labels: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetOrgsorgActionsSecretsResponse {
+    ///
     total_count: i64,
+    ///
     secrets: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetOrgsorgActionsSecretsPublicKeyResponse {
+    /// * example - 1234567
     key_id: String,
+    /// * example - hBT5WZEj8ZoOv6TYJsfWq7MxTEQopZO5/IT3ZCVQPzs=
     key: String,
+    /// * example - 2
     id: i64,
+    /// * example - https://api.github.com/user/keys/2
     url: String,
+    /// * example - ssh-rsa AAAAB3NzaC1yc2EAAA
     title: String,
+    /// * example - 2011-01-26T19:01:12Z
     created_at: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetOrgsorgActionsSecretssecretNameResponse {
+    /// * example - SECRET_TOKEN
     name: String,
+    ///
     created_at: String,
+    ///
     updated_at: String,
+    /// Visibility of a secret
     visibility: String,
+    /// * example - https://api.github.com/organizations/org/secrets/my_secret/repositories
     selected_repositories_url: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetOrgsorgActionsSecretssecretNameRepositoriesResponse {
+    ///
     total_count: i64,
+    ///
     repositories: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetOrgsorgExternalGroupgroupIdResponse {
+    /// * example - 1
     group_id: i64,
+    /// * example - group-azuread-test
     group_name: String,
+    /// * example - 2021-01-03 22:27:15:000 -700
     updated_at: String,
+    /// * example - [object Object],[object Object]
     teams: Vec<Value>,
+    /// * example - [object Object],[object Object]
     members: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetOrgsorgExternalGroupsResponse {
+    /// * example - [object Object],[object Object]
     groups: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetOrgsorgHookshookIdResponse {
+    /// * example - 1
     id: i64,
+    /// * example - https://api.github.com/orgs/octocat/hooks/1
     url: String,
+    /// * example - https://api.github.com/orgs/octocat/hooks/1/pings
     ping_url: String,
+    /// * example - https://api.github.com/orgs/octocat/hooks/1/deliveries
     deliveries_url: String,
+    /// * example - web
     name: String,
+    /// * example - push,pull_request
     events: Vec<String>,
+    /// * example - true
     active: bool,
+    ///
     config: Value,
+    /// * example - 2011-09-06T20:39:23Z
     updated_at: String,
+    /// * example - 2011-09-06T17:26:27Z
     created_at: String,
+    ///
     #[serde(rename = "type")]
     atype: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PatchOrgsorgHookshookIdResponse {
+    /// * example - 1
     id: i64,
+    /// * example - https://api.github.com/orgs/octocat/hooks/1
     url: String,
+    /// * example - https://api.github.com/orgs/octocat/hooks/1/pings
     ping_url: String,
+    /// * example - https://api.github.com/orgs/octocat/hooks/1/deliveries
     deliveries_url: String,
+    /// * example - web
     name: String,
+    /// * example - push,pull_request
     events: Vec<String>,
+    /// * example - true
     active: bool,
+    ///
     config: Value,
+    /// * example - 2011-09-06T20:39:23Z
     updated_at: String,
+    /// * example - 2011-09-06T17:26:27Z
     created_at: String,
+    ///
     #[serde(rename = "type")]
     atype: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetOrgsorgHookshookIdConfigResponse {
+    /// * example - https://example.com/webhook
     url: String,
+    /// * example - "json"
     content_type: String,
+    /// * example - "********"
     secret: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PatchOrgsorgHookshookIdConfigResponse {
+    /// * example - https://example.com/webhook
     url: String,
+    /// * example - "json"
     content_type: String,
+    /// * example - "********"
     secret: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetOrgsorgHookshookIdDeliveriesdeliveryIdResponse {
+    /// * example - 42
     id: i64,
+    /// * example - 58474f00-b361-11eb-836d-0e4f3503ccbe
     guid: String,
+    /// * example - 2021-05-12T20:33:44Z
     delivered_at: String,
+    /// Whether the delivery is a redelivery.
     redelivery: bool,
+    /// * example - 0.03
     duration: f64,
+    /// * example - failed to connect
     status: String,
+    /// * example - 502
     status_code: i64,
+    /// * example - issues
     event: String,
+    /// * example - opened
     action: String,
+    /// * example - 123
     installation_id: i64,
+    /// * example - 123
     repository_id: i64,
+    /// * example - https://www.example.com
     url: String,
+    ///
     request: Value,
+    ///
     response: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetOrgsorgInstallationResponse {
+    /// * example - 1
     id: i64,
+    /// Describe whether all repositories have been selected or there's a selection involved
     repository_selection: String,
+    /// * example - https://api.github.com/installations/1/access_tokens
     access_tokens_url: String,
+    /// * example - https://api.github.com/installation/repositories
     repositories_url: String,
+    /// * example - https://github.com/organizations/github/settings/installations/1
     html_url: String,
+    /// * example - 1
     app_id: i64,
+    /// The ID of the user or organization this token is being scoped to.
     target_id: i64,
+    /// * example - Organization
     target_type: String,
+    /// * example - [object Object]
     permissions: Value,
+    ///
     events: Vec<String>,
+    ///
     created_at: String,
+    ///
     updated_at: String,
+    /// * example - config.yaml
     single_file_name: String,
+    /// * example - true
     has_multiple_single_files: bool,
+    /// * example - config.yml,.github/issue_TEMPLATE.md
     single_file_paths: Vec<String>,
+    /// * example - github-actions
     app_slug: String,
+    /// Simple User
     suspended_by: Value,
+    ///
     suspended_at: String,
+    /// * example - "test_13f1e99741e3e004@d7e1eb0bc0a1ba12.com"
     contact_email: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetOrgsorgInstallationsResponse {
+    ///
     total_count: i64,
+    ///
     installations: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PutOrgsorgInteractionLimitsResponse {
+    /// * example - collaborators_only
     limit: String,
+    /// * example - repository
     origin: String,
+    /// * example - 2018-08-17T04:18:39Z
     expires_at: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetOrgsorgMembershipsusernameResponse {
+    /// * example - https://api.github.com/orgs/octocat/memberships/defunkt
     url: String,
+    /// * example - active
     state: String,
+    /// * example - admin
     role: String,
+    /// * example - https://api.github.com/orgs/octocat
     organization_url: String,
+    /// Organization Simple
     organization: Value,
+    /// Simple User
     user: Value,
+    ///
     permissions: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PutOrgsorgMembershipsusernameResponse {
+    /// * example - https://api.github.com/orgs/octocat/memberships/defunkt
     url: String,
+    /// * example - active
     state: String,
+    /// * example - admin
     role: String,
+    /// * example - https://api.github.com/orgs/octocat
     organization_url: String,
+    /// Organization Simple
     organization: Value,
+    /// Simple User
     user: Value,
+    ///
     permissions: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetOrgsorgMigrationsmigrationIdResponse {
+    /// * example - 79
     id: i64,
+    /// Simple User
     owner: Value,
+    /// * example - 0b989ba4-242f-11e5-81e1-c7b6966d2516
     guid: String,
+    /// * example - pending
     state: String,
+    /// * example - true
     lock_repositories: bool,
+    ///
     exclude_metadata: bool,
+    ///
     exclude_git_data: bool,
+    ///
     exclude_attachments: bool,
+    ///
     exclude_releases: bool,
+    ///
     exclude_owner_projects: bool,
+    ///
     repositories: Vec<Value>,
+    /// * example - https://api.github.com/orgs/octo-org/migrations/79
     url: String,
+    /// * example - 2015-07-06T15:33:38-07:00
     created_at: String,
+    /// * example - 2015-07-06T15:33:38-07:00
     updated_at: String,
+    ///
     node_id: String,
+    ///
     archive_url: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetOrgsorgPackagespackageTypepackageNameResponse {
+    /// * example - 1
     id: i64,
+    /// * example - super-linter
     name: String,
+    /// * example - docker
     package_type: String,
+    /// * example - https://api.github.com/orgs/github/packages/container/super-linter
     url: String,
+    /// * example - https://github.com/orgs/github/packages/container/package/super-linter
     html_url: String,
+    /// * example - 1
     version_count: i64,
+    /// * example - private
     visibility: String,
+    /// Simple User
     owner: Value,
+    /// Minimal Repository
     repository: Value,
+    ///
     created_at: String,
+    ///
     updated_at: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetOrgsorgPackagespackageTypepackageNameVersionspackageVersionIdResponse {
+    /// * example - 1
     id: i64,
+    /// * example - latest
     name: String,
+    /// * example - https://api.github.com/orgs/github/packages/container/super-linter/versions/786068
     url: String,
+    /// * example - https://github.com/orgs/github/packages/container/package/super-linter
     package_html_url: String,
+    /// * example - https://github.com/orgs/github/packages/container/super-linter/786068
     html_url: String,
+    /// * example - MIT
     license: String,
+    ///
     description: String,
+    /// * example - 2011-04-10T20:09:31Z
     created_at: String,
+    /// * example - 2014-03-03T18:58:10Z
     updated_at: String,
+    /// * example - 2014-03-03T18:58:10Z
     deleted_at: String,
+    ///
     metadata: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetOrgsorgSettingsBillingActionsResponse {
+    /// The sum of the free and paid GitHub Actions minutes used.
     total_minutes_used: i64,
+    /// The total paid GitHub Actions minutes used.
     total_paid_minutes_used: i64,
+    /// The amount of free GitHub Actions minutes available.
     included_minutes: i64,
+    ///
     minutes_used_breakdown: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetOrgsorgSettingsBillingAdvancedSecurityResponse {
+    /// * example - 25
     total_advanced_security_committers: i64,
+    ///
     repositories: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetOrgsorgSettingsBillingPackagesResponse {
+    /// Sum of the free and paid storage space (GB) for GitHuub Packages.
     total_gigabytes_bandwidth_used: i64,
+    /// Total paid storage space (GB) for GitHuub Packages.
     total_paid_gigabytes_bandwidth_used: i64,
+    /// Free storage space (GB) for GitHub Packages.
     included_gigabytes_bandwidth: i64,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetOrgsorgSettingsBillingSharedStorageResponse {
+    /// Numbers of days left in billing cycle.
     days_left_in_billing_cycle: i64,
+    /// Estimated storage space (GB) used in billing cycle.
     estimated_paid_storage_for_month: i64,
+    /// Estimated sum of free and paid storage space (GB) used in billing cycle.
     estimated_storage_for_month: i64,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetOrgsorgTeamSyncGroupsResponse {
+    /// * example - [object Object],[object Object]
     groups: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetOrgsorgTeamsteamSlugResponse {
+    /// * example - 42
     id: i64,
+    /// * example - MDQ6VGVhbTE=
     node_id: String,
+    /// * example - https://api.github.com/organizations/1/team/1
     url: String,
+    /// * example - https://github.com/orgs/rails/teams/core
     html_url: String,
+    /// * example - Developers
     name: String,
+    /// * example - justice-league
     slug: String,
+    /// * example - A great team.
     description: String,
+    /// * example - closed
     privacy: String,
+    /// * example - push
     permission: String,
+    /// * example - https://api.github.com/organizations/1/team/1/members{/member}
     members_url: String,
+    /// * example - https://api.github.com/organizations/1/team/1/repos
     repositories_url: String,
+    /// Groups of organization members that gives permissions on specified repositories.
     parent: Value,
+    /// * example - 3
     members_count: i64,
+    /// * example - 10
     repos_count: i64,
+    /// * example - 2017-07-14T16:53:42Z
     created_at: String,
+    /// * example - 2017-08-17T12:37:15Z
     updated_at: String,
+    /// Organization Full
     organization: Value,
+    /// * example - uid=example,ou=users,dc=github,dc=com
     ldap_dn: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetOrgsorgTeamsteamSlugDiscussionsdiscussionNumberResponse {
+    /// Simple User
     author: Value,
+    /// * example - Please suggest improvements to our workflow in comments.
     body: String,
+    /// * example - <p>Hi! This is an area for us to collaborate as a team</p>
     body_html: String,
+    /// * example - 0307116bbf7ced493b8d8a346c650b71
     body_version: String,
+    ///
     comments_count: i64,
+    /// * example - https://api.github.com/organizations/1/team/2343027/discussions/1/comments
     comments_url: String,
+    /// * example - 2018-01-25T18:56:31Z
     created_at: String,
+    ///
     last_edited_at: String,
+    /// * example - https://github.com/orgs/github/teams/justice-league/discussions/1
     html_url: String,
+    /// * example - MDE0OlRlYW1EaXNjdXNzaW9uMQ==
     node_id: String,
+    /// * example - 42
     number: i64,
+    /// * example - true
     pinned: bool,
+    /// * example - true
     private: bool,
+    /// * example - https://api.github.com/organizations/1/team/2343027
     team_url: String,
+    /// * example - How can we improve our workflow?
     title: String,
+    /// * example - 2018-01-25T18:56:31Z
     updated_at: String,
+    /// * example - https://api.github.com/organizations/1/team/2343027/discussions/1
     url: String,
+    ///
     reactions: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PatchOrgsorgTeamsteamSlugDiscussionsdiscussionNumberResponse {
+    /// Simple User
     author: Value,
+    /// * example - Please suggest improvements to our workflow in comments.
     body: String,
+    /// * example - <p>Hi! This is an area for us to collaborate as a team</p>
     body_html: String,
+    /// * example - 0307116bbf7ced493b8d8a346c650b71
     body_version: String,
+    ///
     comments_count: i64,
+    /// * example - https://api.github.com/organizations/1/team/2343027/discussions/1/comments
     comments_url: String,
+    /// * example - 2018-01-25T18:56:31Z
     created_at: String,
+    ///
     last_edited_at: String,
+    /// * example - https://github.com/orgs/github/teams/justice-league/discussions/1
     html_url: String,
+    /// * example - MDE0OlRlYW1EaXNjdXNzaW9uMQ==
     node_id: String,
+    /// * example - 42
     number: i64,
+    /// * example - true
     pinned: bool,
+    /// * example - true
     private: bool,
+    /// * example - https://api.github.com/organizations/1/team/2343027
     team_url: String,
+    /// * example - How can we improve our workflow?
     title: String,
+    /// * example - 2018-01-25T18:56:31Z
     updated_at: String,
+    /// * example - https://api.github.com/organizations/1/team/2343027/discussions/1
     url: String,
+    ///
     reactions: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetOrgsorgTeamsteamSlugDiscussionsdiscussionNumberCommentscommentNumberResponse {
+    /// Simple User
     author: Value,
+    /// * example - I agree with this suggestion.
     body: String,
+    /// * example - <p>Do you like apples?</p>
     body_html: String,
+    /// * example - 0307116bbf7ced493b8d8a346c650b71
     body_version: String,
+    /// * example - 2018-01-15T23:53:58Z
     created_at: String,
+    ///
     last_edited_at: String,
+    /// * example - https://api.github.com/organizations/1/team/2403582/discussions/1
     discussion_url: String,
+    /// * example - https://github.com/orgs/github/teams/justice-league/discussions/1/comments/1
     html_url: String,
+    /// * example - MDIxOlRlYW1EaXNjdXNzaW9uQ29tbWVudDE=
     node_id: String,
+    /// * example - 42
     number: i64,
+    /// * example - 2018-01-15T23:53:58Z
     updated_at: String,
+    /// * example - https://api.github.com/organizations/1/team/2403582/discussions/1/comments/1
     url: String,
+    ///
     reactions: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PatchOrgsorgTeamsteamSlugDiscussionsdiscussionNumberCommentscommentNumberResponse {
+    /// Simple User
     author: Value,
+    /// * example - I agree with this suggestion.
     body: String,
+    /// * example - <p>Do you like apples?</p>
     body_html: String,
+    /// * example - 0307116bbf7ced493b8d8a346c650b71
     body_version: String,
+    /// * example - 2018-01-15T23:53:58Z
     created_at: String,
+    ///
     last_edited_at: String,
+    /// * example - https://api.github.com/organizations/1/team/2403582/discussions/1
     discussion_url: String,
+    /// * example - https://github.com/orgs/github/teams/justice-league/discussions/1/comments/1
     html_url: String,
+    /// * example - MDIxOlRlYW1EaXNjdXNzaW9uQ29tbWVudDE=
     node_id: String,
+    /// * example - 42
     number: i64,
+    /// * example - 2018-01-15T23:53:58Z
     updated_at: String,
+    /// * example - https://api.github.com/organizations/1/team/2403582/discussions/1/comments/1
     url: String,
+    ///
     reactions: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PostOrgsorgTeamsteamSlugDiscussionsdiscussionNumberCommentscommentNumberReactionsResponse
 {
+    /// * example - 1
     id: i64,
+    /// * example - MDg6UmVhY3Rpb24x
     node_id: String,
+    /// Simple User
     user: Value,
+    /// * example - heart
     content: String,
+    /// * example - 2016-05-20T20:09:31Z
     created_at: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PostOrgsorgTeamsteamSlugDiscussionsdiscussionNumberReactionsResponse {
+    /// * example - 1
     id: i64,
+    /// * example - MDg6UmVhY3Rpb24x
     node_id: String,
+    /// Simple User
     user: Value,
+    /// * example - heart
     content: String,
+    /// * example - 2016-05-20T20:09:31Z
     created_at: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PatchOrgsorgTeamsteamSlugExternalGroupsResponse {
+    /// * example - 1
     group_id: i64,
+    /// * example - group-azuread-test
     group_name: String,
+    /// * example - 2021-01-03 22:27:15:000 -700
     updated_at: String,
+    /// * example - [object Object],[object Object]
     teams: Vec<Value>,
+    /// * example - [object Object],[object Object]
     members: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetOrgsorgTeamsteamSlugMembershipsusernameResponse {
+    ///
     url: String,
+    /// * example - member
     role: String,
+    /// The state of the user's membership in the team.
     state: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PutOrgsorgTeamsteamSlugMembershipsusernameResponse {
+    ///
     url: String,
+    /// * example - member
     role: String,
+    /// The state of the user's membership in the team.
     state: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetOrgsorgTeamsteamSlugProjectsprojectIdResponse {
+    ///
     owner_url: String,
+    ///
     url: String,
+    ///
     html_url: String,
+    ///
     columns_url: String,
+    ///
     id: i64,
+    ///
     node_id: String,
+    ///
     name: String,
+    ///
     body: String,
+    ///
     number: i64,
+    ///
     state: String,
+    /// Simple User
     creator: Value,
+    ///
     created_at: String,
+    ///
     updated_at: String,
+    /// The organization permission for this project. Only present when owner is an organization.
     organization_permission: String,
+    /// Whether the project is private or not. Only present when owner is an organization.
     private: bool,
+    ///
     permissions: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetOrgsorgTeamsteamSlugReposownerrepoResponse {
+    /// * example - 42
     id: i64,
+    /// * example - MDEwOlJlcG9zaXRvcnkxMjk2MjY5
     node_id: String,
+    /// * example - Team Environment
     name: String,
+    /// * example - octocat/Hello-World
     full_name: String,
+    /// License Simple
     license: Value,
+    ///
     forks: i64,
+    ///
     permissions: Value,
+    /// * example - admin
     role_name: String,
+    /// Simple User
     owner: Value,
+    /// Whether the repository is private or public.
     private: bool,
+    /// * example - https://github.com/octocat/Hello-World
     html_url: String,
+    /// * example - This your first repo!
     description: String,
+    ///
     fork: bool,
+    /// * example - https://api.github.com/repos/octocat/Hello-World
     url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/{archive_format}{/ref}
     archive_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/assignees{/user}
     assignees_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/git/blobs{/sha}
     blobs_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/branches{/branch}
     branches_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/collaborators{/collaborator}
     collaborators_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/comments{/number}
     comments_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/commits{/sha}
     commits_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/compare/{base}...{head}
     compare_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/contents/{+path}
     contents_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/contributors
     contributors_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/deployments
     deployments_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/downloads
     downloads_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/events
     events_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/forks
     forks_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/git/commits{/sha}
     git_commits_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/git/refs{/sha}
     git_refs_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/git/tags{/sha}
     git_tags_url: String,
+    /// * example - git:github.com/octocat/Hello-World.git
     git_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/issues/comments{/number}
     issue_comment_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/issues/events{/number}
     issue_events_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/issues{/number}
     issues_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/keys{/key_id}
     keys_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/labels{/name}
     labels_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/languages
     languages_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/merges
     merges_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/milestones{/number}
     milestones_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/notifications{?since,all,participating}
     notifications_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/pulls{/number}
     pulls_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/releases{/id}
     releases_url: String,
+    /// * example - git@github.com:octocat/Hello-World.git
     ssh_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/stargazers
     stargazers_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/statuses/{sha}
     statuses_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/subscribers
     subscribers_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/subscription
     subscription_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/tags
     tags_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/teams
     teams_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/git/trees{/sha}
     trees_url: String,
+    /// * example - https://github.com/octocat/Hello-World.git
     clone_url: String,
+    /// * example - git:git.example.com/octocat/Hello-World
     mirror_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/hooks
     hooks_url: String,
+    /// * example - https://svn.github.com/octocat/Hello-World
     svn_url: String,
+    /// * example - https://github.com
     homepage: String,
+    ///
     language: String,
+    /// * example - 9
     forks_count: i64,
+    /// * example - 80
     stargazers_count: i64,
+    /// * example - 80
     watchers_count: i64,
+    /// * example - 108
     size: i64,
+    /// * example - master
     default_branch: String,
+    ///
     open_issues_count: i64,
+    /// * example - true
     is_template: bool,
+    ///
     topics: Vec<String>,
+    /// * example - true
     has_issues: bool,
+    /// * example - true
     has_projects: bool,
+    /// * example - true
     has_wiki: bool,
+    ///
     has_pages: bool,
+    /// * example - true
     has_downloads: bool,
+    /// Whether the repository is archived.
     archived: bool,
+    /// Returns whether or not this repository disabled.
     disabled: bool,
+    /// The repository visibility: public, private, or internal.
     visibility: String,
+    /// * example - 2011-01-26T19:06:43Z
     pushed_at: String,
+    /// * example - 2011-01-26T19:01:12Z
     created_at: String,
+    /// * example - 2011-01-26T19:14:43Z
     updated_at: String,
+    /// * example - true
     allow_rebase_merge: bool,
+    /// A git repository
     template_repository: Value,
+    ///
     temp_clone_token: String,
+    /// * example - true
     allow_squash_merge: bool,
+    /// Whether to allow Auto-merge to be used on pull requests.
     allow_auto_merge: bool,
+    /// Whether to delete head branches when pull requests are merged
     delete_branch_on_merge: bool,
+    /// * example - true
     allow_merge_commit: bool,
+    /// Whether to allow forking this repo
     allow_forking: bool,
+    ///
     subscribers_count: i64,
+    ///
     network_count: i64,
+    ///
     open_issues: i64,
+    ///
     watchers: i64,
+    ///
     master_branch: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetOrgsorgTeamsteamSlugTeamSyncGroupMappingsResponse {
+    /// * example - [object Object],[object Object]
     groups: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PatchOrgsorgTeamsteamSlugTeamSyncGroupMappingsResponse {
+    /// * example - [object Object],[object Object]
     groups: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetProjectsColumnsCardscardIdResponse {
+    /// * example - https://api.github.com/projects/columns/cards/1478
     url: String,
+    /// * example - 42
     id: i64,
+    /// * example - MDExOlByb2plY3RDYXJkMTQ3OA==
     node_id: String,
+    /// * example - Add payload for delete Project column
     note: String,
+    /// Simple User
     creator: Value,
+    /// * example - 2016-09-05T14:21:06Z
     created_at: String,
+    /// * example - 2016-09-05T14:20:22Z
     updated_at: String,
+    /// Whether or not the card is archived
     archived: bool,
+    ///
     column_name: String,
+    ///
     project_id: String,
+    /// * example - https://api.github.com/projects/columns/367
     column_url: String,
+    /// * example - https://api.github.com/repos/api-playground/projects-test/issues/3
     content_url: String,
+    /// * example - https://api.github.com/projects/120
     project_url: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PatchProjectsColumnsCardscardIdResponse {
+    /// * example - https://api.github.com/projects/columns/cards/1478
     url: String,
+    /// * example - 42
     id: i64,
+    /// * example - MDExOlByb2plY3RDYXJkMTQ3OA==
     node_id: String,
+    /// * example - Add payload for delete Project column
     note: String,
+    /// Simple User
     creator: Value,
+    /// * example - 2016-09-05T14:21:06Z
     created_at: String,
+    /// * example - 2016-09-05T14:20:22Z
     updated_at: String,
+    /// Whether or not the card is archived
     archived: bool,
+    ///
     column_name: String,
+    ///
     project_id: String,
+    /// * example - https://api.github.com/projects/columns/367
     column_url: String,
+    /// * example - https://api.github.com/repos/api-playground/projects-test/issues/3
     content_url: String,
+    /// * example - https://api.github.com/projects/120
     project_url: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetProjectsColumnscolumnIdResponse {
+    /// * example - https://api.github.com/projects/columns/367
     url: String,
+    /// * example - https://api.github.com/projects/120
     project_url: String,
+    /// * example - https://api.github.com/projects/columns/367/cards
     cards_url: String,
+    /// * example - 42
     id: i64,
+    /// * example - MDEzOlByb2plY3RDb2x1bW4zNjc=
     node_id: String,
+    /// * example - Remaining tasks
     name: String,
+    /// * example - 2016-09-05T14:18:44Z
     created_at: String,
+    /// * example - 2016-09-05T14:22:28Z
     updated_at: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PatchProjectsColumnscolumnIdResponse {
+    /// * example - https://api.github.com/projects/columns/367
     url: String,
+    /// * example - https://api.github.com/projects/120
     project_url: String,
+    /// * example - https://api.github.com/projects/columns/367/cards
     cards_url: String,
+    /// * example - 42
     id: i64,
+    /// * example - MDEzOlByb2plY3RDb2x1bW4zNjc=
     node_id: String,
+    /// * example - Remaining tasks
     name: String,
+    /// * example - 2016-09-05T14:18:44Z
     created_at: String,
+    /// * example - 2016-09-05T14:22:28Z
     updated_at: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetProjectsprojectIdResponse {
+    /// * example - https://api.github.com/repos/api-playground/projects-test
     owner_url: String,
+    /// * example - https://api.github.com/projects/1002604
     url: String,
+    /// * example - https://github.com/api-playground/projects-test/projects/12
     html_url: String,
+    /// * example - https://api.github.com/projects/1002604/columns
     columns_url: String,
+    /// * example - 1002604
     id: i64,
+    /// * example - MDc6UHJvamVjdDEwMDI2MDQ=
     node_id: String,
+    /// * example - Week One Sprint
     name: String,
+    /// * example - This project represents the sprint of the first week in January
     body: String,
+    /// * example - 1
     number: i64,
+    /// * example - open
     state: String,
+    /// Simple User
     creator: Value,
+    /// * example - 2011-04-10T20:09:31Z
     created_at: String,
+    /// * example - 2014-03-03T18:58:10Z
     updated_at: String,
+    /// The baseline permission that all organization members have on this project. Only present if owner is an organization.
     organization_permission: String,
+    /// Whether or not this project can be seen by everyone. Only present if owner is an organization.
     private: bool,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PatchProjectsprojectIdResponse {
+    /// * example - https://api.github.com/repos/api-playground/projects-test
     owner_url: String,
+    /// * example - https://api.github.com/projects/1002604
     url: String,
+    /// * example - https://github.com/api-playground/projects-test/projects/12
     html_url: String,
+    /// * example - https://api.github.com/projects/1002604/columns
     columns_url: String,
+    /// * example - 1002604
     id: i64,
+    /// * example - MDc6UHJvamVjdDEwMDI2MDQ=
     node_id: String,
+    /// * example - Week One Sprint
     name: String,
+    /// * example - This project represents the sprint of the first week in January
     body: String,
+    /// * example - 1
     number: i64,
+    /// * example - open
     state: String,
+    /// Simple User
     creator: Value,
+    /// * example - 2011-04-10T20:09:31Z
     created_at: String,
+    /// * example - 2014-03-03T18:58:10Z
     updated_at: String,
+    /// The baseline permission that all organization members have on this project. Only present if owner is an organization.
     organization_permission: String,
+    /// Whether or not this project can be seen by everyone. Only present if owner is an organization.
     private: bool,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetProjectsprojectIdCollaboratorsusernamePermissionResponse {
+    ///
     permission: String,
+    /// Simple User
     user: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetRateLimitResponse {
+    ///
     resources: Value,
+    ///
     rate: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoResponse {
+    /// * example - 1296269
     id: i64,
+    /// * example - MDEwOlJlcG9zaXRvcnkxMjk2MjY5
     node_id: String,
+    /// * example - Hello-World
     name: String,
+    /// * example - octocat/Hello-World
     full_name: String,
+    /// Simple User
     owner: Value,
+    ///
     private: bool,
+    /// * example - https://github.com/octocat/Hello-World
     html_url: String,
+    /// * example - This your first repo!
     description: String,
+    ///
     fork: bool,
+    /// * example - https://api.github.com/repos/octocat/Hello-World
     url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/{archive_format}{/ref}
     archive_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/assignees{/user}
     assignees_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/git/blobs{/sha}
     blobs_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/branches{/branch}
     branches_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/collaborators{/collaborator}
     collaborators_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/comments{/number}
     comments_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/commits{/sha}
     commits_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/compare/{base}...{head}
     compare_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/contents/{+path}
     contents_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/contributors
     contributors_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/deployments
     deployments_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/downloads
     downloads_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/events
     events_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/forks
     forks_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/git/commits{/sha}
     git_commits_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/git/refs{/sha}
     git_refs_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/git/tags{/sha}
     git_tags_url: String,
+    /// * example - git:github.com/octocat/Hello-World.git
     git_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/issues/comments{/number}
     issue_comment_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/issues/events{/number}
     issue_events_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/issues{/number}
     issues_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/keys{/key_id}
     keys_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/labels{/name}
     labels_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/languages
     languages_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/merges
     merges_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/milestones{/number}
     milestones_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/notifications{?since,all,participating}
     notifications_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/pulls{/number}
     pulls_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/releases{/id}
     releases_url: String,
+    /// * example - git@github.com:octocat/Hello-World.git
     ssh_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/stargazers
     stargazers_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/statuses/{sha}
     statuses_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/subscribers
     subscribers_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/subscription
     subscription_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/tags
     tags_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/teams
     teams_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/git/trees{/sha}
     trees_url: String,
+    /// * example - https://github.com/octocat/Hello-World.git
     clone_url: String,
+    /// * example - git:git.example.com/octocat/Hello-World
     mirror_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/hooks
     hooks_url: String,
+    /// * example - https://svn.github.com/octocat/Hello-World
     svn_url: String,
+    /// * example - https://github.com
     homepage: String,
+    ///
     language: String,
+    /// * example - 9
     forks_count: i64,
+    /// * example - 80
     stargazers_count: i64,
+    /// * example - 80
     watchers_count: i64,
+    /// * example - 108
     size: i64,
+    /// * example - master
     default_branch: String,
+    ///
     open_issues_count: i64,
+    /// * example - true
     is_template: bool,
+    /// * example - octocat,atom,electron,API
     topics: Vec<String>,
+    /// * example - true
     has_issues: bool,
+    /// * example - true
     has_projects: bool,
+    /// * example - true
     has_wiki: bool,
+    ///
     has_pages: bool,
+    /// * example - true
     has_downloads: bool,
+    ///
     archived: bool,
+    /// Returns whether or not this repository disabled.
     disabled: bool,
+    /// * example - public
     visibility: String,
+    /// * example - 2011-01-26T19:06:43Z
     pushed_at: String,
+    /// * example - 2011-01-26T19:01:12Z
     created_at: String,
+    /// * example - 2011-01-26T19:14:43Z
     updated_at: String,
+    ///
     permissions: Value,
+    /// * example - true
     allow_rebase_merge: bool,
+    /// A git repository
     template_repository: Value,
+    ///
     temp_clone_token: String,
+    /// * example - true
     allow_squash_merge: bool,
+    ///
     allow_auto_merge: bool,
+    ///
     delete_branch_on_merge: bool,
+    /// * example - true
     allow_merge_commit: bool,
+    /// * example - true
     allow_forking: bool,
+    /// * example - 42
     subscribers_count: i64,
+    ///
     network_count: i64,
+    /// License Simple
     license: Value,
+    /// Simple User
     organization: Value,
+    /// A git repository
     parent: Value,
+    /// A git repository
     source: Value,
+    ///
     forks: i64,
+    ///
     master_branch: String,
+    ///
     open_issues: i64,
+    ///
     watchers: i64,
+    /// Whether anonymous git access is allowed.
     anonymous_access_enabled: bool,
+    /// Code of Conduct Simple
     code_of_conduct: Value,
+    ///
     security_and_analysis: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PatchReposownerrepoResponse {
+    /// * example - 1296269
     id: i64,
+    /// * example - MDEwOlJlcG9zaXRvcnkxMjk2MjY5
     node_id: String,
+    /// * example - Hello-World
     name: String,
+    /// * example - octocat/Hello-World
     full_name: String,
+    /// Simple User
     owner: Value,
+    ///
     private: bool,
+    /// * example - https://github.com/octocat/Hello-World
     html_url: String,
+    /// * example - This your first repo!
     description: String,
+    ///
     fork: bool,
+    /// * example - https://api.github.com/repos/octocat/Hello-World
     url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/{archive_format}{/ref}
     archive_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/assignees{/user}
     assignees_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/git/blobs{/sha}
     blobs_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/branches{/branch}
     branches_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/collaborators{/collaborator}
     collaborators_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/comments{/number}
     comments_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/commits{/sha}
     commits_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/compare/{base}...{head}
     compare_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/contents/{+path}
     contents_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/contributors
     contributors_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/deployments
     deployments_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/downloads
     downloads_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/events
     events_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/forks
     forks_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/git/commits{/sha}
     git_commits_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/git/refs{/sha}
     git_refs_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/git/tags{/sha}
     git_tags_url: String,
+    /// * example - git:github.com/octocat/Hello-World.git
     git_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/issues/comments{/number}
     issue_comment_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/issues/events{/number}
     issue_events_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/issues{/number}
     issues_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/keys{/key_id}
     keys_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/labels{/name}
     labels_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/languages
     languages_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/merges
     merges_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/milestones{/number}
     milestones_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/notifications{?since,all,participating}
     notifications_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/pulls{/number}
     pulls_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/releases{/id}
     releases_url: String,
+    /// * example - git@github.com:octocat/Hello-World.git
     ssh_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/stargazers
     stargazers_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/statuses/{sha}
     statuses_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/subscribers
     subscribers_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/subscription
     subscription_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/tags
     tags_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/teams
     teams_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/git/trees{/sha}
     trees_url: String,
+    /// * example - https://github.com/octocat/Hello-World.git
     clone_url: String,
+    /// * example - git:git.example.com/octocat/Hello-World
     mirror_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/hooks
     hooks_url: String,
+    /// * example - https://svn.github.com/octocat/Hello-World
     svn_url: String,
+    /// * example - https://github.com
     homepage: String,
+    ///
     language: String,
+    /// * example - 9
     forks_count: i64,
+    /// * example - 80
     stargazers_count: i64,
+    /// * example - 80
     watchers_count: i64,
+    /// * example - 108
     size: i64,
+    /// * example - master
     default_branch: String,
+    ///
     open_issues_count: i64,
+    /// * example - true
     is_template: bool,
+    /// * example - octocat,atom,electron,API
     topics: Vec<String>,
+    /// * example - true
     has_issues: bool,
+    /// * example - true
     has_projects: bool,
+    /// * example - true
     has_wiki: bool,
+    ///
     has_pages: bool,
+    /// * example - true
     has_downloads: bool,
+    ///
     archived: bool,
+    /// Returns whether or not this repository disabled.
     disabled: bool,
+    /// * example - public
     visibility: String,
+    /// * example - 2011-01-26T19:06:43Z
     pushed_at: String,
+    /// * example - 2011-01-26T19:01:12Z
     created_at: String,
+    /// * example - 2011-01-26T19:14:43Z
     updated_at: String,
+    ///
     permissions: Value,
+    /// * example - true
     allow_rebase_merge: bool,
+    /// A git repository
     template_repository: Value,
+    ///
     temp_clone_token: String,
+    /// * example - true
     allow_squash_merge: bool,
+    ///
     allow_auto_merge: bool,
+    ///
     delete_branch_on_merge: bool,
+    /// * example - true
     allow_merge_commit: bool,
+    /// * example - true
     allow_forking: bool,
+    /// * example - 42
     subscribers_count: i64,
+    ///
     network_count: i64,
+    /// License Simple
     license: Value,
+    /// Simple User
     organization: Value,
+    /// A git repository
     parent: Value,
+    /// A git repository
     source: Value,
+    ///
     forks: i64,
+    ///
     master_branch: String,
+    ///
     open_issues: i64,
+    ///
     watchers: i64,
+    /// Whether anonymous git access is allowed.
     anonymous_access_enabled: bool,
+    /// Code of Conduct Simple
     code_of_conduct: Value,
+    ///
     security_and_analysis: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoActionsArtifactsResponse {
+    ///
     total_count: i64,
+    ///
     artifacts: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoActionsArtifactsartifactIdResponse {
+    /// * example - 5
     id: i64,
+    /// * example - MDEwOkNoZWNrU3VpdGU1
     node_id: String,
+    /// * example - AdventureWorks.Framework
     name: String,
+    /// * example - 12345
     size_in_bytes: i64,
+    /// * example - https://api.github.com/repos/github/hello-world/actions/artifacts/5
     url: String,
+    /// * example - https://api.github.com/repos/github/hello-world/actions/artifacts/5/zip
     archive_download_url: String,
+    /// Whether or not the artifact has expired.
     expired: bool,
+    ///
     created_at: String,
+    ///
     expires_at: String,
+    ///
     updated_at: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoActionsJobsjobIdResponse {
+    /// * example - 21
     id: i64,
+    /// * example - 5
     run_id: i64,
+    /// * example - https://api.github.com/repos/github/hello-world/actions/runs/5
     run_url: String,
+    /// * example - 1
     run_attempt: i64,
+    /// * example - MDg6Q2hlY2tSdW40
     node_id: String,
+    /// * example - 009b8a3a9ccbb128af87f9b1c0f4c62e8a304f6d
     head_sha: String,
+    /// * example - https://api.github.com/repos/github/hello-world/actions/jobs/21
     url: String,
+    /// * example - https://github.com/github/hello-world/runs/4
     html_url: String,
+    /// * example - queued
     status: String,
+    /// * example - success
     conclusion: String,
+    /// * example - 2019-08-08T08:00:00-07:00
     started_at: String,
+    /// * example - 2019-08-08T08:00:00-07:00
     completed_at: String,
+    /// * example - test-coverage
     name: String,
+    /// Steps in this job.
     steps: Vec<Value>,
+    /// * example - https://api.github.com/repos/github/hello-world/check-runs/4
     check_run_url: String,
+    /// * example - self-hosted,foo,bar
     labels: Vec<String>,
+    /// * example - 1
     runner_id: i64,
+    /// * example - my runner
     runner_name: String,
+    /// * example - 2
     runner_group_id: i64,
+    /// * example - my runner group
     runner_group_name: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoActionsPermissionsResponse {
+    /// Whether GitHub Actions is enabled on the repository.
     enabled: bool,
+    /// The permissions policy that controls the actions that are allowed to run. Can be one of: `all`, `local_only`, or `selected`.
     allowed_actions: String,
+    /// The API URL to use to get or set the actions that are allowed to run, when `allowed_actions` is set to `selected`.
     selected_actions_url: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoActionsPermissionsSelectedActionsResponse {
+    /// Whether GitHub-owned actions are allowed. For example, this includes the actions in the `actions` organization.
     github_owned_allowed: bool,
+    /// Whether actions in GitHub Marketplace from verified creators are allowed. Set to `true` to allow all GitHub Marketplace actions by verified creators.
     verified_allowed: bool,
+    /// Specifies a list of string-matching patterns to allow specific action(s). Wildcards, tags, and SHAs are allowed. For example, `monalisa/octocat@*`, `monalisa/octocat@v2`, `monalisa/*`."
     patterns_allowed: Vec<String>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoActionsRunnersResponse {
+    ///
     total_count: i64,
+    ///
     runners: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoActionsRunnersrunnerIdResponse {
+    /// * example - 5
     id: i64,
+    /// * example - iMac
     name: String,
+    /// * example - macos
     os: String,
+    /// * example - online
     status: String,
+    ///
     busy: bool,
+    ///
     labels: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoActionsRunnersrunnerIdLabelsResponse {
+    ///
     total_count: i64,
+    ///
     labels: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PostReposownerrepoActionsRunnersrunnerIdLabelsResponse {
+    ///
     total_count: i64,
+    ///
     labels: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PutReposownerrepoActionsRunnersrunnerIdLabelsResponse {
+    ///
     total_count: i64,
+    ///
     labels: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct DeleteReposownerrepoActionsRunnersrunnerIdLabelsResponse {
+    ///
     total_count: i64,
+    ///
     labels: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct DeleteReposownerrepoActionsRunnersrunnerIdLabelsnameResponse {
+    ///
     total_count: i64,
+    ///
     labels: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoActionsRunsResponse {
+    ///
     total_count: i64,
+    ///
     workflow_runs: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoActionsRunsrunIdResponse {
+    /// * example - 5
     id: i64,
+    /// * example - Build
     name: String,
+    /// * example - MDEwOkNoZWNrU3VpdGU1
     node_id: String,
+    /// * example - 42
     check_suite_id: i64,
+    /// * example - MDEwOkNoZWNrU3VpdGU0Mg==
     check_suite_node_id: String,
+    /// * example - master
     head_branch: String,
+    /// * example - 009b8a3a9ccbb128af87f9b1c0f4c62e8a304f6d
     head_sha: String,
+    /// * example - 106
     run_number: i64,
+    /// * example - 1
     run_attempt: i64,
+    /// * example - push
     event: String,
+    /// * example - completed
     status: String,
+    /// * example - neutral
     conclusion: String,
+    /// * example - 5
     workflow_id: i64,
+    /// * example - https://api.github.com/repos/github/hello-world/actions/runs/5
     url: String,
+    /// * example - https://github.com/github/hello-world/suites/4
     html_url: String,
+    ///
     pull_requests: Vec<Value>,
+    ///
     created_at: String,
+    ///
     updated_at: String,
+    /// The start time of the latest run. Resets on re-run.
     run_started_at: String,
+    /// * example - https://api.github.com/repos/github/hello-world/actions/runs/5/jobs
     jobs_url: String,
+    /// * example - https://api.github.com/repos/github/hello-world/actions/runs/5/logs
     logs_url: String,
+    /// * example - https://api.github.com/repos/github/hello-world/check-suites/12
     check_suite_url: String,
+    /// * example - https://api.github.com/repos/github/hello-world/actions/runs/5/rerun/artifacts
     artifacts_url: String,
+    /// * example - https://api.github.com/repos/github/hello-world/actions/runs/5/cancel
     cancel_url: String,
+    /// * example - https://api.github.com/repos/github/hello-world/actions/runs/5/rerun
     rerun_url: String,
+    /// * example - https://api.github.com/repos/github/hello-world/actions/runs/5/attempts/3
     previous_attempt_url: String,
+    /// * example - https://api.github.com/repos/github/hello-world/actions/workflows/main.yaml
     workflow_url: String,
+    /// Simple Commit
     head_commit: Value,
+    /// Minimal Repository
     repository: Value,
+    /// Minimal Repository
     head_repository: Value,
+    /// * example - 5
     head_repository_id: i64,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoActionsRunsrunIdArtifactsResponse {
+    ///
     total_count: i64,
+    ///
     artifacts: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoActionsRunsrunIdAttemptsattemptNumberResponse {
+    /// * example - 5
     id: i64,
+    /// * example - Build
     name: String,
+    /// * example - MDEwOkNoZWNrU3VpdGU1
     node_id: String,
+    /// * example - 42
     check_suite_id: i64,
+    /// * example - MDEwOkNoZWNrU3VpdGU0Mg==
     check_suite_node_id: String,
+    /// * example - master
     head_branch: String,
+    /// * example - 009b8a3a9ccbb128af87f9b1c0f4c62e8a304f6d
     head_sha: String,
+    /// * example - 106
     run_number: i64,
+    /// * example - 1
     run_attempt: i64,
+    /// * example - push
     event: String,
+    /// * example - completed
     status: String,
+    /// * example - neutral
     conclusion: String,
+    /// * example - 5
     workflow_id: i64,
+    /// * example - https://api.github.com/repos/github/hello-world/actions/runs/5
     url: String,
+    /// * example - https://github.com/github/hello-world/suites/4
     html_url: String,
+    ///
     pull_requests: Vec<Value>,
+    ///
     created_at: String,
+    ///
     updated_at: String,
+    /// The start time of the latest run. Resets on re-run.
     run_started_at: String,
+    /// * example - https://api.github.com/repos/github/hello-world/actions/runs/5/jobs
     jobs_url: String,
+    /// * example - https://api.github.com/repos/github/hello-world/actions/runs/5/logs
     logs_url: String,
+    /// * example - https://api.github.com/repos/github/hello-world/check-suites/12
     check_suite_url: String,
+    /// * example - https://api.github.com/repos/github/hello-world/actions/runs/5/rerun/artifacts
     artifacts_url: String,
+    /// * example - https://api.github.com/repos/github/hello-world/actions/runs/5/cancel
     cancel_url: String,
+    /// * example - https://api.github.com/repos/github/hello-world/actions/runs/5/rerun
     rerun_url: String,
+    /// * example - https://api.github.com/repos/github/hello-world/actions/runs/5/attempts/3
     previous_attempt_url: String,
+    /// * example - https://api.github.com/repos/github/hello-world/actions/workflows/main.yaml
     workflow_url: String,
+    /// Simple Commit
     head_commit: Value,
+    /// Minimal Repository
     repository: Value,
+    /// Minimal Repository
     head_repository: Value,
+    /// * example - 5
     head_repository_id: i64,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoActionsRunsrunIdAttemptsattemptNumberJobsResponse {
+    ///
     total_count: i64,
+    ///
     jobs: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoActionsRunsrunIdJobsResponse {
+    ///
     total_count: i64,
+    ///
     jobs: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoActionsRunsrunIdTimingResponse {
+    ///
     billable: Value,
+    ///
     run_duration_ms: i64,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoActionsSecretsResponse {
+    ///
     total_count: i64,
+    ///
     secrets: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoActionsSecretsPublicKeyResponse {
+    /// * example - 1234567
     key_id: String,
+    /// * example - hBT5WZEj8ZoOv6TYJsfWq7MxTEQopZO5/IT3ZCVQPzs=
     key: String,
+    /// * example - 2
     id: i64,
+    /// * example - https://api.github.com/user/keys/2
     url: String,
+    /// * example - ssh-rsa AAAAB3NzaC1yc2EAAA
     title: String,
+    /// * example - 2011-01-26T19:01:12Z
     created_at: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoActionsSecretssecretNameResponse {
+    /// * example - SECRET_TOKEN
     name: String,
+    ///
     created_at: String,
+    ///
     updated_at: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoActionsWorkflowsResponse {
+    ///
     total_count: i64,
+    ///
     workflows: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoActionsWorkflowsworkflowIdResponse {
+    /// * example - 5
     id: i64,
+    /// * example - MDg6V29ya2Zsb3cxMg==
     node_id: String,
+    /// * example - CI
     name: String,
+    /// * example - ruby.yaml
     path: String,
+    /// * example - active
     state: String,
+    /// * example - 2019-12-06T14:20:20.000Z
     created_at: String,
+    /// * example - 2019-12-06T14:20:20.000Z
     updated_at: String,
+    /// * example - https://api.github.com/repos/actions/setup-ruby/workflows/5
     url: String,
+    /// * example - https://github.com/actions/setup-ruby/blob/master/.github/workflows/ruby.yaml
     html_url: String,
+    /// * example - https://github.com/actions/setup-ruby/workflows/CI/badge.svg
     badge_url: String,
+    /// * example - 2019-12-06T14:20:20.000Z
     deleted_at: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoActionsWorkflowsworkflowIdRunsResponse {
+    ///
     total_count: i64,
+    ///
     workflow_runs: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoActionsWorkflowsworkflowIdTimingResponse {
+    ///
     billable: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoAutolinksautolinkIdResponse {
+    /// * example - 3
     id: i64,
+    /// * example - TICKET-
     key_prefix: String,
+    /// * example - https://example.com/TICKET?query=<num>
     url_template: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoBranchesbranchResponse {
+    ///
     name: String,
+    /// Commit
     commit: Value,
+    ///
     _links: Value,
+    ///
     protected: bool,
+    /// Branch Protection
     protection: Value,
+    ///
     protection_url: String,
+    /// * example - "mas*"
     pattern: String,
+    /// * example - 1
     required_approving_review_count: i64,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoBranchesbranchProtectionResponse {
+    ///
     url: String,
+    ///
     enabled: bool,
+    /// Protected Branch Required Status Check
     required_status_checks: Value,
+    /// Protected Branch Admin Enforced
     enforce_admins: Value,
+    /// Protected Branch Pull Request Review
     required_pull_request_reviews: Value,
+    /// Branch Restriction Policy
     restrictions: Value,
+    ///
     required_linear_history: Value,
+    ///
     allow_force_pushes: Value,
+    ///
     allow_deletions: Value,
+    ///
     required_conversation_resolution: Value,
+    /// * example - "branch/with/protection"
     name: String,
+    /// * example - "https://api.github.com/repos/owner-79e94e2d36b3fd06a32bb213/AAA_Public_Repo/branches/branch/with/protection/protection"
     protection_url: String,
+    ///
     required_signatures: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PutReposownerrepoBranchesbranchProtectionResponse {
+    ///
     url: String,
+    /// Status Check Policy
     required_status_checks: Value,
+    ///
     required_pull_request_reviews: Value,
+    ///
     required_signatures: Value,
+    ///
     enforce_admins: Value,
+    ///
     required_linear_history: Value,
+    ///
     allow_force_pushes: Value,
+    ///
     allow_deletions: Value,
+    /// Branch Restriction Policy
     restrictions: Value,
+    ///
     required_conversation_resolution: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoBranchesbranchProtectionEnforceAdminsResponse {
+    /// * example - https://api.github.com/repos/octocat/Hello-World/branches/master/protection/enforce_admins
     url: String,
+    /// * example - true
     enabled: bool,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PostReposownerrepoBranchesbranchProtectionEnforceAdminsResponse {
+    /// * example - https://api.github.com/repos/octocat/Hello-World/branches/master/protection/enforce_admins
     url: String,
+    /// * example - true
     enabled: bool,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoBranchesbranchProtectionRequiredPullRequestReviewsResponse {
+    /// * example - https://api.github.com/repos/octocat/Hello-World/branches/master/protection/dismissal_restrictions
     url: String,
+    ///
     dismissal_restrictions: Value,
+    /// * example - true
     dismiss_stale_reviews: bool,
+    /// * example - true
     require_code_owner_reviews: bool,
+    /// * example - 2
     required_approving_review_count: i64,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PatchReposownerrepoBranchesbranchProtectionRequiredPullRequestReviewsResponse {
+    /// * example - https://api.github.com/repos/octocat/Hello-World/branches/master/protection/dismissal_restrictions
     url: String,
+    ///
     dismissal_restrictions: Value,
+    /// * example - true
     dismiss_stale_reviews: bool,
+    /// * example - true
     require_code_owner_reviews: bool,
+    /// * example - 2
     required_approving_review_count: i64,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoBranchesbranchProtectionRequiredSignaturesResponse {
+    /// * example - https://api.github.com/repos/octocat/Hello-World/branches/master/protection/enforce_admins
     url: String,
+    /// * example - true
     enabled: bool,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PostReposownerrepoBranchesbranchProtectionRequiredSignaturesResponse {
+    /// * example - https://api.github.com/repos/octocat/Hello-World/branches/master/protection/enforce_admins
     url: String,
+    /// * example - true
     enabled: bool,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoBranchesbranchProtectionRequiredStatusChecksResponse {
+    /// * example - https://api.github.com/repos/octocat/Hello-World/branches/master/protection/required_status_checks
     url: String,
+    /// * example - true
     strict: bool,
+    /// * example - continuous-integration/travis-ci
     contexts: Vec<String>,
+    ///
     checks: Vec<Value>,
+    /// * example - https://api.github.com/repos/octocat/Hello-World/branches/master/protection/required_status_checks/contexts
     contexts_url: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PatchReposownerrepoBranchesbranchProtectionRequiredStatusChecksResponse {
+    /// * example - https://api.github.com/repos/octocat/Hello-World/branches/master/protection/required_status_checks
     url: String,
+    /// * example - true
     strict: bool,
+    /// * example - continuous-integration/travis-ci
     contexts: Vec<String>,
+    ///
     checks: Vec<Value>,
+    /// * example - https://api.github.com/repos/octocat/Hello-World/branches/master/protection/required_status_checks/contexts
     contexts_url: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoBranchesbranchProtectionRestrictionsResponse {
+    ///
     url: String,
+    ///
     users_url: String,
+    ///
     teams_url: String,
+    ///
     apps_url: String,
+    ///
     users: Vec<Value>,
+    ///
     teams: Vec<Value>,
+    ///
     apps: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoCheckRunscheckRunIdResponse {
+    /// * example - 21
     id: i64,
+    /// * example - 009b8a3a9ccbb128af87f9b1c0f4c62e8a304f6d
     head_sha: String,
+    /// * example - MDg6Q2hlY2tSdW40
     node_id: String,
+    /// * example - 42
     external_id: String,
+    /// * example - https://api.github.com/repos/github/hello-world/check-runs/4
     url: String,
+    /// * example - https://github.com/github/hello-world/runs/4
     html_url: String,
+    /// * example - https://example.com
     details_url: String,
+    /// * example - queued
     status: String,
+    /// * example - neutral
     conclusion: String,
+    /// * example - 2018-05-04T01:14:52Z
     started_at: String,
+    /// * example - 2018-05-04T01:14:52Z
     completed_at: String,
+    ///
     output: Value,
+    /// * example - test-coverage
     name: String,
+    ///
     check_suite: Value,
+    /// GitHub apps are a new way to extend GitHub. They can be installed directly on organizations and user accounts and granted access to specific repositories. They come with granular permissions and built-in webhooks. GitHub apps are first class actors within GitHub.
     app: Value,
+    ///
     pull_requests: Vec<Value>,
+    /// A deployment created as the result of an Actions check run from a workflow that references an environment
     deployment: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PatchReposownerrepoCheckRunscheckRunIdResponse {
+    /// * example - 21
     id: i64,
+    /// * example - 009b8a3a9ccbb128af87f9b1c0f4c62e8a304f6d
     head_sha: String,
+    /// * example - MDg6Q2hlY2tSdW40
     node_id: String,
+    /// * example - 42
     external_id: String,
+    /// * example - https://api.github.com/repos/github/hello-world/check-runs/4
     url: String,
+    /// * example - https://github.com/github/hello-world/runs/4
     html_url: String,
+    /// * example - https://example.com
     details_url: String,
+    /// * example - queued
     status: String,
+    /// * example - neutral
     conclusion: String,
+    /// * example - 2018-05-04T01:14:52Z
     started_at: String,
+    /// * example - 2018-05-04T01:14:52Z
     completed_at: String,
+    ///
     output: Value,
+    /// * example - test-coverage
     name: String,
+    ///
     check_suite: Value,
+    /// GitHub apps are a new way to extend GitHub. They can be installed directly on organizations and user accounts and granted access to specific repositories. They come with granular permissions and built-in webhooks. GitHub apps are first class actors within GitHub.
     app: Value,
+    ///
     pull_requests: Vec<Value>,
+    /// A deployment created as the result of an Actions check run from a workflow that references an environment
     deployment: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PostReposownerrepoCheckSuitesResponse {
+    /// * example - 5
     id: i64,
+    /// * example - MDEwOkNoZWNrU3VpdGU1
     node_id: String,
+    /// * example - master
     head_branch: String,
+    /// * example - 009b8a3a9ccbb128af87f9b1c0f4c62e8a304f6d
     head_sha: String,
+    /// * example - completed
     status: String,
+    /// * example - neutral
     conclusion: String,
+    /// * example - https://api.github.com/repos/github/hello-world/check-suites/5
     url: String,
+    /// * example - 146e867f55c26428e5f9fade55a9bbf5e95a7912
     before: String,
+    /// * example - d6fde92930d4715a2b49857d24b940956b26d2d3
     after: String,
+    ///
     pull_requests: Vec<Value>,
+    /// GitHub apps are a new way to extend GitHub. They can be installed directly on organizations and user accounts and granted access to specific repositories. They come with granular permissions and built-in webhooks. GitHub apps are first class actors within GitHub.
     app: Value,
+    /// Minimal Repository
     repository: Value,
+    ///
     created_at: String,
+    ///
     updated_at: String,
+    /// Simple Commit
     head_commit: Value,
+    ///
     latest_check_runs_count: i64,
+    ///
     check_runs_url: String,
+    ///
     rerequestable: bool,
+    ///
     runs_rerequestable: bool,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PatchReposownerrepoCheckSuitesPreferencesResponse {
+    ///
     preferences: Value,
+    /// Minimal Repository
     repository: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoCheckSuitescheckSuiteIdResponse {
+    /// * example - 5
     id: i64,
+    /// * example - MDEwOkNoZWNrU3VpdGU1
     node_id: String,
+    /// * example - master
     head_branch: String,
+    /// * example - 009b8a3a9ccbb128af87f9b1c0f4c62e8a304f6d
     head_sha: String,
+    /// * example - completed
     status: String,
+    /// * example - neutral
     conclusion: String,
+    /// * example - https://api.github.com/repos/github/hello-world/check-suites/5
     url: String,
+    /// * example - 146e867f55c26428e5f9fade55a9bbf5e95a7912
     before: String,
+    /// * example - d6fde92930d4715a2b49857d24b940956b26d2d3
     after: String,
+    ///
     pull_requests: Vec<Value>,
+    /// GitHub apps are a new way to extend GitHub. They can be installed directly on organizations and user accounts and granted access to specific repositories. They come with granular permissions and built-in webhooks. GitHub apps are first class actors within GitHub.
     app: Value,
+    /// Minimal Repository
     repository: Value,
+    ///
     created_at: String,
+    ///
     updated_at: String,
+    /// Simple Commit
     head_commit: Value,
+    ///
     latest_check_runs_count: i64,
+    ///
     check_runs_url: String,
+    ///
     rerequestable: bool,
+    ///
     runs_rerequestable: bool,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoCheckSuitescheckSuiteIdCheckRunsResponse {
+    ///
     total_count: i64,
+    ///
     check_runs: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoCodeScanningAlertsalertNumberResponse {
+    /// The security alert number.
     number: i64,
+    /// The time that the alert was created in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.
     created_at: String,
+    /// The time that the alert was last updated in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.
     updated_at: String,
+    /// The REST API URL of the alert resource.
     url: String,
+    /// The GitHub URL of the alert resource.
     html_url: String,
+    /// The REST API URL for fetching the list of instances for an alert.
     instances_url: String,
+    /// State of a code scanning alert.
     state: String,
+    /// The time that the alert was no longer detected and was considered fixed in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.
     fixed_at: String,
+    /// Simple User
     dismissed_by: Value,
+    /// The time that the alert was dismissed in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.
     dismissed_at: String,
+    /// **Required when the state is dismissed.** The reason for dismissing or closing the alert. Can be one of: `false positive`, `won't fix`, and `used in tests`.
     dismissed_reason: String,
+    ///
     rule: Value,
+    ///
     tool: Value,
+    ///
     most_recent_instance: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PatchReposownerrepoCodeScanningAlertsalertNumberResponse {
+    /// The security alert number.
     number: i64,
+    /// The time that the alert was created in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.
     created_at: String,
+    /// The time that the alert was last updated in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.
     updated_at: String,
+    /// The REST API URL of the alert resource.
     url: String,
+    /// The GitHub URL of the alert resource.
     html_url: String,
+    /// The REST API URL for fetching the list of instances for an alert.
     instances_url: String,
+    /// State of a code scanning alert.
     state: String,
+    /// The time that the alert was no longer detected and was considered fixed in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.
     fixed_at: String,
+    /// Simple User
     dismissed_by: Value,
+    /// The time that the alert was dismissed in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.
     dismissed_at: String,
+    /// **Required when the state is dismissed.** The reason for dismissing or closing the alert. Can be one of: `false positive`, `won't fix`, and `used in tests`.
     dismissed_reason: String,
+    ///
     rule: Value,
+    ///
     tool: Value,
+    ///
     most_recent_instance: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoCodeScanningAnalysesanalysisIdResponse {
+    /// The full Git reference, formatted as `refs/heads/<branch name>`,
+    /// `refs/pull/<number>/merge`, or `refs/pull/<number>/head`.
     #[serde(rename = "ref")]
     aref: String,
+    /// The SHA of the commit to which the analysis you are uploading relates.
     commit_sha: String,
+    /// Identifies the configuration under which the analysis was executed. For example, in GitHub Actions this includes the workflow filename and job name.
     analysis_key: String,
+    /// Identifies the variable values associated with the environment in which this analysis was performed.
     environment: String,
+    /// Identifies the configuration under which the analysis was executed. Used to distinguish between multiple analyses for the same tool and commit, but performed on different languages or different parts of the code.
     category: String,
+    /// * example - error reading field xyz
     error: String,
+    /// The time that the analysis was created in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.
     created_at: String,
+    /// The total number of results in the analysis.
     results_count: i64,
+    /// The total number of rules used in the analysis.
     rules_count: i64,
+    /// Unique identifier for this analysis.
     id: i64,
+    /// The REST API URL of the analysis resource.
     url: String,
+    /// * example - 6c81cd8e-b078-4ac3-a3be-1dad7dbd0b53
     sarif_id: String,
+    ///
     tool: Value,
+    ///
     deletable: bool,
+    /// * example - 123 results were ignored
     warning: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct DeleteReposownerrepoCodeScanningAnalysesanalysisIdResponse {
+    /// Next deletable analysis in chain, without last analysis deletion confirmation
     next_analysis_url: String,
+    /// Next deletable analysis in chain, with last analysis deletion confirmation
     confirm_delete_url: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoCodeScanningSarifssarifIdResponse {
+    /// `pending` files have not yet been processed, while `complete` means results from the SARIF have been stored. `failed` files have either not been processed at all, or could only be partially processed.
     processing_status: String,
+    /// The REST API URL for getting the analyses associated with the upload.
     analyses_url: String,
+    /// Any errors that ocurred during processing of the delivery.
     errors: Vec<String>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoCodespacesResponse {
+    ///
     total_count: i64,
+    ///
     codespaces: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoCodespacesMachinesResponse {
+    ///
     total_count: i64,
+    ///
     machines: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoCollaboratorsusernamePermissionResponse {
+    ///
     permission: String,
+    /// * example - admin
     role_name: String,
+    /// Collaborator
     user: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoCommentscommentIdResponse {
+    ///
     html_url: String,
+    ///
     url: String,
+    ///
     id: i64,
+    ///
     node_id: String,
+    ///
     body: String,
+    ///
     path: String,
+    ///
     position: i64,
+    ///
     line: i64,
+    ///
     commit_id: String,
+    /// Simple User
     user: Value,
+    ///
     created_at: String,
+    ///
     updated_at: String,
+    /// * example - OWNER
     author_association: String,
+    ///
     reactions: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PatchReposownerrepoCommentscommentIdResponse {
+    ///
     html_url: String,
+    ///
     url: String,
+    ///
     id: i64,
+    ///
     node_id: String,
+    ///
     body: String,
+    ///
     path: String,
+    ///
     position: i64,
+    ///
     line: i64,
+    ///
     commit_id: String,
+    /// Simple User
     user: Value,
+    ///
     created_at: String,
+    ///
     updated_at: String,
+    /// * example - OWNER
     author_association: String,
+    ///
     reactions: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PostReposownerrepoCommentscommentIdReactionsResponse {
+    /// * example - 1
     id: i64,
+    /// * example - MDg6UmVhY3Rpb24x
     node_id: String,
+    /// Simple User
     user: Value,
+    /// * example - heart
     content: String,
+    /// * example - 2016-05-20T20:09:31Z
     created_at: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoCommitsrefResponse {
+    /// * example - https://api.github.com/repos/octocat/Hello-World/commits/6dcb09b5b57875f334f61aebed695e2e4193db5e
     url: String,
+    /// * example - 6dcb09b5b57875f334f61aebed695e2e4193db5e
     sha: String,
+    /// * example - MDY6Q29tbWl0NmRjYjA5YjViNTc4NzVmMzM0ZjYxYWViZWQ2OTVlMmU0MTkzZGI1ZQ==
     node_id: String,
+    /// * example - https://github.com/octocat/Hello-World/commit/6dcb09b5b57875f334f61aebed695e2e4193db5e
     html_url: String,
+    /// * example - https://api.github.com/repos/octocat/Hello-World/commits/6dcb09b5b57875f334f61aebed695e2e4193db5e/comments
     comments_url: String,
+    ///
     commit: Value,
+    /// Simple User
     author: Value,
+    /// Simple User
     committer: Value,
+    ///
     parents: Vec<Value>,
+    ///
     stats: Value,
+    ///
     files: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoCommitsrefCheckRunsResponse {
+    ///
     total_count: i64,
+    ///
     check_runs: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoCommitsrefCheckSuitesResponse {
+    ///
     total_count: i64,
+    ///
     check_suites: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoCommitsrefStatusResponse {
+    ///
     state: String,
+    ///
     statuses: Vec<Value>,
+    ///
     sha: String,
+    ///
     total_count: i64,
+    /// Minimal Repository
     repository: Value,
+    ///
     commit_url: String,
+    ///
     url: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoCommunityProfileResponse {
+    /// * example - 100
     health_percentage: i64,
+    /// * example - My first repository on GitHub!
     description: String,
+    /// * example - example.com
     documentation: String,
+    ///
     files: Value,
+    /// * example - 2017-02-28T19:09:29Z
     updated_at: String,
+    /// * example - true
     content_reports_enabled: bool,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoComparebaseheadResponse {
+    /// * example - https://api.github.com/repos/octocat/Hello-World/compare/master...topic
     url: String,
+    /// * example - https://github.com/octocat/Hello-World/compare/master...topic
     html_url: String,
+    /// * example - https://github.com/octocat/Hello-World/compare/octocat:bbcd538c8e72b8c175046e27cc8f907076331401...octocat:0328041d1152db8ae77652d1618a02e57f745f17
     permalink_url: String,
+    /// * example - https://github.com/octocat/Hello-World/compare/master...topic.diff
     diff_url: String,
+    /// * example - https://github.com/octocat/Hello-World/compare/master...topic.patch
     patch_url: String,
+    /// Commit
     base_commit: Value,
+    /// Commit
     merge_base_commit: Value,
+    /// * example - ahead
     status: String,
+    /// * example - 4
     ahead_by: i64,
+    /// * example - 5
     behind_by: i64,
+    /// * example - 6
     total_commits: i64,
+    ///
     commits: Vec<Value>,
+    ///
     files: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PutReposownerrepoContentspathResponse {
+    ///
     content: Value,
+    ///
     commit: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct DeleteReposownerrepoContentspathResponse {
+    ///
     content: Value,
+    ///
     commit: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoDeploymentsdeploymentIdResponse {
+    /// * example - https://api.github.com/repos/octocat/example/deployments/1
     url: String,
+    /// * example - 42
     id: i64,
+    /// * example - MDEwOkRlcGxveW1lbnQx
     node_id: String,
+    /// * example - a84d88e7554fc1fa21bcbc4efae3c782a70d2b9d
     sha: String,
+    /// * example - topic-branch
     #[serde(rename = "ref")]
     aref: String,
+    /// * example - deploy
     task: String,
+    /// * example - staging
     original_environment: String,
+    /// * example - production
     environment: String,
+    /// * example - Deploy request from hubot
     description: String,
+    /// Simple User
     creator: Value,
+    /// * example - 2012-07-20T01:19:13Z
     created_at: String,
+    /// * example - 2012-07-20T01:19:13Z
     updated_at: String,
+    /// * example - https://api.github.com/repos/octocat/example/deployments/1/statuses
     statuses_url: String,
+    /// * example - https://api.github.com/repos/octocat/example
     repository_url: String,
+    /// * example - true
     transient_environment: bool,
+    /// * example - true
     production_environment: bool,
+    /// GitHub apps are a new way to extend GitHub. They can be installed directly on organizations and user accounts and granted access to specific repositories. They come with granular permissions and built-in webhooks. GitHub apps are first class actors within GitHub.
     performed_via_github_app: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoDeploymentsdeploymentIdStatusesstatusIdResponse {
+    /// * example - https://api.github.com/repos/octocat/example/deployments/42/statuses/1
     url: String,
+    /// * example - 1
     id: i64,
+    /// * example - MDE2OkRlcGxveW1lbnRTdGF0dXMx
     node_id: String,
+    /// * example - success
     state: String,
+    /// Simple User
     creator: Value,
+    /// * example - Deployment finished successfully.
     description: String,
+    /// * example - production
     environment: String,
+    /// * example - https://example.com/deployment/42/output
     target_url: String,
+    /// * example - 2012-07-20T01:19:13Z
     created_at: String,
+    /// * example - 2012-07-20T01:19:13Z
     updated_at: String,
+    /// * example - https://api.github.com/repos/octocat/example/deployments/42
     deployment_url: String,
+    /// * example - https://api.github.com/repos/octocat/example
     repository_url: String,
+    /// * example - https://staging.example.com/
     environment_url: String,
+    /// * example - https://example.com/deployment/42/output
     log_url: String,
+    /// GitHub apps are a new way to extend GitHub. They can be installed directly on organizations and user accounts and granted access to specific repositories. They come with granular permissions and built-in webhooks. GitHub apps are first class actors within GitHub.
     performed_via_github_app: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoEnvironmentsResponse {
+    /// * example - 5
     total_count: i64,
+    ///
     environments: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoEnvironmentsenvironmentNameResponse {
+    /// * example - 56780428
     id: i64,
+    /// * example - MDExOkVudmlyb25tZW50NTY3ODA0Mjg=
     node_id: String,
+    /// * example - staging
     name: String,
+    /// * example - https://api.github.com/repos/github/hello-world/environments/staging
     url: String,
+    /// * example - https://github.com/github/hello-world/deployments/activity_log?environments_filter=staging
     html_url: String,
+    /// * example - 2020-11-23T22:00:40Z
     created_at: String,
+    /// * example - 2020-11-23T22:00:40Z
     updated_at: String,
+    /// The type of deployment branch policy for this environment. To allow all branches to deploy, set to `null`.
     deployment_branch_policy: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PutReposownerrepoEnvironmentsenvironmentNameResponse {
+    /// * example - 56780428
     id: i64,
+    /// * example - MDExOkVudmlyb25tZW50NTY3ODA0Mjg=
     node_id: String,
+    /// * example - staging
     name: String,
+    /// * example - https://api.github.com/repos/github/hello-world/environments/staging
     url: String,
+    /// * example - https://github.com/github/hello-world/deployments/activity_log?environments_filter=staging
     html_url: String,
+    /// * example - 2020-11-23T22:00:40Z
     created_at: String,
+    /// * example - 2020-11-23T22:00:40Z
     updated_at: String,
+    /// The type of deployment branch policy for this environment. To allow all branches to deploy, set to `null`.
     deployment_branch_policy: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoGitBlobsfileShaResponse {
+    ///
     content: String,
+    ///
     encoding: String,
+    ///
     url: String,
+    ///
     sha: String,
+    ///
     size: i64,
+    ///
     node_id: String,
+    ///
     highlighted_content: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoGitCommitscommitShaResponse {
+    /// * example - 7638417db6d59f3c431d3e1f261cc637155684cd
     sha: String,
+    ///
     node_id: String,
+    ///
     url: String,
+    /// Identifying information for the git-user
     author: Value,
+    /// Identifying information for the git-user
     committer: Value,
+    /// * example - Fix #42
     message: String,
+    ///
     tree: Value,
+    ///
     parents: Vec<Value>,
+    ///
     verification: Value,
+    ///
     html_url: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoGitRefrefResponse {
+    ///
     #[serde(rename = "ref")]
     aref: String,
+    ///
     node_id: String,
+    ///
     url: String,
+    ///
     object: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PatchReposownerrepoGitRefsrefResponse {
+    ///
     #[serde(rename = "ref")]
     aref: String,
+    ///
     node_id: String,
+    ///
     url: String,
+    ///
     object: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoGitTagstagShaResponse {
+    /// * example - MDM6VGFnOTQwYmQzMzYyNDhlZmFlMGY5ZWU1YmM3YjJkNWM5ODU4ODdiMTZhYw==
     node_id: String,
+    /// * example - v0.0.1
     tag: String,
+    /// * example - 940bd336248efae0f9ee5bc7b2d5c985887b16ac
     sha: String,
+    /// * example - https://api.github.com/repositories/42/git/tags/940bd336248efae0f9ee5bc7b2d5c985887b16ac
     url: String,
+    /// * example - Initial public release
     message: String,
+    ///
     tagger: Value,
+    ///
     object: Value,
+    ///
     verification: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoGitTreestreeShaResponse {
+    ///
     sha: String,
+    ///
     url: String,
+    ///
     truncated: bool,
+    /// * example - [object Object]
     tree: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoHookshookIdResponse {
+    ///
     #[serde(rename = "type")]
     atype: String,
+    /// * example - 42
     id: i64,
+    /// * example - web
     name: String,
+    /// * example - true
     active: bool,
+    /// * example - push,pull_request
     events: Vec<String>,
+    ///
     config: Value,
+    /// * example - 2011-09-06T20:39:23Z
     updated_at: String,
+    /// * example - 2011-09-06T17:26:27Z
     created_at: String,
+    /// * example - https://api.github.com/repos/octocat/Hello-World/hooks/1
     url: String,
+    /// * example - https://api.github.com/repos/octocat/Hello-World/hooks/1/test
     test_url: String,
+    /// * example - https://api.github.com/repos/octocat/Hello-World/hooks/1/pings
     ping_url: String,
+    /// * example - https://api.github.com/repos/octocat/Hello-World/hooks/1/deliveries
     deliveries_url: String,
+    ///
     last_response: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PatchReposownerrepoHookshookIdResponse {
+    ///
     #[serde(rename = "type")]
     atype: String,
+    /// * example - 42
     id: i64,
+    /// * example - web
     name: String,
+    /// * example - true
     active: bool,
+    /// * example - push,pull_request
     events: Vec<String>,
+    ///
     config: Value,
+    /// * example - 2011-09-06T20:39:23Z
     updated_at: String,
+    /// * example - 2011-09-06T17:26:27Z
     created_at: String,
+    /// * example - https://api.github.com/repos/octocat/Hello-World/hooks/1
     url: String,
+    /// * example - https://api.github.com/repos/octocat/Hello-World/hooks/1/test
     test_url: String,
+    /// * example - https://api.github.com/repos/octocat/Hello-World/hooks/1/pings
     ping_url: String,
+    /// * example - https://api.github.com/repos/octocat/Hello-World/hooks/1/deliveries
     deliveries_url: String,
+    ///
     last_response: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoHookshookIdConfigResponse {
+    /// * example - https://example.com/webhook
     url: String,
+    /// * example - "json"
     content_type: String,
+    /// * example - "********"
     secret: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PatchReposownerrepoHookshookIdConfigResponse {
+    /// * example - https://example.com/webhook
     url: String,
+    /// * example - "json"
     content_type: String,
+    /// * example - "********"
     secret: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoHookshookIdDeliveriesdeliveryIdResponse {
+    /// * example - 42
     id: i64,
+    /// * example - 58474f00-b361-11eb-836d-0e4f3503ccbe
     guid: String,
+    /// * example - 2021-05-12T20:33:44Z
     delivered_at: String,
+    /// Whether the delivery is a redelivery.
     redelivery: bool,
+    /// * example - 0.03
     duration: f64,
+    /// * example - failed to connect
     status: String,
+    /// * example - 502
     status_code: i64,
+    /// * example - issues
     event: String,
+    /// * example - opened
     action: String,
+    /// * example - 123
     installation_id: i64,
+    /// * example - 123
     repository_id: i64,
+    /// * example - https://www.example.com
     url: String,
+    ///
     request: Value,
+    ///
     response: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoImportResponse {
+    ///
     vcs: String,
+    ///
     use_lfs: bool,
+    /// The URL of the originating repository.
     vcs_url: String,
+    ///
     svc_root: String,
+    ///
     tfvc_project: String,
+    ///
     status: String,
+    ///
     status_text: String,
+    ///
     failed_step: String,
+    ///
     error_message: String,
+    ///
     import_percent: i64,
+    ///
     commit_count: i64,
+    ///
     push_percent: i64,
+    ///
     has_large_files: bool,
+    ///
     large_files_size: i64,
+    ///
     large_files_count: i64,
+    ///
     project_choices: Vec<Value>,
+    ///
     message: String,
+    ///
     authors_count: i64,
+    ///
     url: String,
+    ///
     html_url: String,
+    ///
     authors_url: String,
+    ///
     repository_url: String,
+    ///
     svn_root: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PatchReposownerrepoImportResponse {
+    ///
     vcs: String,
+    ///
     use_lfs: bool,
+    /// The URL of the originating repository.
     vcs_url: String,
+    ///
     svc_root: String,
+    ///
     tfvc_project: String,
+    ///
     status: String,
+    ///
     status_text: String,
+    ///
     failed_step: String,
+    ///
     error_message: String,
+    ///
     import_percent: i64,
+    ///
     commit_count: i64,
+    ///
     push_percent: i64,
+    ///
     has_large_files: bool,
+    ///
     large_files_size: i64,
+    ///
     large_files_count: i64,
+    ///
     project_choices: Vec<Value>,
+    ///
     message: String,
+    ///
     authors_count: i64,
+    ///
     url: String,
+    ///
     html_url: String,
+    ///
     authors_url: String,
+    ///
     repository_url: String,
+    ///
     svn_root: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PatchReposownerrepoImportAuthorsauthorIdResponse {
+    ///
     id: i64,
+    ///
     remote_id: String,
+    ///
     remote_name: String,
+    ///
     email: String,
+    ///
     name: String,
+    ///
     url: String,
+    ///
     import_url: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PatchReposownerrepoImportLfsResponse {
+    ///
     vcs: String,
+    ///
     use_lfs: bool,
+    /// The URL of the originating repository.
     vcs_url: String,
+    ///
     svc_root: String,
+    ///
     tfvc_project: String,
+    ///
     status: String,
+    ///
     status_text: String,
+    ///
     failed_step: String,
+    ///
     error_message: String,
+    ///
     import_percent: i64,
+    ///
     commit_count: i64,
+    ///
     push_percent: i64,
+    ///
     has_large_files: bool,
+    ///
     large_files_size: i64,
+    ///
     large_files_count: i64,
+    ///
     project_choices: Vec<Value>,
+    ///
     message: String,
+    ///
     authors_count: i64,
+    ///
     url: String,
+    ///
     html_url: String,
+    ///
     authors_url: String,
+    ///
     repository_url: String,
+    ///
     svn_root: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoInstallationResponse {
+    /// * example - 1
     id: i64,
+    /// Describe whether all repositories have been selected or there's a selection involved
     repository_selection: String,
+    /// * example - https://api.github.com/installations/1/access_tokens
     access_tokens_url: String,
+    /// * example - https://api.github.com/installation/repositories
     repositories_url: String,
+    /// * example - https://github.com/organizations/github/settings/installations/1
     html_url: String,
+    /// * example - 1
     app_id: i64,
+    /// The ID of the user or organization this token is being scoped to.
     target_id: i64,
+    /// * example - Organization
     target_type: String,
+    /// * example - [object Object]
     permissions: Value,
+    ///
     events: Vec<String>,
+    ///
     created_at: String,
+    ///
     updated_at: String,
+    /// * example - config.yaml
     single_file_name: String,
+    /// * example - true
     has_multiple_single_files: bool,
+    /// * example - config.yml,.github/issue_TEMPLATE.md
     single_file_paths: Vec<String>,
+    /// * example - github-actions
     app_slug: String,
+    /// Simple User
     suspended_by: Value,
+    ///
     suspended_at: String,
+    /// * example - "test_13f1e99741e3e004@d7e1eb0bc0a1ba12.com"
     contact_email: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PutReposownerrepoInteractionLimitsResponse {
+    /// * example - collaborators_only
     limit: String,
+    /// * example - repository
     origin: String,
+    /// * example - 2018-08-17T04:18:39Z
     expires_at: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PatchReposownerrepoInvitationsinvitationIdResponse {
+    /// * example - 42
     id: i64,
+    /// Minimal Repository
     repository: Value,
+    /// Simple User
     invitee: Value,
+    /// Simple User
     inviter: Value,
+    /// * example - read
     permissions: String,
+    /// * example - 2016-06-13T14:52:50-05:00
     created_at: String,
+    /// Whether or not the invitation has expired
     expired: bool,
+    /// * example - https://api.github.com/user/repository-invitations/1
     url: String,
+    /// * example - https://github.com/octocat/Hello-World/invitations
     html_url: String,
+    ///
     node_id: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoIssuesCommentscommentIdResponse {
+    /// * example - 42
     id: i64,
+    ///
     node_id: String,
+    /// * example - https://api.github.com/repositories/42/issues/comments/1
     url: String,
+    /// * example - What version of Safari were you using when you observed this bug?
     body: String,
+    ///
     body_text: String,
+    ///
     body_html: String,
+    ///
     html_url: String,
+    /// Simple User
     user: Value,
+    /// * example - 2011-04-14T16:00:49Z
     created_at: String,
+    /// * example - 2011-04-14T16:00:49Z
     updated_at: String,
+    ///
     issue_url: String,
+    /// * example - OWNER
     author_association: String,
+    /// GitHub apps are a new way to extend GitHub. They can be installed directly on organizations and user accounts and granted access to specific repositories. They come with granular permissions and built-in webhooks. GitHub apps are first class actors within GitHub.
     performed_via_github_app: Value,
+    ///
     reactions: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PatchReposownerrepoIssuesCommentscommentIdResponse {
+    /// * example - 42
     id: i64,
+    ///
     node_id: String,
+    /// * example - https://api.github.com/repositories/42/issues/comments/1
     url: String,
+    /// * example - What version of Safari were you using when you observed this bug?
     body: String,
+    ///
     body_text: String,
+    ///
     body_html: String,
+    ///
     html_url: String,
+    /// Simple User
     user: Value,
+    /// * example - 2011-04-14T16:00:49Z
     created_at: String,
+    /// * example - 2011-04-14T16:00:49Z
     updated_at: String,
+    ///
     issue_url: String,
+    /// * example - OWNER
     author_association: String,
+    /// GitHub apps are a new way to extend GitHub. They can be installed directly on organizations and user accounts and granted access to specific repositories. They come with granular permissions and built-in webhooks. GitHub apps are first class actors within GitHub.
     performed_via_github_app: Value,
+    ///
     reactions: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PostReposownerrepoIssuesCommentscommentIdReactionsResponse {
+    /// * example - 1
     id: i64,
+    /// * example - MDg6UmVhY3Rpb24x
     node_id: String,
+    /// Simple User
     user: Value,
+    /// * example - heart
     content: String,
+    /// * example - 2016-05-20T20:09:31Z
     created_at: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoIssuesEventseventIdResponse {
+    /// * example - 1
     id: i64,
+    /// * example - MDEwOklzc3VlRXZlbnQx
     node_id: String,
+    /// * example - https://api.github.com/repos/octocat/Hello-World/issues/events/1
     url: String,
+    /// Simple User
     actor: Value,
+    /// * example - closed
     event: String,
+    /// * example - 6dcb09b5b57875f334f61aebed695e2e4193db5e
     commit_id: String,
+    /// * example - https://api.github.com/repos/octocat/Hello-World/commits/6dcb09b5b57875f334f61aebed695e2e4193db5e
     commit_url: String,
+    /// * example - 2011-04-14T16:00:49Z
     created_at: String,
+    /// Issues are a great way to keep track of tasks, enhancements, and bugs for your projects.
     issue: Value,
+    /// Issue Event Label
     label: Value,
+    /// Simple User
     assignee: Value,
+    /// Simple User
     assigner: Value,
+    /// Simple User
     review_requester: Value,
+    /// Simple User
     requested_reviewer: Value,
+    /// Groups of organization members that gives permissions on specified repositories.
     requested_team: Value,
+    ///
     dismissed_review: Value,
+    /// Issue Event Milestone
     milestone: Value,
+    /// Issue Event Project Card
     project_card: Value,
+    /// Issue Event Rename
     rename: Value,
+    /// * example - OWNER
     author_association: String,
+    ///
     lock_reason: String,
+    /// GitHub apps are a new way to extend GitHub. They can be installed directly on organizations and user accounts and granted access to specific repositories. They come with granular permissions and built-in webhooks. GitHub apps are first class actors within GitHub.
     performed_via_github_app: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoIssuesissueNumberResponse {
+    ///
     id: i64,
+    ///
     node_id: String,
+    /// * example - https://api.github.com/repositories/42/issues/1
     url: String,
+    ///
     repository_url: String,
+    ///
     labels_url: String,
+    ///
     comments_url: String,
+    ///
     events_url: String,
+    ///
     html_url: String,
+    /// * example - 42
     number: i64,
+    /// * example - open
     state: String,
+    /// * example - Widget creation fails in Safari on OS X 10.8
     title: String,
+    /// * example - It looks like the new widget form is broken on Safari. When I try and create the widget, Safari crashes. This is reproducible on 10.8, but not 10.9. Maybe a browser bug?
     body: String,
+    /// Simple User
     user: Value,
+    /// Simple User
     assignee: Value,
+    ///
     assignees: Vec<Value>,
+    /// A collection of related issues and pull requests.
     milestone: Value,
+    ///
     locked: bool,
+    ///
     active_lock_reason: String,
+    ///
     comments: i64,
+    ///
     pull_request: Value,
+    ///
     closed_at: String,
+    ///
     created_at: String,
+    ///
     updated_at: String,
+    ///
     draft: bool,
+    /// Simple User
     closed_by: Value,
+    ///
     body_html: String,
+    ///
     body_text: String,
+    ///
     timeline_url: String,
+    /// A git repository
     repository: Value,
+    /// GitHub apps are a new way to extend GitHub. They can be installed directly on organizations and user accounts and granted access to specific repositories. They come with granular permissions and built-in webhooks. GitHub apps are first class actors within GitHub.
     performed_via_github_app: Value,
+    /// * example - OWNER
     author_association: String,
+    ///
     reactions: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PatchReposownerrepoIssuesissueNumberResponse {
+    ///
     id: i64,
+    ///
     node_id: String,
+    /// * example - https://api.github.com/repositories/42/issues/1
     url: String,
+    ///
     repository_url: String,
+    ///
     labels_url: String,
+    ///
     comments_url: String,
+    ///
     events_url: String,
+    ///
     html_url: String,
+    /// * example - 42
     number: i64,
+    /// * example - open
     state: String,
+    /// * example - Widget creation fails in Safari on OS X 10.8
     title: String,
+    /// * example - It looks like the new widget form is broken on Safari. When I try and create the widget, Safari crashes. This is reproducible on 10.8, but not 10.9. Maybe a browser bug?
     body: String,
+    /// Simple User
     user: Value,
+    /// Simple User
     assignee: Value,
+    ///
     assignees: Vec<Value>,
+    /// A collection of related issues and pull requests.
     milestone: Value,
+    ///
     locked: bool,
+    ///
     active_lock_reason: String,
+    ///
     comments: i64,
+    ///
     pull_request: Value,
+    ///
     closed_at: String,
+    ///
     created_at: String,
+    ///
     updated_at: String,
+    ///
     draft: bool,
+    /// Simple User
     closed_by: Value,
+    ///
     body_html: String,
+    ///
     body_text: String,
+    ///
     timeline_url: String,
+    /// A git repository
     repository: Value,
+    /// GitHub apps are a new way to extend GitHub. They can be installed directly on organizations and user accounts and granted access to specific repositories. They come with granular permissions and built-in webhooks. GitHub apps are first class actors within GitHub.
     performed_via_github_app: Value,
+    /// * example - OWNER
     author_association: String,
+    ///
     reactions: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct DeleteReposownerrepoIssuesissueNumberAssigneesResponse {
+    ///
     id: i64,
+    ///
     node_id: String,
+    /// * example - https://api.github.com/repositories/42/issues/1
     url: String,
+    ///
     repository_url: String,
+    ///
     labels_url: String,
+    ///
     comments_url: String,
+    ///
     events_url: String,
+    ///
     html_url: String,
+    /// * example - 42
     number: i64,
+    /// * example - open
     state: String,
+    /// * example - Widget creation fails in Safari on OS X 10.8
     title: String,
+    /// * example - It looks like the new widget form is broken on Safari. When I try and create the widget, Safari crashes. This is reproducible on 10.8, but not 10.9. Maybe a browser bug?
     body: String,
+    /// Simple User
     user: Value,
+    /// Simple User
     assignee: Value,
+    ///
     assignees: Vec<Value>,
+    /// A collection of related issues and pull requests.
     milestone: Value,
+    ///
     locked: bool,
+    ///
     active_lock_reason: String,
+    ///
     comments: i64,
+    ///
     pull_request: Value,
+    ///
     closed_at: String,
+    ///
     created_at: String,
+    ///
     updated_at: String,
+    ///
     draft: bool,
+    /// Simple User
     closed_by: Value,
+    ///
     body_html: String,
+    ///
     body_text: String,
+    ///
     timeline_url: String,
+    /// A git repository
     repository: Value,
+    /// GitHub apps are a new way to extend GitHub. They can be installed directly on organizations and user accounts and granted access to specific repositories. They come with granular permissions and built-in webhooks. GitHub apps are first class actors within GitHub.
     performed_via_github_app: Value,
+    /// * example - OWNER
     author_association: String,
+    ///
     reactions: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PostReposownerrepoIssuesissueNumberReactionsResponse {
+    /// * example - 1
     id: i64,
+    /// * example - MDg6UmVhY3Rpb24x
     node_id: String,
+    /// Simple User
     user: Value,
+    /// * example - heart
     content: String,
+    /// * example - 2016-05-20T20:09:31Z
     created_at: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoKeyskeyIdResponse {
+    ///
     id: i64,
+    ///
     key: String,
+    ///
     url: String,
+    ///
     title: String,
+    ///
     verified: bool,
+    ///
     created_at: String,
+    ///
     read_only: bool,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoLabelsnameResponse {
+    /// * example - 208045946
     id: i64,
+    /// * example - MDU6TGFiZWwyMDgwNDU5NDY=
     node_id: String,
+    /// * example - https://api.github.com/repositories/42/labels/bug
     url: String,
+    /// * example - bug
     name: String,
+    /// * example - Something isn't working
     description: String,
+    /// * example - FFFFFF
     color: String,
+    /// * example - true
     default: bool,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PatchReposownerrepoLabelsnameResponse {
+    /// * example - 208045946
     id: i64,
+    /// * example - MDU6TGFiZWwyMDgwNDU5NDY=
     node_id: String,
+    /// * example - https://api.github.com/repositories/42/labels/bug
     url: String,
+    /// * example - bug
     name: String,
+    /// * example - Something isn't working
     description: String,
+    /// * example - FFFFFF
     color: String,
+    /// * example - true
     default: bool,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoLicenseResponse {
+    ///
     name: String,
+    ///
     path: String,
+    ///
     sha: String,
+    ///
     size: i64,
+    ///
     url: String,
+    ///
     html_url: String,
+    ///
     git_url: String,
+    ///
     download_url: String,
+    ///
     #[serde(rename = "type")]
     atype: String,
+    ///
     content: String,
+    ///
     encoding: String,
+    ///
     _links: Value,
+    /// License Simple
     license: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PostReposownerrepoMergeUpstreamResponse {
+    ///
     message: String,
+    ///
     merge_type: String,
+    ///
     base_branch: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoMilestonesmilestoneNumberResponse {
+    /// * example - https://api.github.com/repos/octocat/Hello-World/milestones/1
     url: String,
+    /// * example - https://github.com/octocat/Hello-World/milestones/v1.0
     html_url: String,
+    /// * example - https://api.github.com/repos/octocat/Hello-World/milestones/1/labels
     labels_url: String,
+    /// * example - 1002604
     id: i64,
+    /// * example - MDk6TWlsZXN0b25lMTAwMjYwNA==
     node_id: String,
+    /// * example - 42
     number: i64,
+    /// * example - open
     state: String,
+    /// * example - v1.0
     title: String,
+    /// * example - Tracking milestone for version 1.0
     description: String,
+    /// Simple User
     creator: Value,
+    /// * example - 4
     open_issues: i64,
+    /// * example - 8
     closed_issues: i64,
+    /// * example - 2011-04-10T20:09:31Z
     created_at: String,
+    /// * example - 2014-03-03T18:58:10Z
     updated_at: String,
+    /// * example - 2013-02-12T13:22:01Z
     closed_at: String,
+    /// * example - 2012-10-09T23:39:01Z
     due_on: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PatchReposownerrepoMilestonesmilestoneNumberResponse {
+    /// * example - https://api.github.com/repos/octocat/Hello-World/milestones/1
     url: String,
+    /// * example - https://github.com/octocat/Hello-World/milestones/v1.0
     html_url: String,
+    /// * example - https://api.github.com/repos/octocat/Hello-World/milestones/1/labels
     labels_url: String,
+    /// * example - 1002604
     id: i64,
+    /// * example - MDk6TWlsZXN0b25lMTAwMjYwNA==
     node_id: String,
+    /// * example - 42
     number: i64,
+    /// * example - open
     state: String,
+    /// * example - v1.0
     title: String,
+    /// * example - Tracking milestone for version 1.0
     description: String,
+    /// Simple User
     creator: Value,
+    /// * example - 4
     open_issues: i64,
+    /// * example - 8
     closed_issues: i64,
+    /// * example - 2011-04-10T20:09:31Z
     created_at: String,
+    /// * example - 2014-03-03T18:58:10Z
     updated_at: String,
+    /// * example - 2013-02-12T13:22:01Z
     closed_at: String,
+    /// * example - 2012-10-09T23:39:01Z
     due_on: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoPagesResponse {
+    /// * example - https://api.github.com/repos/github/hello-world/pages
     url: String,
+    /// * example - built
     status: String,
+    /// * example - example.com
     cname: String,
+    /// * example - pending
     protected_domain_state: String,
+    /// The timestamp when a pending domain becomes unverified.
     pending_domain_unverified_at: String,
+    /// Whether the Page has a custom 404 page.
     custom_404: bool,
+    /// * example - https://example.com
     html_url: String,
+    ///
     source: Value,
+    /// * example - true
     public: bool,
+    ///
     https_certificate: Value,
+    /// * example - true
     https_enforced: bool,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoPagesBuildsLatestResponse {
+    ///
     url: String,
+    ///
     status: String,
+    ///
     error: Value,
+    /// Simple User
     pusher: Value,
+    ///
     commit: String,
+    ///
     duration: i64,
+    ///
     created_at: String,
+    ///
     updated_at: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoPagesBuildsbuildIdResponse {
+    ///
     url: String,
+    ///
     status: String,
+    ///
     error: Value,
+    /// Simple User
     pusher: Value,
+    ///
     commit: String,
+    ///
     duration: i64,
+    ///
     created_at: String,
+    ///
     updated_at: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoPagesHealthResponse {
+    ///
     domain: Value,
+    ///
     alt_domain: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoPullsCommentscommentIdResponse {
+    /// * example - https://api.github.com/repos/octocat/Hello-World/pulls/comments/1
     url: String,
+    /// * example - 42
     pull_request_review_id: i64,
+    /// * example - 1
     id: i64,
+    /// * example - MDI0OlB1bGxSZXF1ZXN0UmV2aWV3Q29tbWVudDEw
     node_id: String,
+    /// * example - @@ -16,33 +16,40 @@ public class Connection : IConnection...
     diff_hunk: String,
+    /// * example - config/database.yaml
     path: String,
+    /// * example - 1
     position: i64,
+    /// * example - 4
     original_position: i64,
+    /// * example - 6dcb09b5b57875f334f61aebed695e2e4193db5e
     commit_id: String,
+    /// * example - 9c48853fa3dc5c1c3d6f1f1cd1f2743e72652840
     original_commit_id: String,
+    /// * example - 8
     in_reply_to_id: i64,
+    /// Simple User
     user: Value,
+    /// * example - We should probably include a check for null values here.
     body: String,
+    /// * example - 2011-04-14T16:00:49Z
     created_at: String,
+    /// * example - 2011-04-14T16:00:49Z
     updated_at: String,
+    /// * example - https://github.com/octocat/Hello-World/pull/1#discussion-diff-1
     html_url: String,
+    /// * example - https://api.github.com/repos/octocat/Hello-World/pulls/1
     pull_request_url: String,
+    /// * example - OWNER
     author_association: String,
+    ///
     _links: Value,
+    /// * example - 2
     start_line: i64,
+    /// * example - 2
     original_start_line: i64,
+    /// The side of the first line of the range for a multi-line comment.
     start_side: String,
+    /// * example - 2
     line: i64,
+    /// * example - 2
     original_line: i64,
+    /// The side of the diff to which the comment applies. The side of the last line of the range for a multi-line comment
     side: String,
+    ///
     reactions: Value,
+    /// * example - "<p>comment body</p>"
     body_html: String,
+    /// * example - "comment body"
     body_text: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PatchReposownerrepoPullsCommentscommentIdResponse {
+    /// * example - https://api.github.com/repos/octocat/Hello-World/pulls/comments/1
     url: String,
+    /// * example - 42
     pull_request_review_id: i64,
+    /// * example - 1
     id: i64,
+    /// * example - MDI0OlB1bGxSZXF1ZXN0UmV2aWV3Q29tbWVudDEw
     node_id: String,
+    /// * example - @@ -16,33 +16,40 @@ public class Connection : IConnection...
     diff_hunk: String,
+    /// * example - config/database.yaml
     path: String,
+    /// * example - 1
     position: i64,
+    /// * example - 4
     original_position: i64,
+    /// * example - 6dcb09b5b57875f334f61aebed695e2e4193db5e
     commit_id: String,
+    /// * example - 9c48853fa3dc5c1c3d6f1f1cd1f2743e72652840
     original_commit_id: String,
+    /// * example - 8
     in_reply_to_id: i64,
+    /// Simple User
     user: Value,
+    /// * example - We should probably include a check for null values here.
     body: String,
+    /// * example - 2011-04-14T16:00:49Z
     created_at: String,
+    /// * example - 2011-04-14T16:00:49Z
     updated_at: String,
+    /// * example - https://github.com/octocat/Hello-World/pull/1#discussion-diff-1
     html_url: String,
+    /// * example - https://api.github.com/repos/octocat/Hello-World/pulls/1
     pull_request_url: String,
+    /// * example - OWNER
     author_association: String,
+    ///
     _links: Value,
+    /// * example - 2
     start_line: i64,
+    /// * example - 2
     original_start_line: i64,
+    /// The side of the first line of the range for a multi-line comment.
     start_side: String,
+    /// * example - 2
     line: i64,
+    /// * example - 2
     original_line: i64,
+    /// The side of the diff to which the comment applies. The side of the last line of the range for a multi-line comment
     side: String,
+    ///
     reactions: Value,
+    /// * example - "<p>comment body</p>"
     body_html: String,
+    /// * example - "comment body"
     body_text: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PostReposownerrepoPullsCommentscommentIdReactionsResponse {
+    /// * example - 1
     id: i64,
+    /// * example - MDg6UmVhY3Rpb24x
     node_id: String,
+    /// Simple User
     user: Value,
+    /// * example - heart
     content: String,
+    /// * example - 2016-05-20T20:09:31Z
     created_at: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoPullspullNumberResponse {
+    /// * example - https://api.github.com/repos/octocat/Hello-World/pulls/1347
     url: String,
+    /// * example - 1
     id: i64,
+    /// * example - MDExOlB1bGxSZXF1ZXN0MQ==
     node_id: String,
+    /// * example - https://github.com/octocat/Hello-World/pull/1347
     html_url: String,
+    /// * example - https://github.com/octocat/Hello-World/pull/1347.diff
     diff_url: String,
+    /// * example - https://github.com/octocat/Hello-World/pull/1347.patch
     patch_url: String,
+    /// * example - https://api.github.com/repos/octocat/Hello-World/issues/1347
     issue_url: String,
+    /// * example - https://api.github.com/repos/octocat/Hello-World/pulls/1347/commits
     commits_url: String,
+    /// * example - https://api.github.com/repos/octocat/Hello-World/pulls/1347/comments
     review_comments_url: String,
+    /// * example - https://api.github.com/repos/octocat/Hello-World/pulls/comments{/number}
     review_comment_url: String,
+    /// * example - https://api.github.com/repos/octocat/Hello-World/issues/1347/comments
     comments_url: String,
+    /// * example - https://api.github.com/repos/octocat/Hello-World/statuses/6dcb09b5b57875f334f61aebed695e2e4193db5e
     statuses_url: String,
+    /// * example - 42
     number: i64,
+    /// * example - open
     state: String,
+    /// * example - true
     locked: bool,
+    /// * example - Amazing new feature
     title: String,
+    /// Simple User
     user: Value,
+    /// * example - Please pull these awesome changes
     body: String,
+    ///
     labels: Vec<Value>,
+    /// A collection of related issues and pull requests.
     milestone: Value,
+    /// * example - too heated
     active_lock_reason: String,
+    /// * example - 2011-01-26T19:01:12Z
     created_at: String,
+    /// * example - 2011-01-26T19:01:12Z
     updated_at: String,
+    /// * example - 2011-01-26T19:01:12Z
     closed_at: String,
+    /// * example - 2011-01-26T19:01:12Z
     merged_at: String,
+    /// * example - e5bd3914e2e596debea16f433f57875b5b90bcd6
     merge_commit_sha: String,
+    /// Simple User
     assignee: Value,
+    ///
     assignees: Vec<Value>,
+    ///
     requested_reviewers: Vec<Value>,
+    ///
     requested_teams: Vec<Value>,
+    ///
     head: Value,
+    ///
     base: Value,
+    ///
     _links: Value,
+    /// * example - OWNER
     author_association: String,
+    /// The status of auto merging a pull request.
     auto_merge: Value,
+    /// Indicates whether or not the pull request is a draft.
     draft: bool,
+    ///
     merged: bool,
+    /// * example - true
     mergeable: bool,
+    /// * example - true
     rebaseable: bool,
+    /// * example - clean
     mergeable_state: String,
+    /// Simple User
     merged_by: Value,
+    /// * example - 10
     comments: i64,
+    ///
     review_comments: i64,
+    /// * example - true
     maintainer_can_modify: bool,
+    /// * example - 3
     commits: i64,
+    /// * example - 100
     additions: i64,
+    /// * example - 3
     deletions: i64,
+    /// * example - 5
     changed_files: i64,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PatchReposownerrepoPullspullNumberResponse {
+    /// * example - https://api.github.com/repos/octocat/Hello-World/pulls/1347
     url: String,
+    /// * example - 1
     id: i64,
+    /// * example - MDExOlB1bGxSZXF1ZXN0MQ==
     node_id: String,
+    /// * example - https://github.com/octocat/Hello-World/pull/1347
     html_url: String,
+    /// * example - https://github.com/octocat/Hello-World/pull/1347.diff
     diff_url: String,
+    /// * example - https://github.com/octocat/Hello-World/pull/1347.patch
     patch_url: String,
+    /// * example - https://api.github.com/repos/octocat/Hello-World/issues/1347
     issue_url: String,
+    /// * example - https://api.github.com/repos/octocat/Hello-World/pulls/1347/commits
     commits_url: String,
+    /// * example - https://api.github.com/repos/octocat/Hello-World/pulls/1347/comments
     review_comments_url: String,
+    /// * example - https://api.github.com/repos/octocat/Hello-World/pulls/comments{/number}
     review_comment_url: String,
+    /// * example - https://api.github.com/repos/octocat/Hello-World/issues/1347/comments
     comments_url: String,
+    /// * example - https://api.github.com/repos/octocat/Hello-World/statuses/6dcb09b5b57875f334f61aebed695e2e4193db5e
     statuses_url: String,
+    /// * example - 42
     number: i64,
+    /// * example - open
     state: String,
+    /// * example - true
     locked: bool,
+    /// * example - Amazing new feature
     title: String,
+    /// Simple User
     user: Value,
+    /// * example - Please pull these awesome changes
     body: String,
+    ///
     labels: Vec<Value>,
+    /// A collection of related issues and pull requests.
     milestone: Value,
+    /// * example - too heated
     active_lock_reason: String,
+    /// * example - 2011-01-26T19:01:12Z
     created_at: String,
+    /// * example - 2011-01-26T19:01:12Z
     updated_at: String,
+    /// * example - 2011-01-26T19:01:12Z
     closed_at: String,
+    /// * example - 2011-01-26T19:01:12Z
     merged_at: String,
+    /// * example - e5bd3914e2e596debea16f433f57875b5b90bcd6
     merge_commit_sha: String,
+    /// Simple User
     assignee: Value,
+    ///
     assignees: Vec<Value>,
+    ///
     requested_reviewers: Vec<Value>,
+    ///
     requested_teams: Vec<Value>,
+    ///
     head: Value,
+    ///
     base: Value,
+    ///
     _links: Value,
+    /// * example - OWNER
     author_association: String,
+    /// The status of auto merging a pull request.
     auto_merge: Value,
+    /// Indicates whether or not the pull request is a draft.
     draft: bool,
+    ///
     merged: bool,
+    /// * example - true
     mergeable: bool,
+    /// * example - true
     rebaseable: bool,
+    /// * example - clean
     mergeable_state: String,
+    /// Simple User
     merged_by: Value,
+    /// * example - 10
     comments: i64,
+    ///
     review_comments: i64,
+    /// * example - true
     maintainer_can_modify: bool,
+    /// * example - 3
     commits: i64,
+    /// * example - 100
     additions: i64,
+    /// * example - 3
     deletions: i64,
+    /// * example - 5
     changed_files: i64,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PutReposownerrepoPullspullNumberMergeResponse {
+    ///
     sha: String,
+    ///
     merged: bool,
+    ///
     message: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoPullspullNumberRequestedReviewersResponse {
+    ///
     users: Vec<Value>,
+    ///
     teams: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct DeleteReposownerrepoPullspullNumberRequestedReviewersResponse {
+    /// * example - https://api.github.com/repos/octocat/Hello-World/pulls/1347
     url: String,
+    /// * example - 1
     id: i64,
+    /// * example - MDExOlB1bGxSZXF1ZXN0MQ==
     node_id: String,
+    /// * example - https://github.com/octocat/Hello-World/pull/1347
     html_url: String,
+    /// * example - https://github.com/octocat/Hello-World/pull/1347.diff
     diff_url: String,
+    /// * example - https://github.com/octocat/Hello-World/pull/1347.patch
     patch_url: String,
+    /// * example - https://api.github.com/repos/octocat/Hello-World/issues/1347
     issue_url: String,
+    /// * example - https://api.github.com/repos/octocat/Hello-World/pulls/1347/commits
     commits_url: String,
+    /// * example - https://api.github.com/repos/octocat/Hello-World/pulls/1347/comments
     review_comments_url: String,
+    /// * example - https://api.github.com/repos/octocat/Hello-World/pulls/comments{/number}
     review_comment_url: String,
+    /// * example - https://api.github.com/repos/octocat/Hello-World/issues/1347/comments
     comments_url: String,
+    /// * example - https://api.github.com/repos/octocat/Hello-World/statuses/6dcb09b5b57875f334f61aebed695e2e4193db5e
     statuses_url: String,
+    /// * example - 1347
     number: i64,
+    /// * example - open
     state: String,
+    /// * example - true
     locked: bool,
+    /// * example - new-feature
     title: String,
+    /// Simple User
     user: Value,
+    /// * example - Please pull these awesome changes
     body: String,
+    ///
     labels: Vec<Value>,
+    /// A collection of related issues and pull requests.
     milestone: Value,
+    /// * example - too heated
     active_lock_reason: String,
+    /// * example - 2011-01-26T19:01:12Z
     created_at: String,
+    /// * example - 2011-01-26T19:01:12Z
     updated_at: String,
+    /// * example - 2011-01-26T19:01:12Z
     closed_at: String,
+    /// * example - 2011-01-26T19:01:12Z
     merged_at: String,
+    /// * example - e5bd3914e2e596debea16f433f57875b5b90bcd6
     merge_commit_sha: String,
+    /// Simple User
     assignee: Value,
+    ///
     assignees: Vec<Value>,
+    ///
     requested_reviewers: Vec<Value>,
+    ///
     requested_teams: Vec<Value>,
+    ///
     head: Value,
+    ///
     base: Value,
+    ///
     _links: Value,
+    /// * example - OWNER
     author_association: String,
+    /// The status of auto merging a pull request.
     auto_merge: Value,
+    /// Indicates whether or not the pull request is a draft.
     draft: bool,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PostReposownerrepoPullspullNumberReviewsResponse {
+    /// * example - 42
     id: i64,
+    /// * example - MDE3OlB1bGxSZXF1ZXN0UmV2aWV3ODA=
     node_id: String,
+    /// Simple User
     user: Value,
+    /// * example - This looks great.
     body: String,
+    /// * example - CHANGES_REQUESTED
     state: String,
+    /// * example - https://github.com/octocat/Hello-World/pull/12#pullrequestreview-80
     html_url: String,
+    /// * example - https://api.github.com/repos/octocat/Hello-World/pulls/12
     pull_request_url: String,
+    ///
     _links: Value,
+    ///
     submitted_at: String,
+    /// * example - 54bb654c9e6025347f57900a4a5c2313a96b8035
     commit_id: String,
+    ///
     body_html: String,
+    ///
     body_text: String,
+    /// * example - OWNER
     author_association: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoPullspullNumberReviewsreviewIdResponse {
+    /// * example - 42
     id: i64,
+    /// * example - MDE3OlB1bGxSZXF1ZXN0UmV2aWV3ODA=
     node_id: String,
+    /// Simple User
     user: Value,
+    /// * example - This looks great.
     body: String,
+    /// * example - CHANGES_REQUESTED
     state: String,
+    /// * example - https://github.com/octocat/Hello-World/pull/12#pullrequestreview-80
     html_url: String,
+    /// * example - https://api.github.com/repos/octocat/Hello-World/pulls/12
     pull_request_url: String,
+    ///
     _links: Value,
+    ///
     submitted_at: String,
+    /// * example - 54bb654c9e6025347f57900a4a5c2313a96b8035
     commit_id: String,
+    ///
     body_html: String,
+    ///
     body_text: String,
+    /// * example - OWNER
     author_association: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PutReposownerrepoPullspullNumberReviewsreviewIdResponse {
+    /// * example - 42
     id: i64,
+    /// * example - MDE3OlB1bGxSZXF1ZXN0UmV2aWV3ODA=
     node_id: String,
+    /// Simple User
     user: Value,
+    /// * example - This looks great.
     body: String,
+    /// * example - CHANGES_REQUESTED
     state: String,
+    /// * example - https://github.com/octocat/Hello-World/pull/12#pullrequestreview-80
     html_url: String,
+    /// * example - https://api.github.com/repos/octocat/Hello-World/pulls/12
     pull_request_url: String,
+    ///
     _links: Value,
+    ///
     submitted_at: String,
+    /// * example - 54bb654c9e6025347f57900a4a5c2313a96b8035
     commit_id: String,
+    ///
     body_html: String,
+    ///
     body_text: String,
+    /// * example - OWNER
     author_association: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct DeleteReposownerrepoPullspullNumberReviewsreviewIdResponse {
+    /// * example - 42
     id: i64,
+    /// * example - MDE3OlB1bGxSZXF1ZXN0UmV2aWV3ODA=
     node_id: String,
+    /// Simple User
     user: Value,
+    /// * example - This looks great.
     body: String,
+    /// * example - CHANGES_REQUESTED
     state: String,
+    /// * example - https://github.com/octocat/Hello-World/pull/12#pullrequestreview-80
     html_url: String,
+    /// * example - https://api.github.com/repos/octocat/Hello-World/pulls/12
     pull_request_url: String,
+    ///
     _links: Value,
+    ///
     submitted_at: String,
+    /// * example - 54bb654c9e6025347f57900a4a5c2313a96b8035
     commit_id: String,
+    ///
     body_html: String,
+    ///
     body_text: String,
+    /// * example - OWNER
     author_association: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PutReposownerrepoPullspullNumberReviewsreviewIdDismissalsResponse {
+    /// * example - 42
     id: i64,
+    /// * example - MDE3OlB1bGxSZXF1ZXN0UmV2aWV3ODA=
     node_id: String,
+    /// Simple User
     user: Value,
+    /// * example - This looks great.
     body: String,
+    /// * example - CHANGES_REQUESTED
     state: String,
+    /// * example - https://github.com/octocat/Hello-World/pull/12#pullrequestreview-80
     html_url: String,
+    /// * example - https://api.github.com/repos/octocat/Hello-World/pulls/12
     pull_request_url: String,
+    ///
     _links: Value,
+    ///
     submitted_at: String,
+    /// * example - 54bb654c9e6025347f57900a4a5c2313a96b8035
     commit_id: String,
+    ///
     body_html: String,
+    ///
     body_text: String,
+    /// * example - OWNER
     author_association: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PostReposownerrepoPullspullNumberReviewsreviewIdEventsResponse {
+    /// * example - 42
     id: i64,
+    /// * example - MDE3OlB1bGxSZXF1ZXN0UmV2aWV3ODA=
     node_id: String,
+    /// Simple User
     user: Value,
+    /// * example - This looks great.
     body: String,
+    /// * example - CHANGES_REQUESTED
     state: String,
+    /// * example - https://github.com/octocat/Hello-World/pull/12#pullrequestreview-80
     html_url: String,
+    /// * example - https://api.github.com/repos/octocat/Hello-World/pulls/12
     pull_request_url: String,
+    ///
     _links: Value,
+    ///
     submitted_at: String,
+    /// * example - 54bb654c9e6025347f57900a4a5c2313a96b8035
     commit_id: String,
+    ///
     body_html: String,
+    ///
     body_text: String,
+    /// * example - OWNER
     author_association: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoReadmeResponse {
+    ///
     #[serde(rename = "type")]
     atype: String,
+    ///
     encoding: String,
+    ///
     size: i64,
+    ///
     name: String,
+    ///
     path: String,
+    ///
     content: String,
+    ///
     sha: String,
+    ///
     url: String,
+    ///
     git_url: String,
+    ///
     html_url: String,
+    ///
     download_url: String,
+    ///
     _links: Value,
+    /// * example - "actual/actual.md"
     target: String,
+    /// * example - "git://example.com/defunkt/dotjs.git"
     submodule_git_url: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoReadmedirResponse {
+    ///
     #[serde(rename = "type")]
     atype: String,
+    ///
     encoding: String,
+    ///
     size: i64,
+    ///
     name: String,
+    ///
     path: String,
+    ///
     content: String,
+    ///
     sha: String,
+    ///
     url: String,
+    ///
     git_url: String,
+    ///
     html_url: String,
+    ///
     download_url: String,
+    ///
     _links: Value,
+    /// * example - "actual/actual.md"
     target: String,
+    /// * example - "git://example.com/defunkt/dotjs.git"
     submodule_git_url: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoReleasesAssetsassetIdResponse {
+    ///
     url: String,
+    ///
     browser_download_url: String,
+    ///
     id: i64,
+    ///
     node_id: String,
+    /// * example - Team Environment
     name: String,
+    ///
     label: String,
+    /// State of the release asset.
     state: String,
+    ///
     content_type: String,
+    ///
     size: i64,
+    ///
     download_count: i64,
+    ///
     created_at: String,
+    ///
     updated_at: String,
+    /// Simple User
     uploader: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PatchReposownerrepoReleasesAssetsassetIdResponse {
+    ///
     url: String,
+    ///
     browser_download_url: String,
+    ///
     id: i64,
+    ///
     node_id: String,
+    /// * example - Team Environment
     name: String,
+    ///
     label: String,
+    /// State of the release asset.
     state: String,
+    ///
     content_type: String,
+    ///
     size: i64,
+    ///
     download_count: i64,
+    ///
     created_at: String,
+    ///
     updated_at: String,
+    /// Simple User
     uploader: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PostReposownerrepoReleasesGenerateNotesResponse {
+    /// * example - Release v1.0.0 is now available!
     name: String,
+    /// The generated body describing the contents of the release supporting markdown formatting
     body: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoReleasesLatestResponse {
+    ///
     url: String,
+    ///
     html_url: String,
+    ///
     assets_url: String,
+    ///
     upload_url: String,
+    ///
     tarball_url: String,
+    ///
     zipball_url: String,
+    ///
     id: i64,
+    ///
     node_id: String,
+    /// * example - v1.0.0
     tag_name: String,
+    /// * example - master
     target_commitish: String,
+    ///
     name: String,
+    ///
     body: String,
+    /// true to create a draft (unpublished) release, false to create a published one.
     draft: bool,
+    /// Whether to identify the release as a prerelease or a full release.
     prerelease: bool,
+    ///
     created_at: String,
+    ///
     published_at: String,
+    /// Simple User
     author: Value,
+    ///
     assets: Vec<Value>,
+    ///
     body_html: String,
+    ///
     body_text: String,
+    ///
     mentions_count: i64,
+    /// The URL of the release discussion.
     discussion_url: String,
+    ///
     reactions: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoReleasesTagstagResponse {
+    ///
     url: String,
+    ///
     html_url: String,
+    ///
     assets_url: String,
+    ///
     upload_url: String,
+    ///
     tarball_url: String,
+    ///
     zipball_url: String,
+    ///
     id: i64,
+    ///
     node_id: String,
+    /// * example - v1.0.0
     tag_name: String,
+    /// * example - master
     target_commitish: String,
+    ///
     name: String,
+    ///
     body: String,
+    /// true to create a draft (unpublished) release, false to create a published one.
     draft: bool,
+    /// Whether to identify the release as a prerelease or a full release.
     prerelease: bool,
+    ///
     created_at: String,
+    ///
     published_at: String,
+    /// Simple User
     author: Value,
+    ///
     assets: Vec<Value>,
+    ///
     body_html: String,
+    ///
     body_text: String,
+    ///
     mentions_count: i64,
+    /// The URL of the release discussion.
     discussion_url: String,
+    ///
     reactions: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoReleasesreleaseIdResponse {
+    ///
     url: String,
+    ///
     html_url: String,
+    ///
     assets_url: String,
+    ///
     upload_url: String,
+    ///
     tarball_url: String,
+    ///
     zipball_url: String,
+    ///
     id: i64,
+    ///
     node_id: String,
+    /// * example - v1.0.0
     tag_name: String,
+    /// * example - master
     target_commitish: String,
+    ///
     name: String,
+    ///
     body: String,
+    /// true to create a draft (unpublished) release, false to create a published one.
     draft: bool,
+    /// Whether to identify the release as a prerelease or a full release.
     prerelease: bool,
+    ///
     created_at: String,
+    ///
     published_at: String,
+    /// Simple User
     author: Value,
+    ///
     assets: Vec<Value>,
+    ///
     body_html: String,
+    ///
     body_text: String,
+    ///
     mentions_count: i64,
+    /// The URL of the release discussion.
     discussion_url: String,
+    ///
     reactions: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PatchReposownerrepoReleasesreleaseIdResponse {
+    ///
     url: String,
+    ///
     html_url: String,
+    ///
     assets_url: String,
+    ///
     upload_url: String,
+    ///
     tarball_url: String,
+    ///
     zipball_url: String,
+    ///
     id: i64,
+    ///
     node_id: String,
+    /// * example - v1.0.0
     tag_name: String,
+    /// * example - master
     target_commitish: String,
+    ///
     name: String,
+    ///
     body: String,
+    /// true to create a draft (unpublished) release, false to create a published one.
     draft: bool,
+    /// Whether to identify the release as a prerelease or a full release.
     prerelease: bool,
+    ///
     created_at: String,
+    ///
     published_at: String,
+    /// Simple User
     author: Value,
+    ///
     assets: Vec<Value>,
+    ///
     body_html: String,
+    ///
     body_text: String,
+    ///
     mentions_count: i64,
+    /// The URL of the release discussion.
     discussion_url: String,
+    ///
     reactions: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PostReposownerrepoReleasesreleaseIdReactionsResponse {
+    /// * example - 1
     id: i64,
+    /// * example - MDg6UmVhY3Rpb24x
     node_id: String,
+    /// Simple User
     user: Value,
+    /// * example - heart
     content: String,
+    /// * example - 2016-05-20T20:09:31Z
     created_at: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoSecretScanningAlertsalertNumberResponse {
+    /// The security alert number.
     number: i64,
+    /// The time that the alert was created in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.
     created_at: String,
+    /// The REST API URL of the alert resource.
     url: String,
+    /// The GitHub URL of the alert resource.
     html_url: String,
+    /// The REST API URL of the code locations for this alert.
     locations_url: String,
+    /// Sets the state of the secret scanning alert. Can be either `open` or `resolved`. You must provide `resolution` when you set the state to `resolved`.
     state: String,
+    /// **Required when the `state` is `resolved`.** The reason for resolving the alert. Can be one of `false_positive`, `wont_fix`, `revoked`, or `used_in_tests`.
     resolution: String,
+    /// The time that the alert was resolved in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.
     resolved_at: String,
+    /// Simple User
     resolved_by: Value,
+    /// The type of secret that secret scanning detected.
     secret_type: String,
+    /// The secret that was detected.
     secret: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PatchReposownerrepoSecretScanningAlertsalertNumberResponse {
+    /// The security alert number.
     number: i64,
+    /// The time that the alert was created in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.
     created_at: String,
+    /// The REST API URL of the alert resource.
     url: String,
+    /// The GitHub URL of the alert resource.
     html_url: String,
+    /// The REST API URL of the code locations for this alert.
     locations_url: String,
+    /// Sets the state of the secret scanning alert. Can be either `open` or `resolved`. You must provide `resolution` when you set the state to `resolved`.
     state: String,
+    /// **Required when the `state` is `resolved`.** The reason for resolving the alert. Can be one of `false_positive`, `wont_fix`, `revoked`, or `used_in_tests`.
     resolution: String,
+    /// The time that the alert was resolved in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.
     resolved_at: String,
+    /// Simple User
     resolved_by: Value,
+    /// The type of secret that secret scanning detected.
     secret_type: String,
+    /// The secret that was detected.
     secret: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoStatsParticipationResponse {
+    ///
     all: Vec<i64>,
+    ///
     owner: Vec<i64>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoSubscriptionResponse {
+    /// * example - true
     subscribed: bool,
+    /// Determines if all notifications should be blocked from this repository.
     ignored: bool,
+    ///
     reason: String,
+    /// * example - 2012-10-06T21:34:12Z
     created_at: String,
+    /// * example - https://api.github.com/repos/octocat/example/subscription
     url: String,
+    /// * example - https://api.github.com/repos/octocat/example
     repository_url: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PutReposownerrepoSubscriptionResponse {
+    /// * example - true
     subscribed: bool,
+    /// Determines if all notifications should be blocked from this repository.
     ignored: bool,
+    ///
     reason: String,
+    /// * example - 2012-10-06T21:34:12Z
     created_at: String,
+    /// * example - https://api.github.com/repos/octocat/example/subscription
     url: String,
+    /// * example - https://api.github.com/repos/octocat/example
     repository_url: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoTopicsResponse {
+    ///
     names: Vec<String>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PutReposownerrepoTopicsResponse {
+    ///
     names: Vec<String>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoTrafficClonesResponse {
+    /// * example - 173
     count: i64,
+    /// * example - 128
     uniques: i64,
+    ///
     clones: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoTrafficViewsResponse {
+    /// * example - 14850
     count: i64,
+    /// * example - 3782
     uniques: i64,
+    ///
     views: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetRepositoriesrepositoryIdEnvironmentsenvironmentNameSecretsResponse {
+    ///
     total_count: i64,
+    ///
     secrets: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetRepositoriesrepositoryIdEnvironmentsenvironmentNameSecretsPublicKeyResponse {
+    /// * example - 1234567
     key_id: String,
+    /// * example - hBT5WZEj8ZoOv6TYJsfWq7MxTEQopZO5/IT3ZCVQPzs=
     key: String,
+    /// * example - 2
     id: i64,
+    /// * example - https://api.github.com/user/keys/2
     url: String,
+    /// * example - ssh-rsa AAAAB3NzaC1yc2EAAA
     title: String,
+    /// * example - 2011-01-26T19:01:12Z
     created_at: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetRepositoriesrepositoryIdEnvironmentsenvironmentNameSecretssecretNameResponse {
+    /// * example - SECRET_TOKEN
     name: String,
+    ///
     created_at: String,
+    ///
     updated_at: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetScimV2EnterprisesenterpriseGroupsResponse {
+    ///
     schemas: Vec<String>,
+    ///
     totalResults: f64,
+    ///
     itemsPerPage: f64,
+    ///
     startIndex: f64,
+    ///
     Resources: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetScimV2EnterprisesenterpriseGroupsscimGroupIdResponse {
+    ///
     schemas: Vec<String>,
+    ///
     id: String,
+    ///
     externalId: String,
+    ///
     displayName: String,
+    ///
     members: Vec<Value>,
+    ///
     meta: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PutScimV2EnterprisesenterpriseGroupsscimGroupIdResponse {
+    ///
     schemas: Vec<String>,
+    ///
     id: String,
+    ///
     externalId: String,
+    ///
     displayName: String,
+    ///
     members: Vec<Value>,
+    ///
     meta: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PatchScimV2EnterprisesenterpriseGroupsscimGroupIdResponse {
+    ///
     schemas: Vec<String>,
+    ///
     id: String,
+    ///
     externalId: String,
+    ///
     displayName: String,
+    ///
     members: Vec<Value>,
+    ///
     meta: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetScimV2EnterprisesenterpriseUsersResponse {
+    ///
     schemas: Vec<String>,
+    ///
     totalResults: f64,
+    ///
     itemsPerPage: f64,
+    ///
     startIndex: f64,
+    ///
     Resources: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetScimV2EnterprisesenterpriseUsersscimUserIdResponse {
+    ///
     schemas: Vec<String>,
+    ///
     id: String,
+    ///
     externalId: String,
+    ///
     userName: String,
+    ///
     name: Value,
+    ///
     emails: Vec<Value>,
+    ///
     groups: Vec<Value>,
+    ///
     active: bool,
+    ///
     meta: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PutScimV2EnterprisesenterpriseUsersscimUserIdResponse {
+    ///
     schemas: Vec<String>,
+    ///
     id: String,
+    ///
     externalId: String,
+    ///
     userName: String,
+    ///
     name: Value,
+    ///
     emails: Vec<Value>,
+    ///
     groups: Vec<Value>,
+    ///
     active: bool,
+    ///
     meta: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PatchScimV2EnterprisesenterpriseUsersscimUserIdResponse {
+    ///
     schemas: Vec<String>,
+    ///
     id: String,
+    ///
     externalId: String,
+    ///
     userName: String,
+    ///
     name: Value,
+    ///
     emails: Vec<Value>,
+    ///
     groups: Vec<Value>,
+    ///
     active: bool,
+    ///
     meta: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetSearchCodeResponse {
+    ///
     total_count: i64,
+    ///
     incomplete_results: bool,
+    ///
     items: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetSearchCommitsResponse {
+    ///
     total_count: i64,
+    ///
     incomplete_results: bool,
+    ///
     items: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetSearchIssuesResponse {
+    ///
     total_count: i64,
+    ///
     incomplete_results: bool,
+    ///
     items: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetSearchLabelsResponse {
+    ///
     total_count: i64,
+    ///
     incomplete_results: bool,
+    ///
     items: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetSearchRepositoriesResponse {
+    ///
     total_count: i64,
+    ///
     incomplete_results: bool,
+    ///
     items: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetSearchTopicsResponse {
+    ///
     total_count: i64,
+    ///
     incomplete_results: bool,
+    ///
     items: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetSearchUsersResponse {
+    ///
     total_count: i64,
+    ///
     incomplete_results: bool,
+    ///
     items: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetTeamsteamIdResponse {
+    /// * example - 42
     id: i64,
+    /// * example - MDQ6VGVhbTE=
     node_id: String,
+    /// * example - https://api.github.com/organizations/1/team/1
     url: String,
+    /// * example - https://github.com/orgs/rails/teams/core
     html_url: String,
+    /// * example - Developers
     name: String,
+    /// * example - justice-league
     slug: String,
+    /// * example - A great team.
     description: String,
+    /// * example - closed
     privacy: String,
+    /// * example - push
     permission: String,
+    /// * example - https://api.github.com/organizations/1/team/1/members{/member}
     members_url: String,
+    /// * example - https://api.github.com/organizations/1/team/1/repos
     repositories_url: String,
+    /// Groups of organization members that gives permissions on specified repositories.
     parent: Value,
+    /// * example - 3
     members_count: i64,
+    /// * example - 10
     repos_count: i64,
+    /// * example - 2017-07-14T16:53:42Z
     created_at: String,
+    /// * example - 2017-08-17T12:37:15Z
     updated_at: String,
+    /// Organization Full
     organization: Value,
+    /// * example - uid=example,ou=users,dc=github,dc=com
     ldap_dn: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PatchTeamsteamIdResponse {
+    /// * example - 42
     id: i64,
+    /// * example - MDQ6VGVhbTE=
     node_id: String,
+    /// * example - https://api.github.com/organizations/1/team/1
     url: String,
+    /// * example - https://github.com/orgs/rails/teams/core
     html_url: String,
+    /// * example - Developers
     name: String,
+    /// * example - justice-league
     slug: String,
+    /// * example - A great team.
     description: String,
+    /// * example - closed
     privacy: String,
+    /// * example - push
     permission: String,
+    /// * example - https://api.github.com/organizations/1/team/1/members{/member}
     members_url: String,
+    /// * example - https://api.github.com/organizations/1/team/1/repos
     repositories_url: String,
+    /// Groups of organization members that gives permissions on specified repositories.
     parent: Value,
+    /// * example - 3
     members_count: i64,
+    /// * example - 10
     repos_count: i64,
+    /// * example - 2017-07-14T16:53:42Z
     created_at: String,
+    /// * example - 2017-08-17T12:37:15Z
     updated_at: String,
+    /// Organization Full
     organization: Value,
+    /// * example - uid=example,ou=users,dc=github,dc=com
     ldap_dn: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetTeamsteamIdDiscussionsdiscussionNumberResponse {
+    /// Simple User
     author: Value,
+    /// * example - Please suggest improvements to our workflow in comments.
     body: String,
+    /// * example - <p>Hi! This is an area for us to collaborate as a team</p>
     body_html: String,
+    /// * example - 0307116bbf7ced493b8d8a346c650b71
     body_version: String,
+    ///
     comments_count: i64,
+    /// * example - https://api.github.com/organizations/1/team/2343027/discussions/1/comments
     comments_url: String,
+    /// * example - 2018-01-25T18:56:31Z
     created_at: String,
+    ///
     last_edited_at: String,
+    /// * example - https://github.com/orgs/github/teams/justice-league/discussions/1
     html_url: String,
+    /// * example - MDE0OlRlYW1EaXNjdXNzaW9uMQ==
     node_id: String,
+    /// * example - 42
     number: i64,
+    /// * example - true
     pinned: bool,
+    /// * example - true
     private: bool,
+    /// * example - https://api.github.com/organizations/1/team/2343027
     team_url: String,
+    /// * example - How can we improve our workflow?
     title: String,
+    /// * example - 2018-01-25T18:56:31Z
     updated_at: String,
+    /// * example - https://api.github.com/organizations/1/team/2343027/discussions/1
     url: String,
+    ///
     reactions: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PatchTeamsteamIdDiscussionsdiscussionNumberResponse {
+    /// Simple User
     author: Value,
+    /// * example - Please suggest improvements to our workflow in comments.
     body: String,
+    /// * example - <p>Hi! This is an area for us to collaborate as a team</p>
     body_html: String,
+    /// * example - 0307116bbf7ced493b8d8a346c650b71
     body_version: String,
+    ///
     comments_count: i64,
+    /// * example - https://api.github.com/organizations/1/team/2343027/discussions/1/comments
     comments_url: String,
+    /// * example - 2018-01-25T18:56:31Z
     created_at: String,
+    ///
     last_edited_at: String,
+    /// * example - https://github.com/orgs/github/teams/justice-league/discussions/1
     html_url: String,
+    /// * example - MDE0OlRlYW1EaXNjdXNzaW9uMQ==
     node_id: String,
+    /// * example - 42
     number: i64,
+    /// * example - true
     pinned: bool,
+    /// * example - true
     private: bool,
+    /// * example - https://api.github.com/organizations/1/team/2343027
     team_url: String,
+    /// * example - How can we improve our workflow?
     title: String,
+    /// * example - 2018-01-25T18:56:31Z
     updated_at: String,
+    /// * example - https://api.github.com/organizations/1/team/2343027/discussions/1
     url: String,
+    ///
     reactions: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetTeamsteamIdDiscussionsdiscussionNumberCommentscommentNumberResponse {
+    /// Simple User
     author: Value,
+    /// * example - I agree with this suggestion.
     body: String,
+    /// * example - <p>Do you like apples?</p>
     body_html: String,
+    /// * example - 0307116bbf7ced493b8d8a346c650b71
     body_version: String,
+    /// * example - 2018-01-15T23:53:58Z
     created_at: String,
+    ///
     last_edited_at: String,
+    /// * example - https://api.github.com/organizations/1/team/2403582/discussions/1
     discussion_url: String,
+    /// * example - https://github.com/orgs/github/teams/justice-league/discussions/1/comments/1
     html_url: String,
+    /// * example - MDIxOlRlYW1EaXNjdXNzaW9uQ29tbWVudDE=
     node_id: String,
+    /// * example - 42
     number: i64,
+    /// * example - 2018-01-15T23:53:58Z
     updated_at: String,
+    /// * example - https://api.github.com/organizations/1/team/2403582/discussions/1/comments/1
     url: String,
+    ///
     reactions: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PatchTeamsteamIdDiscussionsdiscussionNumberCommentscommentNumberResponse {
+    /// Simple User
     author: Value,
+    /// * example - I agree with this suggestion.
     body: String,
+    /// * example - <p>Do you like apples?</p>
     body_html: String,
+    /// * example - 0307116bbf7ced493b8d8a346c650b71
     body_version: String,
+    /// * example - 2018-01-15T23:53:58Z
     created_at: String,
+    ///
     last_edited_at: String,
+    /// * example - https://api.github.com/organizations/1/team/2403582/discussions/1
     discussion_url: String,
+    /// * example - https://github.com/orgs/github/teams/justice-league/discussions/1/comments/1
     html_url: String,
+    /// * example - MDIxOlRlYW1EaXNjdXNzaW9uQ29tbWVudDE=
     node_id: String,
+    /// * example - 42
     number: i64,
+    /// * example - 2018-01-15T23:53:58Z
     updated_at: String,
+    /// * example - https://api.github.com/organizations/1/team/2403582/discussions/1/comments/1
     url: String,
+    ///
     reactions: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetTeamsteamIdMembershipsusernameResponse {
+    ///
     url: String,
+    /// * example - member
     role: String,
+    /// The state of the user's membership in the team.
     state: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PutTeamsteamIdMembershipsusernameResponse {
+    ///
     url: String,
+    /// * example - member
     role: String,
+    /// The state of the user's membership in the team.
     state: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetTeamsteamIdProjectsprojectIdResponse {
+    ///
     owner_url: String,
+    ///
     url: String,
+    ///
     html_url: String,
+    ///
     columns_url: String,
+    ///
     id: i64,
+    ///
     node_id: String,
+    ///
     name: String,
+    ///
     body: String,
+    ///
     number: i64,
+    ///
     state: String,
+    /// Simple User
     creator: Value,
+    ///
     created_at: String,
+    ///
     updated_at: String,
+    /// The organization permission for this project. Only present when owner is an organization.
     organization_permission: String,
+    /// Whether the project is private or not. Only present when owner is an organization.
     private: bool,
+    ///
     permissions: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetTeamsteamIdReposownerrepoResponse {
+    /// * example - 42
     id: i64,
+    /// * example - MDEwOlJlcG9zaXRvcnkxMjk2MjY5
     node_id: String,
+    /// * example - Team Environment
     name: String,
+    /// * example - octocat/Hello-World
     full_name: String,
+    /// License Simple
     license: Value,
+    ///
     forks: i64,
+    ///
     permissions: Value,
+    /// * example - admin
     role_name: String,
+    /// Simple User
     owner: Value,
+    /// Whether the repository is private or public.
     private: bool,
+    /// * example - https://github.com/octocat/Hello-World
     html_url: String,
+    /// * example - This your first repo!
     description: String,
+    ///
     fork: bool,
+    /// * example - https://api.github.com/repos/octocat/Hello-World
     url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/{archive_format}{/ref}
     archive_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/assignees{/user}
     assignees_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/git/blobs{/sha}
     blobs_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/branches{/branch}
     branches_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/collaborators{/collaborator}
     collaborators_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/comments{/number}
     comments_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/commits{/sha}
     commits_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/compare/{base}...{head}
     compare_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/contents/{+path}
     contents_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/contributors
     contributors_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/deployments
     deployments_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/downloads
     downloads_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/events
     events_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/forks
     forks_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/git/commits{/sha}
     git_commits_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/git/refs{/sha}
     git_refs_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/git/tags{/sha}
     git_tags_url: String,
+    /// * example - git:github.com/octocat/Hello-World.git
     git_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/issues/comments{/number}
     issue_comment_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/issues/events{/number}
     issue_events_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/issues{/number}
     issues_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/keys{/key_id}
     keys_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/labels{/name}
     labels_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/languages
     languages_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/merges
     merges_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/milestones{/number}
     milestones_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/notifications{?since,all,participating}
     notifications_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/pulls{/number}
     pulls_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/releases{/id}
     releases_url: String,
+    /// * example - git@github.com:octocat/Hello-World.git
     ssh_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/stargazers
     stargazers_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/statuses/{sha}
     statuses_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/subscribers
     subscribers_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/subscription
     subscription_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/tags
     tags_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/teams
     teams_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/git/trees{/sha}
     trees_url: String,
+    /// * example - https://github.com/octocat/Hello-World.git
     clone_url: String,
+    /// * example - git:git.example.com/octocat/Hello-World
     mirror_url: String,
+    /// * example - http://api.github.com/repos/octocat/Hello-World/hooks
     hooks_url: String,
+    /// * example - https://svn.github.com/octocat/Hello-World
     svn_url: String,
+    /// * example - https://github.com
     homepage: String,
+    ///
     language: String,
+    /// * example - 9
     forks_count: i64,
+    /// * example - 80
     stargazers_count: i64,
+    /// * example - 80
     watchers_count: i64,
+    /// * example - 108
     size: i64,
+    /// * example - master
     default_branch: String,
+    ///
     open_issues_count: i64,
+    /// * example - true
     is_template: bool,
+    ///
     topics: Vec<String>,
+    /// * example - true
     has_issues: bool,
+    /// * example - true
     has_projects: bool,
+    /// * example - true
     has_wiki: bool,
+    ///
     has_pages: bool,
+    /// * example - true
     has_downloads: bool,
+    /// Whether the repository is archived.
     archived: bool,
+    /// Returns whether or not this repository disabled.
     disabled: bool,
+    /// The repository visibility: public, private, or internal.
     visibility: String,
+    /// * example - 2011-01-26T19:06:43Z
     pushed_at: String,
+    /// * example - 2011-01-26T19:01:12Z
     created_at: String,
+    /// * example - 2011-01-26T19:14:43Z
     updated_at: String,
+    /// * example - true
     allow_rebase_merge: bool,
+    /// A git repository
     template_repository: Value,
+    ///
     temp_clone_token: String,
+    /// * example - true
     allow_squash_merge: bool,
+    /// Whether to allow Auto-merge to be used on pull requests.
     allow_auto_merge: bool,
+    /// Whether to delete head branches when pull requests are merged
     delete_branch_on_merge: bool,
+    /// * example - true
     allow_merge_commit: bool,
+    /// Whether to allow forking this repo
     allow_forking: bool,
+    ///
     subscribers_count: i64,
+    ///
     network_count: i64,
+    ///
     open_issues: i64,
+    ///
     watchers: i64,
+    ///
     master_branch: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetTeamsteamIdTeamSyncGroupMappingsResponse {
+    /// * example - [object Object],[object Object]
     groups: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PatchTeamsteamIdTeamSyncGroupMappingsResponse {
+    /// * example - [object Object],[object Object]
     groups: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PatchUserResponse {
+    /// * example - octocat
     login: String,
+    /// * example - 1
     id: i64,
+    /// * example - MDQ6VXNlcjE=
     node_id: String,
+    /// * example - https://github.com/images/error/octocat_happy.gif
     avatar_url: String,
+    /// * example - 41d064eb2195891e12d0413f63227ea7
     gravatar_id: String,
+    /// * example - https://api.github.com/users/octocat
     url: String,
+    /// * example - https://github.com/octocat
     html_url: String,
+    /// * example - https://api.github.com/users/octocat/followers
     followers_url: String,
+    /// * example - https://api.github.com/users/octocat/following{/other_user}
     following_url: String,
+    /// * example - https://api.github.com/users/octocat/gists{/gist_id}
     gists_url: String,
+    /// * example - https://api.github.com/users/octocat/starred{/owner}{/repo}
     starred_url: String,
+    /// * example - https://api.github.com/users/octocat/subscriptions
     subscriptions_url: String,
+    /// * example - https://api.github.com/users/octocat/orgs
     organizations_url: String,
+    /// * example - https://api.github.com/users/octocat/repos
     repos_url: String,
+    /// * example - https://api.github.com/users/octocat/events{/privacy}
     events_url: String,
+    /// * example - https://api.github.com/users/octocat/received_events
     received_events_url: String,
+    /// * example - User
     #[serde(rename = "type")]
     atype: String,
+    ///
     site_admin: bool,
+    /// * example - monalisa octocat
     name: String,
+    /// * example - GitHub
     company: String,
+    /// * example - https://github.com/blog
     blog: String,
+    /// * example - San Francisco
     location: String,
+    /// * example - octocat@github.com
     email: String,
+    ///
     hireable: bool,
+    /// * example - There once was...
     bio: String,
+    /// * example - monalisa
     twitter_username: String,
+    /// * example - 2
     public_repos: i64,
+    /// * example - 1
     public_gists: i64,
+    /// * example - 20
     followers: i64,
+    ///
     following: i64,
+    /// * example - 2008-01-14T04:33:35Z
     created_at: String,
+    /// * example - 2008-01-14T04:33:35Z
     updated_at: String,
+    /// * example - 81
     private_gists: i64,
+    /// * example - 100
     total_private_repos: i64,
+    /// * example - 100
     owned_private_repos: i64,
+    /// * example - 10000
     disk_usage: i64,
+    /// * example - 8
     collaborators: i64,
+    /// * example - true
     two_factor_authentication: bool,
+    ///
     plan: Value,
+    ///
     suspended_at: String,
+    ///
     business_plus: bool,
+    ///
     ldap_dn: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetUserCodespacesResponse {
+    ///
     total_count: i64,
+    ///
     codespaces: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetUserCodespacesSecretsResponse {
+    ///
     total_count: i64,
+    ///
     secrets: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetUserCodespacesSecretsPublicKeyResponse {
+    /// * example - 1234567
     key_id: String,
+    /// * example - hBT5WZEj8ZoOv6TYJsfWq7MxTEQopZO5/IT3ZCVQPzs=
     key: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetUserCodespacesSecretssecretNameResponse {
+    /// * example - SECRET_NAME
     name: String,
+    ///
     created_at: String,
+    ///
     updated_at: String,
+    /// Visibility of a secret
     visibility: String,
+    /// * example - https://api.github.com/user/secrets/SECRET_NAME/repositories
     selected_repositories_url: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetUserCodespacesSecretssecretNameRepositoriesResponse {
+    ///
     total_count: i64,
+    ///
     repositories: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetUserCodespacescodespaceNameResponse {
+    /// * example - 1
     id: i64,
+    /// * example - monalisa-octocat-hello-world-g4wpq6h95q
     name: String,
+    /// * example - 26a7c758-7299-4a73-b978-5a92a7ae98a0
     environment_id: String,
+    /// Simple User
     owner: Value,
+    /// Simple User
     billable_owner: Value,
+    /// Minimal Repository
     repository: Value,
+    /// A description of the machine powering a codespace.
     machine: Value,
+    /// Whether the codespace was created from a prebuild.
     prebuild: bool,
+    /// * example - 2011-01-26T19:01:12Z
     created_at: String,
+    /// * example - 2011-01-26T19:01:12Z
     updated_at: String,
+    /// * example - 2011-01-26T19:01:12Z
     last_used_at: String,
+    /// * example - Available
     state: String,
+    /// API URL for this codespace.
     url: String,
+    /// Details about the codespace's git repository.
     git_status: Value,
+    /// * example - WestUs2
     location: String,
+    /// * example - 60
     idle_timeout_minutes: i64,
+    /// URL to access this codespace on the web.
     web_url: String,
+    /// API URL to access available alternate machine types for this codespace.
     machines_url: String,
+    /// API URL to start this codespace.
     start_url: String,
+    /// API URL to stop this codespace.
     stop_url: String,
+    /// API URL for the Pull Request associated with this codespace, if any.
     pulls_url: String,
+    ///
     recent_folders: Vec<String>,
+    ///
     runtime_constraints: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PatchUserCodespacescodespaceNameResponse {
+    /// * example - 1
     id: i64,
+    /// * example - monalisa-octocat-hello-world-g4wpq6h95q
     name: String,
+    /// * example - 26a7c758-7299-4a73-b978-5a92a7ae98a0
     environment_id: String,
+    /// Simple User
     owner: Value,
+    /// Simple User
     billable_owner: Value,
+    /// Minimal Repository
     repository: Value,
+    /// A description of the machine powering a codespace.
     machine: Value,
+    /// Whether the codespace was created from a prebuild.
     prebuild: bool,
+    /// * example - 2011-01-26T19:01:12Z
     created_at: String,
+    /// * example - 2011-01-26T19:01:12Z
     updated_at: String,
+    /// * example - 2011-01-26T19:01:12Z
     last_used_at: String,
+    /// * example - Available
     state: String,
+    /// API URL for this codespace.
     url: String,
+    /// Details about the codespace's git repository.
     git_status: Value,
+    /// * example - WestUs2
     location: String,
+    /// * example - 60
     idle_timeout_minutes: i64,
+    /// URL to access this codespace on the web.
     web_url: String,
+    /// API URL to access available alternate machine types for this codespace.
     machines_url: String,
+    /// API URL to start this codespace.
     start_url: String,
+    /// API URL to stop this codespace.
     stop_url: String,
+    /// API URL for the Pull Request associated with this codespace, if any.
     pulls_url: String,
+    ///
     recent_folders: Vec<String>,
+    ///
     runtime_constraints: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetUserCodespacescodespaceNameMachinesResponse {
+    ///
     total_count: i64,
+    ///
     machines: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PostUserCodespacescodespaceNameStartResponse {
+    /// * example - 1
     id: i64,
+    /// * example - monalisa-octocat-hello-world-g4wpq6h95q
     name: String,
+    /// * example - 26a7c758-7299-4a73-b978-5a92a7ae98a0
     environment_id: String,
+    /// Simple User
     owner: Value,
+    /// Simple User
     billable_owner: Value,
+    /// Minimal Repository
     repository: Value,
+    /// A description of the machine powering a codespace.
     machine: Value,
+    /// Whether the codespace was created from a prebuild.
     prebuild: bool,
+    /// * example - 2011-01-26T19:01:12Z
     created_at: String,
+    /// * example - 2011-01-26T19:01:12Z
     updated_at: String,
+    /// * example - 2011-01-26T19:01:12Z
     last_used_at: String,
+    /// * example - Available
     state: String,
+    /// API URL for this codespace.
     url: String,
+    /// Details about the codespace's git repository.
     git_status: Value,
+    /// * example - WestUs2
     location: String,
+    /// * example - 60
     idle_timeout_minutes: i64,
+    /// URL to access this codespace on the web.
     web_url: String,
+    /// API URL to access available alternate machine types for this codespace.
     machines_url: String,
+    /// API URL to start this codespace.
     start_url: String,
+    /// API URL to stop this codespace.
     stop_url: String,
+    /// API URL for the Pull Request associated with this codespace, if any.
     pulls_url: String,
+    ///
     recent_folders: Vec<String>,
+    ///
     runtime_constraints: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PostUserCodespacescodespaceNameStopResponse {
+    /// * example - 1
     id: i64,
+    /// * example - monalisa-octocat-hello-world-g4wpq6h95q
     name: String,
+    /// * example - 26a7c758-7299-4a73-b978-5a92a7ae98a0
     environment_id: String,
+    /// Simple User
     owner: Value,
+    /// Simple User
     billable_owner: Value,
+    /// Minimal Repository
     repository: Value,
+    /// A description of the machine powering a codespace.
     machine: Value,
+    /// Whether the codespace was created from a prebuild.
     prebuild: bool,
+    /// * example - 2011-01-26T19:01:12Z
     created_at: String,
+    /// * example - 2011-01-26T19:01:12Z
     updated_at: String,
+    /// * example - 2011-01-26T19:01:12Z
     last_used_at: String,
+    /// * example - Available
     state: String,
+    /// API URL for this codespace.
     url: String,
+    /// Details about the codespace's git repository.
     git_status: Value,
+    /// * example - WestUs2
     location: String,
+    /// * example - 60
     idle_timeout_minutes: i64,
+    /// URL to access this codespace on the web.
     web_url: String,
+    /// API URL to access available alternate machine types for this codespace.
     machines_url: String,
+    /// API URL to start this codespace.
     start_url: String,
+    /// API URL to stop this codespace.
     stop_url: String,
+    /// API URL for the Pull Request associated with this codespace, if any.
     pulls_url: String,
+    ///
     recent_folders: Vec<String>,
+    ///
     runtime_constraints: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetUserGpgKeysgpgKeyIdResponse {
+    /// * example - 3
     id: i64,
+    ///
     primary_key_id: i64,
+    /// * example - 3262EFF25BA0D270
     key_id: String,
+    /// * example - xsBNBFayYZ...
     public_key: String,
+    /// * example - [object Object]
     emails: Vec<Value>,
+    /// * example - [object Object]
     subkeys: Vec<Value>,
+    /// * example - true
     can_sign: bool,
+    ///
     can_encrypt_comms: bool,
+    ///
     can_encrypt_storage: bool,
+    /// * example - true
     can_certify: bool,
+    /// * example - 2016-03-24T11:31:04-06:00
     created_at: String,
+    ///
     expires_at: String,
+    ///
     raw_key: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetUserInstallationsResponse {
+    ///
     total_count: i64,
+    ///
     installations: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetUserInstallationsinstallationIdRepositoriesResponse {
+    ///
     total_count: i64,
+    ///
     repository_selection: String,
+    ///
     repositories: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PutUserInteractionLimitsResponse {
+    /// * example - collaborators_only
     limit: String,
+    /// * example - repository
     origin: String,
+    /// * example - 2018-08-17T04:18:39Z
     expires_at: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetUserKeyskeyIdResponse {
+    ///
     key: String,
+    ///
     id: i64,
+    ///
     url: String,
+    ///
     title: String,
+    ///
     created_at: String,
+    ///
     verified: bool,
+    ///
     read_only: bool,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetUserMembershipsOrgsorgResponse {
+    /// * example - https://api.github.com/orgs/octocat/memberships/defunkt
     url: String,
+    /// * example - active
     state: String,
+    /// * example - admin
     role: String,
+    /// * example - https://api.github.com/orgs/octocat
     organization_url: String,
+    /// Organization Simple
     organization: Value,
+    /// Simple User
     user: Value,
+    ///
     permissions: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PatchUserMembershipsOrgsorgResponse {
+    /// * example - https://api.github.com/orgs/octocat/memberships/defunkt
     url: String,
+    /// * example - active
     state: String,
+    /// * example - admin
     role: String,
+    /// * example - https://api.github.com/orgs/octocat
     organization_url: String,
+    /// Organization Simple
     organization: Value,
+    /// Simple User
     user: Value,
+    ///
     permissions: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetUserMigrationsmigrationIdResponse {
+    /// * example - 79
     id: i64,
+    /// Simple User
     owner: Value,
+    /// * example - 0b989ba4-242f-11e5-81e1-c7b6966d2516
     guid: String,
+    /// * example - pending
     state: String,
+    /// * example - true
     lock_repositories: bool,
+    ///
     exclude_metadata: bool,
+    ///
     exclude_git_data: bool,
+    ///
     exclude_attachments: bool,
+    ///
     exclude_releases: bool,
+    ///
     exclude_owner_projects: bool,
+    ///
     repositories: Vec<Value>,
+    /// * example - https://api.github.com/orgs/octo-org/migrations/79
     url: String,
+    /// * example - 2015-07-06T15:33:38-07:00
     created_at: String,
+    /// * example - 2015-07-06T15:33:38-07:00
     updated_at: String,
+    ///
     node_id: String,
+    ///
     archive_url: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetUserPackagespackageTypepackageNameResponse {
+    /// * example - 1
     id: i64,
+    /// * example - super-linter
     name: String,
+    /// * example - docker
     package_type: String,
+    /// * example - https://api.github.com/orgs/github/packages/container/super-linter
     url: String,
+    /// * example - https://github.com/orgs/github/packages/container/package/super-linter
     html_url: String,
+    /// * example - 1
     version_count: i64,
+    /// * example - private
     visibility: String,
+    /// Simple User
     owner: Value,
+    /// Minimal Repository
     repository: Value,
+    ///
     created_at: String,
+    ///
     updated_at: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetUserPackagespackageTypepackageNameVersionspackageVersionIdResponse {
+    /// * example - 1
     id: i64,
+    /// * example - latest
     name: String,
+    /// * example - https://api.github.com/orgs/github/packages/container/super-linter/versions/786068
     url: String,
+    /// * example - https://github.com/orgs/github/packages/container/package/super-linter
     package_html_url: String,
+    /// * example - https://github.com/orgs/github/packages/container/super-linter/786068
     html_url: String,
+    /// * example - MIT
     license: String,
+    ///
     description: String,
+    /// * example - 2011-04-10T20:09:31Z
     created_at: String,
+    /// * example - 2014-03-03T18:58:10Z
     updated_at: String,
+    /// * example - 2014-03-03T18:58:10Z
     deleted_at: String,
+    ///
     metadata: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetUsersusernameHovercardResponse {
+    ///
     contexts: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetUsersusernameInstallationResponse {
+    /// * example - 1
     id: i64,
+    /// Describe whether all repositories have been selected or there's a selection involved
     repository_selection: String,
+    /// * example - https://api.github.com/installations/1/access_tokens
     access_tokens_url: String,
+    /// * example - https://api.github.com/installation/repositories
     repositories_url: String,
+    /// * example - https://github.com/organizations/github/settings/installations/1
     html_url: String,
+    /// * example - 1
     app_id: i64,
+    /// The ID of the user or organization this token is being scoped to.
     target_id: i64,
+    /// * example - Organization
     target_type: String,
+    /// * example - [object Object]
     permissions: Value,
+    ///
     events: Vec<String>,
+    ///
     created_at: String,
+    ///
     updated_at: String,
+    /// * example - config.yaml
     single_file_name: String,
+    /// * example - true
     has_multiple_single_files: bool,
+    /// * example - config.yml,.github/issue_TEMPLATE.md
     single_file_paths: Vec<String>,
+    /// * example - github-actions
     app_slug: String,
+    /// Simple User
     suspended_by: Value,
+    ///
     suspended_at: String,
+    /// * example - "test_13f1e99741e3e004@d7e1eb0bc0a1ba12.com"
     contact_email: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetUsersusernamePackagespackageTypepackageNameResponse {
+    /// * example - 1
     id: i64,
+    /// * example - super-linter
     name: String,
+    /// * example - docker
     package_type: String,
+    /// * example - https://api.github.com/orgs/github/packages/container/super-linter
     url: String,
+    /// * example - https://github.com/orgs/github/packages/container/package/super-linter
     html_url: String,
+    /// * example - 1
     version_count: i64,
+    /// * example - private
     visibility: String,
+    /// Simple User
     owner: Value,
+    /// Minimal Repository
     repository: Value,
+    ///
     created_at: String,
+    ///
     updated_at: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetUsersusernamePackagespackageTypepackageNameVersionspackageVersionIdResponse {
+    /// * example - 1
     id: i64,
+    /// * example - latest
     name: String,
+    /// * example - https://api.github.com/orgs/github/packages/container/super-linter/versions/786068
     url: String,
+    /// * example - https://github.com/orgs/github/packages/container/package/super-linter
     package_html_url: String,
+    /// * example - https://github.com/orgs/github/packages/container/super-linter/786068
     html_url: String,
+    /// * example - MIT
     license: String,
+    ///
     description: String,
+    /// * example - 2011-04-10T20:09:31Z
     created_at: String,
+    /// * example - 2014-03-03T18:58:10Z
     updated_at: String,
+    /// * example - 2014-03-03T18:58:10Z
     deleted_at: String,
+    ///
     metadata: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetUsersusernameSettingsBillingActionsResponse {
+    /// The sum of the free and paid GitHub Actions minutes used.
     total_minutes_used: i64,
+    /// The total paid GitHub Actions minutes used.
     total_paid_minutes_used: i64,
+    /// The amount of free GitHub Actions minutes available.
     included_minutes: i64,
+    ///
     minutes_used_breakdown: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetUsersusernameSettingsBillingPackagesResponse {
+    /// Sum of the free and paid storage space (GB) for GitHuub Packages.
     total_gigabytes_bandwidth_used: i64,
+    /// Total paid storage space (GB) for GitHuub Packages.
     total_paid_gigabytes_bandwidth_used: i64,
+    /// Free storage space (GB) for GitHub Packages.
     included_gigabytes_bandwidth: i64,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetUsersusernameSettingsBillingSharedStorageResponse {
+    /// Numbers of days left in billing cycle.
     days_left_in_billing_cycle: i64,
+    /// Estimated storage space (GB) used in billing cycle.
     estimated_paid_storage_for_month: i64,
+    /// Estimated sum of free and paid storage space (GB) used in billing cycle.
     estimated_storage_for_month: i64,
 }

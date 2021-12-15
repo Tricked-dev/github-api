@@ -1,7 +1,7 @@
 #!/bin/deno
 import { GithubAPIInterface } from './interface.ts';
 const api: GithubAPIInterface = JSON.parse(
-	Deno.readTextFileSync('scripts/api2.json')
+	Deno.readTextFileSync('scripts/api.json')
 );
 
 const data = [];
@@ -40,10 +40,18 @@ for (const [key, val] of Object.entries(api.paths)) {
 			for (const [name, obj] of Object.entries(response) as any) {
 				if (obj.type) {
 					if (!typemap[obj.type]) console.log(obj.type, typemap[obj.type]);
+					let defaults = { doc: obj.description, example: obj.example };
 					if (obj.type == 'array') {
-						if (obj.items.type) types[name] = `Vec<${typemap[obj.items.type]}>`;
+						if (obj.items.type)
+							types[name] = {
+								type: `Vec<${typemap[obj.items.type]}>`,
+								...defaults,
+							};
 					} else {
-						types[name] = typemap[obj.type];
+						types[name] = {
+							type: typemap[obj.type],
+							...defaults,
+						};
 					}
 				}
 			}
@@ -96,10 +104,21 @@ for (const key of data) {
 	if (Object.entries(key.types).length !== 0) {
 		let items = [];
 		for (const [keys, val] of Object.entries(key.types)) {
+			let docs = `${
+				val.example
+					? `* example - ${val.example}`
+					: '' + `${val.doc ? `\n${val.doc}` : ''}`
+			}`
+				.trim()
+				.split('\n')
+				.map((x) => `	/// ${x}`)
+				.join('\n');
 			if (keys === 'type' || keys === 'ref') {
-				items.push(`#[serde(rename = "${keys}")]\na${keys}: ${val}\n`);
+				items.push(
+					`${docs}\n#[serde(rename = "${keys}")]\na${keys}: ${val.type}\n`
+				);
 			} else {
-				items.push(`${keys}: ${val}`);
+				items.push(`${docs}\n${keys}: ${val.type}`);
 			}
 		}
 		structs.push(

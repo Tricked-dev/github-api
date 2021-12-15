@@ -1,7 +1,7 @@
 #!/bin/deno
 import { GithubAPIInterface } from './interface.ts';
 const api: GithubAPIInterface = JSON.parse(
-	Deno.readTextFileSync('scripts/api.json')
+	Deno.readTextFileSync('scripts/api2.json')
 );
 
 const data = [];
@@ -12,7 +12,7 @@ function upperFirst(i: string): string {
 	return i.charAt(0).toUpperCase() + i.slice(1);
 }
 
-let enums = [];
+// let enums = [];
 
 for (const [key, val] of Object.entries(api.paths)) {
 	for (const [method, values] of Object.entries(val as any) as any) {
@@ -22,10 +22,10 @@ for (const [key, val] of Object.entries(api.paths)) {
 			vars.push(g1.replace('ref', 'aref'));
 			return '';
 		});
-		let response =
-			values.responses?.['200']?.content?.['application/json']?.schema
-				.properties;
-		let types: Record<string, any> = {};
+		// let response =
+		// 	values.responses?.['200']?.content?.['application/json']?.schema
+		// 		.properties;
+		// let types: Record<string, any> = {};
 
 		// console.log(types);
 		data.push({
@@ -42,7 +42,14 @@ for (const [key, val] of Object.entries(api.paths)) {
 				.replace('{content_reference_id}', '{content_areference_id}'),
 			method: method,
 			vars: vars,
-			types,
+			docs:
+				`* tags ${values.tags.join(', ')}\n` +
+				`* ${method} \`${key}\`\n` +
+				`${
+					values?.externalDocs?.url ? `* docs ${values?.externalDocs?.url}` : ''
+				}\n\n` +
+				`${values.summary}\n` +
+				`${values.description}`,
 		});
 	}
 }
@@ -54,7 +61,13 @@ const getMethod = [];
 const getPath = [];
 const implementsFunctions = [];
 for (const key of data) {
-	enums.push(`${key.name}(${'String,'.repeat(key.vars.length).slice(0, -1)})`);
+	enums.push(
+		key.docs
+			.split('\n')
+			.map((x) => '	/// ' + x)
+			.join('\n') +
+			`\n${key.name}(${'String,'.repeat(key.vars.length).slice(0, -1)})`
+	);
 	getMethod.push([key.name, upperFirst(key.method)]);
 	getPath.push([key.name, key.path, key.vars]);
 }

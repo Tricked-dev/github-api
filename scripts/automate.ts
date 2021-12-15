@@ -22,11 +22,31 @@ for (const [key, val] of Object.entries(api.paths)) {
 			vars.push(g1.replace('ref', 'aref'));
 			return '';
 		});
-		// let response =
-		// 	values.responses?.['200']?.content?.['application/json']?.schema
-		// 		.properties;
-		// let types: Record<string, any> = {};
-
+		let response =
+			values.responses?.['200']?.content?.['application/json']?.schema
+				.properties;
+		let types: Record<string, any> = {};
+		// console.log(response);
+		// console.log(types);
+		let typemap: Record<string, string> = {
+			integer: 'i64',
+			number: 'f64',
+			string: 'String',
+			boolean: 'bool',
+			array: 'Vec',
+			object: 'Value',
+		};
+		if (response)
+			for (const [name, obj] of Object.entries(response) as any) {
+				if (obj.type) {
+					if (!typemap[obj.type]) console.log(obj.type, typemap[obj.type]);
+					if (obj.type == 'array') {
+						if (obj.items.type) types[name] = `Vec<${typemap[obj.items.type]}>`;
+					} else {
+						types[name] = typemap[obj.type];
+					}
+				}
+			}
 		// console.log(types);
 		data.push({
 			name:
@@ -50,16 +70,21 @@ for (const [key, val] of Object.entries(api.paths)) {
 				}\n\n` +
 				`${values.summary}\n` +
 				`${values.description}`,
+			types,
 		});
 	}
 }
 let toWrite = [
+	`use serde::{Deserialize, Serialize};\n` +
+		`use serde_json::Value;\n` +
+		`use std::collections::HashMap;\n`,
 	`pub enum Methods { \n    ${Array.from(methods).join(',\n    ')} \n}`,
 ];
 let enums = [];
 const getMethod = [];
 const getPath = [];
 const implementsFunctions = [];
+const structs = [];
 for (const key of data) {
 	enums.push(
 		key.docs
@@ -68,6 +93,21 @@ for (const key of data) {
 			.join('\n') +
 			`\n${key.name}(${'String,'.repeat(key.vars.length).slice(0, -1)})`
 	);
+	if (Object.entries(key.types).length !== 0) {
+		let items = [];
+		for (const [keys, val] of Object.entries(key.types)) {
+			if (keys === 'type' || keys === 'ref') {
+				items.push(`#[serde(rename = "${keys}")]\na${keys}: ${val}\n`);
+			} else {
+				items.push(`${keys}: ${val}`);
+			}
+		}
+		structs.push(
+			`#[derive(Serialize, Deserialize, Clone, Debug)]\npub struct ${
+				key.name
+			}Response {\n ${items.join(',\n	')} \n}`
+		);
+	}
 	getMethod.push([key.name, upperFirst(key.method)]);
 	getPath.push([key.name, key.path, key.vars]);
 }
@@ -87,8 +127,10 @@ implementsFunctions.push(
 		)
 		.join(',\n  ')}} }`
 );
+
 toWrite.push(`pub enum EndPoints { \n    ${enums.join(',\n    ')} \n}`);
 toWrite.push(`impl EndPoints {  ${implementsFunctions.join('\n')} }`);
+toWrite.push(structs.join('\n'));
 Deno.writeTextFileSync('src/end_points.rs', toWrite.join('\n\n'));
 // console.log(`enum EndPoints { ${enums.join(',\n')} }`);
 // console.log(data);

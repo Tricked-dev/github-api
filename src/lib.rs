@@ -22,7 +22,7 @@ impl From<serde_json::Error> for Error {
     }
 }
 
-pub async fn request<T, V>(
+pub async fn simple_request<T, V>(
     url: EndPoints,
     query: Option<&T>,
     body: Option<V>,

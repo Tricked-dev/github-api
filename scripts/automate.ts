@@ -71,7 +71,9 @@ for (const [key, val] of Object.entries(api.paths)) {
 				`* tags ${values.tags.join(', ')}\n` +
 				`* ${method} \`${key}\`\n` +
 				`${
-					values?.externalDocs?.url ? `* docs ${values?.externalDocs?.url}` : ''
+					values?.externalDocs?.url
+						? `* docs <${values?.externalDocs?.url}>`
+						: ''
 				}\n\n` +
 				`${values.summary}\n` +
 				`${values.description}`,
@@ -102,6 +104,7 @@ for (const key of data) {
 	);
 	if (Object.entries(key.types).length !== 0) {
 		let items = [];
+
 		for (const [keys, val] of Object.entries(key.types)) {
 			let docs = `${
 				val.example
@@ -126,7 +129,10 @@ for (const key of data) {
 			}Response {\n ${items.join(',\n	')} \n}`
 		);
 		functions.push(
-			`pub async fn ${
+			`${key.docs
+				.split('\n')
+				.map((x) => '	/// ' + x)
+				.join('\n')}\npub async fn ${
 				key.method +
 				key.path
 					.split(/\/|\-|_/gim)
@@ -175,5 +181,10 @@ Deno.writeTextFileSync(
 	)} \n}`
 );
 Deno.writeTextFileSync('src/end_points.rs', toWrite.join('\n\n'));
+await Deno.run({
+	cmd: ['cargo', 'fmt'],
+	stderr: 'piped',
+	stdout: 'piped',
+}).output();
 // console.log(`enum EndPoints { ${enums.join(',\n')} }`);
 // console.log(data);

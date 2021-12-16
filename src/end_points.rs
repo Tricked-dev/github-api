@@ -13,14 +13,14 @@ pub enum Methods {
 pub enum EndPoints {
     /// * tags meta
     /// * get `/`
-    /// * docs https://docs.github.com/rest/overview/resources-in-the-rest-api#root-endpoint
+    /// * docs <https://docs.github.com/rest/overview/resources-in-the-rest-api#root-endpoint>
     ///
     /// GitHub API Root
     /// Get Hypermedia links to resources accessible in GitHub's REST API
     Get(),
     /// * tags apps
     /// * get `/app`
-    /// * docs https://docs.github.com/rest/reference/apps#get-the-authenticated-app
+    /// * docs <https://docs.github.com/rest/reference/apps#get-the-authenticated-app>
     ///
     /// Get the authenticated app
     /// Returns the GitHub App associated with the authentication credentials used. To see how many app installations are associated with this GitHub App, see the `installations_count` in the response. For more details about your app's installations, see the "[List installations for the authenticated app](https://docs.github.com/rest/reference/apps#list-installations-for-the-authenticated-app)" endpoint.
@@ -29,14 +29,14 @@ pub enum EndPoints {
     GetApp(),
     /// * tags apps
     /// * post `/app-manifests/{code}/conversions`
-    /// * docs https://docs.github.com/rest/reference/apps#create-a-github-app-from-a-manifest
+    /// * docs <https://docs.github.com/rest/reference/apps#create-a-github-app-from-a-manifest>
     ///
     /// Create a GitHub App from a manifest
     /// Use this endpoint to complete the handshake necessary when implementing the [GitHub App Manifest flow](https://docs.github.com/apps/building-github-apps/creating-github-apps-from-a-manifest/). When you create a GitHub App with the manifest flow, you receive a temporary `code` used to retrieve the GitHub App's `id`, `pem` (private key), and `webhook_secret`.
     PostAppManifestscodeConversions(String),
     /// * tags apps
     /// * get `/app/hook/config`
-    /// * docs https://docs.github.com/rest/reference/apps#get-a-webhook-configuration-for-an-app
+    /// * docs <https://docs.github.com/rest/reference/apps#get-a-webhook-configuration-for-an-app>
     ///
     /// Get a webhook configuration for an app
     /// Returns the webhook configuration for a GitHub App. For more information about configuring a webhook for your app, see "[Creating a GitHub App](/developers/apps/creating-a-github-app)."
@@ -45,7 +45,7 @@ pub enum EndPoints {
     GetAppHookConfig(),
     /// * tags apps
     /// * patch `/app/hook/config`
-    /// * docs https://docs.github.com/rest/reference/apps#update-a-webhook-configuration-for-an-app
+    /// * docs <https://docs.github.com/rest/reference/apps#update-a-webhook-configuration-for-an-app>
     ///
     /// Update a webhook configuration for an app
     /// Updates the webhook configuration for a GitHub App. For more information about configuring a webhook for your app, see "[Creating a GitHub App](/developers/apps/creating-a-github-app)."
@@ -54,7 +54,7 @@ pub enum EndPoints {
     PatchAppHookConfig(),
     /// * tags apps
     /// * get `/app/hook/deliveries`
-    /// * docs https://docs.github.com/rest/reference/apps#list-deliveries-for-an-app-webhook
+    /// * docs <https://docs.github.com/rest/reference/apps#list-deliveries-for-an-app-webhook>
     ///
     /// List deliveries for an app webhook
     /// Returns a list of webhook deliveries for the webhook configured for a GitHub App.
@@ -63,7 +63,7 @@ pub enum EndPoints {
     GetAppHookDeliveries(),
     /// * tags apps
     /// * get `/app/hook/deliveries/{delivery_id}`
-    /// * docs https://docs.github.com/rest/reference/apps#get-a-delivery-for-an-app-webhook
+    /// * docs <https://docs.github.com/rest/reference/apps#get-a-delivery-for-an-app-webhook>
     ///
     /// Get a delivery for an app webhook
     /// Returns a delivery for the webhook configured for a GitHub App.
@@ -72,7 +72,7 @@ pub enum EndPoints {
     GetAppHookDeliveriesdeliveryId(String),
     /// * tags apps
     /// * post `/app/hook/deliveries/{delivery_id}/attempts`
-    /// * docs https://docs.github.com/rest/reference/apps#redeliver-a-delivery-for-an-app-webhook
+    /// * docs <https://docs.github.com/rest/reference/apps#redeliver-a-delivery-for-an-app-webhook>
     ///
     /// Redeliver a delivery for an app webhook
     /// Redeliver a delivery for the webhook configured for a GitHub App.
@@ -81,7 +81,7 @@ pub enum EndPoints {
     PostAppHookDeliveriesdeliveryIdAttempts(String),
     /// * tags apps
     /// * get `/app/installations`
-    /// * docs https://docs.github.com/rest/reference/apps#list-installations-for-the-authenticated-app
+    /// * docs <https://docs.github.com/rest/reference/apps#list-installations-for-the-authenticated-app>
     ///
     /// List installations for the authenticated app
     /// You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
@@ -90,7 +90,7 @@ pub enum EndPoints {
     GetAppInstallations(),
     /// * tags apps
     /// * get `/app/installations/{installation_id}`
-    /// * docs https://docs.github.com/rest/reference/apps#get-an-installation-for-the-authenticated-app
+    /// * docs <https://docs.github.com/rest/reference/apps#get-an-installation-for-the-authenticated-app>
     ///
     /// Get an installation for the authenticated app
     /// Enables an authenticated GitHub App to find an installation's information using the installation id. The installation's account type (`target_type`) will be either an organization or a user account, depending which account the repository belongs to.
@@ -99,7 +99,7 @@ pub enum EndPoints {
     GetAppInstallationsinstallationId(String),
     /// * tags apps
     /// * delete `/app/installations/{installation_id}`
-    /// * docs https://docs.github.com/rest/reference/apps#delete-an-installation-for-the-authenticated-app
+    /// * docs <https://docs.github.com/rest/reference/apps#delete-an-installation-for-the-authenticated-app>
     ///
     /// Delete an installation for the authenticated app
     /// Uninstalls a GitHub App on a user, organization, or business account. If you prefer to temporarily suspend an app's access to your account's resources, then we recommend the "[Suspend an app installation](https://docs.github.com/rest/reference/apps/#suspend-an-app-installation)" endpoint.
@@ -108,7 +108,7 @@ pub enum EndPoints {
     DeleteAppInstallationsinstallationId(String),
     /// * tags apps
     /// * post `/app/installations/{installation_id}/access_tokens`
-    /// * docs https://docs.github.com/rest/reference/apps/#create-an-installation-access-token-for-an-app
+    /// * docs <https://docs.github.com/rest/reference/apps/#create-an-installation-access-token-for-an-app>
     ///
     /// Create an installation access token for an app
     /// Creates an installation access token that enables a GitHub App to make authenticated API requests for the app's installation on an organization or individual account. Installation tokens expire one hour from the time you create them. Using an expired token produces a status code of `401 - Unauthorized`, and requires creating a new installation token. By default the installation token has access to all repositories that the installation can access. To restrict the access to specific repositories, you can provide the `repository_ids` when creating the token. When you omit `repository_ids`, the response does not contain the `repositories` key.
@@ -117,7 +117,7 @@ pub enum EndPoints {
     PostAppInstallationsinstallationIdAccessTokens(String),
     /// * tags apps
     /// * put `/app/installations/{installation_id}/suspended`
-    /// * docs https://docs.github.com/rest/reference/apps#suspend-an-app-installation
+    /// * docs <https://docs.github.com/rest/reference/apps#suspend-an-app-installation>
     ///
     /// Suspend an app installation
     /// Suspends a GitHub App on a user, organization, or business account, which blocks the app from accessing the account's resources. When a GitHub App is suspended, the app's access to the GitHub API or webhook events is blocked for that account.
@@ -126,7 +126,7 @@ pub enum EndPoints {
     PutAppInstallationsinstallationIdSuspended(String),
     /// * tags apps
     /// * delete `/app/installations/{installation_id}/suspended`
-    /// * docs https://docs.github.com/rest/reference/apps#unsuspend-an-app-installation
+    /// * docs <https://docs.github.com/rest/reference/apps#unsuspend-an-app-installation>
     ///
     /// Unsuspend an app installation
     /// Removes a GitHub App installation suspension.
@@ -135,7 +135,7 @@ pub enum EndPoints {
     DeleteAppInstallationsinstallationIdSuspended(String),
     /// * tags oauth-authorizations
     /// * get `/applications/grants`
-    /// * docs https://docs.github.com/rest/reference/oauth-authorizations#list-your-grants
+    /// * docs <https://docs.github.com/rest/reference/oauth-authorizations#list-your-grants>
     ///
     /// List your grants
     /// **Deprecation Notice:** GitHub will discontinue the [OAuth Authorizations API](https://docs.github.com/rest/reference/oauth-authorizations/), which is used by integrations to create personal access tokens and OAuth tokens, and you must now create these tokens using our [web application flow](https://docs.github.com/developers/apps/authorizing-oauth-apps#web-application-flow). The [OAuth Authorizations API](https://docs.github.com/rest/reference/oauth-authorizations) will be removed on November, 13, 2020. For more information, including scheduled brownouts, see the [blog post](https://developer.github.com/changes/2020-02-14-deprecating-oauth-auth-endpoint/).
@@ -144,14 +144,14 @@ pub enum EndPoints {
     GetApplicationsGrants(),
     /// * tags oauth-authorizations
     /// * get `/applications/grants/{grant_id}`
-    /// * docs https://docs.github.com/rest/reference/oauth-authorizations#get-a-single-grant
+    /// * docs <https://docs.github.com/rest/reference/oauth-authorizations#get-a-single-grant>
     ///
     /// Get a single grant
     /// **Deprecation Notice:** GitHub will discontinue the [OAuth Authorizations API](https://docs.github.com/rest/reference/oauth-authorizations), which is used by integrations to create personal access tokens and OAuth tokens, and you must now create these tokens using our [web application flow](https://docs.github.com/apps/building-oauth-apps/authorizing-oauth-apps/#web-application-flow). The [OAuth Authorizations API](https://docs.github.com/rest/reference/oauth-authorizations) will be removed on November, 13, 2020. For more information, including scheduled brownouts, see the [blog post](https://developer.github.com/changes/2020-02-14-deprecating-oauth-auth-endpoint/).
     GetApplicationsGrantsgrantId(String),
     /// * tags oauth-authorizations
     /// * delete `/applications/grants/{grant_id}`
-    /// * docs https://docs.github.com/rest/reference/oauth-authorizations#delete-a-grant
+    /// * docs <https://docs.github.com/rest/reference/oauth-authorizations#delete-a-grant>
     ///
     /// Delete a grant
     /// **Deprecation Notice:** GitHub will discontinue the [OAuth Authorizations API](https://docs.github.com/rest/reference/oauth-authorizations/), which is used by integrations to create personal access tokens and OAuth tokens, and you must now create these tokens using our [web application flow](https://docs.github.com/developers/apps/authorizing-oauth-apps#web-application-flow). The [OAuth Authorizations API](https://docs.github.com/rest/reference/oauth-authorizations/) will be removed on November, 13, 2020. For more information, including scheduled brownouts, see the [blog post](https://developer.github.com/changes/2020-02-14-deprecating-oauth-auth-endpoint/).
@@ -160,7 +160,7 @@ pub enum EndPoints {
     DeleteApplicationsGrantsgrantId(String),
     /// * tags apps
     /// * delete `/applications/{client_id}/grant`
-    /// * docs https://docs.github.com/rest/reference/apps#delete-an-app-authorization
+    /// * docs <https://docs.github.com/rest/reference/apps#delete-an-app-authorization>
     ///
     /// Delete an app authorization
     /// OAuth application owners can revoke a grant for their OAuth application and a specific user. You must use [Basic Authentication](https://docs.github.com/rest/overview/other-authentication-methods#basic-authentication) when accessing this endpoint, using the OAuth application's `client_id` and `client_secret` as the username and password. You must also provide a valid OAuth `access_token` as an input parameter and the grant for the token's owner will be deleted.
@@ -168,35 +168,35 @@ pub enum EndPoints {
     DeleteApplicationsclientIdGrant(String),
     /// * tags apps
     /// * post `/applications/{client_id}/token`
-    /// * docs https://docs.github.com/rest/reference/apps#check-a-token
+    /// * docs <https://docs.github.com/rest/reference/apps#check-a-token>
     ///
     /// Check a token
     /// OAuth applications can use a special API method for checking OAuth token validity without exceeding the normal rate limits for failed login attempts. Authentication works differently with this particular endpoint. You must use [Basic Authentication](https://docs.github.com/rest/overview/other-authentication-methods#basic-authentication) to use this endpoint, where the username is the OAuth application `client_id` and the password is its `client_secret`. Invalid tokens will return `404 NOT FOUND`.
     PostApplicationsclientIdToken(String),
     /// * tags apps
     /// * patch `/applications/{client_id}/token`
-    /// * docs https://docs.github.com/rest/reference/apps#reset-a-token
+    /// * docs <https://docs.github.com/rest/reference/apps#reset-a-token>
     ///
     /// Reset a token
     /// OAuth applications can use this API method to reset a valid OAuth token without end-user involvement. Applications must save the "token" property in the response because changes take effect immediately. You must use [Basic Authentication](https://docs.github.com/rest/overview/other-authentication-methods#basic-authentication) when accessing this endpoint, using the OAuth application's `client_id` and `client_secret` as the username and password. Invalid tokens will return `404 NOT FOUND`.
     PatchApplicationsclientIdToken(String),
     /// * tags apps
     /// * delete `/applications/{client_id}/token`
-    /// * docs https://docs.github.com/rest/reference/apps#delete-an-app-token
+    /// * docs <https://docs.github.com/rest/reference/apps#delete-an-app-token>
     ///
     /// Delete an app token
     /// OAuth application owners can revoke a single token for an OAuth application. You must use [Basic Authentication](https://docs.github.com/rest/overview/other-authentication-methods#basic-authentication) when accessing this endpoint, using the OAuth application's `client_id` and `client_secret` as the username and password.
     DeleteApplicationsclientIdToken(String),
     /// * tags apps
     /// * post `/applications/{client_id}/token/scoped`
-    /// * docs https://docs.github.com/rest/reference/apps#create-a-scoped-access-token
+    /// * docs <https://docs.github.com/rest/reference/apps#create-a-scoped-access-token>
     ///
     /// Create a scoped access token
     /// Use a non-scoped user-to-server OAuth access token to create a repository scoped and/or permission scoped user-to-server OAuth access token. You can specify which repositories the token can access and which permissions are granted to the token. You must use [Basic Authentication](https://docs.github.com/rest/overview/other-authentication-methods#basic-authentication) when accessing this endpoint, using the OAuth application's `client_id` and `client_secret` as the username and password. Invalid tokens will return `404 NOT FOUND`.
     PostApplicationsclientIdTokenScoped(String),
     /// * tags apps
     /// * get `/apps/{app_slug}`
-    /// * docs https://docs.github.com/rest/reference/apps/#get-an-app
+    /// * docs <https://docs.github.com/rest/reference/apps/#get-an-app>
     ///
     /// Get an app
     /// **Note**: The `:app_slug` is just the URL-friendly name of your GitHub App. You can find this on the settings page for your GitHub App (e.g., `https://github.com/settings/apps/:app_slug`).
@@ -205,14 +205,14 @@ pub enum EndPoints {
     GetAppsappSlug(String),
     /// * tags oauth-authorizations
     /// * get `/authorizations`
-    /// * docs https://docs.github.com/rest/reference/oauth-authorizations#list-your-authorizations
+    /// * docs <https://docs.github.com/rest/reference/oauth-authorizations#list-your-authorizations>
     ///
     /// List your authorizations
     /// **Deprecation Notice:** GitHub will discontinue the [OAuth Authorizations API](https://docs.github.com/rest/reference/oauth-authorizations), which is used by integrations to create personal access tokens and OAuth tokens, and you must now create these tokens using our [web application flow](https://docs.github.com/apps/building-oauth-apps/authorizing-oauth-apps/#web-application-flow). The [OAuth Authorizations API](https://docs.github.com/rest/reference/oauth-authorizations) will be removed on November, 13, 2020. For more information, including scheduled brownouts, see the [blog post](https://developer.github.com/changes/2020-02-14-deprecating-oauth-auth-endpoint/).
     GetAuthorizations(),
     /// * tags oauth-authorizations
     /// * post `/authorizations`
-    /// * docs https://docs.github.com/rest/reference/oauth-authorizations#create-a-new-authorization
+    /// * docs <https://docs.github.com/rest/reference/oauth-authorizations#create-a-new-authorization>
     ///
     /// Create a new authorization
     /// **Deprecation Notice:** GitHub will discontinue the [OAuth Authorizations API](https://docs.github.com/rest/reference/oauth-authorizations), which is used by integrations to create personal access tokens and OAuth tokens, and you must now create these tokens using our [web application flow](https://docs.github.com/developers/apps/authorizing-oauth-apps#web-application-flow). The [OAuth Authorizations API](https://docs.github.com/rest/reference/oauth-authorizations) will be removed on November, 13, 2020. For more information, including scheduled brownouts, see the [blog post](https://developer.github.com/changes/2020-02-14-deprecating-oauth-auth-endpoint/).
@@ -229,7 +229,7 @@ pub enum EndPoints {
     PostAuthorizations(),
     /// * tags oauth-authorizations
     /// * put `/authorizations/clients/{client_id}`
-    /// * docs https://docs.github.com/rest/reference/oauth-authorizations#get-or-create-an-authorization-for-a-specific-app
+    /// * docs <https://docs.github.com/rest/reference/oauth-authorizations#get-or-create-an-authorization-for-a-specific-app>
     ///
     /// Get-or-create an authorization for a specific app
     /// **Deprecation Notice:** GitHub will discontinue the [OAuth Authorizations API](https://docs.github.com/rest/reference/oauth-authorizations/), which is used by integrations to create personal access tokens and OAuth tokens, and you must now create these tokens using our [web application flow](https://docs.github.com/developers/apps/authorizing-oauth-apps#web-application-flow). The [OAuth Authorizations API](https://docs.github.com/rest/reference/oauth-authorizations) will be removed on November, 13, 2020. For more information, including scheduled brownouts, see the [blog post](https://developer.github.com/changes/2020-02-14-deprecating-oauth-auth-endpoint/).
@@ -244,7 +244,7 @@ pub enum EndPoints {
     PutAuthorizationsClientsclientId(String),
     /// * tags oauth-authorizations
     /// * put `/authorizations/clients/{client_id}/{fingerprint}`
-    /// * docs https://docs.github.com/rest/reference/oauth-authorizations#get-or-create-an-authorization-for-a-specific-app-and-fingerprint
+    /// * docs <https://docs.github.com/rest/reference/oauth-authorizations#get-or-create-an-authorization-for-a-specific-app-and-fingerprint>
     ///
     /// Get-or-create an authorization for a specific app and fingerprint
     /// **Deprecation Notice:** GitHub will discontinue the [OAuth Authorizations API](https://docs.github.com/rest/reference/oauth-authorizations/), which is used by integrations to create personal access tokens and OAuth tokens, and you must now create these tokens using our [web application flow](https://docs.github.com/developers/apps/authorizing-oauth-apps#web-application-flow). The [OAuth Authorizations API](https://docs.github.com/rest/reference/oauth-authorizations) will be removed on November, 13, 2020. For more information, including scheduled brownouts, see the [blog post](https://developer.github.com/changes/2020-02-14-deprecating-oauth-auth-endpoint/).
@@ -257,14 +257,14 @@ pub enum EndPoints {
     PutAuthorizationsClientsclientIdfingerprint(String, String),
     /// * tags oauth-authorizations
     /// * get `/authorizations/{authorization_id}`
-    /// * docs https://docs.github.com/rest/reference/oauth-authorizations#get-a-single-authorization
+    /// * docs <https://docs.github.com/rest/reference/oauth-authorizations#get-a-single-authorization>
     ///
     /// Get a single authorization
     /// **Deprecation Notice:** GitHub will discontinue the [OAuth Authorizations API](https://docs.github.com/rest/reference/oauth-authorizations), which is used by integrations to create personal access tokens and OAuth tokens, and you must now create these tokens using our [web application flow](https://docs.github.com/apps/building-oauth-apps/authorizing-oauth-apps/#web-application-flow). The [OAuth Authorizations API](https://docs.github.com/rest/reference/oauth-authorizations) will be removed on November, 13, 2020. For more information, including scheduled brownouts, see the [blog post](https://developer.github.com/changes/2020-02-14-deprecating-oauth-auth-endpoint/).
     GetAuthorizationsauthorizationId(String),
     /// * tags oauth-authorizations
     /// * patch `/authorizations/{authorization_id}`
-    /// * docs https://docs.github.com/rest/reference/oauth-authorizations#update-an-existing-authorization
+    /// * docs <https://docs.github.com/rest/reference/oauth-authorizations#update-an-existing-authorization>
     ///
     /// Update an existing authorization
     /// **Deprecation Notice:** GitHub will discontinue the [OAuth Authorizations API](https://docs.github.com/rest/reference/oauth-authorizations/), which is used by integrations to create personal access tokens and OAuth tokens, and you must now create these tokens using our [web application flow](https://docs.github.com/developers/apps/authorizing-oauth-apps#web-application-flow). The [OAuth Authorizations API](https://docs.github.com/rest/reference/oauth-authorizations) will be removed on November, 13, 2020. For more information, including scheduled brownouts, see the [blog post](https://developer.github.com/changes/2020-02-14-deprecating-oauth-auth-endpoint/).
@@ -275,35 +275,35 @@ pub enum EndPoints {
     PatchAuthorizationsauthorizationId(String),
     /// * tags oauth-authorizations
     /// * delete `/authorizations/{authorization_id}`
-    /// * docs https://docs.github.com/rest/reference/oauth-authorizations#delete-an-authorization
+    /// * docs <https://docs.github.com/rest/reference/oauth-authorizations#delete-an-authorization>
     ///
     /// Delete an authorization
     /// **Deprecation Notice:** GitHub will discontinue the [OAuth Authorizations API](https://docs.github.com/rest/reference/oauth-authorizations), which is used by integrations to create personal access tokens and OAuth tokens, and you must now create these tokens using our [web application flow](https://docs.github.com/apps/building-oauth-apps/authorizing-oauth-apps/#web-application-flow). The [OAuth Authorizations API](https://docs.github.com/rest/reference/oauth-authorizations) will be removed on November, 13, 2020. For more information, including scheduled brownouts, see the [blog post](https://developer.github.com/changes/2020-02-14-deprecating-oauth-auth-endpoint/).
     DeleteAuthorizationsauthorizationId(String),
     /// * tags codes-of-conduct
     /// * get `/codes_of_conduct`
-    /// * docs https://docs.github.com/rest/reference/codes-of-conduct#get-all-codes-of-conduct
+    /// * docs <https://docs.github.com/rest/reference/codes-of-conduct#get-all-codes-of-conduct>
     ///
     /// Get all codes of conduct
     ///
     GetCodesOfConduct(),
     /// * tags codes-of-conduct
     /// * get `/codes_of_conduct/{key}`
-    /// * docs https://docs.github.com/rest/reference/codes-of-conduct#get-a-code-of-conduct
+    /// * docs <https://docs.github.com/rest/reference/codes-of-conduct#get-a-code-of-conduct>
     ///
     /// Get a code of conduct
     ///
     GetCodesOfConductkey(String),
     /// * tags emojis
     /// * get `/emojis`
-    /// * docs https://docs.github.com/rest/reference/emojis#get-emojis
+    /// * docs <https://docs.github.com/rest/reference/emojis#get-emojis>
     ///
     /// Get emojis
     /// Lists all the emojis available to use on GitHub.
     GetEmojis(),
     /// * tags enterprise-admin
     /// * get `/enterprises/{enterprise}/actions/permissions`
-    /// * docs https://docs.github.com/rest/reference/enterprise-admin#get-github-actions-permissions-for-an-enterprise
+    /// * docs <https://docs.github.com/rest/reference/enterprise-admin#get-github-actions-permissions-for-an-enterprise>
     ///
     /// Get GitHub Actions permissions for an enterprise
     /// Gets the GitHub Actions permissions policy for organizations and allowed actions in an enterprise.
@@ -312,7 +312,7 @@ pub enum EndPoints {
     GetEnterprisesenterpriseActionsPermissions(String),
     /// * tags enterprise-admin
     /// * put `/enterprises/{enterprise}/actions/permissions`
-    /// * docs https://docs.github.com/rest/reference/enterprise-admin#set-github-actions-permissions-for-an-enterprise
+    /// * docs <https://docs.github.com/rest/reference/enterprise-admin#set-github-actions-permissions-for-an-enterprise>
     ///
     /// Set GitHub Actions permissions for an enterprise
     /// Sets the GitHub Actions permissions policy for organizations and allowed actions in an enterprise.
@@ -321,7 +321,7 @@ pub enum EndPoints {
     PutEnterprisesenterpriseActionsPermissions(String),
     /// * tags enterprise-admin
     /// * get `/enterprises/{enterprise}/actions/permissions/organizations`
-    /// * docs https://docs.github.com/rest/reference/enterprise-admin#list-selected-organizations-enabled-for-github-actions-in-an-enterprise
+    /// * docs <https://docs.github.com/rest/reference/enterprise-admin#list-selected-organizations-enabled-for-github-actions-in-an-enterprise>
     ///
     /// List selected organizations enabled for GitHub Actions in an enterprise
     /// Lists the organizations that are selected to have GitHub Actions enabled in an enterprise. To use this endpoint, the enterprise permission policy for `enabled_organizations` must be configured to `selected`. For more information, see "[Set GitHub Actions permissions for an enterprise](#set-github-actions-permissions-for-an-enterprise)."
@@ -330,7 +330,7 @@ pub enum EndPoints {
     GetEnterprisesenterpriseActionsPermissionsOrganizations(String),
     /// * tags enterprise-admin
     /// * put `/enterprises/{enterprise}/actions/permissions/organizations`
-    /// * docs https://docs.github.com/rest/reference/enterprise-admin#set-selected-organizations-enabled-for-github-actions-in-an-enterprise
+    /// * docs <https://docs.github.com/rest/reference/enterprise-admin#set-selected-organizations-enabled-for-github-actions-in-an-enterprise>
     ///
     /// Set selected organizations enabled for GitHub Actions in an enterprise
     /// Replaces the list of selected organizations that are enabled for GitHub Actions in an enterprise. To use this endpoint, the enterprise permission policy for `enabled_organizations` must be configured to `selected`. For more information, see "[Set GitHub Actions permissions for an enterprise](#set-github-actions-permissions-for-an-enterprise)."
@@ -339,7 +339,7 @@ pub enum EndPoints {
     PutEnterprisesenterpriseActionsPermissionsOrganizations(String),
     /// * tags enterprise-admin
     /// * put `/enterprises/{enterprise}/actions/permissions/organizations/{org_id}`
-    /// * docs https://docs.github.com/rest/reference/enterprise-admin#enable-a-selected-organization-for-github-actions-in-an-enterprise
+    /// * docs <https://docs.github.com/rest/reference/enterprise-admin#enable-a-selected-organization-for-github-actions-in-an-enterprise>
     ///
     /// Enable a selected organization for GitHub Actions in an enterprise
     /// Adds an organization to the list of selected organizations that are enabled for GitHub Actions in an enterprise. To use this endpoint, the enterprise permission policy for `enabled_organizations` must be configured to `selected`. For more information, see "[Set GitHub Actions permissions for an enterprise](#set-github-actions-permissions-for-an-enterprise)."
@@ -348,7 +348,7 @@ pub enum EndPoints {
     PutEnterprisesenterpriseActionsPermissionsOrganizationsorgId(String, String),
     /// * tags enterprise-admin
     /// * delete `/enterprises/{enterprise}/actions/permissions/organizations/{org_id}`
-    /// * docs https://docs.github.com/rest/reference/enterprise-admin#disable-a-selected-organization-for-github-actions-in-an-enterprise
+    /// * docs <https://docs.github.com/rest/reference/enterprise-admin#disable-a-selected-organization-for-github-actions-in-an-enterprise>
     ///
     /// Disable a selected organization for GitHub Actions in an enterprise
     /// Removes an organization from the list of selected organizations that are enabled for GitHub Actions in an enterprise. To use this endpoint, the enterprise permission policy for `enabled_organizations` must be configured to `selected`. For more information, see "[Set GitHub Actions permissions for an enterprise](#set-github-actions-permissions-for-an-enterprise)."
@@ -357,7 +357,7 @@ pub enum EndPoints {
     DeleteEnterprisesenterpriseActionsPermissionsOrganizationsorgId(String, String),
     /// * tags enterprise-admin
     /// * get `/enterprises/{enterprise}/actions/permissions/selected-actions`
-    /// * docs https://docs.github.com/rest/reference/enterprise-admin#get-allowed-actions-for-an-enterprise
+    /// * docs <https://docs.github.com/rest/reference/enterprise-admin#get-allowed-actions-for-an-enterprise>
     ///
     /// Get allowed actions for an enterprise
     /// Gets the selected actions that are allowed in an enterprise. To use this endpoint, the enterprise permission policy for `allowed_actions` must be configured to `selected`. For more information, see "[Set GitHub Actions permissions for an enterprise](#set-github-actions-permissions-for-an-enterprise)."
@@ -366,7 +366,7 @@ pub enum EndPoints {
     GetEnterprisesenterpriseActionsPermissionsSelectedActions(String),
     /// * tags enterprise-admin
     /// * put `/enterprises/{enterprise}/actions/permissions/selected-actions`
-    /// * docs https://docs.github.com/rest/reference/enterprise-admin#set-allowed-actions-for-an-enterprise
+    /// * docs <https://docs.github.com/rest/reference/enterprise-admin#set-allowed-actions-for-an-enterprise>
     ///
     /// Set allowed actions for an enterprise
     /// Sets the actions that are allowed in an enterprise. To use this endpoint, the enterprise permission policy for `allowed_actions` must be configured to `selected`. For more information, see "[Set GitHub Actions permissions for an enterprise](#set-github-actions-permissions-for-an-enterprise)."
@@ -375,7 +375,7 @@ pub enum EndPoints {
     PutEnterprisesenterpriseActionsPermissionsSelectedActions(String),
     /// * tags enterprise-admin
     /// * get `/enterprises/{enterprise}/actions/runner-groups`
-    /// * docs https://docs.github.com/rest/reference/enterprise-admin#list-self-hosted-runner-groups-for-an-enterprise
+    /// * docs <https://docs.github.com/rest/reference/enterprise-admin#list-self-hosted-runner-groups-for-an-enterprise>
     ///
     /// List self-hosted runner groups for an enterprise
     /// Lists all self-hosted runner groups for an enterprise.
@@ -384,7 +384,7 @@ pub enum EndPoints {
     GetEnterprisesenterpriseActionsRunnerGroups(String),
     /// * tags enterprise-admin
     /// * post `/enterprises/{enterprise}/actions/runner-groups`
-    /// * docs https://docs.github.com/rest/reference/enterprise-admin#create-self-hosted-runner-group-for-an-enterprise
+    /// * docs <https://docs.github.com/rest/reference/enterprise-admin#create-self-hosted-runner-group-for-an-enterprise>
     ///
     /// Create a self-hosted runner group for an enterprise
     /// Creates a new self-hosted runner group for an enterprise.
@@ -393,7 +393,7 @@ pub enum EndPoints {
     PostEnterprisesenterpriseActionsRunnerGroups(String),
     /// * tags enterprise-admin
     /// * get `/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}`
-    /// * docs https://docs.github.com/rest/reference/enterprise-admin#get-a-self-hosted-runner-group-for-an-enterprise
+    /// * docs <https://docs.github.com/rest/reference/enterprise-admin#get-a-self-hosted-runner-group-for-an-enterprise>
     ///
     /// Get a self-hosted runner group for an enterprise
     /// Gets a specific self-hosted runner group for an enterprise.
@@ -402,7 +402,7 @@ pub enum EndPoints {
     GetEnterprisesenterpriseActionsRunnerGroupsrunnerGroupId(String, String),
     /// * tags enterprise-admin
     /// * patch `/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}`
-    /// * docs https://docs.github.com/rest/reference/enterprise-admin#update-a-self-hosted-runner-group-for-an-enterprise
+    /// * docs <https://docs.github.com/rest/reference/enterprise-admin#update-a-self-hosted-runner-group-for-an-enterprise>
     ///
     /// Update a self-hosted runner group for an enterprise
     /// Updates the `name` and `visibility` of a self-hosted runner group in an enterprise.
@@ -411,7 +411,7 @@ pub enum EndPoints {
     PatchEnterprisesenterpriseActionsRunnerGroupsrunnerGroupId(String, String),
     /// * tags enterprise-admin
     /// * delete `/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}`
-    /// * docs https://docs.github.com/rest/reference/enterprise-admin#delete-a-self-hosted-runner-group-from-an-enterprise
+    /// * docs <https://docs.github.com/rest/reference/enterprise-admin#delete-a-self-hosted-runner-group-from-an-enterprise>
     ///
     /// Delete a self-hosted runner group from an enterprise
     /// Deletes a self-hosted runner group for an enterprise.
@@ -420,7 +420,7 @@ pub enum EndPoints {
     DeleteEnterprisesenterpriseActionsRunnerGroupsrunnerGroupId(String, String),
     /// * tags enterprise-admin
     /// * get `/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/organizations`
-    /// * docs https://docs.github.com/rest/reference/enterprise-admin#list-organization-access-to-a-self-hosted-runner-group-in-a-enterprise
+    /// * docs <https://docs.github.com/rest/reference/enterprise-admin#list-organization-access-to-a-self-hosted-runner-group-in-a-enterprise>
     ///
     /// List organization access to a self-hosted runner group in an enterprise
     /// Lists the organizations with access to a self-hosted runner group.
@@ -429,7 +429,7 @@ pub enum EndPoints {
     GetEnterprisesenterpriseActionsRunnerGroupsrunnerGroupIdOrganizations(String, String),
     /// * tags enterprise-admin
     /// * put `/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/organizations`
-    /// * docs https://docs.github.com/rest/reference/enterprise-admin#set-organization-access-to-a-self-hosted-runner-group-in-an-enterprise
+    /// * docs <https://docs.github.com/rest/reference/enterprise-admin#set-organization-access-to-a-self-hosted-runner-group-in-an-enterprise>
     ///
     /// Set organization access for a self-hosted runner group in an enterprise
     /// Replaces the list of organizations that have access to a self-hosted runner configured in an enterprise.
@@ -438,7 +438,7 @@ pub enum EndPoints {
     PutEnterprisesenterpriseActionsRunnerGroupsrunnerGroupIdOrganizations(String, String),
     /// * tags enterprise-admin
     /// * put `/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/organizations/{org_id}`
-    /// * docs https://docs.github.com/rest/reference/enterprise-admin#add-organization-access-to-a-self-hosted-runner-group-in-an-enterprise
+    /// * docs <https://docs.github.com/rest/reference/enterprise-admin#add-organization-access-to-a-self-hosted-runner-group-in-an-enterprise>
     ///
     /// Add organization access to a self-hosted runner group in an enterprise
     /// Adds an organization to the list of selected organizations that can access a self-hosted runner group. The runner group must have `visibility` set to `selected`. For more information, see "[Create a self-hosted runner group for an enterprise](#create-a-self-hosted-runner-group-for-an-enterprise)."
@@ -451,7 +451,7 @@ pub enum EndPoints {
     ),
     /// * tags enterprise-admin
     /// * delete `/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/organizations/{org_id}`
-    /// * docs https://docs.github.com/rest/reference/enterprise-admin#remove-organization-access-to-a-self-hosted-runner-group-in-an-enterprise
+    /// * docs <https://docs.github.com/rest/reference/enterprise-admin#remove-organization-access-to-a-self-hosted-runner-group-in-an-enterprise>
     ///
     /// Remove organization access to a self-hosted runner group in an enterprise
     /// Removes an organization from the list of selected organizations that can access a self-hosted runner group. The runner group must have `visibility` set to `selected`. For more information, see "[Create a self-hosted runner group for an enterprise](#create-a-self-hosted-runner-group-for-an-enterprise)."
@@ -464,7 +464,7 @@ pub enum EndPoints {
     ),
     /// * tags enterprise-admin
     /// * get `/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/runners`
-    /// * docs https://docs.github.com/rest/reference/enterprise-admin#list-self-hosted-runners-in-a-group-for-an-enterprise
+    /// * docs <https://docs.github.com/rest/reference/enterprise-admin#list-self-hosted-runners-in-a-group-for-an-enterprise>
     ///
     /// List self-hosted runners in a group for an enterprise
     /// Lists the self-hosted runners that are in a specific enterprise group.
@@ -473,7 +473,7 @@ pub enum EndPoints {
     GetEnterprisesenterpriseActionsRunnerGroupsrunnerGroupIdRunners(String, String),
     /// * tags enterprise-admin
     /// * put `/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/runners`
-    /// * docs https://docs.github.com/rest/reference/enterprise-admin#set-self-hosted-runners-in-a-group-for-an-enterprise
+    /// * docs <https://docs.github.com/rest/reference/enterprise-admin#set-self-hosted-runners-in-a-group-for-an-enterprise>
     ///
     /// Set self-hosted runners in a group for an enterprise
     /// Replaces the list of self-hosted runners that are part of an enterprise runner group.
@@ -482,7 +482,7 @@ pub enum EndPoints {
     PutEnterprisesenterpriseActionsRunnerGroupsrunnerGroupIdRunners(String, String),
     /// * tags enterprise-admin
     /// * put `/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/runners/{runner_id}`
-    /// * docs https://docs.github.com/rest/reference/enterprise-admin#add-a-self-hosted-runner-to-a-group-for-an-enterprise
+    /// * docs <https://docs.github.com/rest/reference/enterprise-admin#add-a-self-hosted-runner-to-a-group-for-an-enterprise>
     ///
     /// Add a self-hosted runner to a group for an enterprise
     /// Adds a self-hosted runner to a runner group configured in an enterprise.
@@ -492,7 +492,7 @@ pub enum EndPoints {
     PutEnterprisesenterpriseActionsRunnerGroupsrunnerGroupIdRunnersrunnerId(String, String, String),
     /// * tags enterprise-admin
     /// * delete `/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/runners/{runner_id}`
-    /// * docs https://docs.github.com/rest/reference/enterprise-admin#remove-a-self-hosted-runner-from-a-group-for-an-enterprise
+    /// * docs <https://docs.github.com/rest/reference/enterprise-admin#remove-a-self-hosted-runner-from-a-group-for-an-enterprise>
     ///
     /// Remove a self-hosted runner from a group for an enterprise
     /// Removes a self-hosted runner from a group configured in an enterprise. The runner is then returned to the default group.
@@ -505,7 +505,7 @@ pub enum EndPoints {
     ),
     /// * tags enterprise-admin
     /// * get `/enterprises/{enterprise}/actions/runners`
-    /// * docs https://docs.github.com/rest/reference/enterprise-admin#list-self-hosted-runners-for-an-enterprise
+    /// * docs <https://docs.github.com/rest/reference/enterprise-admin#list-self-hosted-runners-for-an-enterprise>
     ///
     /// List self-hosted runners for an enterprise
     /// Lists all self-hosted runners configured for an enterprise.
@@ -514,7 +514,7 @@ pub enum EndPoints {
     GetEnterprisesenterpriseActionsRunners(String),
     /// * tags enterprise-admin
     /// * get `/enterprises/{enterprise}/actions/runners/downloads`
-    /// * docs https://docs.github.com/rest/reference/enterprise-admin#list-runner-applications-for-an-enterprise
+    /// * docs <https://docs.github.com/rest/reference/enterprise-admin#list-runner-applications-for-an-enterprise>
     ///
     /// List runner applications for an enterprise
     /// Lists binaries for the runner application that you can download and run.
@@ -523,7 +523,7 @@ pub enum EndPoints {
     GetEnterprisesenterpriseActionsRunnersDownloads(String),
     /// * tags enterprise-admin
     /// * post `/enterprises/{enterprise}/actions/runners/registration-token`
-    /// * docs https://docs.github.com/rest/reference/enterprise-admin#create-a-registration-token-for-an-enterprise
+    /// * docs <https://docs.github.com/rest/reference/enterprise-admin#create-a-registration-token-for-an-enterprise>
     ///
     /// Create a registration token for an enterprise
     /// Returns a token that you can pass to the `config` script. The token expires after one hour.
@@ -540,7 +540,7 @@ pub enum EndPoints {
     PostEnterprisesenterpriseActionsRunnersRegistrationToken(String),
     /// * tags enterprise-admin
     /// * post `/enterprises/{enterprise}/actions/runners/remove-token`
-    /// * docs https://docs.github.com/rest/reference/enterprise-admin#create-a-remove-token-for-an-enterprise
+    /// * docs <https://docs.github.com/rest/reference/enterprise-admin#create-a-remove-token-for-an-enterprise>
     ///
     /// Create a remove token for an enterprise
     /// Returns a token that you can pass to the `config` script to remove a self-hosted runner from an enterprise. The token expires after one hour.
@@ -558,7 +558,7 @@ pub enum EndPoints {
     PostEnterprisesenterpriseActionsRunnersRemoveToken(String),
     /// * tags enterprise-admin
     /// * get `/enterprises/{enterprise}/actions/runners/{runner_id}`
-    /// * docs https://docs.github.com/rest/reference/enterprise-admin#get-a-self-hosted-runner-for-an-enterprise
+    /// * docs <https://docs.github.com/rest/reference/enterprise-admin#get-a-self-hosted-runner-for-an-enterprise>
     ///
     /// Get a self-hosted runner for an enterprise
     /// Gets a specific self-hosted runner configured in an enterprise.
@@ -567,7 +567,7 @@ pub enum EndPoints {
     GetEnterprisesenterpriseActionsRunnersrunnerId(String, String),
     /// * tags enterprise-admin
     /// * delete `/enterprises/{enterprise}/actions/runners/{runner_id}`
-    /// * docs https://docs.github.com/rest/reference/enterprise-admin#delete-self-hosted-runner-from-an-enterprise
+    /// * docs <https://docs.github.com/rest/reference/enterprise-admin#delete-self-hosted-runner-from-an-enterprise>
     ///
     /// Delete a self-hosted runner from an enterprise
     /// Forces the removal of a self-hosted runner from an enterprise. You can use this endpoint to completely remove the runner when the machine you were using no longer exists.
@@ -576,7 +576,7 @@ pub enum EndPoints {
     DeleteEnterprisesenterpriseActionsRunnersrunnerId(String, String),
     /// * tags enterprise-admin
     /// * get `/enterprises/{enterprise}/actions/runners/{runner_id}/labels`
-    /// * docs https://docs.github.com/rest/reference/enterprise-admin#list-labels-for-a-self-hosted-runner-for-an-enterprise
+    /// * docs <https://docs.github.com/rest/reference/enterprise-admin#list-labels-for-a-self-hosted-runner-for-an-enterprise>
     ///
     /// List labels for a self-hosted runner for an enterprise
     /// Lists all labels for a self-hosted runner configured in an enterprise.
@@ -585,7 +585,7 @@ pub enum EndPoints {
     GetEnterprisesenterpriseActionsRunnersrunnerIdLabels(String, String),
     /// * tags enterprise-admin
     /// * post `/enterprises/{enterprise}/actions/runners/{runner_id}/labels`
-    /// * docs https://docs.github.com/rest/reference/enterprise-admin#add-custom-labels-to-a-self-hosted-runner-for-an-enterprise
+    /// * docs <https://docs.github.com/rest/reference/enterprise-admin#add-custom-labels-to-a-self-hosted-runner-for-an-enterprise>
     ///
     /// Add custom labels to a self-hosted runner for an enterprise
     /// Add custom labels to a self-hosted runner configured in an enterprise.
@@ -594,7 +594,7 @@ pub enum EndPoints {
     PostEnterprisesenterpriseActionsRunnersrunnerIdLabels(String, String),
     /// * tags enterprise-admin
     /// * put `/enterprises/{enterprise}/actions/runners/{runner_id}/labels`
-    /// * docs https://docs.github.com/rest/reference/enterprise-admin#set-custom-labels-for-a-self-hosted-runner-for-an-enterprise
+    /// * docs <https://docs.github.com/rest/reference/enterprise-admin#set-custom-labels-for-a-self-hosted-runner-for-an-enterprise>
     ///
     /// Set custom labels for a self-hosted runner for an enterprise
     /// Remove all previous custom labels and set the new custom labels for a specific
@@ -604,7 +604,7 @@ pub enum EndPoints {
     PutEnterprisesenterpriseActionsRunnersrunnerIdLabels(String, String),
     /// * tags enterprise-admin
     /// * delete `/enterprises/{enterprise}/actions/runners/{runner_id}/labels`
-    /// * docs https://docs.github.com/rest/reference/enterprise-admin#remove-all-custom-labels-from-a-self-hosted-runner-for-an-enterprise
+    /// * docs <https://docs.github.com/rest/reference/enterprise-admin#remove-all-custom-labels-from-a-self-hosted-runner-for-an-enterprise>
     ///
     /// Remove all custom labels from a self-hosted runner for an enterprise
     /// Remove all custom labels from a self-hosted runner configured in an
@@ -614,7 +614,7 @@ pub enum EndPoints {
     DeleteEnterprisesenterpriseActionsRunnersrunnerIdLabels(String, String),
     /// * tags enterprise-admin
     /// * delete `/enterprises/{enterprise}/actions/runners/{runner_id}/labels/{name}`
-    /// * docs https://docs.github.com/rest/reference/enterprise-admin#remove-a-custom-label-from-a-self-hosted-runner-for-an-enterprise
+    /// * docs <https://docs.github.com/rest/reference/enterprise-admin#remove-a-custom-label-from-a-self-hosted-runner-for-an-enterprise>
     ///
     /// Remove a custom label from a self-hosted runner for an enterprise
     /// Remove a custom label from a self-hosted runner configured
@@ -627,14 +627,14 @@ pub enum EndPoints {
     DeleteEnterprisesenterpriseActionsRunnersrunnerIdLabelsname(String, String, String),
     /// * tags enterprise-admin
     /// * get `/enterprises/{enterprise}/audit-log`
-    /// * docs https://docs.github.com/rest/reference/enterprise-admin#get-the-audit-log-for-an-enterprise
+    /// * docs <https://docs.github.com/rest/reference/enterprise-admin#get-the-audit-log-for-an-enterprise>
     ///
     /// Get the audit log for an enterprise
     /// Gets the audit log for an enterprise. To use this endpoint, you must be an enterprise admin, and you must use an access token with the `admin:enterprise` scope.
     GetEnterprisesenterpriseAuditLog(String),
     /// * tags billing
     /// * get `/enterprises/{enterprise}/settings/billing/actions`
-    /// * docs https://docs.github.com/rest/reference/billing#get-github-actions-billing-for-an-enterprise
+    /// * docs <https://docs.github.com/rest/reference/billing#get-github-actions-billing-for-an-enterprise>
     ///
     /// Get GitHub Actions billing for an enterprise
     /// Gets the summary of the free and paid GitHub Actions minutes used.
@@ -645,7 +645,7 @@ pub enum EndPoints {
     GetEnterprisesenterpriseSettingsBillingActions(String),
     /// * tags billing
     /// * get `/enterprises/{enterprise}/settings/billing/advanced-security`
-    /// * docs https://docs.github.com/rest/reference/billing#export-advanced-security-active-committers-data-for-enterprise
+    /// * docs <https://docs.github.com/rest/reference/billing#export-advanced-security-active-committers-data-for-enterprise>
     ///
     /// Get GitHub Advanced Security active committers for an enterprise
     /// Gets the GitHub Advanced Security active committers for an enterprise per repository.
@@ -653,7 +653,7 @@ pub enum EndPoints {
     GetEnterprisesenterpriseSettingsBillingAdvancedSecurity(String),
     /// * tags billing
     /// * get `/enterprises/{enterprise}/settings/billing/packages`
-    /// * docs https://docs.github.com/rest/reference/billing#get-github-packages-billing-for-an-enterprise
+    /// * docs <https://docs.github.com/rest/reference/billing#get-github-packages-billing-for-an-enterprise>
     ///
     /// Get GitHub Packages billing for an enterprise
     /// Gets the free and paid storage used for GitHub Packages in gigabytes.
@@ -664,7 +664,7 @@ pub enum EndPoints {
     GetEnterprisesenterpriseSettingsBillingPackages(String),
     /// * tags billing
     /// * get `/enterprises/{enterprise}/settings/billing/shared-storage`
-    /// * docs https://docs.github.com/rest/reference/billing#get-shared-storage-billing-for-an-enterprise
+    /// * docs <https://docs.github.com/rest/reference/billing#get-shared-storage-billing-for-an-enterprise>
     ///
     /// Get shared storage billing for an enterprise
     /// Gets the estimated paid and estimated total storage used for GitHub Actions and Github Packages.
@@ -675,14 +675,14 @@ pub enum EndPoints {
     GetEnterprisesenterpriseSettingsBillingSharedStorage(String),
     /// * tags activity
     /// * get `/events`
-    /// * docs https://docs.github.com/rest/reference/activity#list-public-events
+    /// * docs <https://docs.github.com/rest/reference/activity#list-public-events>
     ///
     /// List public events
     /// We delay the public events feed by five minutes, which means the most recent event returned by the public events API actually occurred at least five minutes ago.
     GetEvents(),
     /// * tags activity
     /// * get `/feeds`
-    /// * docs https://docs.github.com/rest/reference/activity#get-feeds
+    /// * docs <https://docs.github.com/rest/reference/activity#get-feeds>
     ///
     /// Get feeds
     /// GitHub provides several timeline resources in [Atom](http://en.wikipedia.org/wiki/Atom_(standard)) format. The Feeds API lists all the feeds available to the authenticated user:
@@ -699,14 +699,14 @@ pub enum EndPoints {
     GetFeeds(),
     /// * tags gists
     /// * get `/gists`
-    /// * docs https://docs.github.com/rest/reference/gists#list-gists-for-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/gists#list-gists-for-the-authenticated-user>
     ///
     /// List gists for the authenticated user
     /// Lists the authenticated user's gists or if called anonymously, this endpoint returns all public gists:
     GetGists(),
     /// * tags gists
     /// * post `/gists`
-    /// * docs https://docs.github.com/rest/reference/gists#create-a-gist
+    /// * docs <https://docs.github.com/rest/reference/gists#create-a-gist>
     ///
     /// Create a gist
     /// Allows you to add a new gist with one or more files.
@@ -715,7 +715,7 @@ pub enum EndPoints {
     PostGists(),
     /// * tags gists
     /// * get `/gists/public`
-    /// * docs https://docs.github.com/rest/reference/gists#list-public-gists
+    /// * docs <https://docs.github.com/rest/reference/gists#list-public-gists>
     ///
     /// List public gists
     /// List public gists sorted by most recently updated to least recently updated.
@@ -724,126 +724,126 @@ pub enum EndPoints {
     GetGistsPublic(),
     /// * tags gists
     /// * get `/gists/starred`
-    /// * docs https://docs.github.com/rest/reference/gists#list-starred-gists
+    /// * docs <https://docs.github.com/rest/reference/gists#list-starred-gists>
     ///
     /// List starred gists
     /// List the authenticated user's starred gists:
     GetGistsStarred(),
     /// * tags gists
     /// * get `/gists/{gist_id}`
-    /// * docs https://docs.github.com/rest/reference/gists#get-a-gist
+    /// * docs <https://docs.github.com/rest/reference/gists#get-a-gist>
     ///
     /// Get a gist
     ///
     GetGistsgistId(String),
     /// * tags gists
     /// * patch `/gists/{gist_id}`
-    /// * docs https://docs.github.com/rest/reference/gists/#update-a-gist
+    /// * docs <https://docs.github.com/rest/reference/gists/#update-a-gist>
     ///
     /// Update a gist
     /// Allows you to update or delete a gist file and rename gist files. Files from the previous version of the gist that aren't explicitly changed during an edit are unchanged.
     PatchGistsgistId(String),
     /// * tags gists
     /// * delete `/gists/{gist_id}`
-    /// * docs https://docs.github.com/rest/reference/gists#delete-a-gist
+    /// * docs <https://docs.github.com/rest/reference/gists#delete-a-gist>
     ///
     /// Delete a gist
     ///
     DeleteGistsgistId(String),
     /// * tags gists
     /// * get `/gists/{gist_id}/comments`
-    /// * docs https://docs.github.com/rest/reference/gists#list-gist-comments
+    /// * docs <https://docs.github.com/rest/reference/gists#list-gist-comments>
     ///
     /// List gist comments
     ///
     GetGistsgistIdComments(String),
     /// * tags gists
     /// * post `/gists/{gist_id}/comments`
-    /// * docs https://docs.github.com/rest/reference/gists#create-a-gist-comment
+    /// * docs <https://docs.github.com/rest/reference/gists#create-a-gist-comment>
     ///
     /// Create a gist comment
     ///
     PostGistsgistIdComments(String),
     /// * tags gists
     /// * get `/gists/{gist_id}/comments/{comment_id}`
-    /// * docs https://docs.github.com/rest/reference/gists#get-a-gist-comment
+    /// * docs <https://docs.github.com/rest/reference/gists#get-a-gist-comment>
     ///
     /// Get a gist comment
     ///
     GetGistsgistIdCommentscommentId(String, String),
     /// * tags gists
     /// * patch `/gists/{gist_id}/comments/{comment_id}`
-    /// * docs https://docs.github.com/rest/reference/gists#update-a-gist-comment
+    /// * docs <https://docs.github.com/rest/reference/gists#update-a-gist-comment>
     ///
     /// Update a gist comment
     ///
     PatchGistsgistIdCommentscommentId(String, String),
     /// * tags gists
     /// * delete `/gists/{gist_id}/comments/{comment_id}`
-    /// * docs https://docs.github.com/rest/reference/gists#delete-a-gist-comment
+    /// * docs <https://docs.github.com/rest/reference/gists#delete-a-gist-comment>
     ///
     /// Delete a gist comment
     ///
     DeleteGistsgistIdCommentscommentId(String, String),
     /// * tags gists
     /// * get `/gists/{gist_id}/commits`
-    /// * docs https://docs.github.com/rest/reference/gists#list-gist-commits
+    /// * docs <https://docs.github.com/rest/reference/gists#list-gist-commits>
     ///
     /// List gist commits
     ///
     GetGistsgistIdCommits(String),
     /// * tags gists
     /// * get `/gists/{gist_id}/forks`
-    /// * docs https://docs.github.com/rest/reference/gists#list-gist-forks
+    /// * docs <https://docs.github.com/rest/reference/gists#list-gist-forks>
     ///
     /// List gist forks
     ///
     GetGistsgistIdForks(String),
     /// * tags gists
     /// * post `/gists/{gist_id}/forks`
-    /// * docs https://docs.github.com/rest/reference/gists#fork-a-gist
+    /// * docs <https://docs.github.com/rest/reference/gists#fork-a-gist>
     ///
     /// Fork a gist
     /// **Note**: This was previously `/gists/:gist_id/fork`.
     PostGistsgistIdForks(String),
     /// * tags gists
     /// * get `/gists/{gist_id}/star`
-    /// * docs https://docs.github.com/rest/reference/gists#check-if-a-gist-is-starred
+    /// * docs <https://docs.github.com/rest/reference/gists#check-if-a-gist-is-starred>
     ///
     /// Check if a gist is starred
     ///
     GetGistsgistIdStar(String),
     /// * tags gists
     /// * put `/gists/{gist_id}/star`
-    /// * docs https://docs.github.com/rest/reference/gists#star-a-gist
+    /// * docs <https://docs.github.com/rest/reference/gists#star-a-gist>
     ///
     /// Star a gist
     /// Note that you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information, see "[HTTP verbs](https://docs.github.com/rest/overview/resources-in-the-rest-api#http-verbs)."
     PutGistsgistIdStar(String),
     /// * tags gists
     /// * delete `/gists/{gist_id}/star`
-    /// * docs https://docs.github.com/rest/reference/gists#unstar-a-gist
+    /// * docs <https://docs.github.com/rest/reference/gists#unstar-a-gist>
     ///
     /// Unstar a gist
     ///
     DeleteGistsgistIdStar(String),
     /// * tags gists
     /// * get `/gists/{gist_id}/{sha}`
-    /// * docs https://docs.github.com/rest/reference/gists#get-a-gist-revision
+    /// * docs <https://docs.github.com/rest/reference/gists#get-a-gist-revision>
     ///
     /// Get a gist revision
     ///
     GetGistsgistIdsha(String, String),
     /// * tags gitignore
     /// * get `/gitignore/templates`
-    /// * docs https://docs.github.com/rest/reference/gitignore#get-all-gitignore-templates
+    /// * docs <https://docs.github.com/rest/reference/gitignore#get-all-gitignore-templates>
     ///
     /// Get all gitignore templates
     /// List all templates available to pass as an option when [creating a repository](https://docs.github.com/rest/reference/repos#create-a-repository-for-the-authenticated-user).
     GetGitignoreTemplates(),
     /// * tags gitignore
     /// * get `/gitignore/templates/{name}`
-    /// * docs https://docs.github.com/rest/reference/gitignore#get-a-gitignore-template
+    /// * docs <https://docs.github.com/rest/reference/gitignore#get-a-gitignore-template>
     ///
     /// Get a gitignore template
     /// The API also allows fetching the source of a single template.
@@ -851,7 +851,7 @@ pub enum EndPoints {
     GetGitignoreTemplatesname(String),
     /// * tags apps
     /// * get `/installation/repositories`
-    /// * docs https://docs.github.com/rest/reference/apps#list-repositories-accessible-to-the-app-installation
+    /// * docs <https://docs.github.com/rest/reference/apps#list-repositories-accessible-to-the-app-installation>
     ///
     /// List repositories accessible to the app installation
     /// List repositories that an app installation can access.
@@ -860,7 +860,7 @@ pub enum EndPoints {
     GetInstallationRepositories(),
     /// * tags apps
     /// * delete `/installation/token`
-    /// * docs https://docs.github.com/rest/reference/apps#revoke-an-installation-access-token
+    /// * docs <https://docs.github.com/rest/reference/apps#revoke-an-installation-access-token>
     ///
     /// Revoke an installation access token
     /// Revokes the installation token you're using to authenticate as an installation and access this endpoint.
@@ -871,7 +871,7 @@ pub enum EndPoints {
     DeleteInstallationToken(),
     /// * tags issues
     /// * get `/issues`
-    /// * docs https://docs.github.com/rest/reference/issues#list-issues-assigned-to-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/issues#list-issues-assigned-to-the-authenticated-user>
     ///
     /// List issues assigned to the authenticated user
     /// List issues assigned to the authenticated user across all visible repositories including owned repositories, member
@@ -886,35 +886,35 @@ pub enum EndPoints {
     GetIssues(),
     /// * tags licenses
     /// * get `/licenses`
-    /// * docs https://docs.github.com/rest/reference/licenses#get-all-commonly-used-licenses
+    /// * docs <https://docs.github.com/rest/reference/licenses#get-all-commonly-used-licenses>
     ///
     /// Get all commonly used licenses
     ///
     GetLicenses(),
     /// * tags licenses
     /// * get `/licenses/{license}`
-    /// * docs https://docs.github.com/rest/reference/licenses#get-a-license
+    /// * docs <https://docs.github.com/rest/reference/licenses#get-a-license>
     ///
     /// Get a license
     ///
     GetLicenseslicense(String),
     /// * tags markdown
     /// * post `/markdown`
-    /// * docs https://docs.github.com/rest/reference/markdown#render-a-markdown-document
+    /// * docs <https://docs.github.com/rest/reference/markdown#render-a-markdown-document>
     ///
     /// Render a Markdown document
     ///
     PostMarkdown(),
     /// * tags markdown
     /// * post `/markdown/raw`
-    /// * docs https://docs.github.com/rest/reference/markdown#render-a-markdown-document-in-raw-mode
+    /// * docs <https://docs.github.com/rest/reference/markdown#render-a-markdown-document-in-raw-mode>
     ///
     /// Render a Markdown document in raw mode
     /// You must send Markdown as plain text (using a `Content-Type` header of `text/plain` or `text/x-markdown`) to this endpoint, rather than using JSON format. In raw mode, [GitHub Flavored Markdown](https://github.github.com/gfm/) is not supported and Markdown will be rendered in plain format like a README.md file. Markdown content must be 400 KB or less.
     PostMarkdownRaw(),
     /// * tags apps
     /// * get `/marketplace_listing/accounts/{account_id}`
-    /// * docs https://docs.github.com/rest/reference/apps#get-a-subscription-plan-for-an-account
+    /// * docs <https://docs.github.com/rest/reference/apps#get-a-subscription-plan-for-an-account>
     ///
     /// Get a subscription plan for an account
     /// Shows whether the user or organization account actively subscribes to a plan listed by the authenticated GitHub App. When someone submits a plan change that won't be processed until the end of their billing cycle, you will also see the upcoming pending change.
@@ -923,7 +923,7 @@ pub enum EndPoints {
     GetMarketplaceListingAccountsaccountId(String),
     /// * tags apps
     /// * get `/marketplace_listing/plans`
-    /// * docs https://docs.github.com/rest/reference/apps#list-plans
+    /// * docs <https://docs.github.com/rest/reference/apps#list-plans>
     ///
     /// List plans
     /// Lists all plans that are part of your GitHub Marketplace listing.
@@ -932,7 +932,7 @@ pub enum EndPoints {
     GetMarketplaceListingPlans(),
     /// * tags apps
     /// * get `/marketplace_listing/plans/{plan_id}/accounts`
-    /// * docs https://docs.github.com/rest/reference/apps#list-accounts-for-a-plan
+    /// * docs <https://docs.github.com/rest/reference/apps#list-accounts-for-a-plan>
     ///
     /// List accounts for a plan
     /// Returns user and organization accounts associated with the specified plan, including free plans. For per-seat pricing, you see the list of accounts that have purchased the plan, including the number of seats purchased. When someone submits a plan change that won't be processed until the end of their billing cycle, you will also see the upcoming pending change.
@@ -941,7 +941,7 @@ pub enum EndPoints {
     GetMarketplaceListingPlansplanIdAccounts(String),
     /// * tags apps
     /// * get `/marketplace_listing/stubbed/accounts/{account_id}`
-    /// * docs https://docs.github.com/rest/reference/apps#get-a-subscription-plan-for-an-account-stubbed
+    /// * docs <https://docs.github.com/rest/reference/apps#get-a-subscription-plan-for-an-account-stubbed>
     ///
     /// Get a subscription plan for an account (stubbed)
     /// Shows whether the user or organization account actively subscribes to a plan listed by the authenticated GitHub App. When someone submits a plan change that won't be processed until the end of their billing cycle, you will also see the upcoming pending change.
@@ -950,7 +950,7 @@ pub enum EndPoints {
     GetMarketplaceListingStubbedAccountsaccountId(String),
     /// * tags apps
     /// * get `/marketplace_listing/stubbed/plans`
-    /// * docs https://docs.github.com/rest/reference/apps#list-plans-stubbed
+    /// * docs <https://docs.github.com/rest/reference/apps#list-plans-stubbed>
     ///
     /// List plans (stubbed)
     /// Lists all plans that are part of your GitHub Marketplace listing.
@@ -959,7 +959,7 @@ pub enum EndPoints {
     GetMarketplaceListingStubbedPlans(),
     /// * tags apps
     /// * get `/marketplace_listing/stubbed/plans/{plan_id}/accounts`
-    /// * docs https://docs.github.com/rest/reference/apps#list-accounts-for-a-plan-stubbed
+    /// * docs <https://docs.github.com/rest/reference/apps#list-accounts-for-a-plan-stubbed>
     ///
     /// List accounts for a plan (stubbed)
     /// Returns repository and organization accounts associated with the specified plan, including free plans. For per-seat pricing, you see the list of accounts that have purchased the plan, including the number of seats purchased. When someone submits a plan change that won't be processed until the end of their billing cycle, you will also see the upcoming pending change.
@@ -968,7 +968,7 @@ pub enum EndPoints {
     GetMarketplaceListingStubbedPlansplanIdAccounts(String),
     /// * tags meta
     /// * get `/meta`
-    /// * docs https://docs.github.com/rest/reference/meta#get-github-meta-information
+    /// * docs <https://docs.github.com/rest/reference/meta#get-github-meta-information>
     ///
     /// Get GitHub meta information
     /// Returns meta information about GitHub, including a list of GitHub's IP addresses. For more information, see "[About GitHub's IP addresses](https://help.github.com/articles/about-github-s-ip-addresses/)."
@@ -977,42 +977,42 @@ pub enum EndPoints {
     GetMeta(),
     /// * tags activity
     /// * get `/networks/{owner}/{repo}/events`
-    /// * docs https://docs.github.com/rest/reference/activity#list-public-events-for-a-network-of-repositories
+    /// * docs <https://docs.github.com/rest/reference/activity#list-public-events-for-a-network-of-repositories>
     ///
     /// List public events for a network of repositories
     ///
     GetNetworksownerrepoEvents(String, String),
     /// * tags activity
     /// * get `/notifications`
-    /// * docs https://docs.github.com/rest/reference/activity#list-notifications-for-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/activity#list-notifications-for-the-authenticated-user>
     ///
     /// List notifications for the authenticated user
     /// List all notifications for the current user, sorted by most recently updated.
     GetNotifications(),
     /// * tags activity
     /// * put `/notifications`
-    /// * docs https://docs.github.com/rest/reference/activity#mark-notifications-as-read
+    /// * docs <https://docs.github.com/rest/reference/activity#mark-notifications-as-read>
     ///
     /// Mark notifications as read
     /// Marks all notifications as "read" removes it from the [default view on GitHub](https://github.com/notifications). If the number of notifications is too large to complete in one request, you will receive a `202 Accepted` status and GitHub will run an asynchronous process to mark notifications as "read." To check whether any "unread" notifications remain, you can use the [List notifications for the authenticated user](https://docs.github.com/rest/reference/activity#list-notifications-for-the-authenticated-user) endpoint and pass the query parameter `all=false`.
     PutNotifications(),
     /// * tags activity
     /// * get `/notifications/threads/{thread_id}`
-    /// * docs https://docs.github.com/rest/reference/activity#get-a-thread
+    /// * docs <https://docs.github.com/rest/reference/activity#get-a-thread>
     ///
     /// Get a thread
     ///
     GetNotificationsThreadsthreadId(String),
     /// * tags activity
     /// * patch `/notifications/threads/{thread_id}`
-    /// * docs https://docs.github.com/rest/reference/activity#mark-a-thread-as-read
+    /// * docs <https://docs.github.com/rest/reference/activity#mark-a-thread-as-read>
     ///
     /// Mark a thread as read
     ///
     PatchNotificationsThreadsthreadId(String),
     /// * tags activity
     /// * get `/notifications/threads/{thread_id}/subscription`
-    /// * docs https://docs.github.com/rest/reference/activity#get-a-thread-subscription-for-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/activity#get-a-thread-subscription-for-the-authenticated-user>
     ///
     /// Get a thread subscription for the authenticated user
     /// This checks to see if the current user is subscribed to a thread. You can also [get a repository subscription](https://docs.github.com/rest/reference/activity#get-a-repository-subscription).
@@ -1021,7 +1021,7 @@ pub enum EndPoints {
     GetNotificationsThreadsthreadIdSubscription(String),
     /// * tags activity
     /// * put `/notifications/threads/{thread_id}/subscription`
-    /// * docs https://docs.github.com/rest/reference/activity#set-a-thread-subscription
+    /// * docs <https://docs.github.com/rest/reference/activity#set-a-thread-subscription>
     ///
     /// Set a thread subscription
     /// If you are watching a repository, you receive notifications for all threads by default. Use this endpoint to ignore future notifications for threads until you comment on the thread or get an **@mention**.
@@ -1032,21 +1032,21 @@ pub enum EndPoints {
     PutNotificationsThreadsthreadIdSubscription(String),
     /// * tags activity
     /// * delete `/notifications/threads/{thread_id}/subscription`
-    /// * docs https://docs.github.com/rest/reference/activity#delete-a-thread-subscription
+    /// * docs <https://docs.github.com/rest/reference/activity#delete-a-thread-subscription>
     ///
     /// Delete a thread subscription
     /// Mutes all future notifications for a conversation until you comment on the thread or get an **@mention**. If you are watching the repository of the thread, you will still receive notifications. To ignore future notifications for a repository you are watching, use the [Set a thread subscription](https://docs.github.com/rest/reference/activity#set-a-thread-subscription) endpoint and set `ignore` to `true`.
     DeleteNotificationsThreadsthreadIdSubscription(String),
     /// * tags meta
     /// * get `/octocat`
-    /// * docs https://docs.github.com/rest/reference/meta#get-octocat
+    /// * docs <https://docs.github.com/rest/reference/meta#get-octocat>
     ///
     /// Get Octocat
     /// Get the octocat as ASCII art
     GetOctocat(),
     /// * tags orgs
     /// * get `/organizations`
-    /// * docs https://docs.github.com/rest/reference/orgs#list-organizations
+    /// * docs <https://docs.github.com/rest/reference/orgs#list-organizations>
     ///
     /// List organizations
     /// Lists all organizations, in the order that they were created on GitHub.
@@ -1055,7 +1055,7 @@ pub enum EndPoints {
     GetOrganizations(),
     /// * tags orgs
     /// * get `/organizations/{organization_id}/custom_roles`
-    /// * docs https://docs.github.com/rest/reference/orgs#list-custom-repository-roles-in-an-organization
+    /// * docs <https://docs.github.com/rest/reference/orgs#list-custom-repository-roles-in-an-organization>
     ///
     /// List custom repository roles in an organization
     /// List the custom repository roles available in this organization. In order to see custom
@@ -1065,7 +1065,7 @@ pub enum EndPoints {
     GetOrganizationsorganizationIdCustomRoles(String),
     /// * tags orgs
     /// * get `/orgs/{org}`
-    /// * docs https://docs.github.com/rest/reference/orgs#get-an-organization
+    /// * docs <https://docs.github.com/rest/reference/orgs#get-an-organization>
     ///
     /// Get an organization
     /// To see many of the organization response values, you need to be an authenticated organization owner with the `admin:org` scope. When the value of `two_factor_requirement_enabled` is `true`, the organization requires all members, billing managers, and outside collaborators to enable [two-factor authentication](https://help.github.com/articles/securing-your-account-with-two-factor-authentication-2fa/).
@@ -1074,7 +1074,7 @@ pub enum EndPoints {
     GetOrgsorg(String),
     /// * tags orgs
     /// * patch `/orgs/{org}`
-    /// * docs https://docs.github.com/rest/reference/orgs/#update-an-organization
+    /// * docs <https://docs.github.com/rest/reference/orgs/#update-an-organization>
     ///
     /// Update an organization
     /// **Parameter Deprecation Notice:** GitHub will replace and discontinue `members_allowed_repository_creation_type` in favor of more granular permissions. The new input parameters are `members_can_create_public_repositories`, `members_can_create_private_repositories` for all organizations and `members_can_create_internal_repositories` for organizations associated with an enterprise account using GitHub Enterprise Cloud or GitHub Enterprise Server 2.20+. For more information, see the [blog post](https://developer.github.com/changes/2019-12-03-internal-visibility-changes).
@@ -1083,7 +1083,7 @@ pub enum EndPoints {
     PatchOrgsorg(String),
     /// * tags actions
     /// * get `/orgs/{org}/actions/permissions`
-    /// * docs https://docs.github.com/rest/reference/actions#get-github-actions-permissions-for-an-organization
+    /// * docs <https://docs.github.com/rest/reference/actions#get-github-actions-permissions-for-an-organization>
     ///
     /// Get GitHub Actions permissions for an organization
     /// Gets the GitHub Actions permissions policy for repositories and allowed actions in an organization.
@@ -1092,7 +1092,7 @@ pub enum EndPoints {
     GetOrgsorgActionsPermissions(String),
     /// * tags actions
     /// * put `/orgs/{org}/actions/permissions`
-    /// * docs https://docs.github.com/rest/reference/actions#set-github-actions-permissions-for-an-organization
+    /// * docs <https://docs.github.com/rest/reference/actions#set-github-actions-permissions-for-an-organization>
     ///
     /// Set GitHub Actions permissions for an organization
     /// Sets the GitHub Actions permissions policy for repositories and allowed actions in an organization.
@@ -1103,7 +1103,7 @@ pub enum EndPoints {
     PutOrgsorgActionsPermissions(String),
     /// * tags actions
     /// * get `/orgs/{org}/actions/permissions/repositories`
-    /// * docs https://docs.github.com/rest/reference/actions#list-selected-repositories-enabled-for-github-actions-in-an-organization
+    /// * docs <https://docs.github.com/rest/reference/actions#list-selected-repositories-enabled-for-github-actions-in-an-organization>
     ///
     /// List selected repositories enabled for GitHub Actions in an organization
     /// Lists the selected repositories that are enabled for GitHub Actions in an organization. To use this endpoint, the organization permission policy for `enabled_repositories` must be configured to `selected`. For more information, see "[Set GitHub Actions permissions for an organization](#set-github-actions-permissions-for-an-organization)."
@@ -1112,7 +1112,7 @@ pub enum EndPoints {
     GetOrgsorgActionsPermissionsRepositories(String),
     /// * tags actions
     /// * put `/orgs/{org}/actions/permissions/repositories`
-    /// * docs https://docs.github.com/rest/reference/actions#set-selected-repositories-enabled-for-github-actions-in-an-organization
+    /// * docs <https://docs.github.com/rest/reference/actions#set-selected-repositories-enabled-for-github-actions-in-an-organization>
     ///
     /// Set selected repositories enabled for GitHub Actions in an organization
     /// Replaces the list of selected repositories that are enabled for GitHub Actions in an organization. To use this endpoint, the organization permission policy for `enabled_repositories` must be configured to `selected`. For more information, see "[Set GitHub Actions permissions for an organization](#set-github-actions-permissions-for-an-organization)."
@@ -1121,7 +1121,7 @@ pub enum EndPoints {
     PutOrgsorgActionsPermissionsRepositories(String),
     /// * tags actions
     /// * put `/orgs/{org}/actions/permissions/repositories/{repository_id}`
-    /// * docs https://docs.github.com/rest/reference/actions#enable-a-selected-repository-for-github-actions-in-an-organization
+    /// * docs <https://docs.github.com/rest/reference/actions#enable-a-selected-repository-for-github-actions-in-an-organization>
     ///
     /// Enable a selected repository for GitHub Actions in an organization
     /// Adds a repository to the list of selected repositories that are enabled for GitHub Actions in an organization. To use this endpoint, the organization permission policy for `enabled_repositories` must be must be configured to `selected`. For more information, see "[Set GitHub Actions permissions for an organization](#set-github-actions-permissions-for-an-organization)."
@@ -1130,7 +1130,7 @@ pub enum EndPoints {
     PutOrgsorgActionsPermissionsRepositoriesrepositoryId(String, String),
     /// * tags actions
     /// * delete `/orgs/{org}/actions/permissions/repositories/{repository_id}`
-    /// * docs https://docs.github.com/rest/reference/actions#disable-a-selected-repository-for-github-actions-in-an-organization
+    /// * docs <https://docs.github.com/rest/reference/actions#disable-a-selected-repository-for-github-actions-in-an-organization>
     ///
     /// Disable a selected repository for GitHub Actions in an organization
     /// Removes a repository from the list of selected repositories that are enabled for GitHub Actions in an organization. To use this endpoint, the organization permission policy for `enabled_repositories` must be configured to `selected`. For more information, see "[Set GitHub Actions permissions for an organization](#set-github-actions-permissions-for-an-organization)."
@@ -1139,7 +1139,7 @@ pub enum EndPoints {
     DeleteOrgsorgActionsPermissionsRepositoriesrepositoryId(String, String),
     /// * tags actions
     /// * get `/orgs/{org}/actions/permissions/selected-actions`
-    /// * docs https://docs.github.com/rest/reference/actions#get-allowed-actions-for-an-organization
+    /// * docs <https://docs.github.com/rest/reference/actions#get-allowed-actions-for-an-organization>
     ///
     /// Get allowed actions for an organization
     /// Gets the selected actions that are allowed in an organization. To use this endpoint, the organization permission policy for `allowed_actions` must be configured to `selected`. For more information, see "[Set GitHub Actions permissions for an organization](#set-github-actions-permissions-for-an-organization).""
@@ -1148,7 +1148,7 @@ pub enum EndPoints {
     GetOrgsorgActionsPermissionsSelectedActions(String),
     /// * tags actions
     /// * put `/orgs/{org}/actions/permissions/selected-actions`
-    /// * docs https://docs.github.com/rest/reference/actions#set-allowed-actions-for-an-organization
+    /// * docs <https://docs.github.com/rest/reference/actions#set-allowed-actions-for-an-organization>
     ///
     /// Set allowed actions for an organization
     /// Sets the actions that are allowed in an organization. To use this endpoint, the organization permission policy for `allowed_actions` must be configured to `selected`. For more information, see "[Set GitHub Actions permissions for an organization](#set-github-actions-permissions-for-an-organization)."
@@ -1161,7 +1161,7 @@ pub enum EndPoints {
     PutOrgsorgActionsPermissionsSelectedActions(String),
     /// * tags actions
     /// * get `/orgs/{org}/actions/runner-groups`
-    /// * docs https://docs.github.com/rest/reference/actions#list-self-hosted-runner-groups-for-an-organization
+    /// * docs <https://docs.github.com/rest/reference/actions#list-self-hosted-runner-groups-for-an-organization>
     ///
     /// List self-hosted runner groups for an organization
     /// The self-hosted runner groups REST API is available with GitHub Enterprise Cloud. For more information, see "[GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products)."
@@ -1172,7 +1172,7 @@ pub enum EndPoints {
     GetOrgsorgActionsRunnerGroups(String),
     /// * tags actions
     /// * post `/orgs/{org}/actions/runner-groups`
-    /// * docs https://docs.github.com/rest/reference/actions#create-a-self-hosted-runner-group-for-an-organization
+    /// * docs <https://docs.github.com/rest/reference/actions#create-a-self-hosted-runner-group-for-an-organization>
     ///
     /// Create a self-hosted runner group for an organization
     /// The self-hosted runner groups REST API is available with GitHub Enterprise Cloud and GitHub Enterprise Server. For more information, see "[GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products)."
@@ -1183,7 +1183,7 @@ pub enum EndPoints {
     PostOrgsorgActionsRunnerGroups(String),
     /// * tags actions
     /// * get `/orgs/{org}/actions/runner-groups/{runner_group_id}`
-    /// * docs https://docs.github.com/rest/reference/actions#get-a-self-hosted-runner-group-for-an-organization
+    /// * docs <https://docs.github.com/rest/reference/actions#get-a-self-hosted-runner-group-for-an-organization>
     ///
     /// Get a self-hosted runner group for an organization
     /// The self-hosted runner groups REST API is available with GitHub Enterprise Cloud. For more information, see "[GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products)."
@@ -1194,7 +1194,7 @@ pub enum EndPoints {
     GetOrgsorgActionsRunnerGroupsrunnerGroupId(String, String),
     /// * tags actions
     /// * patch `/orgs/{org}/actions/runner-groups/{runner_group_id}`
-    /// * docs https://docs.github.com/rest/reference/actions#update-a-self-hosted-runner-group-for-an-organization
+    /// * docs <https://docs.github.com/rest/reference/actions#update-a-self-hosted-runner-group-for-an-organization>
     ///
     /// Update a self-hosted runner group for an organization
     /// The self-hosted runner groups REST API is available with GitHub Enterprise Cloud. For more information, see "[GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products)."
@@ -1205,7 +1205,7 @@ pub enum EndPoints {
     PatchOrgsorgActionsRunnerGroupsrunnerGroupId(String, String),
     /// * tags actions
     /// * delete `/orgs/{org}/actions/runner-groups/{runner_group_id}`
-    /// * docs https://docs.github.com/rest/reference/actions#delete-a-self-hosted-runner-group-from-an-organization
+    /// * docs <https://docs.github.com/rest/reference/actions#delete-a-self-hosted-runner-group-from-an-organization>
     ///
     /// Delete a self-hosted runner group from an organization
     /// The self-hosted runner groups REST API is available with GitHub Enterprise Cloud. For more information, see "[GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products)."
@@ -1216,7 +1216,7 @@ pub enum EndPoints {
     DeleteOrgsorgActionsRunnerGroupsrunnerGroupId(String, String),
     /// * tags actions
     /// * get `/orgs/{org}/actions/runner-groups/{runner_group_id}/repositories`
-    /// * docs https://docs.github.com/rest/reference/actions#list-repository-access-to-a-self-hosted-runner-group-in-an-organization
+    /// * docs <https://docs.github.com/rest/reference/actions#list-repository-access-to-a-self-hosted-runner-group-in-an-organization>
     ///
     /// List repository access to a self-hosted runner group in an organization
     /// The self-hosted runner groups REST API is available with GitHub Enterprise Cloud and GitHub Enterprise Server. For more information, see "[GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products)."
@@ -1227,7 +1227,7 @@ pub enum EndPoints {
     GetOrgsorgActionsRunnerGroupsrunnerGroupIdRepositories(String, String),
     /// * tags actions
     /// * put `/orgs/{org}/actions/runner-groups/{runner_group_id}/repositories`
-    /// * docs https://docs.github.com/rest/reference/actions#set-repository-access-to-a-self-hosted-runner-group-in-an-organization
+    /// * docs <https://docs.github.com/rest/reference/actions#set-repository-access-to-a-self-hosted-runner-group-in-an-organization>
     ///
     /// Set repository access for a self-hosted runner group in an organization
     /// The self-hosted runner groups REST API is available with GitHub Enterprise Cloud. For more information, see "[GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products)."
@@ -1238,7 +1238,7 @@ pub enum EndPoints {
     PutOrgsorgActionsRunnerGroupsrunnerGroupIdRepositories(String, String),
     /// * tags actions
     /// * put `/orgs/{org}/actions/runner-groups/{runner_group_id}/repositories/{repository_id}`
-    /// * docs https://docs.github.com/rest/reference/actions#add-repository-acess-to-a-self-hosted-runner-group-in-an-organization
+    /// * docs <https://docs.github.com/rest/reference/actions#add-repository-acess-to-a-self-hosted-runner-group-in-an-organization>
     ///
     /// Add repository access to a self-hosted runner group in an organization
     /// The self-hosted runner groups REST API is available with GitHub Enterprise Cloud. For more information, see "[GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products)."
@@ -1251,7 +1251,7 @@ pub enum EndPoints {
     PutOrgsorgActionsRunnerGroupsrunnerGroupIdRepositoriesrepositoryId(String, String, String),
     /// * tags actions
     /// * delete `/orgs/{org}/actions/runner-groups/{runner_group_id}/repositories/{repository_id}`
-    /// * docs https://docs.github.com/rest/reference/actions#remove-repository-access-to-a-self-hosted-runner-group-in-an-organization
+    /// * docs <https://docs.github.com/rest/reference/actions#remove-repository-access-to-a-self-hosted-runner-group-in-an-organization>
     ///
     /// Remove repository access to a self-hosted runner group in an organization
     /// The self-hosted runner groups REST API is available with GitHub Enterprise Cloud. For more information, see "[GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products)."
@@ -1263,7 +1263,7 @@ pub enum EndPoints {
     DeleteOrgsorgActionsRunnerGroupsrunnerGroupIdRepositoriesrepositoryId(String, String, String),
     /// * tags actions
     /// * get `/orgs/{org}/actions/runner-groups/{runner_group_id}/runners`
-    /// * docs https://docs.github.com/rest/reference/actions#list-self-hosted-runners-in-a-group-for-an-organization
+    /// * docs <https://docs.github.com/rest/reference/actions#list-self-hosted-runners-in-a-group-for-an-organization>
     ///
     /// List self-hosted runners in a group for an organization
     /// The self-hosted runner groups REST API is available with GitHub Enterprise Cloud. For more information, see "[GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products)."
@@ -1274,7 +1274,7 @@ pub enum EndPoints {
     GetOrgsorgActionsRunnerGroupsrunnerGroupIdRunners(String, String),
     /// * tags actions
     /// * put `/orgs/{org}/actions/runner-groups/{runner_group_id}/runners`
-    /// * docs https://docs.github.com/rest/reference/actions#set-self-hosted-runners-in-a-group-for-an-organization
+    /// * docs <https://docs.github.com/rest/reference/actions#set-self-hosted-runners-in-a-group-for-an-organization>
     ///
     /// Set self-hosted runners in a group for an organization
     /// The self-hosted runner groups REST API is available with GitHub Enterprise Cloud. For more information, see "[GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products)."
@@ -1285,7 +1285,7 @@ pub enum EndPoints {
     PutOrgsorgActionsRunnerGroupsrunnerGroupIdRunners(String, String),
     /// * tags actions
     /// * put `/orgs/{org}/actions/runner-groups/{runner_group_id}/runners/{runner_id}`
-    /// * docs https://docs.github.com/rest/reference/actions#add-a-self-hosted-runner-to-a-group-for-an-organization
+    /// * docs <https://docs.github.com/rest/reference/actions#add-a-self-hosted-runner-to-a-group-for-an-organization>
     ///
     /// Add a self-hosted runner to a group for an organization
     /// The self-hosted runner groups REST API is available with GitHub Enterprise Cloud. For more information, see "[GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products)."
@@ -1298,7 +1298,7 @@ pub enum EndPoints {
     PutOrgsorgActionsRunnerGroupsrunnerGroupIdRunnersrunnerId(String, String, String),
     /// * tags actions
     /// * delete `/orgs/{org}/actions/runner-groups/{runner_group_id}/runners/{runner_id}`
-    /// * docs https://docs.github.com/rest/reference/actions#remove-a-self-hosted-runner-from-a-group-for-an-organization
+    /// * docs <https://docs.github.com/rest/reference/actions#remove-a-self-hosted-runner-from-a-group-for-an-organization>
     ///
     /// Remove a self-hosted runner from a group for an organization
     /// The self-hosted runner groups REST API is available with GitHub Enterprise Cloud. For more information, see "[GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products)."
@@ -1310,7 +1310,7 @@ pub enum EndPoints {
     DeleteOrgsorgActionsRunnerGroupsrunnerGroupIdRunnersrunnerId(String, String, String),
     /// * tags actions
     /// * get `/orgs/{org}/actions/runners`
-    /// * docs https://docs.github.com/rest/reference/actions#list-self-hosted-runners-for-an-organization
+    /// * docs <https://docs.github.com/rest/reference/actions#list-self-hosted-runners-for-an-organization>
     ///
     /// List self-hosted runners for an organization
     /// Lists all self-hosted runners configured in an organization.
@@ -1319,7 +1319,7 @@ pub enum EndPoints {
     GetOrgsorgActionsRunners(String),
     /// * tags actions
     /// * get `/orgs/{org}/actions/runners/downloads`
-    /// * docs https://docs.github.com/rest/reference/actions#list-runner-applications-for-an-organization
+    /// * docs <https://docs.github.com/rest/reference/actions#list-runner-applications-for-an-organization>
     ///
     /// List runner applications for an organization
     /// Lists binaries for the runner application that you can download and run.
@@ -1328,7 +1328,7 @@ pub enum EndPoints {
     GetOrgsorgActionsRunnersDownloads(String),
     /// * tags actions
     /// * post `/orgs/{org}/actions/runners/registration-token`
-    /// * docs https://docs.github.com/rest/reference/actions#create-a-registration-token-for-an-organization
+    /// * docs <https://docs.github.com/rest/reference/actions#create-a-registration-token-for-an-organization>
     ///
     /// Create a registration token for an organization
     /// Returns a token that you can pass to the `config` script. The token expires after one hour.
@@ -1345,7 +1345,7 @@ pub enum EndPoints {
     PostOrgsorgActionsRunnersRegistrationToken(String),
     /// * tags actions
     /// * post `/orgs/{org}/actions/runners/remove-token`
-    /// * docs https://docs.github.com/rest/reference/actions#create-a-remove-token-for-an-organization
+    /// * docs <https://docs.github.com/rest/reference/actions#create-a-remove-token-for-an-organization>
     ///
     /// Create a remove token for an organization
     /// Returns a token that you can pass to the `config` script to remove a self-hosted runner from an organization. The token expires after one hour.
@@ -1363,7 +1363,7 @@ pub enum EndPoints {
     PostOrgsorgActionsRunnersRemoveToken(String),
     /// * tags actions
     /// * get `/orgs/{org}/actions/runners/{runner_id}`
-    /// * docs https://docs.github.com/rest/reference/actions#get-a-self-hosted-runner-for-an-organization
+    /// * docs <https://docs.github.com/rest/reference/actions#get-a-self-hosted-runner-for-an-organization>
     ///
     /// Get a self-hosted runner for an organization
     /// Gets a specific self-hosted runner configured in an organization.
@@ -1372,7 +1372,7 @@ pub enum EndPoints {
     GetOrgsorgActionsRunnersrunnerId(String, String),
     /// * tags actions
     /// * delete `/orgs/{org}/actions/runners/{runner_id}`
-    /// * docs https://docs.github.com/rest/reference/actions#delete-a-self-hosted-runner-from-an-organization
+    /// * docs <https://docs.github.com/rest/reference/actions#delete-a-self-hosted-runner-from-an-organization>
     ///
     /// Delete a self-hosted runner from an organization
     /// Forces the removal of a self-hosted runner from an organization. You can use this endpoint to completely remove the runner when the machine you were using no longer exists.
@@ -1381,7 +1381,7 @@ pub enum EndPoints {
     DeleteOrgsorgActionsRunnersrunnerId(String, String),
     /// * tags actions
     /// * get `/orgs/{org}/actions/runners/{runner_id}/labels`
-    /// * docs https://docs.github.com/rest/reference/actions#list-labels-for-a-self-hosted-runner-for-an-organization
+    /// * docs <https://docs.github.com/rest/reference/actions#list-labels-for-a-self-hosted-runner-for-an-organization>
     ///
     /// List labels for a self-hosted runner for an organization
     /// Lists all labels for a self-hosted runner configured in an organization.
@@ -1390,7 +1390,7 @@ pub enum EndPoints {
     GetOrgsorgActionsRunnersrunnerIdLabels(String, String),
     /// * tags actions
     /// * post `/orgs/{org}/actions/runners/{runner_id}/labels`
-    /// * docs https://docs.github.com/rest/reference/actions#add-custom-labels-to-a-self-hosted-runner-for-an-organization
+    /// * docs <https://docs.github.com/rest/reference/actions#add-custom-labels-to-a-self-hosted-runner-for-an-organization>
     ///
     /// Add custom labels to a self-hosted runner for an organization
     /// Add custom labels to a self-hosted runner configured in an organization.
@@ -1399,7 +1399,7 @@ pub enum EndPoints {
     PostOrgsorgActionsRunnersrunnerIdLabels(String, String),
     /// * tags actions
     /// * put `/orgs/{org}/actions/runners/{runner_id}/labels`
-    /// * docs https://docs.github.com/rest/reference/actions#set-custom-labels-for-a-self-hosted-runner-for-an-organization
+    /// * docs <https://docs.github.com/rest/reference/actions#set-custom-labels-for-a-self-hosted-runner-for-an-organization>
     ///
     /// Set custom labels for a self-hosted runner for an organization
     /// Remove all previous custom labels and set the new custom labels for a specific
@@ -1409,7 +1409,7 @@ pub enum EndPoints {
     PutOrgsorgActionsRunnersrunnerIdLabels(String, String),
     /// * tags actions
     /// * delete `/orgs/{org}/actions/runners/{runner_id}/labels`
-    /// * docs https://docs.github.com/rest/reference/actions#remove-all-custom-labels-from-a-self-hosted-runner-for-an-organization
+    /// * docs <https://docs.github.com/rest/reference/actions#remove-all-custom-labels-from-a-self-hosted-runner-for-an-organization>
     ///
     /// Remove all custom labels from a self-hosted runner for an organization
     /// Remove all custom labels from a self-hosted runner configured in an
@@ -1419,7 +1419,7 @@ pub enum EndPoints {
     DeleteOrgsorgActionsRunnersrunnerIdLabels(String, String),
     /// * tags actions
     /// * delete `/orgs/{org}/actions/runners/{runner_id}/labels/{name}`
-    /// * docs https://docs.github.com/rest/reference/actions#remove-a-custom-label-from-a-self-hosted-runner-for-an-organization
+    /// * docs <https://docs.github.com/rest/reference/actions#remove-a-custom-label-from-a-self-hosted-runner-for-an-organization>
     ///
     /// Remove a custom label from a self-hosted runner for an organization
     /// Remove a custom label from a self-hosted runner configured
@@ -1432,28 +1432,28 @@ pub enum EndPoints {
     DeleteOrgsorgActionsRunnersrunnerIdLabelsname(String, String, String),
     /// * tags actions
     /// * get `/orgs/{org}/actions/secrets`
-    /// * docs https://docs.github.com/rest/reference/actions#list-organization-secrets
+    /// * docs <https://docs.github.com/rest/reference/actions#list-organization-secrets>
     ///
     /// List organization secrets
     /// Lists all secrets available in an organization without revealing their encrypted values. You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `secrets` organization permission to use this endpoint.
     GetOrgsorgActionsSecrets(String),
     /// * tags actions
     /// * get `/orgs/{org}/actions/secrets/public-key`
-    /// * docs https://docs.github.com/rest/reference/actions#get-an-organization-public-key
+    /// * docs <https://docs.github.com/rest/reference/actions#get-an-organization-public-key>
     ///
     /// Get an organization public key
     /// Gets your public key, which you need to encrypt secrets. You need to encrypt a secret before you can create or update secrets. You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `secrets` organization permission to use this endpoint.
     GetOrgsorgActionsSecretsPublicKey(String),
     /// * tags actions
     /// * get `/orgs/{org}/actions/secrets/{secret_name}`
-    /// * docs https://docs.github.com/rest/reference/actions#get-an-organization-secret
+    /// * docs <https://docs.github.com/rest/reference/actions#get-an-organization-secret>
     ///
     /// Get an organization secret
     /// Gets a single organization secret without revealing its encrypted value. You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `secrets` organization permission to use this endpoint.
     GetOrgsorgActionsSecretssecretName(String, String),
     /// * tags actions
     /// * put `/orgs/{org}/actions/secrets/{secret_name}`
-    /// * docs https://docs.github.com/rest/reference/actions#create-or-update-an-organization-secret
+    /// * docs <https://docs.github.com/rest/reference/actions#create-or-update-an-organization-secret>
     ///
     /// Create or update an organization secret
     /// Creates or updates an organization secret with an encrypted value. Encrypt your secret using
@@ -1534,42 +1534,42 @@ pub enum EndPoints {
     PutOrgsorgActionsSecretssecretName(String, String),
     /// * tags actions
     /// * delete `/orgs/{org}/actions/secrets/{secret_name}`
-    /// * docs https://docs.github.com/rest/reference/actions#delete-an-organization-secret
+    /// * docs <https://docs.github.com/rest/reference/actions#delete-an-organization-secret>
     ///
     /// Delete an organization secret
     /// Deletes a secret in an organization using the secret name. You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `secrets` organization permission to use this endpoint.
     DeleteOrgsorgActionsSecretssecretName(String, String),
     /// * tags actions
     /// * get `/orgs/{org}/actions/secrets/{secret_name}/repositories`
-    /// * docs https://docs.github.com/rest/reference/actions#list-selected-repositories-for-an-organization-secret
+    /// * docs <https://docs.github.com/rest/reference/actions#list-selected-repositories-for-an-organization-secret>
     ///
     /// List selected repositories for an organization secret
     /// Lists all repositories that have been selected when the `visibility` for repository access to a secret is set to `selected`. You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `secrets` organization permission to use this endpoint.
     GetOrgsorgActionsSecretssecretNameRepositories(String, String),
     /// * tags actions
     /// * put `/orgs/{org}/actions/secrets/{secret_name}/repositories`
-    /// * docs https://docs.github.com/rest/reference/actions#set-selected-repositories-for-an-organization-secret
+    /// * docs <https://docs.github.com/rest/reference/actions#set-selected-repositories-for-an-organization-secret>
     ///
     /// Set selected repositories for an organization secret
     /// Replaces all repositories for an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/reference/actions#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `secrets` organization permission to use this endpoint.
     PutOrgsorgActionsSecretssecretNameRepositories(String, String),
     /// * tags actions
     /// * put `/orgs/{org}/actions/secrets/{secret_name}/repositories/{repository_id}`
-    /// * docs https://docs.github.com/rest/reference/actions#add-selected-repository-to-an-organization-secret
+    /// * docs <https://docs.github.com/rest/reference/actions#add-selected-repository-to-an-organization-secret>
     ///
     /// Add selected repository to an organization secret
     /// Adds a repository to an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/reference/actions#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `secrets` organization permission to use this endpoint.
     PutOrgsorgActionsSecretssecretNameRepositoriesrepositoryId(String, String, String),
     /// * tags actions
     /// * delete `/orgs/{org}/actions/secrets/{secret_name}/repositories/{repository_id}`
-    /// * docs https://docs.github.com/rest/reference/actions#remove-selected-repository-from-an-organization-secret
+    /// * docs <https://docs.github.com/rest/reference/actions#remove-selected-repository-from-an-organization-secret>
     ///
     /// Remove selected repository from an organization secret
     /// Removes a repository from an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/reference/actions#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `secrets` organization permission to use this endpoint.
     DeleteOrgsorgActionsSecretssecretNameRepositoriesrepositoryId(String, String, String),
     /// * tags orgs
     /// * get `/orgs/{org}/audit-log`
-    /// * docs https://docs.github.com/rest/reference/orgs#get-audit-log
+    /// * docs <https://docs.github.com/rest/reference/orgs#get-audit-log>
     ///
     /// Get the audit log for an organization
     /// Gets the audit log for an organization. For more information, see "[Reviewing the audit log for your organization](https://docs.github.com/github/setting-up-and-managing-organizations-and-teams/reviewing-the-audit-log-for-your-organization)."
@@ -1578,35 +1578,35 @@ pub enum EndPoints {
     GetOrgsorgAuditLog(String),
     /// * tags orgs
     /// * get `/orgs/{org}/blocks`
-    /// * docs https://docs.github.com/rest/reference/orgs#list-users-blocked-by-an-organization
+    /// * docs <https://docs.github.com/rest/reference/orgs#list-users-blocked-by-an-organization>
     ///
     /// List users blocked by an organization
     /// List the users blocked by an organization.
     GetOrgsorgBlocks(String),
     /// * tags orgs
     /// * get `/orgs/{org}/blocks/{username}`
-    /// * docs https://docs.github.com/rest/reference/orgs#check-if-a-user-is-blocked-by-an-organization
+    /// * docs <https://docs.github.com/rest/reference/orgs#check-if-a-user-is-blocked-by-an-organization>
     ///
     /// Check if a user is blocked by an organization
     ///
     GetOrgsorgBlocksusername(String, String),
     /// * tags orgs
     /// * put `/orgs/{org}/blocks/{username}`
-    /// * docs https://docs.github.com/rest/reference/orgs#block-a-user-from-an-organization
+    /// * docs <https://docs.github.com/rest/reference/orgs#block-a-user-from-an-organization>
     ///
     /// Block a user from an organization
     ///
     PutOrgsorgBlocksusername(String, String),
     /// * tags orgs
     /// * delete `/orgs/{org}/blocks/{username}`
-    /// * docs https://docs.github.com/rest/reference/orgs#unblock-a-user-from-an-organization
+    /// * docs <https://docs.github.com/rest/reference/orgs#unblock-a-user-from-an-organization>
     ///
     /// Unblock a user from an organization
     ///
     DeleteOrgsorgBlocksusername(String, String),
     /// * tags orgs
     /// * get `/orgs/{org}/credential-authorizations`
-    /// * docs https://docs.github.com/rest/reference/orgs#list-saml-sso-authorizations-for-an-organization
+    /// * docs <https://docs.github.com/rest/reference/orgs#list-saml-sso-authorizations-for-an-organization>
     ///
     /// List SAML SSO authorizations for an organization
     /// Listing and deleting credential authorizations is available to organizations with GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products).
@@ -1615,7 +1615,7 @@ pub enum EndPoints {
     GetOrgsorgCredentialAuthorizations(String),
     /// * tags orgs
     /// * delete `/orgs/{org}/credential-authorizations/{credential_id}`
-    /// * docs https://docs.github.com/rest/reference/orgs#remove-a-saml-sso-authorization-for-an-organization
+    /// * docs <https://docs.github.com/rest/reference/orgs#remove-a-saml-sso-authorization-for-an-organization>
     ///
     /// Remove a SAML SSO authorization for an organization
     /// Listing and deleting credential authorizations is available to organizations with GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products).
@@ -1624,14 +1624,14 @@ pub enum EndPoints {
     DeleteOrgsorgCredentialAuthorizationscredentialId(String, String),
     /// * tags activity
     /// * get `/orgs/{org}/events`
-    /// * docs https://docs.github.com/rest/reference/activity#list-public-organization-events
+    /// * docs <https://docs.github.com/rest/reference/activity#list-public-organization-events>
     ///
     /// List public organization events
     ///
     GetOrgsorgEvents(String),
     /// * tags teams
     /// * get `/orgs/{org}/external-group/{group_id}`
-    /// * docs https://docs.github.com/rest/reference/teams#external-idp-group-info-for-an-organization
+    /// * docs <https://docs.github.com/rest/reference/teams#external-idp-group-info-for-an-organization>
     ///
     /// Get an external group
     /// Displays information about the specific group's usage.  Provides a list of the group's external members as well as a list of teams that this group is connected to.
@@ -1640,7 +1640,7 @@ pub enum EndPoints {
     GetOrgsorgExternalGroupgroupId(String, String),
     /// * tags teams
     /// * get `/orgs/{org}/external-groups`
-    /// * docs https://docs.github.com/rest/reference/teams#list-external-idp-groups-for-an-organization
+    /// * docs <https://docs.github.com/rest/reference/teams#list-external-idp-groups-for-an-organization>
     ///
     /// List external groups in an organization
     /// Lists external groups available in an organization. You can query the groups using the `display_name` parameter, only groups with a `group_name` containing the text provided in the `display_name` parameter will be returned.  You can also limit your page results using the `per_page` parameter. GitHub generates a url-encoded `page` token using a cursor value for where the next page begins. For more information on cursor pagination, see "[Offset and Cursor Pagination explained](https://dev.to/jackmarchant/offset-and-cursor-pagination-explained-b89)."
@@ -1649,49 +1649,49 @@ pub enum EndPoints {
     GetOrgsorgExternalGroups(String),
     /// * tags orgs
     /// * get `/orgs/{org}/failed_invitations`
-    /// * docs https://docs.github.com/rest/reference/orgs#list-failed-organization-invitations
+    /// * docs <https://docs.github.com/rest/reference/orgs#list-failed-organization-invitations>
     ///
     /// List failed organization invitations
     /// The return hash contains `failed_at` and `failed_reason` fields which represent the time at which the invitation failed and the reason for the failure.
     GetOrgsorgFailedInvitations(String),
     /// * tags orgs
     /// * get `/orgs/{org}/hooks`
-    /// * docs https://docs.github.com/rest/reference/orgs#list-organization-webhooks
+    /// * docs <https://docs.github.com/rest/reference/orgs#list-organization-webhooks>
     ///
     /// List organization webhooks
     ///
     GetOrgsorgHooks(String),
     /// * tags orgs
     /// * post `/orgs/{org}/hooks`
-    /// * docs https://docs.github.com/rest/reference/orgs#create-an-organization-webhook
+    /// * docs <https://docs.github.com/rest/reference/orgs#create-an-organization-webhook>
     ///
     /// Create an organization webhook
     /// Here's how you can create a hook that posts payloads in JSON format:
     PostOrgsorgHooks(String),
     /// * tags orgs
     /// * get `/orgs/{org}/hooks/{hook_id}`
-    /// * docs https://docs.github.com/rest/reference/orgs#get-an-organization-webhook
+    /// * docs <https://docs.github.com/rest/reference/orgs#get-an-organization-webhook>
     ///
     /// Get an organization webhook
     /// Returns a webhook configured in an organization. To get only the webhook `config` properties, see "[Get a webhook configuration for an organization](/rest/reference/orgs#get-a-webhook-configuration-for-an-organization)."
     GetOrgsorgHookshookId(String, String),
     /// * tags orgs
     /// * patch `/orgs/{org}/hooks/{hook_id}`
-    /// * docs https://docs.github.com/rest/reference/orgs#update-an-organization-webhook
+    /// * docs <https://docs.github.com/rest/reference/orgs#update-an-organization-webhook>
     ///
     /// Update an organization webhook
     /// Updates a webhook configured in an organization. When you update a webhook, the `secret` will be overwritten. If you previously had a `secret` set, you must provide the same `secret` or set a new `secret` or the secret will be removed. If you are only updating individual webhook `config` properties, use "[Update a webhook configuration for an organization](/rest/reference/orgs#update-a-webhook-configuration-for-an-organization)."
     PatchOrgsorgHookshookId(String, String),
     /// * tags orgs
     /// * delete `/orgs/{org}/hooks/{hook_id}`
-    /// * docs https://docs.github.com/rest/reference/orgs#delete-an-organization-webhook
+    /// * docs <https://docs.github.com/rest/reference/orgs#delete-an-organization-webhook>
     ///
     /// Delete an organization webhook
     ///
     DeleteOrgsorgHookshookId(String, String),
     /// * tags orgs
     /// * get `/orgs/{org}/hooks/{hook_id}/config`
-    /// * docs https://docs.github.com/rest/reference/orgs#get-a-webhook-configuration-for-an-organization
+    /// * docs <https://docs.github.com/rest/reference/orgs#get-a-webhook-configuration-for-an-organization>
     ///
     /// Get a webhook configuration for an organization
     /// Returns the webhook configuration for an organization. To get more information about the webhook, including the `active` state and `events`, use "[Get an organization webhook ](/rest/reference/orgs#get-an-organization-webhook)."
@@ -1700,7 +1700,7 @@ pub enum EndPoints {
     GetOrgsorgHookshookIdConfig(String, String),
     /// * tags orgs
     /// * patch `/orgs/{org}/hooks/{hook_id}/config`
-    /// * docs https://docs.github.com/rest/reference/orgs#update-a-webhook-configuration-for-an-organization
+    /// * docs <https://docs.github.com/rest/reference/orgs#update-a-webhook-configuration-for-an-organization>
     ///
     /// Update a webhook configuration for an organization
     /// Updates the webhook configuration for an organization. To update more information about the webhook, including the `active` state and `events`, use "[Update an organization webhook ](/rest/reference/orgs#update-an-organization-webhook)."
@@ -1709,35 +1709,35 @@ pub enum EndPoints {
     PatchOrgsorgHookshookIdConfig(String, String),
     /// * tags orgs
     /// * get `/orgs/{org}/hooks/{hook_id}/deliveries`
-    /// * docs https://docs.github.com/rest/reference/orgs#list-deliveries-for-an-organization-webhook
+    /// * docs <https://docs.github.com/rest/reference/orgs#list-deliveries-for-an-organization-webhook>
     ///
     /// List deliveries for an organization webhook
     /// Returns a list of webhook deliveries for a webhook configured in an organization.
     GetOrgsorgHookshookIdDeliveries(String, String),
     /// * tags orgs
     /// * get `/orgs/{org}/hooks/{hook_id}/deliveries/{delivery_id}`
-    /// * docs https://docs.github.com/rest/reference/orgs#get-a-webhook-delivery-for-an-organization-webhook
+    /// * docs <https://docs.github.com/rest/reference/orgs#get-a-webhook-delivery-for-an-organization-webhook>
     ///
     /// Get a webhook delivery for an organization webhook
     /// Returns a delivery for a webhook configured in an organization.
     GetOrgsorgHookshookIdDeliveriesdeliveryId(String, String, String),
     /// * tags orgs
     /// * post `/orgs/{org}/hooks/{hook_id}/deliveries/{delivery_id}/attempts`
-    /// * docs https://docs.github.com/rest/reference/orgs#redeliver-a-delivery-for-an-organization-webhook
+    /// * docs <https://docs.github.com/rest/reference/orgs#redeliver-a-delivery-for-an-organization-webhook>
     ///
     /// Redeliver a delivery for an organization webhook
     /// Redeliver a delivery for a webhook configured in an organization.
     PostOrgsorgHookshookIdDeliveriesdeliveryIdAttempts(String, String, String),
     /// * tags orgs
     /// * post `/orgs/{org}/hooks/{hook_id}/pings`
-    /// * docs https://docs.github.com/rest/reference/orgs#ping-an-organization-webhook
+    /// * docs <https://docs.github.com/rest/reference/orgs#ping-an-organization-webhook>
     ///
     /// Ping an organization webhook
     /// This will trigger a [ping event](https://docs.github.com/webhooks/#ping-event) to be sent to the hook.
     PostOrgsorgHookshookIdPings(String, String),
     /// * tags apps
     /// * get `/orgs/{org}/installation`
-    /// * docs https://docs.github.com/rest/reference/apps#get-an-organization-installation-for-the-authenticated-app
+    /// * docs <https://docs.github.com/rest/reference/apps#get-an-organization-installation-for-the-authenticated-app>
     ///
     /// Get an organization installation for the authenticated app
     /// Enables an authenticated GitHub App to find the organization's installation information.
@@ -1746,42 +1746,42 @@ pub enum EndPoints {
     GetOrgsorgInstallation(String),
     /// * tags orgs
     /// * get `/orgs/{org}/installations`
-    /// * docs https://docs.github.com/rest/reference/orgs#list-app-installations-for-an-organization
+    /// * docs <https://docs.github.com/rest/reference/orgs#list-app-installations-for-an-organization>
     ///
     /// List app installations for an organization
     /// Lists all GitHub Apps in an organization. The installation count includes all GitHub Apps installed on repositories in the organization. You must be an organization owner with `admin:read` scope to use this endpoint.
     GetOrgsorgInstallations(String),
     /// * tags interactions
     /// * get `/orgs/{org}/interaction-limits`
-    /// * docs https://docs.github.com/rest/reference/interactions#get-interaction-restrictions-for-an-organization
+    /// * docs <https://docs.github.com/rest/reference/interactions#get-interaction-restrictions-for-an-organization>
     ///
     /// Get interaction restrictions for an organization
     /// Shows which type of GitHub user can interact with this organization and when the restriction expires. If there is no restrictions, you will see an empty response.
     GetOrgsorgInteractionLimits(String),
     /// * tags interactions
     /// * put `/orgs/{org}/interaction-limits`
-    /// * docs https://docs.github.com/rest/reference/interactions#set-interaction-restrictions-for-an-organization
+    /// * docs <https://docs.github.com/rest/reference/interactions#set-interaction-restrictions-for-an-organization>
     ///
     /// Set interaction restrictions for an organization
     /// Temporarily restricts interactions to a certain type of GitHub user in any public repository in the given organization. You must be an organization owner to set these restrictions. Setting the interaction limit at the organization level will overwrite any interaction limits that are set for individual repositories owned by the organization.
     PutOrgsorgInteractionLimits(String),
     /// * tags interactions
     /// * delete `/orgs/{org}/interaction-limits`
-    /// * docs https://docs.github.com/rest/reference/interactions#remove-interaction-restrictions-for-an-organization
+    /// * docs <https://docs.github.com/rest/reference/interactions#remove-interaction-restrictions-for-an-organization>
     ///
     /// Remove interaction restrictions for an organization
     /// Removes all interaction restrictions from public repositories in the given organization. You must be an organization owner to remove restrictions.
     DeleteOrgsorgInteractionLimits(String),
     /// * tags orgs
     /// * get `/orgs/{org}/invitations`
-    /// * docs https://docs.github.com/rest/reference/orgs#list-pending-organization-invitations
+    /// * docs <https://docs.github.com/rest/reference/orgs#list-pending-organization-invitations>
     ///
     /// List pending organization invitations
     /// The return hash contains a `role` field which refers to the Organization Invitation role and will be one of the following values: `direct_member`, `admin`, `billing_manager`, `hiring_manager`, or `reinstate`. If the invitee is not a GitHub member, the `login` field in the return hash will be `null`.
     GetOrgsorgInvitations(String),
     /// * tags orgs
     /// * post `/orgs/{org}/invitations`
-    /// * docs https://docs.github.com/rest/reference/orgs#create-an-organization-invitation
+    /// * docs <https://docs.github.com/rest/reference/orgs#create-an-organization-invitation>
     ///
     /// Create an organization invitation
     /// Invite people to an organization by using their GitHub user ID or their email address. In order to create invitations in an organization, the authenticated user must be an organization owner.
@@ -1790,7 +1790,7 @@ pub enum EndPoints {
     PostOrgsorgInvitations(String),
     /// * tags orgs
     /// * delete `/orgs/{org}/invitations/{invitation_id}`
-    /// * docs https://docs.github.com/rest/reference/orgs#cancel-an-organization-invitation
+    /// * docs <https://docs.github.com/rest/reference/orgs#cancel-an-organization-invitation>
     ///
     /// Cancel an organization invitation
     /// Cancel an organization invitation. In order to cancel an organization invitation, the authenticated user must be an organization owner.
@@ -1799,14 +1799,14 @@ pub enum EndPoints {
     DeleteOrgsorgInvitationsinvitationId(String, String),
     /// * tags orgs
     /// * get `/orgs/{org}/invitations/{invitation_id}/teams`
-    /// * docs https://docs.github.com/rest/reference/orgs#list-organization-invitation-teams
+    /// * docs <https://docs.github.com/rest/reference/orgs#list-organization-invitation-teams>
     ///
     /// List organization invitation teams
     /// List all teams associated with an invitation. In order to see invitations in an organization, the authenticated user must be an organization owner.
     GetOrgsorgInvitationsinvitationIdTeams(String, String),
     /// * tags issues
     /// * get `/orgs/{org}/issues`
-    /// * docs https://docs.github.com/rest/reference/issues#list-organization-issues-assigned-to-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/issues#list-organization-issues-assigned-to-the-authenticated-user>
     ///
     /// List organization issues assigned to the authenticated user
     /// List issues in an organization assigned to the authenticated user.
@@ -1818,35 +1818,35 @@ pub enum EndPoints {
     GetOrgsorgIssues(String),
     /// * tags orgs
     /// * get `/orgs/{org}/members`
-    /// * docs https://docs.github.com/rest/reference/orgs#list-organization-members
+    /// * docs <https://docs.github.com/rest/reference/orgs#list-organization-members>
     ///
     /// List organization members
     /// List all users who are members of an organization. If the authenticated user is also a member of this organization then both concealed and public members will be returned.
     GetOrgsorgMembers(String),
     /// * tags orgs
     /// * get `/orgs/{org}/members/{username}`
-    /// * docs https://docs.github.com/rest/reference/orgs#check-organization-membership-for-a-user
+    /// * docs <https://docs.github.com/rest/reference/orgs#check-organization-membership-for-a-user>
     ///
     /// Check organization membership for a user
     /// Check if a user is, publicly or privately, a member of the organization.
     GetOrgsorgMembersusername(String, String),
     /// * tags orgs
     /// * delete `/orgs/{org}/members/{username}`
-    /// * docs https://docs.github.com/rest/reference/orgs#remove-an-organization-member
+    /// * docs <https://docs.github.com/rest/reference/orgs#remove-an-organization-member>
     ///
     /// Remove an organization member
     /// Removing a user from this list will remove them from all teams and they will no longer have any access to the organization's repositories.
     DeleteOrgsorgMembersusername(String, String),
     /// * tags orgs
     /// * get `/orgs/{org}/memberships/{username}`
-    /// * docs https://docs.github.com/rest/reference/orgs#get-organization-membership-for-a-user
+    /// * docs <https://docs.github.com/rest/reference/orgs#get-organization-membership-for-a-user>
     ///
     /// Get organization membership for a user
     /// In order to get a user's membership with an organization, the authenticated user must be an organization member. The `state` parameter in the response can be used to identify the user's membership status.
     GetOrgsorgMembershipsusername(String, String),
     /// * tags orgs
     /// * put `/orgs/{org}/memberships/{username}`
-    /// * docs https://docs.github.com/rest/reference/orgs#set-organization-membership-for-a-user
+    /// * docs <https://docs.github.com/rest/reference/orgs#set-organization-membership-for-a-user>
     ///
     /// Set organization membership for a user
     /// Only authenticated organization owners can add a member to the organization or update the member's role.
@@ -1861,7 +1861,7 @@ pub enum EndPoints {
     PutOrgsorgMembershipsusername(String, String),
     /// * tags orgs
     /// * delete `/orgs/{org}/memberships/{username}`
-    /// * docs https://docs.github.com/rest/reference/orgs#remove-organization-membership-for-a-user
+    /// * docs <https://docs.github.com/rest/reference/orgs#remove-organization-membership-for-a-user>
     ///
     /// Remove organization membership for a user
     /// In order to remove a user's membership with an organization, the authenticated user must be an organization owner.
@@ -1870,21 +1870,21 @@ pub enum EndPoints {
     DeleteOrgsorgMembershipsusername(String, String),
     /// * tags migrations
     /// * get `/orgs/{org}/migrations`
-    /// * docs https://docs.github.com/rest/reference/migrations#list-organization-migrations
+    /// * docs <https://docs.github.com/rest/reference/migrations#list-organization-migrations>
     ///
     /// List organization migrations
     /// Lists the most recent migrations.
     GetOrgsorgMigrations(String),
     /// * tags migrations
     /// * post `/orgs/{org}/migrations`
-    /// * docs https://docs.github.com/rest/reference/migrations#start-an-organization-migration
+    /// * docs <https://docs.github.com/rest/reference/migrations#start-an-organization-migration>
     ///
     /// Start an organization migration
     /// Initiates the generation of a migration archive.
     PostOrgsorgMigrations(String),
     /// * tags migrations
     /// * get `/orgs/{org}/migrations/{migration_id}`
-    /// * docs https://docs.github.com/rest/reference/migrations#get-an-organization-migration-status
+    /// * docs <https://docs.github.com/rest/reference/migrations#get-an-organization-migration-status>
     ///
     /// Get an organization migration status
     /// Fetches the status of a migration.
@@ -1898,56 +1898,56 @@ pub enum EndPoints {
     GetOrgsorgMigrationsmigrationId(String, String),
     /// * tags migrations
     /// * get `/orgs/{org}/migrations/{migration_id}/archive`
-    /// * docs https://docs.github.com/rest/reference/migrations#download-an-organization-migration-archive
+    /// * docs <https://docs.github.com/rest/reference/migrations#download-an-organization-migration-archive>
     ///
     /// Download an organization migration archive
     /// Fetches the URL to a migration archive.
     GetOrgsorgMigrationsmigrationIdArchive(String, String),
     /// * tags migrations
     /// * delete `/orgs/{org}/migrations/{migration_id}/archive`
-    /// * docs https://docs.github.com/rest/reference/migrations#delete-an-organization-migration-archive
+    /// * docs <https://docs.github.com/rest/reference/migrations#delete-an-organization-migration-archive>
     ///
     /// Delete an organization migration archive
     /// Deletes a previous migration archive. Migration archives are automatically deleted after seven days.
     DeleteOrgsorgMigrationsmigrationIdArchive(String, String),
     /// * tags migrations
     /// * delete `/orgs/{org}/migrations/{migration_id}/repos/{repo_name}/lock`
-    /// * docs https://docs.github.com/rest/reference/migrations#unlock-an-organization-repository
+    /// * docs <https://docs.github.com/rest/reference/migrations#unlock-an-organization-repository>
     ///
     /// Unlock an organization repository
     /// Unlocks a repository that was locked for migration. You should unlock each migrated repository and [delete them](https://docs.github.com/rest/reference/repos#delete-a-repository) when the migration is complete and you no longer need the source data.
     DeleteOrgsorgMigrationsmigrationIdReposrepoNameLock(String, String, String),
     /// * tags migrations
     /// * get `/orgs/{org}/migrations/{migration_id}/repositories`
-    /// * docs https://docs.github.com/rest/reference/migrations#list-repositories-in-an-organization-migration
+    /// * docs <https://docs.github.com/rest/reference/migrations#list-repositories-in-an-organization-migration>
     ///
     /// List repositories in an organization migration
     /// List all the repositories for this organization migration.
     GetOrgsorgMigrationsmigrationIdRepositories(String, String),
     /// * tags orgs
     /// * get `/orgs/{org}/outside_collaborators`
-    /// * docs https://docs.github.com/rest/reference/orgs#list-outside-collaborators-for-an-organization
+    /// * docs <https://docs.github.com/rest/reference/orgs#list-outside-collaborators-for-an-organization>
     ///
     /// List outside collaborators for an organization
     /// List all users who are outside collaborators of an organization.
     GetOrgsorgOutsideCollaborators(String),
     /// * tags orgs
     /// * put `/orgs/{org}/outside_collaborators/{username}`
-    /// * docs https://docs.github.com/rest/reference/orgs#convert-an-organization-member-to-outside-collaborator
+    /// * docs <https://docs.github.com/rest/reference/orgs#convert-an-organization-member-to-outside-collaborator>
     ///
     /// Convert an organization member to outside collaborator
     /// When an organization member is converted to an outside collaborator, they'll only have access to the repositories that their current team membership allows. The user will no longer be a member of the organization. For more information, see "[Converting an organization member to an outside collaborator](https://help.github.com/articles/converting-an-organization-member-to-an-outside-collaborator/)".
     PutOrgsorgOutsideCollaboratorsusername(String, String),
     /// * tags orgs
     /// * delete `/orgs/{org}/outside_collaborators/{username}`
-    /// * docs https://docs.github.com/rest/reference/orgs#remove-outside-collaborator-from-an-organization
+    /// * docs <https://docs.github.com/rest/reference/orgs#remove-outside-collaborator-from-an-organization>
     ///
     /// Remove outside collaborator from an organization
     /// Removing a user from this list will remove them from all the organization's repositories.
     DeleteOrgsorgOutsideCollaboratorsusername(String, String),
     /// * tags packages
     /// * get `/orgs/{org}/packages`
-    /// * docs https://docs.github.com/rest/reference/packages#list-packages-for-an-organization
+    /// * docs <https://docs.github.com/rest/reference/packages#list-packages-for-an-organization>
     ///
     /// List packages for an organization
     /// Lists all packages in an organization readable by the user.
@@ -1957,7 +1957,7 @@ pub enum EndPoints {
     GetOrgsorgPackages(String),
     /// * tags packages
     /// * get `/orgs/{org}/packages/{package_type}/{package_name}`
-    /// * docs https://docs.github.com/rest/reference/packages#get-a-package-for-an-organization
+    /// * docs <https://docs.github.com/rest/reference/packages#get-a-package-for-an-organization>
     ///
     /// Get a package for an organization
     /// Gets a specific package in an organization.
@@ -1967,7 +1967,7 @@ pub enum EndPoints {
     GetOrgsorgPackagespackageTypepackageName(String, String, String),
     /// * tags packages
     /// * delete `/orgs/{org}/packages/{package_type}/{package_name}`
-    /// * docs https://docs.github.com/rest/reference/packages#delete-a-package-for-an-organization
+    /// * docs <https://docs.github.com/rest/reference/packages#delete-a-package-for-an-organization>
     ///
     /// Delete a package for an organization
     /// Deletes an entire package in an organization. You cannot delete a public package if any version of the package has more than 5,000 downloads. In this scenario, contact GitHub support for further assistance.
@@ -1978,7 +1978,7 @@ pub enum EndPoints {
     DeleteOrgsorgPackagespackageTypepackageName(String, String, String),
     /// * tags packages
     /// * post `/orgs/{org}/packages/{package_type}/{package_name}/restore`
-    /// * docs https://docs.github.com/rest/reference/packages#restore-a-package-for-an-organization
+    /// * docs <https://docs.github.com/rest/reference/packages#restore-a-package-for-an-organization>
     ///
     /// Restore a package for an organization
     /// Restores an entire package in an organization.
@@ -1993,7 +1993,7 @@ pub enum EndPoints {
     PostOrgsorgPackagespackageTypepackageNameRestore(String, String, String),
     /// * tags packages
     /// * get `/orgs/{org}/packages/{package_type}/{package_name}/versions`
-    /// * docs https://docs.github.com/rest/reference/packages#get-all-package-versions-for-a-package-owned-by-an-organization
+    /// * docs <https://docs.github.com/rest/reference/packages#get-all-package-versions-for-a-package-owned-by-an-organization>
     ///
     /// Get all package versions for a package owned by an organization
     /// Returns all package versions for a package owned by an organization.
@@ -2003,7 +2003,7 @@ pub enum EndPoints {
     GetOrgsorgPackagespackageTypepackageNameVersions(String, String, String),
     /// * tags packages
     /// * get `/orgs/{org}/packages/{package_type}/{package_name}/versions/{package_version_id}`
-    /// * docs https://docs.github.com/rest/reference/packages#get-a-package-version-for-an-organization
+    /// * docs <https://docs.github.com/rest/reference/packages#get-a-package-version-for-an-organization>
     ///
     /// Get a package version for an organization
     /// Gets a specific package version in an organization.
@@ -2018,7 +2018,7 @@ pub enum EndPoints {
     ),
     /// * tags packages
     /// * delete `/orgs/{org}/packages/{package_type}/{package_name}/versions/{package_version_id}`
-    /// * docs https://docs.github.com/rest/reference/packages#delete-a-package-version-for-an-organization
+    /// * docs <https://docs.github.com/rest/reference/packages#delete-a-package-version-for-an-organization>
     ///
     /// Delete package version for an organization
     /// Deletes a specific package version in an organization. If the package is public and the package version has more than 5,000 downloads, you cannot delete the package version. In this scenario, contact GitHub support for further assistance.
@@ -2034,7 +2034,7 @@ pub enum EndPoints {
     ),
     /// * tags packages
     /// * post `/orgs/{org}/packages/{package_type}/{package_name}/versions/{package_version_id}/restore`
-    /// * docs https://docs.github.com/rest/reference/packages#restore-a-package-version-for-an-organization
+    /// * docs <https://docs.github.com/rest/reference/packages#restore-a-package-version-for-an-organization>
     ///
     /// Restore package version for an organization
     /// Restores a specific package version in an organization.
@@ -2054,35 +2054,35 @@ pub enum EndPoints {
     ),
     /// * tags projects
     /// * get `/orgs/{org}/projects`
-    /// * docs https://docs.github.com/rest/reference/projects#list-organization-projects
+    /// * docs <https://docs.github.com/rest/reference/projects#list-organization-projects>
     ///
     /// List organization projects
     /// Lists the projects in an organization. Returns a `404 Not Found` status if projects are disabled in the organization. If you do not have sufficient privileges to perform this action, a `401 Unauthorized` or `410 Gone` status is returned.
     GetOrgsorgProjects(String),
     /// * tags projects
     /// * post `/orgs/{org}/projects`
-    /// * docs https://docs.github.com/rest/reference/projects#create-an-organization-project
+    /// * docs <https://docs.github.com/rest/reference/projects#create-an-organization-project>
     ///
     /// Create an organization project
     /// Creates an organization project board. Returns a `404 Not Found` status if projects are disabled in the organization. If you do not have sufficient privileges to perform this action, a `401 Unauthorized` or `410 Gone` status is returned.
     PostOrgsorgProjects(String),
     /// * tags orgs
     /// * get `/orgs/{org}/public_members`
-    /// * docs https://docs.github.com/rest/reference/orgs#list-public-organization-members
+    /// * docs <https://docs.github.com/rest/reference/orgs#list-public-organization-members>
     ///
     /// List public organization members
     /// Members of an organization can choose to have their membership publicized or not.
     GetOrgsorgPublicMembers(String),
     /// * tags orgs
     /// * get `/orgs/{org}/public_members/{username}`
-    /// * docs https://docs.github.com/rest/reference/orgs#check-public-organization-membership-for-a-user
+    /// * docs <https://docs.github.com/rest/reference/orgs#check-public-organization-membership-for-a-user>
     ///
     /// Check public organization membership for a user
     ///
     GetOrgsorgPublicMembersusername(String, String),
     /// * tags orgs
     /// * put `/orgs/{org}/public_members/{username}`
-    /// * docs https://docs.github.com/rest/reference/orgs#set-public-organization-membership-for-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/orgs#set-public-organization-membership-for-the-authenticated-user>
     ///
     /// Set public organization membership for the authenticated user
     /// The user can publicize their own membership. (A user cannot publicize the membership for another user.)
@@ -2091,21 +2091,21 @@ pub enum EndPoints {
     PutOrgsorgPublicMembersusername(String, String),
     /// * tags orgs
     /// * delete `/orgs/{org}/public_members/{username}`
-    /// * docs https://docs.github.com/rest/reference/orgs#remove-public-organization-membership-for-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/orgs#remove-public-organization-membership-for-the-authenticated-user>
     ///
     /// Remove public organization membership for the authenticated user
     ///
     DeleteOrgsorgPublicMembersusername(String, String),
     /// * tags repos
     /// * get `/orgs/{org}/repos`
-    /// * docs https://docs.github.com/rest/reference/repos#list-organization-repositories
+    /// * docs <https://docs.github.com/rest/reference/repos#list-organization-repositories>
     ///
     /// List organization repositories
     /// Lists repositories for the specified organization.
     GetOrgsorgRepos(String),
     /// * tags repos
     /// * post `/orgs/{org}/repos`
-    /// * docs https://docs.github.com/rest/reference/repos#create-an-organization-repository
+    /// * docs <https://docs.github.com/rest/reference/repos#create-an-organization-repository>
     ///
     /// Create an organization repository
     /// Creates a new repository in the specified organization. The authenticated user must be a member of the organization.
@@ -2119,7 +2119,7 @@ pub enum EndPoints {
     PostOrgsorgRepos(String),
     /// * tags secret-scanning
     /// * get `/orgs/{org}/secret-scanning/alerts`
-    /// * docs https://docs.github.com/rest/reference/secret-scanning#list-secret-scanning-alerts-for-an-organization
+    /// * docs <https://docs.github.com/rest/reference/secret-scanning#list-secret-scanning-alerts-for-an-organization>
     ///
     /// List secret scanning alerts for an organization
     /// Lists secret scanning alerts for eligible repositories in an organization, from newest to oldest.
@@ -2129,7 +2129,7 @@ pub enum EndPoints {
     GetOrgsorgSecretScanningAlerts(String),
     /// * tags billing
     /// * get `/orgs/{org}/settings/billing/actions`
-    /// * docs https://docs.github.com/rest/reference/billing#get-github-actions-billing-for-an-organization
+    /// * docs <https://docs.github.com/rest/reference/billing#get-github-actions-billing-for-an-organization>
     ///
     /// Get GitHub Actions billing for an organization
     /// Gets the summary of the free and paid GitHub Actions minutes used.
@@ -2140,7 +2140,7 @@ pub enum EndPoints {
     GetOrgsorgSettingsBillingActions(String),
     /// * tags billing
     /// * get `/orgs/{org}/settings/billing/advanced-security`
-    /// * docs https://docs.github.com/rest/reference/billing#get-github-advanced-security-active-committers-for-an-organization
+    /// * docs <https://docs.github.com/rest/reference/billing#get-github-advanced-security-active-committers-for-an-organization>
     ///
     /// Get GitHub Advanced Security active committers for an organization
     /// Gets the GitHub Advanced Security active committers for an organization per repository.
@@ -2149,7 +2149,7 @@ pub enum EndPoints {
     GetOrgsorgSettingsBillingAdvancedSecurity(String),
     /// * tags billing
     /// * get `/orgs/{org}/settings/billing/packages`
-    /// * docs https://docs.github.com/rest/reference/billing#get-github-packages-billing-for-an-organization
+    /// * docs <https://docs.github.com/rest/reference/billing#get-github-packages-billing-for-an-organization>
     ///
     /// Get GitHub Packages billing for an organization
     /// Gets the free and paid storage used for GitHub Packages in gigabytes.
@@ -2160,7 +2160,7 @@ pub enum EndPoints {
     GetOrgsorgSettingsBillingPackages(String),
     /// * tags billing
     /// * get `/orgs/{org}/settings/billing/shared-storage`
-    /// * docs https://docs.github.com/rest/reference/billing#get-shared-storage-billing-for-an-organization
+    /// * docs <https://docs.github.com/rest/reference/billing#get-shared-storage-billing-for-an-organization>
     ///
     /// Get shared storage billing for an organization
     /// Gets the estimated paid and estimated total storage used for GitHub Actions and Github Packages.
@@ -2171,7 +2171,7 @@ pub enum EndPoints {
     GetOrgsorgSettingsBillingSharedStorage(String),
     /// * tags teams
     /// * get `/orgs/{org}/team-sync/groups`
-    /// * docs https://docs.github.com/rest/reference/teams#list-idp-groups-for-an-organization
+    /// * docs <https://docs.github.com/rest/reference/teams#list-idp-groups-for-an-organization>
     ///
     /// List IdP groups for an organization
     /// Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
@@ -2180,14 +2180,14 @@ pub enum EndPoints {
     GetOrgsorgTeamSyncGroups(String),
     /// * tags teams
     /// * get `/orgs/{org}/teams`
-    /// * docs https://docs.github.com/rest/reference/teams#list-teams
+    /// * docs <https://docs.github.com/rest/reference/teams#list-teams>
     ///
     /// List teams
     /// Lists all teams in an organization that are visible to the authenticated user.
     GetOrgsorgTeams(String),
     /// * tags teams
     /// * post `/orgs/{org}/teams`
-    /// * docs https://docs.github.com/rest/reference/teams#create-a-team
+    /// * docs <https://docs.github.com/rest/reference/teams#create-a-team>
     ///
     /// Create a team
     /// To create a team, the authenticated user must be a member or owner of `{org}`. By default, organization members can create teams. Organization owners can limit team creation to organization owners. For more information, see "[Setting team creation permissions](https://help.github.com/en/articles/setting-team-creation-permissions-in-your-organization)."
@@ -2196,7 +2196,7 @@ pub enum EndPoints {
     PostOrgsorgTeams(String),
     /// * tags teams
     /// * get `/orgs/{org}/teams/{team_slug}`
-    /// * docs https://docs.github.com/rest/reference/teams#get-a-team-by-name
+    /// * docs <https://docs.github.com/rest/reference/teams#get-a-team-by-name>
     ///
     /// Get a team by name
     /// Gets a team using the team's `slug`. GitHub generates the `slug` from the team `name`.
@@ -2205,7 +2205,7 @@ pub enum EndPoints {
     GetOrgsorgTeamsteamSlug(String, String),
     /// * tags teams
     /// * patch `/orgs/{org}/teams/{team_slug}`
-    /// * docs https://docs.github.com/rest/reference/teams#update-a-team
+    /// * docs <https://docs.github.com/rest/reference/teams#update-a-team>
     ///
     /// Update a team
     /// To edit a team, the authenticated user must either be an organization owner or a team maintainer.
@@ -2214,7 +2214,7 @@ pub enum EndPoints {
     PatchOrgsorgTeamsteamSlug(String, String),
     /// * tags teams
     /// * delete `/orgs/{org}/teams/{team_slug}`
-    /// * docs https://docs.github.com/rest/reference/teams#delete-a-team
+    /// * docs <https://docs.github.com/rest/reference/teams#delete-a-team>
     ///
     /// Delete a team
     /// To delete a team, the authenticated user must be an organization owner or team maintainer.
@@ -2225,7 +2225,7 @@ pub enum EndPoints {
     DeleteOrgsorgTeamsteamSlug(String, String),
     /// * tags teams
     /// * get `/orgs/{org}/teams/{team_slug}/discussions`
-    /// * docs https://docs.github.com/rest/reference/teams#list-discussions
+    /// * docs <https://docs.github.com/rest/reference/teams#list-discussions>
     ///
     /// List discussions
     /// List all discussions on a team's page. OAuth access tokens require the `read:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
@@ -2234,7 +2234,7 @@ pub enum EndPoints {
     GetOrgsorgTeamsteamSlugDiscussions(String, String),
     /// * tags teams
     /// * post `/orgs/{org}/teams/{team_slug}/discussions`
-    /// * docs https://docs.github.com/rest/reference/teams#create-a-discussion
+    /// * docs <https://docs.github.com/rest/reference/teams#create-a-discussion>
     ///
     /// Create a discussion
     /// Creates a new discussion post on a team's page. OAuth access tokens require the `write:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
@@ -2245,7 +2245,7 @@ pub enum EndPoints {
     PostOrgsorgTeamsteamSlugDiscussions(String, String),
     /// * tags teams
     /// * get `/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}`
-    /// * docs https://docs.github.com/rest/reference/teams#get-a-discussion
+    /// * docs <https://docs.github.com/rest/reference/teams#get-a-discussion>
     ///
     /// Get a discussion
     /// Get a specific discussion on a team's page. OAuth access tokens require the `read:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
@@ -2254,7 +2254,7 @@ pub enum EndPoints {
     GetOrgsorgTeamsteamSlugDiscussionsdiscussionNumber(String, String, String),
     /// * tags teams
     /// * patch `/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}`
-    /// * docs https://docs.github.com/rest/reference/teams#update-a-discussion
+    /// * docs <https://docs.github.com/rest/reference/teams#update-a-discussion>
     ///
     /// Update a discussion
     /// Edits the title and body text of a discussion post. Only the parameters you provide are updated. OAuth access tokens require the `write:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
@@ -2263,7 +2263,7 @@ pub enum EndPoints {
     PatchOrgsorgTeamsteamSlugDiscussionsdiscussionNumber(String, String, String),
     /// * tags teams
     /// * delete `/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}`
-    /// * docs https://docs.github.com/rest/reference/teams#delete-a-discussion
+    /// * docs <https://docs.github.com/rest/reference/teams#delete-a-discussion>
     ///
     /// Delete a discussion
     /// Delete a discussion from a team's page. OAuth access tokens require the `write:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
@@ -2272,7 +2272,7 @@ pub enum EndPoints {
     DeleteOrgsorgTeamsteamSlugDiscussionsdiscussionNumber(String, String, String),
     /// * tags teams
     /// * get `/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments`
-    /// * docs https://docs.github.com/rest/reference/teams#list-discussion-comments
+    /// * docs <https://docs.github.com/rest/reference/teams#list-discussion-comments>
     ///
     /// List discussion comments
     /// List all comments on a team discussion. OAuth access tokens require the `read:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
@@ -2281,7 +2281,7 @@ pub enum EndPoints {
     GetOrgsorgTeamsteamSlugDiscussionsdiscussionNumberComments(String, String, String),
     /// * tags teams
     /// * post `/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments`
-    /// * docs https://docs.github.com/rest/reference/teams#create-a-discussion-comment
+    /// * docs <https://docs.github.com/rest/reference/teams#create-a-discussion-comment>
     ///
     /// Create a discussion comment
     /// Creates a new comment on a team discussion. OAuth access tokens require the `write:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
@@ -2292,7 +2292,7 @@ pub enum EndPoints {
     PostOrgsorgTeamsteamSlugDiscussionsdiscussionNumberComments(String, String, String),
     /// * tags teams
     /// * get `/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}`
-    /// * docs https://docs.github.com/rest/reference/teams#get-a-discussion-comment
+    /// * docs <https://docs.github.com/rest/reference/teams#get-a-discussion-comment>
     ///
     /// Get a discussion comment
     /// Get a specific comment on a team discussion. OAuth access tokens require the `read:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
@@ -2306,7 +2306,7 @@ pub enum EndPoints {
     ),
     /// * tags teams
     /// * patch `/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}`
-    /// * docs https://docs.github.com/rest/reference/teams#update-a-discussion-comment
+    /// * docs <https://docs.github.com/rest/reference/teams#update-a-discussion-comment>
     ///
     /// Update a discussion comment
     /// Edits the body text of a discussion comment. OAuth access tokens require the `write:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
@@ -2320,7 +2320,7 @@ pub enum EndPoints {
     ),
     /// * tags teams
     /// * delete `/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}`
-    /// * docs https://docs.github.com/rest/reference/teams#delete-a-discussion-comment
+    /// * docs <https://docs.github.com/rest/reference/teams#delete-a-discussion-comment>
     ///
     /// Delete a discussion comment
     /// Deletes a comment on a team discussion. OAuth access tokens require the `write:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
@@ -2334,7 +2334,7 @@ pub enum EndPoints {
     ),
     /// * tags reactions
     /// * get `/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions`
-    /// * docs https://docs.github.com/rest/reference/reactions#list-reactions-for-a-team-discussion-comment
+    /// * docs <https://docs.github.com/rest/reference/reactions#list-reactions-for-a-team-discussion-comment>
     ///
     /// List reactions for a team discussion comment
     /// List the reactions to a [team discussion comment](https://docs.github.com/rest/reference/teams#discussion-comments/). OAuth access tokens require the `read:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
@@ -2348,7 +2348,7 @@ pub enum EndPoints {
     ),
     /// * tags reactions
     /// * post `/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions`
-    /// * docs https://docs.github.com/rest/reference/reactions#create-reaction-for-a-team-discussion-comment
+    /// * docs <https://docs.github.com/rest/reference/reactions#create-reaction-for-a-team-discussion-comment>
     ///
     /// Create reaction for a team discussion comment
     /// Create a reaction to a [team discussion comment](https://docs.github.com/rest/reference/teams#discussion-comments). OAuth access tokens require the `write:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/). A response with an HTTP `200` status means that you already added the reaction type to this team discussion comment.
@@ -2362,7 +2362,7 @@ pub enum EndPoints {
     ),
     /// * tags reactions
     /// * delete `/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions/{reaction_id}`
-    /// * docs https://docs.github.com/rest/reference/reactions#delete-team-discussion-comment-reaction
+    /// * docs <https://docs.github.com/rest/reference/reactions#delete-team-discussion-comment-reaction>
     ///
     /// Delete team discussion comment reaction
     /// **Note:** You can also specify a team or organization with `team_id` and `org_id` using the route `DELETE /organizations/:org_id/team/:team_id/discussions/:discussion_number/comments/:comment_number/reactions/:reaction_id`.
@@ -2377,7 +2377,7 @@ pub enum EndPoints {
     ),
     /// * tags reactions
     /// * get `/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions`
-    /// * docs https://docs.github.com/rest/reference/reactions#list-reactions-for-a-team-discussion
+    /// * docs <https://docs.github.com/rest/reference/reactions#list-reactions-for-a-team-discussion>
     ///
     /// List reactions for a team discussion
     /// List the reactions to a [team discussion](https://docs.github.com/rest/reference/teams#discussions). OAuth access tokens require the `read:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
@@ -2386,7 +2386,7 @@ pub enum EndPoints {
     GetOrgsorgTeamsteamSlugDiscussionsdiscussionNumberReactions(String, String, String),
     /// * tags reactions
     /// * post `/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions`
-    /// * docs https://docs.github.com/rest/reference/reactions#create-reaction-for-a-team-discussion
+    /// * docs <https://docs.github.com/rest/reference/reactions#create-reaction-for-a-team-discussion>
     ///
     /// Create reaction for a team discussion
     /// Create a reaction to a [team discussion](https://docs.github.com/rest/reference/teams#discussions). OAuth access tokens require the `write:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/). A response with an HTTP `200` status means that you already added the reaction type to this team discussion.
@@ -2395,7 +2395,7 @@ pub enum EndPoints {
     PostOrgsorgTeamsteamSlugDiscussionsdiscussionNumberReactions(String, String, String),
     /// * tags reactions
     /// * delete `/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions/{reaction_id}`
-    /// * docs https://docs.github.com/rest/reference/reactions#delete-team-discussion-reaction
+    /// * docs <https://docs.github.com/rest/reference/reactions#delete-team-discussion-reaction>
     ///
     /// Delete team discussion reaction
     /// **Note:** You can also specify a team or organization with `team_id` and `org_id` using the route `DELETE /organizations/:org_id/team/:team_id/discussions/:discussion_number/reactions/:reaction_id`.
@@ -2409,7 +2409,7 @@ pub enum EndPoints {
     ),
     /// * tags teams
     /// * patch `/orgs/{org}/teams/{team_slug}/external-groups`
-    /// * docs https://docs.github.com/rest/reference/teams#link-external-idp-group-team-connection
+    /// * docs <https://docs.github.com/rest/reference/teams#link-external-idp-group-team-connection>
     ///
     /// Update the connection between an external group and a team
     /// Creates a connection between a team and an external group.  Only one external group can be linked to a team.
@@ -2418,7 +2418,7 @@ pub enum EndPoints {
     PatchOrgsorgTeamsteamSlugExternalGroups(String, String),
     /// * tags teams
     /// * delete `/orgs/{org}/teams/{team_slug}/external-groups`
-    /// * docs https://docs.github.com/rest/reference/teams#unlink-external-idp-group-team-connection
+    /// * docs <https://docs.github.com/rest/reference/teams#unlink-external-idp-group-team-connection>
     ///
     /// Remove the connection between an external group and a team
     /// Deletes a connection between a team and an external group.
@@ -2427,7 +2427,7 @@ pub enum EndPoints {
     DeleteOrgsorgTeamsteamSlugExternalGroups(String, String),
     /// * tags teams
     /// * get `/orgs/{org}/teams/{team_slug}/invitations`
-    /// * docs https://docs.github.com/rest/reference/teams#list-pending-team-invitations
+    /// * docs <https://docs.github.com/rest/reference/teams#list-pending-team-invitations>
     ///
     /// List pending team invitations
     /// The return hash contains a `role` field which refers to the Organization Invitation role and will be one of the following values: `direct_member`, `admin`, `billing_manager`, `hiring_manager`, or `reinstate`. If the invitee is not a GitHub member, the `login` field in the return hash will be `null`.
@@ -2436,7 +2436,7 @@ pub enum EndPoints {
     GetOrgsorgTeamsteamSlugInvitations(String, String),
     /// * tags teams
     /// * get `/orgs/{org}/teams/{team_slug}/members`
-    /// * docs https://docs.github.com/rest/reference/teams#list-team-members
+    /// * docs <https://docs.github.com/rest/reference/teams#list-team-members>
     ///
     /// List team members
     /// Team members will include the members of child teams.
@@ -2445,7 +2445,7 @@ pub enum EndPoints {
     GetOrgsorgTeamsteamSlugMembers(String, String),
     /// * tags teams
     /// * get `/orgs/{org}/teams/{team_slug}/memberships/{username}`
-    /// * docs https://docs.github.com/rest/reference/teams#get-team-membership-for-a-user
+    /// * docs <https://docs.github.com/rest/reference/teams#get-team-membership-for-a-user>
     ///
     /// Get team membership for a user
     /// Team members will include the members of child teams.
@@ -2461,7 +2461,7 @@ pub enum EndPoints {
     GetOrgsorgTeamsteamSlugMembershipsusername(String, String, String),
     /// * tags teams
     /// * put `/orgs/{org}/teams/{team_slug}/memberships/{username}`
-    /// * docs https://docs.github.com/rest/reference/teams#add-or-update-team-membership-for-a-user
+    /// * docs <https://docs.github.com/rest/reference/teams#add-or-update-team-membership-for-a-user>
     ///
     /// Add or update team membership for a user
     /// Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
@@ -2478,7 +2478,7 @@ pub enum EndPoints {
     PutOrgsorgTeamsteamSlugMembershipsusername(String, String, String),
     /// * tags teams
     /// * delete `/orgs/{org}/teams/{team_slug}/memberships/{username}`
-    /// * docs https://docs.github.com/rest/reference/teams#remove-team-membership-for-a-user
+    /// * docs <https://docs.github.com/rest/reference/teams#remove-team-membership-for-a-user>
     ///
     /// Remove team membership for a user
     /// Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
@@ -2491,7 +2491,7 @@ pub enum EndPoints {
     DeleteOrgsorgTeamsteamSlugMembershipsusername(String, String, String),
     /// * tags teams
     /// * get `/orgs/{org}/teams/{team_slug}/projects`
-    /// * docs https://docs.github.com/rest/reference/teams#list-team-projects
+    /// * docs <https://docs.github.com/rest/reference/teams#list-team-projects>
     ///
     /// List team projects
     /// Lists the organization projects for a team.
@@ -2500,7 +2500,7 @@ pub enum EndPoints {
     GetOrgsorgTeamsteamSlugProjects(String, String),
     /// * tags teams
     /// * get `/orgs/{org}/teams/{team_slug}/projects/{project_id}`
-    /// * docs https://docs.github.com/rest/reference/teams#check-team-permissions-for-a-project
+    /// * docs <https://docs.github.com/rest/reference/teams#check-team-permissions-for-a-project>
     ///
     /// Check team permissions for a project
     /// Checks whether a team has `read`, `write`, or `admin` permissions for an organization project. The response includes projects inherited from a parent team.
@@ -2509,7 +2509,7 @@ pub enum EndPoints {
     GetOrgsorgTeamsteamSlugProjectsprojectId(String, String, String),
     /// * tags teams
     /// * put `/orgs/{org}/teams/{team_slug}/projects/{project_id}`
-    /// * docs https://docs.github.com/rest/reference/teams#add-or-update-team-project-permissions
+    /// * docs <https://docs.github.com/rest/reference/teams#add-or-update-team-project-permissions>
     ///
     /// Add or update team project permissions
     /// Adds an organization project to a team. To add a project to a team or update the team's permission on a project, the authenticated user must have `admin` permissions for the project. The project and team must be part of the same organization.
@@ -2518,7 +2518,7 @@ pub enum EndPoints {
     PutOrgsorgTeamsteamSlugProjectsprojectId(String, String, String),
     /// * tags teams
     /// * delete `/orgs/{org}/teams/{team_slug}/projects/{project_id}`
-    /// * docs https://docs.github.com/rest/reference/teams#remove-a-project-from-a-team
+    /// * docs <https://docs.github.com/rest/reference/teams#remove-a-project-from-a-team>
     ///
     /// Remove a project from a team
     /// Removes an organization project from a team. An organization owner or a team maintainer can remove any project from the team. To remove a project from a team as an organization member, the authenticated user must have `read` access to both the team and project, or `admin` access to the team or project. This endpoint removes the project from the team, but does not delete the project.
@@ -2527,7 +2527,7 @@ pub enum EndPoints {
     DeleteOrgsorgTeamsteamSlugProjectsprojectId(String, String, String),
     /// * tags teams
     /// * get `/orgs/{org}/teams/{team_slug}/repos`
-    /// * docs https://docs.github.com/rest/reference/teams#list-team-repositories
+    /// * docs <https://docs.github.com/rest/reference/teams#list-team-repositories>
     ///
     /// List team repositories
     /// Lists a team's repositories visible to the authenticated user.
@@ -2536,7 +2536,7 @@ pub enum EndPoints {
     GetOrgsorgTeamsteamSlugRepos(String, String),
     /// * tags teams
     /// * get `/orgs/{org}/teams/{team_slug}/repos/{owner}/{repo}`
-    /// * docs https://docs.github.com/rest/reference/teams/#check-team-permissions-for-a-repository
+    /// * docs <https://docs.github.com/rest/reference/teams/#check-team-permissions-for-a-repository>
     ///
     /// Check team permissions for a repository
     /// Checks whether a team has `admin`, `push`, `maintain`, `triage`, or `pull` permission for a repository. Repositories inherited through a parent team will also be checked.
@@ -2549,7 +2549,7 @@ pub enum EndPoints {
     GetOrgsorgTeamsteamSlugReposownerrepo(String, String, String, String),
     /// * tags teams
     /// * put `/orgs/{org}/teams/{team_slug}/repos/{owner}/{repo}`
-    /// * docs https://docs.github.com/rest/reference/teams/#add-or-update-team-repository-permissions
+    /// * docs <https://docs.github.com/rest/reference/teams/#add-or-update-team-repository-permissions>
     ///
     /// Add or update team repository permissions
     /// To add a repository to a team or update the team's permission on a repository, the authenticated user must have admin access to the repository, and must be able to see the team. The repository must be owned by the organization, or a direct fork of a repository owned by the organization. You will get a `422 Unprocessable Entity` status if you attempt to add a repository to a team that is not owned by the organization. Note that, if you choose not to pass any parameters, you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information, see "[HTTP verbs](https://docs.github.com/rest/overview/resources-in-the-rest-api#http-verbs)."
@@ -2560,7 +2560,7 @@ pub enum EndPoints {
     PutOrgsorgTeamsteamSlugReposownerrepo(String, String, String, String),
     /// * tags teams
     /// * delete `/orgs/{org}/teams/{team_slug}/repos/{owner}/{repo}`
-    /// * docs https://docs.github.com/rest/reference/teams/#remove-a-repository-from-a-team
+    /// * docs <https://docs.github.com/rest/reference/teams/#remove-a-repository-from-a-team>
     ///
     /// Remove a repository from a team
     /// If the authenticated user is an organization owner or a team maintainer, they can remove any repositories from the team. To remove a repository from a team as an organization member, the authenticated user must have admin access to the repository and must be able to see the team. This does not delete the repository, it just removes it from the team.
@@ -2569,7 +2569,7 @@ pub enum EndPoints {
     DeleteOrgsorgTeamsteamSlugReposownerrepo(String, String, String, String),
     /// * tags teams
     /// * get `/orgs/{org}/teams/{team_slug}/team-sync/group-mappings`
-    /// * docs https://docs.github.com/rest/reference/teams#list-idp-groups-for-a-team
+    /// * docs <https://docs.github.com/rest/reference/teams#list-idp-groups-for-a-team>
     ///
     /// List IdP groups for a team
     /// Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
@@ -2580,7 +2580,7 @@ pub enum EndPoints {
     GetOrgsorgTeamsteamSlugTeamSyncGroupMappings(String, String),
     /// * tags teams
     /// * patch `/orgs/{org}/teams/{team_slug}/team-sync/group-mappings`
-    /// * docs https://docs.github.com/rest/reference/teams#create-or-update-idp-group-connections
+    /// * docs <https://docs.github.com/rest/reference/teams#create-or-update-idp-group-connections>
     ///
     /// Create or update IdP group connections
     /// Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
@@ -2591,7 +2591,7 @@ pub enum EndPoints {
     PatchOrgsorgTeamsteamSlugTeamSyncGroupMappings(String, String),
     /// * tags teams
     /// * get `/orgs/{org}/teams/{team_slug}/teams`
-    /// * docs https://docs.github.com/rest/reference/teams#list-child-teams
+    /// * docs <https://docs.github.com/rest/reference/teams#list-child-teams>
     ///
     /// List child teams
     /// Lists the child teams of the team specified by `{team_slug}`.
@@ -2600,140 +2600,140 @@ pub enum EndPoints {
     GetOrgsorgTeamsteamSlugTeams(String, String),
     /// * tags projects
     /// * get `/projects/columns/cards/{card_id}`
-    /// * docs https://docs.github.com/rest/reference/projects#get-a-project-card
+    /// * docs <https://docs.github.com/rest/reference/projects#get-a-project-card>
     ///
     /// Get a project card
     ///
     GetProjectsColumnsCardscardId(String),
     /// * tags projects
     /// * patch `/projects/columns/cards/{card_id}`
-    /// * docs https://docs.github.com/rest/reference/projects#update-a-project-card
+    /// * docs <https://docs.github.com/rest/reference/projects#update-a-project-card>
     ///
     /// Update an existing project card
     ///
     PatchProjectsColumnsCardscardId(String),
     /// * tags projects
     /// * delete `/projects/columns/cards/{card_id}`
-    /// * docs https://docs.github.com/rest/reference/projects#delete-a-project-card
+    /// * docs <https://docs.github.com/rest/reference/projects#delete-a-project-card>
     ///
     /// Delete a project card
     ///
     DeleteProjectsColumnsCardscardId(String),
     /// * tags projects
     /// * post `/projects/columns/cards/{card_id}/moves`
-    /// * docs https://docs.github.com/rest/reference/projects#move-a-project-card
+    /// * docs <https://docs.github.com/rest/reference/projects#move-a-project-card>
     ///
     /// Move a project card
     ///
     PostProjectsColumnsCardscardIdMoves(String),
     /// * tags projects
     /// * get `/projects/columns/{column_id}`
-    /// * docs https://docs.github.com/rest/reference/projects#get-a-project-column
+    /// * docs <https://docs.github.com/rest/reference/projects#get-a-project-column>
     ///
     /// Get a project column
     ///
     GetProjectsColumnscolumnId(String),
     /// * tags projects
     /// * patch `/projects/columns/{column_id}`
-    /// * docs https://docs.github.com/rest/reference/projects#update-a-project-column
+    /// * docs <https://docs.github.com/rest/reference/projects#update-a-project-column>
     ///
     /// Update an existing project column
     ///
     PatchProjectsColumnscolumnId(String),
     /// * tags projects
     /// * delete `/projects/columns/{column_id}`
-    /// * docs https://docs.github.com/rest/reference/projects#delete-a-project-column
+    /// * docs <https://docs.github.com/rest/reference/projects#delete-a-project-column>
     ///
     /// Delete a project column
     ///
     DeleteProjectsColumnscolumnId(String),
     /// * tags projects
     /// * get `/projects/columns/{column_id}/cards`
-    /// * docs https://docs.github.com/rest/reference/projects#list-project-cards
+    /// * docs <https://docs.github.com/rest/reference/projects#list-project-cards>
     ///
     /// List project cards
     ///
     GetProjectsColumnscolumnIdCards(String),
     /// * tags projects
     /// * post `/projects/columns/{column_id}/cards`
-    /// * docs https://docs.github.com/rest/reference/projects#create-a-project-card
+    /// * docs <https://docs.github.com/rest/reference/projects#create-a-project-card>
     ///
     /// Create a project card
     ///
     PostProjectsColumnscolumnIdCards(String),
     /// * tags projects
     /// * post `/projects/columns/{column_id}/moves`
-    /// * docs https://docs.github.com/rest/reference/projects#move-a-project-column
+    /// * docs <https://docs.github.com/rest/reference/projects#move-a-project-column>
     ///
     /// Move a project column
     ///
     PostProjectsColumnscolumnIdMoves(String),
     /// * tags projects
     /// * get `/projects/{project_id}`
-    /// * docs https://docs.github.com/rest/reference/projects#get-a-project
+    /// * docs <https://docs.github.com/rest/reference/projects#get-a-project>
     ///
     /// Get a project
     /// Gets a project by its `id`. Returns a `404 Not Found` status if projects are disabled. If you do not have sufficient privileges to perform this action, a `401 Unauthorized` or `410 Gone` status is returned.
     GetProjectsprojectId(String),
     /// * tags projects
     /// * patch `/projects/{project_id}`
-    /// * docs https://docs.github.com/rest/reference/projects#update-a-project
+    /// * docs <https://docs.github.com/rest/reference/projects#update-a-project>
     ///
     /// Update a project
     /// Updates a project board's information. Returns a `404 Not Found` status if projects are disabled. If you do not have sufficient privileges to perform this action, a `401 Unauthorized` or `410 Gone` status is returned.
     PatchProjectsprojectId(String),
     /// * tags projects
     /// * delete `/projects/{project_id}`
-    /// * docs https://docs.github.com/rest/reference/projects#delete-a-project
+    /// * docs <https://docs.github.com/rest/reference/projects#delete-a-project>
     ///
     /// Delete a project
     /// Deletes a project board. Returns a `404 Not Found` status if projects are disabled.
     DeleteProjectsprojectId(String),
     /// * tags projects
     /// * get `/projects/{project_id}/collaborators`
-    /// * docs https://docs.github.com/rest/reference/projects#list-project-collaborators
+    /// * docs <https://docs.github.com/rest/reference/projects#list-project-collaborators>
     ///
     /// List project collaborators
     /// Lists the collaborators for an organization project. For a project, the list of collaborators includes outside collaborators, organization members that are direct collaborators, organization members with access through team memberships, organization members with access through default organization permissions, and organization owners. You must be an organization owner or a project `admin` to list collaborators.
     GetProjectsprojectIdCollaborators(String),
     /// * tags projects
     /// * put `/projects/{project_id}/collaborators/{username}`
-    /// * docs https://docs.github.com/rest/reference/projects#add-project-collaborator
+    /// * docs <https://docs.github.com/rest/reference/projects#add-project-collaborator>
     ///
     /// Add project collaborator
     /// Adds a collaborator to an organization project and sets their permission level. You must be an organization owner or a project `admin` to add a collaborator.
     PutProjectsprojectIdCollaboratorsusername(String, String),
     /// * tags projects
     /// * delete `/projects/{project_id}/collaborators/{username}`
-    /// * docs https://docs.github.com/rest/reference/projects#remove-project-collaborator
+    /// * docs <https://docs.github.com/rest/reference/projects#remove-project-collaborator>
     ///
     /// Remove user as a collaborator
     /// Removes a collaborator from an organization project. You must be an organization owner or a project `admin` to remove a collaborator.
     DeleteProjectsprojectIdCollaboratorsusername(String, String),
     /// * tags projects
     /// * get `/projects/{project_id}/collaborators/{username}/permission`
-    /// * docs https://docs.github.com/rest/reference/projects#get-project-permission-for-a-user
+    /// * docs <https://docs.github.com/rest/reference/projects#get-project-permission-for-a-user>
     ///
     /// Get project permission for a user
     /// Returns the collaborator's permission level for an organization project. Possible values for the `permission` key: `admin`, `write`, `read`, `none`. You must be an organization owner or a project `admin` to review a user's permission level.
     GetProjectsprojectIdCollaboratorsusernamePermission(String, String),
     /// * tags projects
     /// * get `/projects/{project_id}/columns`
-    /// * docs https://docs.github.com/rest/reference/projects#list-project-columns
+    /// * docs <https://docs.github.com/rest/reference/projects#list-project-columns>
     ///
     /// List project columns
     ///
     GetProjectsprojectIdColumns(String),
     /// * tags projects
     /// * post `/projects/{project_id}/columns`
-    /// * docs https://docs.github.com/rest/reference/projects#create-a-project-column
+    /// * docs <https://docs.github.com/rest/reference/projects#create-a-project-column>
     ///
     /// Create a project column
     ///
     PostProjectsprojectIdColumns(String),
     /// * tags rate-limit
     /// * get `/rate_limit`
-    /// * docs https://docs.github.com/rest/reference/rate-limit#get-rate-limit-status-for-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/rate-limit#get-rate-limit-status-for-the-authenticated-user>
     ///
     /// Get rate limit status for the authenticated user
     /// **Note:** Accessing this endpoint does not count against your REST API rate limit.
@@ -2742,7 +2742,7 @@ pub enum EndPoints {
     GetRateLimit(),
     /// * tags reactions
     /// * delete `/reactions/{reaction_id}`
-    /// * docs https://docs.github.com/rest/reference/reactions/#delete-a-reaction-legacy
+    /// * docs <https://docs.github.com/rest/reference/reactions/#delete-a-reaction-legacy>
     ///
     /// Delete a reaction (Legacy)
     /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Reactions API. We recommend migrating your existing code to use the new delete reactions endpoints. For more information, see this [blog post](https://developer.github.com/changes/2020-02-26-new-delete-reactions-endpoints/).
@@ -2751,21 +2751,21 @@ pub enum EndPoints {
     DeleteReactionsreactionId(String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}`
-    /// * docs https://docs.github.com/rest/reference/repos#get-a-repository
+    /// * docs <https://docs.github.com/rest/reference/repos#get-a-repository>
     ///
     /// Get a repository
     /// The `parent` and `source` objects are present when the repository is a fork. `parent` is the repository this repository was forked from, `source` is the ultimate source for the network.
     GetReposownerrepo(String, String),
     /// * tags repos
     /// * patch `/repos/{owner}/{repo}`
-    /// * docs https://docs.github.com/rest/reference/repos/#update-a-repository
+    /// * docs <https://docs.github.com/rest/reference/repos/#update-a-repository>
     ///
     /// Update a repository
     /// **Note**: To edit a repository's topics, use the [Replace all repository topics](https://docs.github.com/rest/reference/repos#replace-all-repository-topics) endpoint.
     PatchReposownerrepo(String, String),
     /// * tags repos
     /// * delete `/repos/{owner}/{repo}`
-    /// * docs https://docs.github.com/rest/reference/repos#delete-a-repository
+    /// * docs <https://docs.github.com/rest/reference/repos#delete-a-repository>
     ///
     /// Delete a repository
     /// Deleting a repository requires admin access. If OAuth is used, the `delete_repo` scope is required.
@@ -2775,28 +2775,28 @@ pub enum EndPoints {
     DeleteReposownerrepo(String, String),
     /// * tags actions
     /// * get `/repos/{owner}/{repo}/actions/artifacts`
-    /// * docs https://docs.github.com/rest/reference/actions#list-artifacts-for-a-repository
+    /// * docs <https://docs.github.com/rest/reference/actions#list-artifacts-for-a-repository>
     ///
     /// List artifacts for a repository
     /// Lists all artifacts for a repository. Anyone with read access to the repository can use this endpoint. If the repository is private you must use an access token with the `repo` scope. GitHub Apps must have the `actions:read` permission to use this endpoint.
     GetReposownerrepoActionsArtifacts(String, String),
     /// * tags actions
     /// * get `/repos/{owner}/{repo}/actions/artifacts/{artifact_id}`
-    /// * docs https://docs.github.com/rest/reference/actions#get-an-artifact
+    /// * docs <https://docs.github.com/rest/reference/actions#get-an-artifact>
     ///
     /// Get an artifact
     /// Gets a specific artifact for a workflow run. Anyone with read access to the repository can use this endpoint. If the repository is private you must use an access token with the `repo` scope. GitHub Apps must have the `actions:read` permission to use this endpoint.
     GetReposownerrepoActionsArtifactsartifactId(String, String, String),
     /// * tags actions
     /// * delete `/repos/{owner}/{repo}/actions/artifacts/{artifact_id}`
-    /// * docs https://docs.github.com/rest/reference/actions#delete-an-artifact
+    /// * docs <https://docs.github.com/rest/reference/actions#delete-an-artifact>
     ///
     /// Delete an artifact
     /// Deletes an artifact for a workflow run. You must authenticate using an access token with the `repo` scope to use this endpoint. GitHub Apps must have the `actions:write` permission to use this endpoint.
     DeleteReposownerrepoActionsArtifactsartifactId(String, String, String),
     /// * tags actions
     /// * get `/repos/{owner}/{repo}/actions/artifacts/{artifact_id}/{archive_format}`
-    /// * docs https://docs.github.com/rest/reference/actions#download-an-artifact
+    /// * docs <https://docs.github.com/rest/reference/actions#download-an-artifact>
     ///
     /// Download an artifact
     /// Gets a redirect URL to download an archive for a repository. This URL expires after 1 minute. Look for `Location:` in
@@ -2806,14 +2806,14 @@ pub enum EndPoints {
     GetReposownerrepoActionsArtifactsartifactIdarchiveFormat(String, String, String, String),
     /// * tags actions
     /// * get `/repos/{owner}/{repo}/actions/jobs/{job_id}`
-    /// * docs https://docs.github.com/rest/reference/actions#get-a-job-for-a-workflow-run
+    /// * docs <https://docs.github.com/rest/reference/actions#get-a-job-for-a-workflow-run>
     ///
     /// Get a job for a workflow run
     /// Gets a specific job in a workflow run. Anyone with read access to the repository can use this endpoint. If the repository is private you must use an access token with the `repo` scope. GitHub Apps must have the `actions:read` permission to use this endpoint.
     GetReposownerrepoActionsJobsjobId(String, String, String),
     /// * tags actions
     /// * get `/repos/{owner}/{repo}/actions/jobs/{job_id}/logs`
-    /// * docs https://docs.github.com/rest/reference/actions#download-job-logs-for-a-workflow-run
+    /// * docs <https://docs.github.com/rest/reference/actions#download-job-logs-for-a-workflow-run>
     ///
     /// Download job logs for a workflow run
     /// Gets a redirect URL to download a plain text file of logs for a workflow job. This link expires after 1 minute. Look
@@ -2823,7 +2823,7 @@ pub enum EndPoints {
     GetReposownerrepoActionsJobsjobIdLogs(String, String, String),
     /// * tags actions
     /// * get `/repos/{owner}/{repo}/actions/permissions`
-    /// * docs https://docs.github.com/rest/reference/actions#get-github-actions-permissions-for-a-repository
+    /// * docs <https://docs.github.com/rest/reference/actions#get-github-actions-permissions-for-a-repository>
     ///
     /// Get GitHub Actions permissions for a repository
     /// Gets the GitHub Actions permissions policy for a repository, including whether GitHub Actions is enabled and the actions allowed to run in the repository.
@@ -2833,7 +2833,7 @@ pub enum EndPoints {
     GetReposownerrepoActionsPermissions(String, String),
     /// * tags actions
     /// * put `/repos/{owner}/{repo}/actions/permissions`
-    /// * docs https://docs.github.com/rest/reference/actions#set-github-actions-permissions-for-a-repository
+    /// * docs <https://docs.github.com/rest/reference/actions#set-github-actions-permissions-for-a-repository>
     ///
     /// Set GitHub Actions permissions for a repository
     /// Sets the GitHub Actions permissions policy for enabling GitHub Actions and allowed actions in the repository.
@@ -2844,7 +2844,7 @@ pub enum EndPoints {
     PutReposownerrepoActionsPermissions(String, String),
     /// * tags actions
     /// * get `/repos/{owner}/{repo}/actions/permissions/selected-actions`
-    /// * docs https://docs.github.com/rest/reference/actions#get-allowed-actions-for-a-repository
+    /// * docs <https://docs.github.com/rest/reference/actions#get-allowed-actions-for-a-repository>
     ///
     /// Get allowed actions for a repository
     /// Gets the settings for selected actions that are allowed in a repository. To use this endpoint, the repository policy for `allowed_actions` must be configured to `selected`. For more information, see "[Set GitHub Actions permissions for a repository](#set-github-actions-permissions-for-a-repository)."
@@ -2853,7 +2853,7 @@ pub enum EndPoints {
     GetReposownerrepoActionsPermissionsSelectedActions(String, String),
     /// * tags actions
     /// * put `/repos/{owner}/{repo}/actions/permissions/selected-actions`
-    /// * docs https://docs.github.com/rest/reference/actions#set-allowed-actions-for-a-repository
+    /// * docs <https://docs.github.com/rest/reference/actions#set-allowed-actions-for-a-repository>
     ///
     /// Set allowed actions for a repository
     /// Sets the actions that are allowed in a repository. To use this endpoint, the repository permission policy for `allowed_actions` must be configured to `selected`. For more information, see "[Set GitHub Actions permissions for a repository](#set-github-actions-permissions-for-a-repository)."
@@ -2866,14 +2866,14 @@ pub enum EndPoints {
     PutReposownerrepoActionsPermissionsSelectedActions(String, String),
     /// * tags actions
     /// * get `/repos/{owner}/{repo}/actions/runners`
-    /// * docs https://docs.github.com/rest/reference/actions#list-self-hosted-runners-for-a-repository
+    /// * docs <https://docs.github.com/rest/reference/actions#list-self-hosted-runners-for-a-repository>
     ///
     /// List self-hosted runners for a repository
     /// Lists all self-hosted runners configured in a repository. You must authenticate using an access token with the `repo` scope to use this endpoint.
     GetReposownerrepoActionsRunners(String, String),
     /// * tags actions
     /// * get `/repos/{owner}/{repo}/actions/runners/downloads`
-    /// * docs https://docs.github.com/rest/reference/actions#list-runner-applications-for-a-repository
+    /// * docs <https://docs.github.com/rest/reference/actions#list-runner-applications-for-a-repository>
     ///
     /// List runner applications for a repository
     /// Lists binaries for the runner application that you can download and run.
@@ -2882,7 +2882,7 @@ pub enum EndPoints {
     GetReposownerrepoActionsRunnersDownloads(String, String),
     /// * tags actions
     /// * post `/repos/{owner}/{repo}/actions/runners/registration-token`
-    /// * docs https://docs.github.com/rest/reference/actions#create-a-registration-token-for-a-repository
+    /// * docs <https://docs.github.com/rest/reference/actions#create-a-registration-token-for-a-repository>
     ///
     /// Create a registration token for a repository
     /// Returns a token that you can pass to the `config` script. The token expires after one hour. You must authenticate
@@ -2898,7 +2898,7 @@ pub enum EndPoints {
     PostReposownerrepoActionsRunnersRegistrationToken(String, String),
     /// * tags actions
     /// * post `/repos/{owner}/{repo}/actions/runners/remove-token`
-    /// * docs https://docs.github.com/rest/reference/actions#create-a-remove-token-for-a-repository
+    /// * docs <https://docs.github.com/rest/reference/actions#create-a-remove-token-for-a-repository>
     ///
     /// Create a remove token for a repository
     /// Returns a token that you can pass to remove a self-hosted runner from a repository. The token expires after one hour.
@@ -2914,7 +2914,7 @@ pub enum EndPoints {
     PostReposownerrepoActionsRunnersRemoveToken(String, String),
     /// * tags actions
     /// * get `/repos/{owner}/{repo}/actions/runners/{runner_id}`
-    /// * docs https://docs.github.com/rest/reference/actions#get-a-self-hosted-runner-for-a-repository
+    /// * docs <https://docs.github.com/rest/reference/actions#get-a-self-hosted-runner-for-a-repository>
     ///
     /// Get a self-hosted runner for a repository
     /// Gets a specific self-hosted runner configured in a repository.
@@ -2924,7 +2924,7 @@ pub enum EndPoints {
     GetReposownerrepoActionsRunnersrunnerId(String, String, String),
     /// * tags actions
     /// * delete `/repos/{owner}/{repo}/actions/runners/{runner_id}`
-    /// * docs https://docs.github.com/rest/reference/actions#delete-a-self-hosted-runner-from-a-repository
+    /// * docs <https://docs.github.com/rest/reference/actions#delete-a-self-hosted-runner-from-a-repository>
     ///
     /// Delete a self-hosted runner from a repository
     /// Forces the removal of a self-hosted runner from a repository. You can use this endpoint to completely remove the runner when the machine you were using no longer exists.
@@ -2934,7 +2934,7 @@ pub enum EndPoints {
     DeleteReposownerrepoActionsRunnersrunnerId(String, String, String),
     /// * tags actions
     /// * get `/repos/{owner}/{repo}/actions/runners/{runner_id}/labels`
-    /// * docs https://docs.github.com/rest/reference/actions#list-labels-for-a-self-hosted-runner-for-a-repository
+    /// * docs <https://docs.github.com/rest/reference/actions#list-labels-for-a-self-hosted-runner-for-a-repository>
     ///
     /// List labels for a self-hosted runner for a repository
     /// Lists all labels for a self-hosted runner configured in a repository.
@@ -2944,7 +2944,7 @@ pub enum EndPoints {
     GetReposownerrepoActionsRunnersrunnerIdLabels(String, String, String),
     /// * tags actions
     /// * post `/repos/{owner}/{repo}/actions/runners/{runner_id}/labels`
-    /// * docs https://docs.github.com/rest/reference/actions#add-custom-labels-to-a-self-hosted-runner-for-a-repository
+    /// * docs <https://docs.github.com/rest/reference/actions#add-custom-labels-to-a-self-hosted-runner-for-a-repository>
     ///
     /// Add custom labels to a self-hosted runner for a repository
     /// Add custom labels to a self-hosted runner configured in a repository.
@@ -2954,7 +2954,7 @@ pub enum EndPoints {
     PostReposownerrepoActionsRunnersrunnerIdLabels(String, String, String),
     /// * tags actions
     /// * put `/repos/{owner}/{repo}/actions/runners/{runner_id}/labels`
-    /// * docs https://docs.github.com/rest/reference/actions#set-custom-labels-for-a-self-hosted-runner-for-a-repository
+    /// * docs <https://docs.github.com/rest/reference/actions#set-custom-labels-for-a-self-hosted-runner-for-a-repository>
     ///
     /// Set custom labels for a self-hosted runner for a repository
     /// Remove all previous custom labels and set the new custom labels for a specific
@@ -2965,7 +2965,7 @@ pub enum EndPoints {
     PutReposownerrepoActionsRunnersrunnerIdLabels(String, String, String),
     /// * tags actions
     /// * delete `/repos/{owner}/{repo}/actions/runners/{runner_id}/labels`
-    /// * docs https://docs.github.com/rest/reference/actions#remove-all-custom-labels-from-a-self-hosted-runner-for-a-repository
+    /// * docs <https://docs.github.com/rest/reference/actions#remove-all-custom-labels-from-a-self-hosted-runner-for-a-repository>
     ///
     /// Remove all custom labels from a self-hosted runner for a repository
     /// Remove all custom labels from a self-hosted runner configured in a
@@ -2976,7 +2976,7 @@ pub enum EndPoints {
     DeleteReposownerrepoActionsRunnersrunnerIdLabels(String, String, String),
     /// * tags actions
     /// * delete `/repos/{owner}/{repo}/actions/runners/{runner_id}/labels/{name}`
-    /// * docs https://docs.github.com/rest/reference/actions#remove-a-custom-label-from-a-self-hosted-runner-for-a-repository
+    /// * docs <https://docs.github.com/rest/reference/actions#remove-a-custom-label-from-a-self-hosted-runner-for-a-repository>
     ///
     /// Remove a custom label from a self-hosted runner for a repository
     /// Remove a custom label from a self-hosted runner configured
@@ -2990,7 +2990,7 @@ pub enum EndPoints {
     DeleteReposownerrepoActionsRunnersrunnerIdLabelsname(String, String, String, String),
     /// * tags actions
     /// * get `/repos/{owner}/{repo}/actions/runs`
-    /// * docs https://docs.github.com/rest/reference/actions#list-workflow-runs-for-a-repository
+    /// * docs <https://docs.github.com/rest/reference/actions#list-workflow-runs-for-a-repository>
     ///
     /// List workflow runs for a repository
     /// Lists all workflow runs for a repository. You can use parameters to narrow the list of results. For more information about using parameters, see [Parameters](https://docs.github.com/rest/overview/resources-in-the-rest-api#parameters).
@@ -2999,14 +2999,14 @@ pub enum EndPoints {
     GetReposownerrepoActionsRuns(String, String),
     /// * tags actions
     /// * get `/repos/{owner}/{repo}/actions/runs/{run_id}`
-    /// * docs https://docs.github.com/rest/reference/actions#get-a-workflow-run
+    /// * docs <https://docs.github.com/rest/reference/actions#get-a-workflow-run>
     ///
     /// Get a workflow run
     /// Gets a specific workflow run. Anyone with read access to the repository can use this endpoint. If the repository is private you must use an access token with the `repo` scope. GitHub Apps must have the `actions:read` permission to use this endpoint.
     GetReposownerrepoActionsRunsrunId(String, String, String),
     /// * tags actions
     /// * delete `/repos/{owner}/{repo}/actions/runs/{run_id}`
-    /// * docs https://docs.github.com/rest/reference/actions#delete-a-workflow-run
+    /// * docs <https://docs.github.com/rest/reference/actions#delete-a-workflow-run>
     ///
     /// Delete a workflow run
     /// Delete a specific workflow run. Anyone with write access to the repository can use this endpoint. If the repository is
@@ -3015,14 +3015,14 @@ pub enum EndPoints {
     DeleteReposownerrepoActionsRunsrunId(String, String, String),
     /// * tags actions
     /// * get `/repos/{owner}/{repo}/actions/runs/{run_id}/approvals`
-    /// * docs https://docs.github.com/rest/reference/actions#get-the-review-history-for-a-workflow-run
+    /// * docs <https://docs.github.com/rest/reference/actions#get-the-review-history-for-a-workflow-run>
     ///
     /// Get the review history for a workflow run
     /// Anyone with read access to the repository can use this endpoint. If the repository is private, you must use an access token with the `repo` scope. GitHub Apps must have the `actions:read` permission to use this endpoint.
     GetReposownerrepoActionsRunsrunIdApprovals(String, String, String),
     /// * tags actions
     /// * post `/repos/{owner}/{repo}/actions/runs/{run_id}/approve`
-    /// * docs https://docs.github.com/rest/reference/actions#approve-a-workflow-run-for-a-fork-pull-request
+    /// * docs <https://docs.github.com/rest/reference/actions#approve-a-workflow-run-for-a-fork-pull-request>
     ///
     /// Approve a workflow run for a fork pull request
     /// Approves a workflow run for a pull request from a public fork of a first time contributor. For more information, see ["Approving workflow runs from public forks](https://docs.github.com/actions/managing-workflow-runs/approving-workflow-runs-from-public-forks)."
@@ -3031,14 +3031,14 @@ pub enum EndPoints {
     PostReposownerrepoActionsRunsrunIdApprove(String, String, String),
     /// * tags actions
     /// * get `/repos/{owner}/{repo}/actions/runs/{run_id}/artifacts`
-    /// * docs https://docs.github.com/rest/reference/actions#list-workflow-run-artifacts
+    /// * docs <https://docs.github.com/rest/reference/actions#list-workflow-run-artifacts>
     ///
     /// List workflow run artifacts
     /// Lists artifacts for a workflow run. Anyone with read access to the repository can use this endpoint. If the repository is private you must use an access token with the `repo` scope. GitHub Apps must have the `actions:read` permission to use this endpoint.
     GetReposownerrepoActionsRunsrunIdArtifacts(String, String, String),
     /// * tags actions
     /// * get `/repos/{owner}/{repo}/actions/runs/{run_id}/attempts/{attempt_number}`
-    /// * docs https://docs.github.com/rest/reference/actions#get-a-workflow-run-attempt
+    /// * docs <https://docs.github.com/rest/reference/actions#get-a-workflow-run-attempt>
     ///
     /// Get a workflow run attempt
     /// Gets a specific workflow run attempt. Anyone with read access to the repository
@@ -3048,14 +3048,14 @@ pub enum EndPoints {
     GetReposownerrepoActionsRunsrunIdAttemptsattemptNumber(String, String, String, String),
     /// * tags actions
     /// * get `/repos/{owner}/{repo}/actions/runs/{run_id}/attempts/{attempt_number}/jobs`
-    /// * docs https://docs.github.com/rest/reference/actions#list-jobs-for-a-workflow-run-attempt
+    /// * docs <https://docs.github.com/rest/reference/actions#list-jobs-for-a-workflow-run-attempt>
     ///
     /// List jobs for a workflow run attempt
     /// Lists jobs for a specific workflow run attempt. Anyone with read access to the repository can use this endpoint. If the repository is private you must use an access token with the `repo` scope. GitHub Apps must have the `actions:read` permission to use this endpoint. You can use parameters to narrow the list of results. For more information about using parameters, see [Parameters](https://docs.github.com/rest/overview/resources-in-the-rest-api#parameters).
     GetReposownerrepoActionsRunsrunIdAttemptsattemptNumberJobs(String, String, String, String),
     /// * tags actions
     /// * get `/repos/{owner}/{repo}/actions/runs/{run_id}/attempts/{attempt_number}/logs`
-    /// * docs https://docs.github.com/rest/reference/actions#download-workflow-run-attempt-logs
+    /// * docs <https://docs.github.com/rest/reference/actions#download-workflow-run-attempt-logs>
     ///
     /// Download workflow run attempt logs
     /// Gets a redirect URL to download an archive of log files for a specific workflow run attempt. This link expires after
@@ -3065,21 +3065,21 @@ pub enum EndPoints {
     GetReposownerrepoActionsRunsrunIdAttemptsattemptNumberLogs(String, String, String, String),
     /// * tags actions
     /// * post `/repos/{owner}/{repo}/actions/runs/{run_id}/cancel`
-    /// * docs https://docs.github.com/rest/reference/actions#cancel-a-workflow-run
+    /// * docs <https://docs.github.com/rest/reference/actions#cancel-a-workflow-run>
     ///
     /// Cancel a workflow run
     /// Cancels a workflow run using its `id`. You must authenticate using an access token with the `repo` scope to use this endpoint. GitHub Apps must have the `actions:write` permission to use this endpoint.
     PostReposownerrepoActionsRunsrunIdCancel(String, String, String),
     /// * tags actions
     /// * get `/repos/{owner}/{repo}/actions/runs/{run_id}/jobs`
-    /// * docs https://docs.github.com/rest/reference/actions#list-jobs-for-a-workflow-run
+    /// * docs <https://docs.github.com/rest/reference/actions#list-jobs-for-a-workflow-run>
     ///
     /// List jobs for a workflow run
     /// Lists jobs for a workflow run. Anyone with read access to the repository can use this endpoint. If the repository is private you must use an access token with the `repo` scope. GitHub Apps must have the `actions:read` permission to use this endpoint. You can use parameters to narrow the list of results. For more information about using parameters, see [Parameters](https://docs.github.com/rest/overview/resources-in-the-rest-api#parameters).
     GetReposownerrepoActionsRunsrunIdJobs(String, String, String),
     /// * tags actions
     /// * get `/repos/{owner}/{repo}/actions/runs/{run_id}/logs`
-    /// * docs https://docs.github.com/rest/reference/actions#download-workflow-run-logs
+    /// * docs <https://docs.github.com/rest/reference/actions#download-workflow-run-logs>
     ///
     /// Download workflow run logs
     /// Gets a redirect URL to download an archive of log files for a workflow run. This link expires after 1 minute. Look for
@@ -3089,14 +3089,14 @@ pub enum EndPoints {
     GetReposownerrepoActionsRunsrunIdLogs(String, String, String),
     /// * tags actions
     /// * delete `/repos/{owner}/{repo}/actions/runs/{run_id}/logs`
-    /// * docs https://docs.github.com/rest/reference/actions#delete-workflow-run-logs
+    /// * docs <https://docs.github.com/rest/reference/actions#delete-workflow-run-logs>
     ///
     /// Delete workflow run logs
     /// Deletes all logs for a workflow run. You must authenticate using an access token with the `repo` scope to use this endpoint. GitHub Apps must have the `actions:write` permission to use this endpoint.
     DeleteReposownerrepoActionsRunsrunIdLogs(String, String, String),
     /// * tags actions
     /// * get `/repos/{owner}/{repo}/actions/runs/{run_id}/pending_deployments`
-    /// * docs https://docs.github.com/rest/reference/actions#get-pending-deployments-for-a-workflow-run
+    /// * docs <https://docs.github.com/rest/reference/actions#get-pending-deployments-for-a-workflow-run>
     ///
     /// Get pending deployments for a workflow run
     /// Get all deployment environments for a workflow run that are waiting for protection rules to pass.
@@ -3105,7 +3105,7 @@ pub enum EndPoints {
     GetReposownerrepoActionsRunsrunIdPendingDeployments(String, String, String),
     /// * tags actions
     /// * post `/repos/{owner}/{repo}/actions/runs/{run_id}/pending_deployments`
-    /// * docs https://docs.github.com/rest/reference/actions#review-pending-deployments-for-a-workflow-run
+    /// * docs <https://docs.github.com/rest/reference/actions#review-pending-deployments-for-a-workflow-run>
     ///
     /// Review pending deployments for a workflow run
     /// Approve or reject pending deployments that are waiting on approval by a required reviewer.
@@ -3114,14 +3114,14 @@ pub enum EndPoints {
     PostReposownerrepoActionsRunsrunIdPendingDeployments(String, String, String),
     /// * tags actions
     /// * post `/repos/{owner}/{repo}/actions/runs/{run_id}/rerun`
-    /// * docs https://docs.github.com/rest/reference/actions#re-run-a-workflow
+    /// * docs <https://docs.github.com/rest/reference/actions#re-run-a-workflow>
     ///
     /// Re-run a workflow
     /// Re-runs your workflow run using its `id`. You must authenticate using an access token with the `repo` scope to use this endpoint. GitHub Apps must have the `actions:write` permission to use this endpoint.
     PostReposownerrepoActionsRunsrunIdRerun(String, String, String),
     /// * tags actions
     /// * get `/repos/{owner}/{repo}/actions/runs/{run_id}/timing`
-    /// * docs https://docs.github.com/rest/reference/actions#get-workflow-run-usage
+    /// * docs <https://docs.github.com/rest/reference/actions#get-workflow-run-usage>
     ///
     /// Get workflow run usage
     /// Gets the number of billable minutes and total run time for a specific workflow run. Billable minutes only apply to workflows in private repositories that use GitHub-hosted runners. Usage is listed for each GitHub-hosted runner operating system in milliseconds. Any job re-runs are also included in the usage. The usage does not include the multiplier for macOS and Windows runners and is not rounded up to the nearest whole minute. For more information, see "[Managing billing for GitHub Actions](https://help.github.com/github/setting-up-and-managing-billing-and-payments-on-github/managing-billing-for-github-actions)".
@@ -3130,28 +3130,28 @@ pub enum EndPoints {
     GetReposownerrepoActionsRunsrunIdTiming(String, String, String),
     /// * tags actions
     /// * get `/repos/{owner}/{repo}/actions/secrets`
-    /// * docs https://docs.github.com/rest/reference/actions#list-repository-secrets
+    /// * docs <https://docs.github.com/rest/reference/actions#list-repository-secrets>
     ///
     /// List repository secrets
     /// Lists all secrets available in a repository without revealing their encrypted values. You must authenticate using an access token with the `repo` scope to use this endpoint. GitHub Apps must have the `secrets` repository permission to use this endpoint.
     GetReposownerrepoActionsSecrets(String, String),
     /// * tags actions
     /// * get `/repos/{owner}/{repo}/actions/secrets/public-key`
-    /// * docs https://docs.github.com/rest/reference/actions#get-a-repository-public-key
+    /// * docs <https://docs.github.com/rest/reference/actions#get-a-repository-public-key>
     ///
     /// Get a repository public key
     /// Gets your public key, which you need to encrypt secrets. You need to encrypt a secret before you can create or update secrets. Anyone with read access to the repository can use this endpoint. If the repository is private you must use an access token with the `repo` scope. GitHub Apps must have the `secrets` repository permission to use this endpoint.
     GetReposownerrepoActionsSecretsPublicKey(String, String),
     /// * tags actions
     /// * get `/repos/{owner}/{repo}/actions/secrets/{secret_name}`
-    /// * docs https://docs.github.com/rest/reference/actions#get-a-repository-secret
+    /// * docs <https://docs.github.com/rest/reference/actions#get-a-repository-secret>
     ///
     /// Get a repository secret
     /// Gets a single repository secret without revealing its encrypted value. You must authenticate using an access token with the `repo` scope to use this endpoint. GitHub Apps must have the `secrets` repository permission to use this endpoint.
     GetReposownerrepoActionsSecretssecretName(String, String, String),
     /// * tags actions
     /// * put `/repos/{owner}/{repo}/actions/secrets/{secret_name}`
-    /// * docs https://docs.github.com/rest/reference/actions#create-or-update-a-repository-secret
+    /// * docs <https://docs.github.com/rest/reference/actions#create-or-update-a-repository-secret>
     ///
     /// Create or update a repository secret
     /// Creates or updates a repository secret with an encrypted value. Encrypt your secret using
@@ -3232,28 +3232,28 @@ pub enum EndPoints {
     PutReposownerrepoActionsSecretssecretName(String, String, String),
     /// * tags actions
     /// * delete `/repos/{owner}/{repo}/actions/secrets/{secret_name}`
-    /// * docs https://docs.github.com/rest/reference/actions#delete-a-repository-secret
+    /// * docs <https://docs.github.com/rest/reference/actions#delete-a-repository-secret>
     ///
     /// Delete a repository secret
     /// Deletes a secret in a repository using the secret name. You must authenticate using an access token with the `repo` scope to use this endpoint. GitHub Apps must have the `secrets` repository permission to use this endpoint.
     DeleteReposownerrepoActionsSecretssecretName(String, String, String),
     /// * tags actions
     /// * get `/repos/{owner}/{repo}/actions/workflows`
-    /// * docs https://docs.github.com/rest/reference/actions#list-repository-workflows
+    /// * docs <https://docs.github.com/rest/reference/actions#list-repository-workflows>
     ///
     /// List repository workflows
     /// Lists the workflows in a repository. Anyone with read access to the repository can use this endpoint. If the repository is private you must use an access token with the `repo` scope. GitHub Apps must have the `actions:read` permission to use this endpoint.
     GetReposownerrepoActionsWorkflows(String, String),
     /// * tags actions
     /// * get `/repos/{owner}/{repo}/actions/workflows/{workflow_id}`
-    /// * docs https://docs.github.com/rest/reference/actions#get-a-workflow
+    /// * docs <https://docs.github.com/rest/reference/actions#get-a-workflow>
     ///
     /// Get a workflow
     /// Gets a specific workflow. You can replace `workflow_id` with the workflow file name. For example, you could use `main.yaml`. Anyone with read access to the repository can use this endpoint. If the repository is private you must use an access token with the `repo` scope. GitHub Apps must have the `actions:read` permission to use this endpoint.
     GetReposownerrepoActionsWorkflowsworkflowId(String, String, String),
     /// * tags actions
     /// * put `/repos/{owner}/{repo}/actions/workflows/{workflow_id}/disable`
-    /// * docs https://docs.github.com/rest/reference/actions#disable-a-workflow
+    /// * docs <https://docs.github.com/rest/reference/actions#disable-a-workflow>
     ///
     /// Disable a workflow
     /// Disables a workflow and sets the `state` of the workflow to `disabled_manually`. You can replace `workflow_id` with the workflow file name. For example, you could use `main.yaml`.
@@ -3262,7 +3262,7 @@ pub enum EndPoints {
     PutReposownerrepoActionsWorkflowsworkflowIdDisable(String, String, String),
     /// * tags actions
     /// * post `/repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches`
-    /// * docs https://docs.github.com/rest/reference/actions#create-a-workflow-dispatch-event
+    /// * docs <https://docs.github.com/rest/reference/actions#create-a-workflow-dispatch-event>
     ///
     /// Create a workflow dispatch event
     /// You can use this endpoint to manually trigger a GitHub Actions workflow run. You can replace `workflow_id` with the workflow file name. For example, you could use `main.yaml`.
@@ -3273,7 +3273,7 @@ pub enum EndPoints {
     PostReposownerrepoActionsWorkflowsworkflowIdDispatches(String, String, String),
     /// * tags actions
     /// * put `/repos/{owner}/{repo}/actions/workflows/{workflow_id}/enable`
-    /// * docs https://docs.github.com/rest/reference/actions#enable-a-workflow
+    /// * docs <https://docs.github.com/rest/reference/actions#enable-a-workflow>
     ///
     /// Enable a workflow
     /// Enables a workflow and sets the `state` of the workflow to `active`. You can replace `workflow_id` with the workflow file name. For example, you could use `main.yaml`.
@@ -3282,7 +3282,7 @@ pub enum EndPoints {
     PutReposownerrepoActionsWorkflowsworkflowIdEnable(String, String, String),
     /// * tags actions
     /// * get `/repos/{owner}/{repo}/actions/workflows/{workflow_id}/runs`
-    /// * docs https://docs.github.com/rest/reference/actions#list-workflow-runs
+    /// * docs <https://docs.github.com/rest/reference/actions#list-workflow-runs>
     ///
     /// List workflow runs
     /// List all workflow runs for a workflow. You can replace `workflow_id` with the workflow file name. For example, you could use `main.yaml`. You can use parameters to narrow the list of results. For more information about using parameters, see [Parameters](https://docs.github.com/rest/overview/resources-in-the-rest-api#parameters).
@@ -3291,7 +3291,7 @@ pub enum EndPoints {
     GetReposownerrepoActionsWorkflowsworkflowIdRuns(String, String, String),
     /// * tags actions
     /// * get `/repos/{owner}/{repo}/actions/workflows/{workflow_id}/timing`
-    /// * docs https://docs.github.com/rest/reference/actions#get-workflow-usage
+    /// * docs <https://docs.github.com/rest/reference/actions#get-workflow-usage>
     ///
     /// Get workflow usage
     /// Gets the number of billable minutes used by a specific workflow during the current billing cycle. Billable minutes only apply to workflows in private repositories that use GitHub-hosted runners. Usage is listed for each GitHub-hosted runner operating system in milliseconds. Any job re-runs are also included in the usage. The usage does not include the multiplier for macOS and Windows runners and is not rounded up to the nearest whole minute. For more information, see "[Managing billing for GitHub Actions](https://help.github.com/github/setting-up-and-managing-billing-and-payments-on-github/managing-billing-for-github-actions)".
@@ -3300,14 +3300,14 @@ pub enum EndPoints {
     GetReposownerrepoActionsWorkflowsworkflowIdTiming(String, String, String),
     /// * tags issues
     /// * get `/repos/{owner}/{repo}/assignees`
-    /// * docs https://docs.github.com/rest/reference/issues#list-assignees
+    /// * docs <https://docs.github.com/rest/reference/issues#list-assignees>
     ///
     /// List assignees
     /// Lists the [available assignees](https://help.github.com/articles/assigning-issues-and-pull-requests-to-other-github-users/) for issues in a repository.
     GetReposownerrepoAssignees(String, String),
     /// * tags issues
     /// * get `/repos/{owner}/{repo}/assignees/{assignee}`
-    /// * docs https://docs.github.com/rest/reference/issues#check-if-a-user-can-be-assigned
+    /// * docs <https://docs.github.com/rest/reference/issues#check-if-a-user-can-be-assigned>
     ///
     /// Check if a user can be assigned
     /// Checks if a user has permission to be assigned to an issue in this repository.
@@ -3318,7 +3318,7 @@ pub enum EndPoints {
     GetReposownerrepoAssigneesassignee(String, String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/autolinks`
-    /// * docs https://docs.github.com/v3/repos#list-autolinks
+    /// * docs <https://docs.github.com/v3/repos#list-autolinks>
     ///
     /// List all autolinks of a repository
     /// This returns a list of autolinks configured for the given repository.
@@ -3327,14 +3327,14 @@ pub enum EndPoints {
     GetReposownerrepoAutolinks(String, String),
     /// * tags repos
     /// * post `/repos/{owner}/{repo}/autolinks`
-    /// * docs https://docs.github.com/v3/repos#create-an-autolink
+    /// * docs <https://docs.github.com/v3/repos#create-an-autolink>
     ///
     /// Create an autolink reference for a repository
     /// Users with admin access to the repository can create an autolink.
     PostReposownerrepoAutolinks(String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/autolinks/{autolink_id}`
-    /// * docs https://docs.github.com/v3/repos#get-autolink
+    /// * docs <https://docs.github.com/v3/repos#get-autolink>
     ///
     /// Get an autolink reference of a repository
     /// This returns a single autolink reference by ID that was configured for the given repository.
@@ -3343,7 +3343,7 @@ pub enum EndPoints {
     GetReposownerrepoAutolinksautolinkId(String, String, String),
     /// * tags repos
     /// * delete `/repos/{owner}/{repo}/autolinks/{autolink_id}`
-    /// * docs https://docs.github.com/v3/repos#delete-autolink
+    /// * docs <https://docs.github.com/v3/repos#delete-autolink>
     ///
     /// Delete an autolink reference from a repository
     /// This deletes a single autolink reference by ID that was configured for the given repository.
@@ -3352,42 +3352,42 @@ pub enum EndPoints {
     DeleteReposownerrepoAutolinksautolinkId(String, String, String),
     /// * tags repos
     /// * put `/repos/{owner}/{repo}/automated-security-fixes`
-    /// * docs https://docs.github.com/rest/reference/repos#enable-automated-security-fixes
+    /// * docs <https://docs.github.com/rest/reference/repos#enable-automated-security-fixes>
     ///
     /// Enable automated security fixes
     /// Enables automated security fixes for a repository. The authenticated user must have admin access to the repository. For more information, see "[Configuring automated security fixes](https://help.github.com/en/articles/configuring-automated-security-fixes)".
     PutReposownerrepoAutomatedSecurityFixes(String, String),
     /// * tags repos
     /// * delete `/repos/{owner}/{repo}/automated-security-fixes`
-    /// * docs https://docs.github.com/rest/reference/repos#disable-automated-security-fixes
+    /// * docs <https://docs.github.com/rest/reference/repos#disable-automated-security-fixes>
     ///
     /// Disable automated security fixes
     /// Disables automated security fixes for a repository. The authenticated user must have admin access to the repository. For more information, see "[Configuring automated security fixes](https://help.github.com/en/articles/configuring-automated-security-fixes)".
     DeleteReposownerrepoAutomatedSecurityFixes(String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/branches`
-    /// * docs https://docs.github.com/rest/reference/repos#list-branches
+    /// * docs <https://docs.github.com/rest/reference/repos#list-branches>
     ///
     /// List branches
     ///
     GetReposownerrepoBranches(String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/branches/{branch}`
-    /// * docs https://docs.github.com/rest/reference/repos#get-a-branch
+    /// * docs <https://docs.github.com/rest/reference/repos#get-a-branch>
     ///
     /// Get a branch
     ///
     GetReposownerrepoBranchesbranch(String, String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/branches/{branch}/protection`
-    /// * docs https://docs.github.com/rest/reference/repos#get-branch-protection
+    /// * docs <https://docs.github.com/rest/reference/repos#get-branch-protection>
     ///
     /// Get branch protection
     /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     GetReposownerrepoBranchesbranchProtection(String, String, String),
     /// * tags repos
     /// * put `/repos/{owner}/{repo}/branches/{branch}/protection`
-    /// * docs https://docs.github.com/rest/reference/repos#update-branch-protection
+    /// * docs <https://docs.github.com/rest/reference/repos#update-branch-protection>
     ///
     /// Update branch protection
     /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
@@ -3400,21 +3400,21 @@ pub enum EndPoints {
     PutReposownerrepoBranchesbranchProtection(String, String, String),
     /// * tags repos
     /// * delete `/repos/{owner}/{repo}/branches/{branch}/protection`
-    /// * docs https://docs.github.com/rest/reference/repos#delete-branch-protection
+    /// * docs <https://docs.github.com/rest/reference/repos#delete-branch-protection>
     ///
     /// Delete branch protection
     /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     DeleteReposownerrepoBranchesbranchProtection(String, String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/branches/{branch}/protection/enforce_admins`
-    /// * docs https://docs.github.com/rest/reference/repos#get-admin-branch-protection
+    /// * docs <https://docs.github.com/rest/reference/repos#get-admin-branch-protection>
     ///
     /// Get admin branch protection
     /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     GetReposownerrepoBranchesbranchProtectionEnforceAdmins(String, String, String),
     /// * tags repos
     /// * post `/repos/{owner}/{repo}/branches/{branch}/protection/enforce_admins`
-    /// * docs https://docs.github.com/rest/reference/repos#set-admin-branch-protection
+    /// * docs <https://docs.github.com/rest/reference/repos#set-admin-branch-protection>
     ///
     /// Set admin branch protection
     /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
@@ -3423,7 +3423,7 @@ pub enum EndPoints {
     PostReposownerrepoBranchesbranchProtectionEnforceAdmins(String, String, String),
     /// * tags repos
     /// * delete `/repos/{owner}/{repo}/branches/{branch}/protection/enforce_admins`
-    /// * docs https://docs.github.com/rest/reference/repos#delete-admin-branch-protection
+    /// * docs <https://docs.github.com/rest/reference/repos#delete-admin-branch-protection>
     ///
     /// Delete admin branch protection
     /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
@@ -3432,14 +3432,14 @@ pub enum EndPoints {
     DeleteReposownerrepoBranchesbranchProtectionEnforceAdmins(String, String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/branches/{branch}/protection/required_pull_request_reviews`
-    /// * docs https://docs.github.com/rest/reference/repos#get-pull-request-review-protection
+    /// * docs <https://docs.github.com/rest/reference/repos#get-pull-request-review-protection>
     ///
     /// Get pull request review protection
     /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     GetReposownerrepoBranchesbranchProtectionRequiredPullRequestReviews(String, String, String),
     /// * tags repos
     /// * patch `/repos/{owner}/{repo}/branches/{branch}/protection/required_pull_request_reviews`
-    /// * docs https://docs.github.com/rest/reference/repos#update-pull-request-review-protection
+    /// * docs <https://docs.github.com/rest/reference/repos#update-pull-request-review-protection>
     ///
     /// Update pull request review protection
     /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
@@ -3450,14 +3450,14 @@ pub enum EndPoints {
     PatchReposownerrepoBranchesbranchProtectionRequiredPullRequestReviews(String, String, String),
     /// * tags repos
     /// * delete `/repos/{owner}/{repo}/branches/{branch}/protection/required_pull_request_reviews`
-    /// * docs https://docs.github.com/rest/reference/repos#delete-pull-request-review-protection
+    /// * docs <https://docs.github.com/rest/reference/repos#delete-pull-request-review-protection>
     ///
     /// Delete pull request review protection
     /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     DeleteReposownerrepoBranchesbranchProtectionRequiredPullRequestReviews(String, String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/branches/{branch}/protection/required_signatures`
-    /// * docs https://docs.github.com/rest/reference/repos#get-commit-signature-protection
+    /// * docs <https://docs.github.com/rest/reference/repos#get-commit-signature-protection>
     ///
     /// Get commit signature protection
     /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
@@ -3468,7 +3468,7 @@ pub enum EndPoints {
     GetReposownerrepoBranchesbranchProtectionRequiredSignatures(String, String, String),
     /// * tags repos
     /// * post `/repos/{owner}/{repo}/branches/{branch}/protection/required_signatures`
-    /// * docs https://docs.github.com/rest/reference/repos#create-commit-signature-protection
+    /// * docs <https://docs.github.com/rest/reference/repos#create-commit-signature-protection>
     ///
     /// Create commit signature protection
     /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
@@ -3477,7 +3477,7 @@ pub enum EndPoints {
     PostReposownerrepoBranchesbranchProtectionRequiredSignatures(String, String, String),
     /// * tags repos
     /// * delete `/repos/{owner}/{repo}/branches/{branch}/protection/required_signatures`
-    /// * docs https://docs.github.com/rest/reference/repos#delete-commit-signature-protection
+    /// * docs <https://docs.github.com/rest/reference/repos#delete-commit-signature-protection>
     ///
     /// Delete commit signature protection
     /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
@@ -3486,14 +3486,14 @@ pub enum EndPoints {
     DeleteReposownerrepoBranchesbranchProtectionRequiredSignatures(String, String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks`
-    /// * docs https://docs.github.com/rest/reference/repos#get-status-checks-protection
+    /// * docs <https://docs.github.com/rest/reference/repos#get-status-checks-protection>
     ///
     /// Get status checks protection
     /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     GetReposownerrepoBranchesbranchProtectionRequiredStatusChecks(String, String, String),
     /// * tags repos
     /// * patch `/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks`
-    /// * docs https://docs.github.com/rest/reference/repos#update-status-check-protection
+    /// * docs <https://docs.github.com/rest/reference/repos#update-status-check-protection>
     ///
     /// Update status check protection
     /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
@@ -3502,35 +3502,35 @@ pub enum EndPoints {
     PatchReposownerrepoBranchesbranchProtectionRequiredStatusChecks(String, String, String),
     /// * tags repos
     /// * delete `/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks`
-    /// * docs https://docs.github.com/rest/reference/repos#remove-status-check-protection
+    /// * docs <https://docs.github.com/rest/reference/repos#remove-status-check-protection>
     ///
     /// Remove status check protection
     /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     DeleteReposownerrepoBranchesbranchProtectionRequiredStatusChecks(String, String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts`
-    /// * docs https://docs.github.com/rest/reference/repos#get-all-status-check-contexts
+    /// * docs <https://docs.github.com/rest/reference/repos#get-all-status-check-contexts>
     ///
     /// Get all status check contexts
     /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     GetReposownerrepoBranchesbranchProtectionRequiredStatusChecksContexts(String, String, String),
     /// * tags repos
     /// * post `/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts`
-    /// * docs https://docs.github.com/rest/reference/repos#add-status-check-contexts
+    /// * docs <https://docs.github.com/rest/reference/repos#add-status-check-contexts>
     ///
     /// Add status check contexts
     /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     PostReposownerrepoBranchesbranchProtectionRequiredStatusChecksContexts(String, String, String),
     /// * tags repos
     /// * put `/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts`
-    /// * docs https://docs.github.com/rest/reference/repos#set-status-check-contexts
+    /// * docs <https://docs.github.com/rest/reference/repos#set-status-check-contexts>
     ///
     /// Set status check contexts
     /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     PutReposownerrepoBranchesbranchProtectionRequiredStatusChecksContexts(String, String, String),
     /// * tags repos
     /// * delete `/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts`
-    /// * docs https://docs.github.com/rest/reference/repos#remove-status-check-contexts
+    /// * docs <https://docs.github.com/rest/reference/repos#remove-status-check-contexts>
     ///
     /// Remove status check contexts
     /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
@@ -3541,7 +3541,7 @@ pub enum EndPoints {
     ),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/branches/{branch}/protection/restrictions`
-    /// * docs https://docs.github.com/rest/reference/repos#get-access-restrictions
+    /// * docs <https://docs.github.com/rest/reference/repos#get-access-restrictions>
     ///
     /// Get access restrictions
     /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
@@ -3552,7 +3552,7 @@ pub enum EndPoints {
     GetReposownerrepoBranchesbranchProtectionRestrictions(String, String, String),
     /// * tags repos
     /// * delete `/repos/{owner}/{repo}/branches/{branch}/protection/restrictions`
-    /// * docs https://docs.github.com/rest/reference/repos#delete-access-restrictions
+    /// * docs <https://docs.github.com/rest/reference/repos#delete-access-restrictions>
     ///
     /// Delete access restrictions
     /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
@@ -3561,7 +3561,7 @@ pub enum EndPoints {
     DeleteReposownerrepoBranchesbranchProtectionRestrictions(String, String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps`
-    /// * docs https://docs.github.com/rest/reference/repos#list-apps-with-access-to-the-protected-branch
+    /// * docs <https://docs.github.com/rest/reference/repos#list-apps-with-access-to-the-protected-branch>
     ///
     /// Get apps with access to the protected branch
     /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
@@ -3570,7 +3570,7 @@ pub enum EndPoints {
     GetReposownerrepoBranchesbranchProtectionRestrictionsApps(String, String, String),
     /// * tags repos
     /// * post `/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps`
-    /// * docs https://docs.github.com/rest/reference/repos#add-app-access-restrictions
+    /// * docs <https://docs.github.com/rest/reference/repos#add-app-access-restrictions>
     ///
     /// Add app access restrictions
     /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
@@ -3583,7 +3583,7 @@ pub enum EndPoints {
     PostReposownerrepoBranchesbranchProtectionRestrictionsApps(String, String, String),
     /// * tags repos
     /// * put `/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps`
-    /// * docs https://docs.github.com/rest/reference/repos#set-app-access-restrictions
+    /// * docs <https://docs.github.com/rest/reference/repos#set-app-access-restrictions>
     ///
     /// Set app access restrictions
     /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
@@ -3596,7 +3596,7 @@ pub enum EndPoints {
     PutReposownerrepoBranchesbranchProtectionRestrictionsApps(String, String, String),
     /// * tags repos
     /// * delete `/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps`
-    /// * docs https://docs.github.com/rest/reference/repos#remove-app-access-restrictions
+    /// * docs <https://docs.github.com/rest/reference/repos#remove-app-access-restrictions>
     ///
     /// Remove app access restrictions
     /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
@@ -3609,7 +3609,7 @@ pub enum EndPoints {
     DeleteReposownerrepoBranchesbranchProtectionRestrictionsApps(String, String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams`
-    /// * docs https://docs.github.com/rest/reference/repos#list-teams-with-access-to-the-protected-branch
+    /// * docs <https://docs.github.com/rest/reference/repos#list-teams-with-access-to-the-protected-branch>
     ///
     /// Get teams with access to the protected branch
     /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
@@ -3618,7 +3618,7 @@ pub enum EndPoints {
     GetReposownerrepoBranchesbranchProtectionRestrictionsTeams(String, String, String),
     /// * tags repos
     /// * post `/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams`
-    /// * docs https://docs.github.com/rest/reference/repos#add-team-access-restrictions
+    /// * docs <https://docs.github.com/rest/reference/repos#add-team-access-restrictions>
     ///
     /// Add team access restrictions
     /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
@@ -3631,7 +3631,7 @@ pub enum EndPoints {
     PostReposownerrepoBranchesbranchProtectionRestrictionsTeams(String, String, String),
     /// * tags repos
     /// * put `/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams`
-    /// * docs https://docs.github.com/rest/reference/repos#set-team-access-restrictions
+    /// * docs <https://docs.github.com/rest/reference/repos#set-team-access-restrictions>
     ///
     /// Set team access restrictions
     /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
@@ -3644,7 +3644,7 @@ pub enum EndPoints {
     PutReposownerrepoBranchesbranchProtectionRestrictionsTeams(String, String, String),
     /// * tags repos
     /// * delete `/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams`
-    /// * docs https://docs.github.com/rest/reference/repos#remove-team-access-restrictions
+    /// * docs <https://docs.github.com/rest/reference/repos#remove-team-access-restrictions>
     ///
     /// Remove team access restrictions
     /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
@@ -3657,7 +3657,7 @@ pub enum EndPoints {
     DeleteReposownerrepoBranchesbranchProtectionRestrictionsTeams(String, String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users`
-    /// * docs https://docs.github.com/rest/reference/repos#list-users-with-access-to-the-protected-branch
+    /// * docs <https://docs.github.com/rest/reference/repos#list-users-with-access-to-the-protected-branch>
     ///
     /// Get users with access to the protected branch
     /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
@@ -3666,7 +3666,7 @@ pub enum EndPoints {
     GetReposownerrepoBranchesbranchProtectionRestrictionsUsers(String, String, String),
     /// * tags repos
     /// * post `/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users`
-    /// * docs https://docs.github.com/rest/reference/repos#add-user-access-restrictions
+    /// * docs <https://docs.github.com/rest/reference/repos#add-user-access-restrictions>
     ///
     /// Add user access restrictions
     /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
@@ -3679,7 +3679,7 @@ pub enum EndPoints {
     PostReposownerrepoBranchesbranchProtectionRestrictionsUsers(String, String, String),
     /// * tags repos
     /// * put `/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users`
-    /// * docs https://docs.github.com/rest/reference/repos#set-user-access-restrictions
+    /// * docs <https://docs.github.com/rest/reference/repos#set-user-access-restrictions>
     ///
     /// Set user access restrictions
     /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
@@ -3692,7 +3692,7 @@ pub enum EndPoints {
     PutReposownerrepoBranchesbranchProtectionRestrictionsUsers(String, String, String),
     /// * tags repos
     /// * delete `/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users`
-    /// * docs https://docs.github.com/rest/reference/repos#remove-user-access-restrictions
+    /// * docs <https://docs.github.com/rest/reference/repos#remove-user-access-restrictions>
     ///
     /// Remove user access restrictions
     /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
@@ -3705,7 +3705,7 @@ pub enum EndPoints {
     DeleteReposownerrepoBranchesbranchProtectionRestrictionsUsers(String, String, String),
     /// * tags repos
     /// * post `/repos/{owner}/{repo}/branches/{branch}/rename`
-    /// * docs https://docs.github.com/rest/reference/repos#rename-a-branch
+    /// * docs <https://docs.github.com/rest/reference/repos#rename-a-branch>
     ///
     /// Rename a branch
     /// Renames a branch in a repository.
@@ -3726,7 +3726,7 @@ pub enum EndPoints {
     PostReposownerrepoBranchesbranchRename(String, String, String),
     /// * tags checks
     /// * post `/repos/{owner}/{repo}/check-runs`
-    /// * docs https://docs.github.com/rest/reference/checks#create-a-check-run
+    /// * docs <https://docs.github.com/rest/reference/checks#create-a-check-run>
     ///
     /// Create a check run
     /// **Note:** The Checks API only looks for pushes in the repository where the check suite or check run were created. Pushes to a branch in a forked repository are not detected and return an empty `pull_requests` array.
@@ -3737,7 +3737,7 @@ pub enum EndPoints {
     PostReposownerrepoCheckRuns(String, String),
     /// * tags checks
     /// * get `/repos/{owner}/{repo}/check-runs/{check_run_id}`
-    /// * docs https://docs.github.com/rest/reference/checks#get-a-check-run
+    /// * docs <https://docs.github.com/rest/reference/checks#get-a-check-run>
     ///
     /// Get a check run
     /// **Note:** The Checks API only looks for pushes in the repository where the check suite or check run were created. Pushes to a branch in a forked repository are not detected and return an empty `pull_requests` array.
@@ -3746,7 +3746,7 @@ pub enum EndPoints {
     GetReposownerrepoCheckRunscheckRunId(String, String, String),
     /// * tags checks
     /// * patch `/repos/{owner}/{repo}/check-runs/{check_run_id}`
-    /// * docs https://docs.github.com/rest/reference/checks#update-a-check-run
+    /// * docs <https://docs.github.com/rest/reference/checks#update-a-check-run>
     ///
     /// Update a check run
     /// **Note:** The Checks API only looks for pushes in the repository where the check suite or check run were created. Pushes to a branch in a forked repository are not detected and return an empty `pull_requests` array.
@@ -3755,14 +3755,14 @@ pub enum EndPoints {
     PatchReposownerrepoCheckRunscheckRunId(String, String, String),
     /// * tags checks
     /// * get `/repos/{owner}/{repo}/check-runs/{check_run_id}/annotations`
-    /// * docs https://docs.github.com/rest/reference/checks#list-check-run-annotations
+    /// * docs <https://docs.github.com/rest/reference/checks#list-check-run-annotations>
     ///
     /// List check run annotations
     /// Lists annotations for a check run using the annotation `id`. GitHub Apps must have the `checks:read` permission on a private repository or pull access to a public repository to get annotations for a check run. OAuth Apps and authenticated users must have the `repo` scope to get annotations for a check run in a private repository.
     GetReposownerrepoCheckRunscheckRunIdAnnotations(String, String, String),
     /// * tags checks
     /// * post `/repos/{owner}/{repo}/check-runs/{check_run_id}/rerequest`
-    /// * docs https://docs.github.com/rest/reference/checks#rerequest-a-check-run
+    /// * docs <https://docs.github.com/rest/reference/checks#rerequest-a-check-run>
     ///
     /// Rerequest a check run
     /// Triggers GitHub to rerequest an existing check run, without pushing new code to a repository. This endpoint will trigger the [`check_run` webhook](https://docs.github.com/webhooks/event-payloads/#check_run) event with the action `rerequested`. When a check run is `rerequested`, its `status` is reset to `queued` and the `conclusion` is cleared.
@@ -3771,7 +3771,7 @@ pub enum EndPoints {
     PostReposownerrepoCheckRunscheckRunIdRerequest(String, String, String),
     /// * tags checks
     /// * post `/repos/{owner}/{repo}/check-suites`
-    /// * docs https://docs.github.com/rest/reference/checks#create-a-check-suite
+    /// * docs <https://docs.github.com/rest/reference/checks#create-a-check-suite>
     ///
     /// Create a check suite
     /// **Note:** The Checks API only looks for pushes in the repository where the check suite or check run were created. Pushes to a branch in a forked repository are not detected and return an empty `pull_requests` array and a `null` value for `head_branch`.
@@ -3780,14 +3780,14 @@ pub enum EndPoints {
     PostReposownerrepoCheckSuites(String, String),
     /// * tags checks
     /// * patch `/repos/{owner}/{repo}/check-suites/preferences`
-    /// * docs https://docs.github.com/rest/reference/checks#update-repository-preferences-for-check-suites
+    /// * docs <https://docs.github.com/rest/reference/checks#update-repository-preferences-for-check-suites>
     ///
     /// Update repository preferences for check suites
     /// Changes the default automatic flow when creating check suites. By default, a check suite is automatically created each time code is pushed to a repository. When you disable the automatic creation of check suites, you can manually [Create a check suite](https://docs.github.com/rest/reference/checks#create-a-check-suite). You must have admin permissions in the repository to set preferences for check suites.
     PatchReposownerrepoCheckSuitesPreferences(String, String),
     /// * tags checks
     /// * get `/repos/{owner}/{repo}/check-suites/{check_suite_id}`
-    /// * docs https://docs.github.com/rest/reference/checks#get-a-check-suite
+    /// * docs <https://docs.github.com/rest/reference/checks#get-a-check-suite>
     ///
     /// Get a check suite
     /// **Note:** The Checks API only looks for pushes in the repository where the check suite or check run were created. Pushes to a branch in a forked repository are not detected and return an empty `pull_requests` array and a `null` value for `head_branch`.
@@ -3796,7 +3796,7 @@ pub enum EndPoints {
     GetReposownerrepoCheckSuitescheckSuiteId(String, String, String),
     /// * tags checks
     /// * get `/repos/{owner}/{repo}/check-suites/{check_suite_id}/check-runs`
-    /// * docs https://docs.github.com/rest/reference/checks#list-check-runs-in-a-check-suite
+    /// * docs <https://docs.github.com/rest/reference/checks#list-check-runs-in-a-check-suite>
     ///
     /// List check runs in a check suite
     /// **Note:** The Checks API only looks for pushes in the repository where the check suite or check run were created. Pushes to a branch in a forked repository are not detected and return an empty `pull_requests` array.
@@ -3805,7 +3805,7 @@ pub enum EndPoints {
     GetReposownerrepoCheckSuitescheckSuiteIdCheckRuns(String, String, String),
     /// * tags checks
     /// * post `/repos/{owner}/{repo}/check-suites/{check_suite_id}/rerequest`
-    /// * docs https://docs.github.com/rest/reference/checks#rerequest-a-check-suite
+    /// * docs <https://docs.github.com/rest/reference/checks#rerequest-a-check-suite>
     ///
     /// Rerequest a check suite
     /// Triggers GitHub to rerequest an existing check suite, without pushing new code to a repository. This endpoint will trigger the [`check_suite` webhook](https://docs.github.com/webhooks/event-payloads/#check_suite) event with the action `rerequested`. When a check suite is `rerequested`, its `status` is reset to `queued` and the `conclusion` is cleared.
@@ -3814,7 +3814,7 @@ pub enum EndPoints {
     PostReposownerrepoCheckSuitescheckSuiteIdRerequest(String, String, String),
     /// * tags code-scanning
     /// * get `/repos/{owner}/{repo}/code-scanning/alerts`
-    /// * docs https://docs.github.com/rest/reference/code-scanning#list-code-scanning-alerts-for-a-repository
+    /// * docs <https://docs.github.com/rest/reference/code-scanning#list-code-scanning-alerts-for-a-repository>
     ///
     /// List code scanning alerts for a repository
     /// Lists all open code scanning alerts for the default branch (usually `main`
@@ -3830,7 +3830,7 @@ pub enum EndPoints {
     GetReposownerrepoCodeScanningAlerts(String, String),
     /// * tags code-scanning
     /// * get `/repos/{owner}/{repo}/code-scanning/alerts/{alert_number}`
-    /// * docs https://docs.github.com/rest/reference/code-scanning#get-a-code-scanning-alert
+    /// * docs <https://docs.github.com/rest/reference/code-scanning#get-a-code-scanning-alert>
     ///
     /// Get a code scanning alert
     /// Gets a single code scanning alert. You must use an access token with the `security_events` scope to use this endpoint with private repos, the `public_repo` scope also grants permission to read security events on public repos only. GitHub Apps must have the `security_events` read permission to use this endpoint.
@@ -3840,14 +3840,14 @@ pub enum EndPoints {
     GetReposownerrepoCodeScanningAlertsalertNumber(String, String, String),
     /// * tags code-scanning
     /// * patch `/repos/{owner}/{repo}/code-scanning/alerts/{alert_number}`
-    /// * docs https://docs.github.com/rest/reference/code-scanning#update-a-code-scanning-alert
+    /// * docs <https://docs.github.com/rest/reference/code-scanning#update-a-code-scanning-alert>
     ///
     /// Update a code scanning alert
     /// Updates the status of a single code scanning alert. You must use an access token with the `security_events` scope to use this endpoint with private repositories. You can also use tokens with the `public_repo` scope for public repositories only. GitHub Apps must have the `security_events` write permission to use this endpoint.
     PatchReposownerrepoCodeScanningAlertsalertNumber(String, String, String),
     /// * tags code-scanning
     /// * get `/repos/{owner}/{repo}/code-scanning/alerts/{alert_number}/instances`
-    /// * docs https://docs.github.com/rest/reference/code-scanning#list-instances-of-a-code-scanning-alert
+    /// * docs <https://docs.github.com/rest/reference/code-scanning#list-instances-of-a-code-scanning-alert>
     ///
     /// List instances of a code scanning alert
     /// Lists all instances of the specified code scanning alert.
@@ -3857,7 +3857,7 @@ pub enum EndPoints {
     GetReposownerrepoCodeScanningAlertsalertNumberInstances(String, String, String),
     /// * tags code-scanning
     /// * get `/repos/{owner}/{repo}/code-scanning/analyses`
-    /// * docs https://docs.github.com/rest/reference/code-scanning#list-code-scanning-analyses-for-a-repository
+    /// * docs <https://docs.github.com/rest/reference/code-scanning#list-code-scanning-analyses-for-a-repository>
     ///
     /// List code scanning analyses for a repository
     /// Lists the details of all code scanning analyses for a repository,
@@ -3880,7 +3880,7 @@ pub enum EndPoints {
     GetReposownerrepoCodeScanningAnalyses(String, String),
     /// * tags code-scanning
     /// * get `/repos/{owner}/{repo}/code-scanning/analyses/{analysis_id}`
-    /// * docs https://docs.github.com/rest/reference/code-scanning#get-a-code-scanning-analysis-for-a-repository
+    /// * docs <https://docs.github.com/rest/reference/code-scanning#get-a-code-scanning-analysis-for-a-repository>
     ///
     /// Get a code scanning analysis for a repository
     /// Gets a specified code scanning analysis for a repository.
@@ -3905,7 +3905,7 @@ pub enum EndPoints {
     GetReposownerrepoCodeScanningAnalysesanalysisId(String, String, String),
     /// * tags code-scanning
     /// * delete `/repos/{owner}/{repo}/code-scanning/analyses/{analysis_id}`
-    /// * docs https://docs.github.com/rest/reference/code-scanning#delete-a-code-scanning-analysis-from-a-repository
+    /// * docs <https://docs.github.com/rest/reference/code-scanning#delete-a-code-scanning-analysis-from-a-repository>
     ///
     /// Delete a code scanning analysis from a repository
     /// Deletes a specified code scanning analysis from a repository. For
@@ -3977,7 +3977,7 @@ pub enum EndPoints {
     DeleteReposownerrepoCodeScanningAnalysesanalysisId(String, String, String),
     /// * tags code-scanning
     /// * post `/repos/{owner}/{repo}/code-scanning/sarifs`
-    /// * docs https://docs.github.com/rest/reference/code-scanning#upload-a-sarif-file
+    /// * docs <https://docs.github.com/rest/reference/code-scanning#upload-a-sarif-file>
     ///
     /// Upload an analysis as SARIF data
     /// Uploads SARIF data containing the results of a code scanning analysis to make the results available in a repository. You must use an access token with the `security_events` scope to use this endpoint for private repositories. You can also use tokens with the `public_repo` scope for public repositories only. GitHub Apps must have the `security_events` write permission to use this endpoint.
@@ -4000,14 +4000,14 @@ pub enum EndPoints {
     PostReposownerrepoCodeScanningSarifs(String, String),
     /// * tags code-scanning
     /// * get `/repos/{owner}/{repo}/code-scanning/sarifs/{sarif_id}`
-    /// * docs https://docs.github.com/rest/reference/code-scanning#list-recent-code-scanning-analyses-for-a-repository
+    /// * docs <https://docs.github.com/rest/reference/code-scanning#list-recent-code-scanning-analyses-for-a-repository>
     ///
     /// Get information about a SARIF upload
     /// Gets information about a SARIF upload, including the status and the URL of the analysis that was uploaded so that you can retrieve details of the analysis. For more information, see "[Get a code scanning analysis for a repository](/rest/reference/code-scanning#get-a-code-scanning-analysis-for-a-repository)." You must use an access token with the `security_events` scope to use this endpoint with private repos, the `public_repo` scope also grants permission to read security events on public repos only. GitHub Apps must have the `security_events` read permission to use this endpoint.
     GetReposownerrepoCodeScanningSarifssarifId(String, String, String),
     /// * tags codespaces
     /// * get `/repos/{owner}/{repo}/codespaces`
-    /// * docs https://docs.github.com/rest/reference/codespaces#list-codespaces-in-a-repository-for-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/codespaces#list-codespaces-in-a-repository-for-the-authenticated-user>
     ///
     /// List codespaces in a repository for the authenticated user
     /// Lists the codespaces associated to a specified repository and the authenticated user.
@@ -4016,7 +4016,7 @@ pub enum EndPoints {
     GetReposownerrepoCodespaces(String, String),
     /// * tags codespaces
     /// * post `/repos/{owner}/{repo}/codespaces`
-    /// * docs https://docs.github.com/rest/reference/codespaces#create-a-codespace-in-a-repository
+    /// * docs <https://docs.github.com/rest/reference/codespaces#create-a-codespace-in-a-repository>
     ///
     /// Create a codespace in a repository
     /// Creates a codespace owned by the authenticated user in the specified repository.
@@ -4025,7 +4025,7 @@ pub enum EndPoints {
     PostReposownerrepoCodespaces(String, String),
     /// * tags codespaces
     /// * get `/repos/{owner}/{repo}/codespaces/machines`
-    /// * docs https://docs.github.com/rest/reference/codespaces#list-available-machine-types-for-a-repository
+    /// * docs <https://docs.github.com/rest/reference/codespaces#list-available-machine-types-for-a-repository>
     ///
     /// List available machine types for a repository
     /// List the machine types available for a given repository based on its configuration.
@@ -4036,7 +4036,7 @@ pub enum EndPoints {
     GetReposownerrepoCodespacesMachines(String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/collaborators`
-    /// * docs https://docs.github.com/rest/reference/repos#list-repository-collaborators
+    /// * docs <https://docs.github.com/rest/reference/repos#list-repository-collaborators>
     ///
     /// List repository collaborators
     /// For organization-owned repositories, the list of collaborators includes outside collaborators, organization members that are direct collaborators, organization members with access through team memberships, organization members with access through default organization permissions, and organization owners.
@@ -4047,7 +4047,7 @@ pub enum EndPoints {
     GetReposownerrepoCollaborators(String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/collaborators/{username}`
-    /// * docs https://docs.github.com/rest/reference/repos#check-if-a-user-is-a-repository-collaborator
+    /// * docs <https://docs.github.com/rest/reference/repos#check-if-a-user-is-a-repository-collaborator>
     ///
     /// Check if a user is a repository collaborator
     /// For organization-owned repositories, the list of collaborators includes outside collaborators, organization members that are direct collaborators, organization members with access through team memberships, organization members with access through default organization permissions, and organization owners.
@@ -4056,7 +4056,7 @@ pub enum EndPoints {
     GetReposownerrepoCollaboratorsusername(String, String, String),
     /// * tags repos
     /// * put `/repos/{owner}/{repo}/collaborators/{username}`
-    /// * docs https://docs.github.com/rest/reference/repos#add-a-repository-collaborator
+    /// * docs <https://docs.github.com/rest/reference/repos#add-a-repository-collaborator>
     ///
     /// Add a repository collaborator
     /// This endpoint triggers [notifications](https://docs.github.com/en/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
@@ -4077,21 +4077,21 @@ pub enum EndPoints {
     PutReposownerrepoCollaboratorsusername(String, String, String),
     /// * tags repos
     /// * delete `/repos/{owner}/{repo}/collaborators/{username}`
-    /// * docs https://docs.github.com/rest/reference/repos#remove-a-repository-collaborator
+    /// * docs <https://docs.github.com/rest/reference/repos#remove-a-repository-collaborator>
     ///
     /// Remove a repository collaborator
     ///
     DeleteReposownerrepoCollaboratorsusername(String, String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/collaborators/{username}/permission`
-    /// * docs https://docs.github.com/rest/reference/repos#get-repository-permissions-for-a-user
+    /// * docs <https://docs.github.com/rest/reference/repos#get-repository-permissions-for-a-user>
     ///
     /// Get repository permissions for a user
     /// Checks the repository permission of a collaborator. The possible repository permissions are `admin`, `write`, `read`, and `none`.
     GetReposownerrepoCollaboratorsusernamePermission(String, String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/comments`
-    /// * docs https://docs.github.com/rest/reference/repos#list-commit-comments-for-a-repository
+    /// * docs <https://docs.github.com/rest/reference/repos#list-commit-comments-for-a-repository>
     ///
     /// List commit comments for a repository
     /// Commit Comments use [these custom media types](https://docs.github.com/rest/reference/repos#custom-media-types). You can read more about the use of media types in the API [here](https://docs.github.com/rest/overview/media-types/).
@@ -4100,42 +4100,42 @@ pub enum EndPoints {
     GetReposownerrepoComments(String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/comments/{comment_id}`
-    /// * docs https://docs.github.com/rest/reference/repos#get-a-commit-comment
+    /// * docs <https://docs.github.com/rest/reference/repos#get-a-commit-comment>
     ///
     /// Get a commit comment
     ///
     GetReposownerrepoCommentscommentId(String, String, String),
     /// * tags repos
     /// * patch `/repos/{owner}/{repo}/comments/{comment_id}`
-    /// * docs https://docs.github.com/rest/reference/repos#update-a-commit-comment
+    /// * docs <https://docs.github.com/rest/reference/repos#update-a-commit-comment>
     ///
     /// Update a commit comment
     ///
     PatchReposownerrepoCommentscommentId(String, String, String),
     /// * tags repos
     /// * delete `/repos/{owner}/{repo}/comments/{comment_id}`
-    /// * docs https://docs.github.com/rest/reference/repos#delete-a-commit-comment
+    /// * docs <https://docs.github.com/rest/reference/repos#delete-a-commit-comment>
     ///
     /// Delete a commit comment
     ///
     DeleteReposownerrepoCommentscommentId(String, String, String),
     /// * tags reactions
     /// * get `/repos/{owner}/{repo}/comments/{comment_id}/reactions`
-    /// * docs https://docs.github.com/rest/reference/reactions#list-reactions-for-a-commit-comment
+    /// * docs <https://docs.github.com/rest/reference/reactions#list-reactions-for-a-commit-comment>
     ///
     /// List reactions for a commit comment
     /// List the reactions to a [commit comment](https://docs.github.com/rest/reference/repos#comments).
     GetReposownerrepoCommentscommentIdReactions(String, String, String),
     /// * tags reactions
     /// * post `/repos/{owner}/{repo}/comments/{comment_id}/reactions`
-    /// * docs https://docs.github.com/rest/reference/reactions#create-reaction-for-a-commit-comment
+    /// * docs <https://docs.github.com/rest/reference/reactions#create-reaction-for-a-commit-comment>
     ///
     /// Create reaction for a commit comment
     /// Create a reaction to a [commit comment](https://docs.github.com/rest/reference/repos#comments). A response with an HTTP `200` status means that you already added the reaction type to this commit comment.
     PostReposownerrepoCommentscommentIdReactions(String, String, String),
     /// * tags reactions
     /// * delete `/repos/{owner}/{repo}/comments/{comment_id}/reactions/{reaction_id}`
-    /// * docs https://docs.github.com/rest/reference/reactions#delete-a-commit-comment-reaction
+    /// * docs <https://docs.github.com/rest/reference/reactions#delete-a-commit-comment-reaction>
     ///
     /// Delete a commit comment reaction
     /// **Note:** You can also specify a repository by `repository_id` using the route `DELETE /repositories/:repository_id/comments/:comment_id/reactions/:reaction_id`.
@@ -4144,7 +4144,7 @@ pub enum EndPoints {
     DeleteReposownerrepoCommentscommentIdReactionsreactionId(String, String, String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/commits`
-    /// * docs https://docs.github.com/rest/reference/repos#list-commits
+    /// * docs <https://docs.github.com/rest/reference/repos#list-commits>
     ///
     /// List commits
     /// **Signature verification object**
@@ -4178,7 +4178,7 @@ pub enum EndPoints {
     GetReposownerrepoCommits(String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/commits/{commit_sha}/branches-where-head`
-    /// * docs https://docs.github.com/rest/reference/repos#list-branches-for-head-commit
+    /// * docs <https://docs.github.com/rest/reference/repos#list-branches-for-head-commit>
     ///
     /// List branches for HEAD commit
     /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
@@ -4187,14 +4187,14 @@ pub enum EndPoints {
     GetReposownerrepoCommitscommitShaBranchesWhereHead(String, String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/commits/{commit_sha}/comments`
-    /// * docs https://docs.github.com/rest/reference/repos#list-commit-comments
+    /// * docs <https://docs.github.com/rest/reference/repos#list-commit-comments>
     ///
     /// List commit comments
     /// Use the `:commit_sha` to specify the commit that will have its comments listed.
     GetReposownerrepoCommitscommitShaComments(String, String, String),
     /// * tags repos
     /// * post `/repos/{owner}/{repo}/commits/{commit_sha}/comments`
-    /// * docs https://docs.github.com/rest/reference/repos#create-a-commit-comment
+    /// * docs <https://docs.github.com/rest/reference/repos#create-a-commit-comment>
     ///
     /// Create a commit comment
     /// Create a comment for a commit using its `:commit_sha`.
@@ -4203,14 +4203,14 @@ pub enum EndPoints {
     PostReposownerrepoCommitscommitShaComments(String, String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/commits/{commit_sha}/pulls`
-    /// * docs https://docs.github.com/rest/reference/repos#list-pull-requests-associated-with-a-commit
+    /// * docs <https://docs.github.com/rest/reference/repos#list-pull-requests-associated-with-a-commit>
     ///
     /// List pull requests associated with a commit
     /// Lists the merged pull request that introduced the commit to the repository. If the commit is not present in the default branch, additionally returns open pull requests associated with the commit. The results may include open and closed pull requests. Additional preview headers may be required to see certain details for associated pull requests, such as whether a pull request is in a draft state. For more information about previews that might affect this endpoint, see the [List pull requests](https://docs.github.com/rest/reference/pulls#list-pull-requests) endpoint.
     GetReposownerrepoCommitscommitShaPulls(String, String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/commits/{ref}`
-    /// * docs https://docs.github.com/rest/reference/repos#get-a-commit
+    /// * docs <https://docs.github.com/rest/reference/repos#get-a-commit>
     ///
     /// Get a commit
     /// Returns the contents of a single commit reference. You must have `read` access for the repository to use this endpoint.
@@ -4252,7 +4252,7 @@ pub enum EndPoints {
     GetReposownerrepoCommitsref(String, String, String),
     /// * tags checks
     /// * get `/repos/{owner}/{repo}/commits/{ref}/check-runs`
-    /// * docs https://docs.github.com/rest/reference/checks#list-check-runs-for-a-git-reference
+    /// * docs <https://docs.github.com/rest/reference/checks#list-check-runs-for-a-git-reference>
     ///
     /// List check runs for a Git reference
     /// **Note:** The Checks API only looks for pushes in the repository where the check suite or check run were created. Pushes to a branch in a forked repository are not detected and return an empty `pull_requests` array.
@@ -4261,7 +4261,7 @@ pub enum EndPoints {
     GetReposownerrepoCommitsrefCheckRuns(String, String, String),
     /// * tags checks
     /// * get `/repos/{owner}/{repo}/commits/{ref}/check-suites`
-    /// * docs https://docs.github.com/rest/reference/checks#list-check-suites-for-a-git-reference
+    /// * docs <https://docs.github.com/rest/reference/checks#list-check-suites-for-a-git-reference>
     ///
     /// List check suites for a Git reference
     /// **Note:** The Checks API only looks for pushes in the repository where the check suite or check run were created. Pushes to a branch in a forked repository are not detected and return an empty `pull_requests` array and a `null` value for `head_branch`.
@@ -4270,7 +4270,7 @@ pub enum EndPoints {
     GetReposownerrepoCommitsrefCheckSuites(String, String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/commits/{ref}/status`
-    /// * docs https://docs.github.com/rest/reference/repos#get-the-combined-status-for-a-specific-reference
+    /// * docs <https://docs.github.com/rest/reference/repos#get-the-combined-status-for-a-specific-reference>
     ///
     /// Get the combined status for a specific reference
     /// Users with pull access in a repository can access a combined view of commit statuses for a given ref. The ref can be a SHA, a branch name, or a tag name.
@@ -4284,7 +4284,7 @@ pub enum EndPoints {
     GetReposownerrepoCommitsrefStatus(String, String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/commits/{ref}/statuses`
-    /// * docs https://docs.github.com/rest/reference/repos#list-commit-statuses-for-a-reference
+    /// * docs <https://docs.github.com/rest/reference/repos#list-commit-statuses-for-a-reference>
     ///
     /// List commit statuses for a reference
     /// Users with pull access in a repository can view commit statuses for a given ref. The ref can be a SHA, a branch name, or a tag name. Statuses are returned in reverse chronological order. The first status in the list will be the latest one.
@@ -4293,7 +4293,7 @@ pub enum EndPoints {
     GetReposownerrepoCommitsrefStatuses(String, String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/community/profile`
-    /// * docs https://docs.github.com/rest/reference/repos#get-community-profile-metrics
+    /// * docs <https://docs.github.com/rest/reference/repos#get-community-profile-metrics>
     ///
     /// Get community profile metrics
     /// This endpoint will return all community profile metrics, including an
@@ -4311,7 +4311,7 @@ pub enum EndPoints {
     GetReposownerrepoCommunityProfile(String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/compare/{basehead}`
-    /// * docs https://docs.github.com/rest/reference/repos#compare-two-commits
+    /// * docs <https://docs.github.com/rest/reference/repos#compare-two-commits>
     ///
     /// Compare two commits
     /// The `basehead` param is comprised of two parts: `base` and `head`. Both must be branch names in `repo`. To compare branches across other repositories in the same network as `repo`, use the format `<USERNAME>:branch`.
@@ -4357,7 +4357,7 @@ pub enum EndPoints {
     GetReposownerrepoComparebasehead(String, String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/contents/{path}`
-    /// * docs https://docs.github.com/rest/reference/repos#get-repository-content
+    /// * docs <https://docs.github.com/rest/reference/repos#get-repository-content>
     ///
     /// Get repository content
     /// Gets the contents of a file or directory in a repository. Specify the file path or directory in `:path`. If you omit
@@ -4395,14 +4395,14 @@ pub enum EndPoints {
     GetReposownerrepoContentspath(String, String, String),
     /// * tags repos
     /// * put `/repos/{owner}/{repo}/contents/{path}`
-    /// * docs https://docs.github.com/rest/reference/repos#create-or-update-file-contents
+    /// * docs <https://docs.github.com/rest/reference/repos#create-or-update-file-contents>
     ///
     /// Create or update file contents
     /// Creates a new file or replaces an existing file in a repository.
     PutReposownerrepoContentspath(String, String, String),
     /// * tags repos
     /// * delete `/repos/{owner}/{repo}/contents/{path}`
-    /// * docs https://docs.github.com/rest/reference/repos#delete-a-file
+    /// * docs <https://docs.github.com/rest/reference/repos#delete-a-file>
     ///
     /// Delete a file
     /// Deletes a file in a repository.
@@ -4415,7 +4415,7 @@ pub enum EndPoints {
     DeleteReposownerrepoContentspath(String, String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/contributors`
-    /// * docs https://docs.github.com/rest/reference/repos#list-repository-contributors
+    /// * docs <https://docs.github.com/rest/reference/repos#list-repository-contributors>
     ///
     /// List repository contributors
     /// Lists contributors to the specified repository and sorts them by the number of commits per contributor in descending order. This endpoint may return information that is a few hours old because the GitHub REST API v3 caches contributor data to improve performance.
@@ -4424,14 +4424,14 @@ pub enum EndPoints {
     GetReposownerrepoContributors(String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/deployments`
-    /// * docs https://docs.github.com/rest/reference/repos#list-deployments
+    /// * docs <https://docs.github.com/rest/reference/repos#list-deployments>
     ///
     /// List deployments
     /// Simple filtering of deployments is available via query parameters:
     GetReposownerrepoDeployments(String, String),
     /// * tags repos
     /// * post `/repos/{owner}/{repo}/deployments`
-    /// * docs https://docs.github.com/rest/reference/repos#create-a-deployment
+    /// * docs <https://docs.github.com/rest/reference/repos#create-a-deployment>
     ///
     /// Create a deployment
     /// Deployments offer a few configurable parameters with certain defaults.
@@ -4482,14 +4482,14 @@ pub enum EndPoints {
     PostReposownerrepoDeployments(String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/deployments/{deployment_id}`
-    /// * docs https://docs.github.com/rest/reference/repos#get-a-deployment
+    /// * docs <https://docs.github.com/rest/reference/repos#get-a-deployment>
     ///
     /// Get a deployment
     ///
     GetReposownerrepoDeploymentsdeploymentId(String, String, String),
     /// * tags repos
     /// * delete `/repos/{owner}/{repo}/deployments/{deployment_id}`
-    /// * docs https://docs.github.com/rest/reference/repos#delete-a-deployment
+    /// * docs <https://docs.github.com/rest/reference/repos#delete-a-deployment>
     ///
     /// Delete a deployment
     /// To ensure there can always be an active deployment, you can only delete an _inactive_ deployment. Anyone with `repo` or `repo_deployment` scopes can delete an inactive deployment.
@@ -4503,14 +4503,14 @@ pub enum EndPoints {
     DeleteReposownerrepoDeploymentsdeploymentId(String, String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/deployments/{deployment_id}/statuses`
-    /// * docs https://docs.github.com/rest/reference/repos#list-deployment-statuses
+    /// * docs <https://docs.github.com/rest/reference/repos#list-deployment-statuses>
     ///
     /// List deployment statuses
     /// Users with pull access can view deployment statuses for a deployment:
     GetReposownerrepoDeploymentsdeploymentIdStatuses(String, String, String),
     /// * tags repos
     /// * post `/repos/{owner}/{repo}/deployments/{deployment_id}/statuses`
-    /// * docs https://docs.github.com/rest/reference/repos#create-a-deployment-status
+    /// * docs <https://docs.github.com/rest/reference/repos#create-a-deployment-status>
     ///
     /// Create a deployment status
     /// Users with `push` access can create deployment statuses for a given deployment.
@@ -4519,14 +4519,14 @@ pub enum EndPoints {
     PostReposownerrepoDeploymentsdeploymentIdStatuses(String, String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/deployments/{deployment_id}/statuses/{status_id}`
-    /// * docs https://docs.github.com/rest/reference/repos#get-a-deployment-status
+    /// * docs <https://docs.github.com/rest/reference/repos#get-a-deployment-status>
     ///
     /// Get a deployment status
     /// Users with pull access can view a deployment status for a deployment:
     GetReposownerrepoDeploymentsdeploymentIdStatusesstatusId(String, String, String, String),
     /// * tags repos
     /// * post `/repos/{owner}/{repo}/dispatches`
-    /// * docs https://docs.github.com/rest/reference/repos#create-a-repository-dispatch-event
+    /// * docs <https://docs.github.com/rest/reference/repos#create-a-repository-dispatch-event>
     ///
     /// Create a repository dispatch event
     /// You can use this endpoint to trigger a webhook event called `repository_dispatch` when you want activity that happens outside of GitHub to trigger a GitHub Actions workflow or GitHub App webhook. You must configure your GitHub Actions workflow or GitHub App to run when the `repository_dispatch` event occurs. For an example `repository_dispatch` webhook payload, see "[RepositoryDispatchEvent](https://docs.github.com/webhooks/event-payloads/#repository_dispatch)."
@@ -4542,7 +4542,7 @@ pub enum EndPoints {
     PostReposownerrepoDispatches(String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/environments`
-    /// * docs https://docs.github.com/rest/reference/repos#get-all-environments
+    /// * docs <https://docs.github.com/rest/reference/repos#get-all-environments>
     ///
     /// Get all environments
     /// Get all environments for a repository.
@@ -4551,14 +4551,14 @@ pub enum EndPoints {
     GetReposownerrepoEnvironments(String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/environments/{environment_name}`
-    /// * docs https://docs.github.com/rest/reference/repos#get-an-environment
+    /// * docs <https://docs.github.com/rest/reference/repos#get-an-environment>
     ///
     /// Get an environment
     /// Anyone with read access to the repository can use this endpoint. If the repository is private, you must use an access token with the `repo` scope. GitHub Apps must have the `actions:read` permission to use this endpoint.
     GetReposownerrepoEnvironmentsenvironmentName(String, String, String),
     /// * tags repos
     /// * put `/repos/{owner}/{repo}/environments/{environment_name}`
-    /// * docs https://docs.github.com/rest/reference/repos#create-or-update-an-environment
+    /// * docs <https://docs.github.com/rest/reference/repos#create-or-update-an-environment>
     ///
     /// Create or update an environment
     /// Create or update an environment with protection rules, such as required reviewers. For more information about environment protection rules, see "[Environments](/actions/reference/environments#environment-protection-rules)."
@@ -4571,28 +4571,28 @@ pub enum EndPoints {
     PutReposownerrepoEnvironmentsenvironmentName(String, String, String),
     /// * tags repos
     /// * delete `/repos/{owner}/{repo}/environments/{environment_name}`
-    /// * docs https://docs.github.com/rest/reference/repos#delete-an-environment
+    /// * docs <https://docs.github.com/rest/reference/repos#delete-an-environment>
     ///
     /// Delete an environment
     /// You must authenticate using an access token with the repo scope to use this endpoint.
     DeleteReposownerrepoEnvironmentsenvironmentName(String, String, String),
     /// * tags activity
     /// * get `/repos/{owner}/{repo}/events`
-    /// * docs https://docs.github.com/rest/reference/activity#list-repository-events
+    /// * docs <https://docs.github.com/rest/reference/activity#list-repository-events>
     ///
     /// List repository events
     ///
     GetReposownerrepoEvents(String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/forks`
-    /// * docs https://docs.github.com/rest/reference/repos#list-forks
+    /// * docs <https://docs.github.com/rest/reference/repos#list-forks>
     ///
     /// List forks
     ///
     GetReposownerrepoForks(String, String),
     /// * tags repos
     /// * post `/repos/{owner}/{repo}/forks`
-    /// * docs https://docs.github.com/rest/reference/repos#create-a-fork
+    /// * docs <https://docs.github.com/rest/reference/repos#create-a-fork>
     ///
     /// Create a fork
     /// Create a fork for the authenticated user.
@@ -4601,14 +4601,14 @@ pub enum EndPoints {
     PostReposownerrepoForks(String, String),
     /// * tags git
     /// * post `/repos/{owner}/{repo}/git/blobs`
-    /// * docs https://docs.github.com/rest/reference/git#create-a-blob
+    /// * docs <https://docs.github.com/rest/reference/git#create-a-blob>
     ///
     /// Create a blob
     ///
     PostReposownerrepoGitBlobs(String, String),
     /// * tags git
     /// * get `/repos/{owner}/{repo}/git/blobs/{file_sha}`
-    /// * docs https://docs.github.com/rest/reference/git#get-a-blob
+    /// * docs <https://docs.github.com/rest/reference/git#get-a-blob>
     ///
     /// Get a blob
     /// The `content` in the response will always be Base64 encoded.
@@ -4617,7 +4617,7 @@ pub enum EndPoints {
     GetReposownerrepoGitBlobsfileSha(String, String, String),
     /// * tags git
     /// * post `/repos/{owner}/{repo}/git/commits`
-    /// * docs https://docs.github.com/rest/reference/git#create-a-commit
+    /// * docs <https://docs.github.com/rest/reference/git#create-a-commit>
     ///
     /// Create a commit
     /// Creates a new Git [commit object](https://git-scm.com/book/en/v1/Git-Internals-Git-Objects#Commit-Objects).
@@ -4653,7 +4653,7 @@ pub enum EndPoints {
     PostReposownerrepoGitCommits(String, String),
     /// * tags git
     /// * get `/repos/{owner}/{repo}/git/commits/{commit_sha}`
-    /// * docs https://docs.github.com/rest/reference/git#get-a-commit
+    /// * docs <https://docs.github.com/rest/reference/git#get-a-commit>
     ///
     /// Get a commit
     /// Gets a Git [commit object](https://git-scm.com/book/en/v1/Git-Internals-Git-Objects#Commit-Objects).
@@ -4689,7 +4689,7 @@ pub enum EndPoints {
     GetReposownerrepoGitCommitscommitSha(String, String, String),
     /// * tags git
     /// * get `/repos/{owner}/{repo}/git/matching-refs/{ref}`
-    /// * docs https://docs.github.com/rest/reference/git#list-matching-references
+    /// * docs <https://docs.github.com/rest/reference/git#list-matching-references>
     ///
     /// List matching references
     /// Returns an array of references from your Git database that match the supplied name. The `:ref` in the URL must be formatted as `heads/<branch name>` for branches and `tags/<tag name>` for tags. If the `:ref` doesn't exist in the repository, but existing refs start with `:ref`, they will be returned as an array.
@@ -4702,7 +4702,7 @@ pub enum EndPoints {
     GetReposownerrepoGitMatchingRefsref(String, String, String),
     /// * tags git
     /// * get `/repos/{owner}/{repo}/git/ref/{ref}`
-    /// * docs https://docs.github.com/rest/reference/git#get-a-reference
+    /// * docs <https://docs.github.com/rest/reference/git#get-a-reference>
     ///
     /// Get a reference
     /// Returns a single reference from your Git database. The `:ref` in the URL must be formatted as `heads/<branch name>` for branches and `tags/<tag name>` for tags. If the `:ref` doesn't match an existing ref, a `404` is returned.
@@ -4711,28 +4711,28 @@ pub enum EndPoints {
     GetReposownerrepoGitRefref(String, String, String),
     /// * tags git
     /// * post `/repos/{owner}/{repo}/git/refs`
-    /// * docs https://docs.github.com/rest/reference/git#create-a-reference
+    /// * docs <https://docs.github.com/rest/reference/git#create-a-reference>
     ///
     /// Create a reference
     /// Creates a reference for your repository. You are unable to create new references for empty repositories, even if the commit SHA-1 hash used exists. Empty repositories are repositories without branches.
     PostReposownerrepoGitRefs(String, String),
     /// * tags git
     /// * patch `/repos/{owner}/{repo}/git/refs/{ref}`
-    /// * docs https://docs.github.com/rest/reference/git#update-a-reference
+    /// * docs <https://docs.github.com/rest/reference/git#update-a-reference>
     ///
     /// Update a reference
     ///
     PatchReposownerrepoGitRefsref(String, String, String),
     /// * tags git
     /// * delete `/repos/{owner}/{repo}/git/refs/{ref}`
-    /// * docs https://docs.github.com/rest/reference/git#delete-a-reference
+    /// * docs <https://docs.github.com/rest/reference/git#delete-a-reference>
     ///
     /// Delete a reference
     ///
     DeleteReposownerrepoGitRefsref(String, String, String),
     /// * tags git
     /// * post `/repos/{owner}/{repo}/git/tags`
-    /// * docs https://docs.github.com/rest/reference/git#create-a-tag-object
+    /// * docs <https://docs.github.com/rest/reference/git#create-a-tag-object>
     ///
     /// Create a tag object
     /// Note that creating a tag object does not create the reference that makes a tag in Git. If you want to create an annotated tag in Git, you have to do this call to create the tag object, and then [create](https://docs.github.com/rest/reference/git#create-a-reference) the `refs/tags/[tag]` reference. If you want to create a lightweight tag, you only have to [create](https://docs.github.com/rest/reference/git#create-a-reference) the tag reference - this call would be unnecessary.
@@ -4768,7 +4768,7 @@ pub enum EndPoints {
     PostReposownerrepoGitTags(String, String),
     /// * tags git
     /// * get `/repos/{owner}/{repo}/git/tags/{tag_sha}`
-    /// * docs https://docs.github.com/rest/reference/git#get-a-tag
+    /// * docs <https://docs.github.com/rest/reference/git#get-a-tag>
     ///
     /// Get a tag
     /// **Signature verification object**
@@ -4802,7 +4802,7 @@ pub enum EndPoints {
     GetReposownerrepoGitTagstagSha(String, String, String),
     /// * tags git
     /// * post `/repos/{owner}/{repo}/git/trees`
-    /// * docs https://docs.github.com/rest/reference/git#create-a-tree
+    /// * docs <https://docs.github.com/rest/reference/git#create-a-tree>
     ///
     /// Create a tree
     /// The tree creation API accepts nested entries. If you specify both a tree and a nested path modifying that tree, this endpoint will overwrite the contents of the tree with the new path contents, and create a new tree structure.
@@ -4811,7 +4811,7 @@ pub enum EndPoints {
     PostReposownerrepoGitTrees(String, String),
     /// * tags git
     /// * get `/repos/{owner}/{repo}/git/trees/{tree_sha}`
-    /// * docs https://docs.github.com/rest/reference/git#get-a-tree
+    /// * docs <https://docs.github.com/rest/reference/git#get-a-tree>
     ///
     /// Get a tree
     /// Returns a single tree using the SHA1 value for that tree.
@@ -4820,14 +4820,14 @@ pub enum EndPoints {
     GetReposownerrepoGitTreestreeSha(String, String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/hooks`
-    /// * docs https://docs.github.com/rest/reference/repos#list-repository-webhooks
+    /// * docs <https://docs.github.com/rest/reference/repos#list-repository-webhooks>
     ///
     /// List repository webhooks
     ///
     GetReposownerrepoHooks(String, String),
     /// * tags repos
     /// * post `/repos/{owner}/{repo}/hooks`
-    /// * docs https://docs.github.com/rest/reference/repos#create-a-repository-webhook
+    /// * docs <https://docs.github.com/rest/reference/repos#create-a-repository-webhook>
     ///
     /// Create a repository webhook
     /// Repositories can have multiple webhooks installed. Each webhook should have a unique `config`. Multiple webhooks can
@@ -4835,28 +4835,28 @@ pub enum EndPoints {
     PostReposownerrepoHooks(String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/hooks/{hook_id}`
-    /// * docs https://docs.github.com/rest/reference/repos#get-a-repository-webhook
+    /// * docs <https://docs.github.com/rest/reference/repos#get-a-repository-webhook>
     ///
     /// Get a repository webhook
     /// Returns a webhook configured in a repository. To get only the webhook `config` properties, see "[Get a webhook configuration for a repository](/rest/reference/repos#get-a-webhook-configuration-for-a-repository)."
     GetReposownerrepoHookshookId(String, String, String),
     /// * tags repos
     /// * patch `/repos/{owner}/{repo}/hooks/{hook_id}`
-    /// * docs https://docs.github.com/rest/reference/repos#update-a-repository-webhook
+    /// * docs <https://docs.github.com/rest/reference/repos#update-a-repository-webhook>
     ///
     /// Update a repository webhook
     /// Updates a webhook configured in a repository. If you previously had a `secret` set, you must provide the same `secret` or set a new `secret` or the secret will be removed. If you are only updating individual webhook `config` properties, use "[Update a webhook configuration for a repository](/rest/reference/repos#update-a-webhook-configuration-for-a-repository)."
     PatchReposownerrepoHookshookId(String, String, String),
     /// * tags repos
     /// * delete `/repos/{owner}/{repo}/hooks/{hook_id}`
-    /// * docs https://docs.github.com/rest/reference/repos#delete-a-repository-webhook
+    /// * docs <https://docs.github.com/rest/reference/repos#delete-a-repository-webhook>
     ///
     /// Delete a repository webhook
     ///
     DeleteReposownerrepoHookshookId(String, String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/hooks/{hook_id}/config`
-    /// * docs https://docs.github.com/rest/reference/repos#get-a-webhook-configuration-for-a-repository
+    /// * docs <https://docs.github.com/rest/reference/repos#get-a-webhook-configuration-for-a-repository>
     ///
     /// Get a webhook configuration for a repository
     /// Returns the webhook configuration for a repository. To get more information about the webhook, including the `active` state and `events`, use "[Get a repository webhook](/rest/reference/orgs#get-a-repository-webhook)."
@@ -4865,7 +4865,7 @@ pub enum EndPoints {
     GetReposownerrepoHookshookIdConfig(String, String, String),
     /// * tags repos
     /// * patch `/repos/{owner}/{repo}/hooks/{hook_id}/config`
-    /// * docs https://docs.github.com/rest/reference/repos#update-a-webhook-configuration-for-a-repository
+    /// * docs <https://docs.github.com/rest/reference/repos#update-a-webhook-configuration-for-a-repository>
     ///
     /// Update a webhook configuration for a repository
     /// Updates the webhook configuration for a repository. To update more information about the webhook, including the `active` state and `events`, use "[Update a repository webhook](/rest/reference/orgs#update-a-repository-webhook)."
@@ -4874,35 +4874,35 @@ pub enum EndPoints {
     PatchReposownerrepoHookshookIdConfig(String, String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/hooks/{hook_id}/deliveries`
-    /// * docs https://docs.github.com/rest/reference/repos#list-deliveries-for-a-repository-webhook
+    /// * docs <https://docs.github.com/rest/reference/repos#list-deliveries-for-a-repository-webhook>
     ///
     /// List deliveries for a repository webhook
     /// Returns a list of webhook deliveries for a webhook configured in a repository.
     GetReposownerrepoHookshookIdDeliveries(String, String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/hooks/{hook_id}/deliveries/{delivery_id}`
-    /// * docs https://docs.github.com/rest/reference/repos#get-a-delivery-for-a-repository-webhook
+    /// * docs <https://docs.github.com/rest/reference/repos#get-a-delivery-for-a-repository-webhook>
     ///
     /// Get a delivery for a repository webhook
     /// Returns a delivery for a webhook configured in a repository.
     GetReposownerrepoHookshookIdDeliveriesdeliveryId(String, String, String, String),
     /// * tags repos
     /// * post `/repos/{owner}/{repo}/hooks/{hook_id}/deliveries/{delivery_id}/attempts`
-    /// * docs https://docs.github.com/rest/reference/repos#redeliver-a-delivery-for-a-repository-webhook
+    /// * docs <https://docs.github.com/rest/reference/repos#redeliver-a-delivery-for-a-repository-webhook>
     ///
     /// Redeliver a delivery for a repository webhook
     /// Redeliver a webhook delivery for a webhook configured in a repository.
     PostReposownerrepoHookshookIdDeliveriesdeliveryIdAttempts(String, String, String, String),
     /// * tags repos
     /// * post `/repos/{owner}/{repo}/hooks/{hook_id}/pings`
-    /// * docs https://docs.github.com/rest/reference/repos#ping-a-repository-webhook
+    /// * docs <https://docs.github.com/rest/reference/repos#ping-a-repository-webhook>
     ///
     /// Ping a repository webhook
     /// This will trigger a [ping event](https://docs.github.com/webhooks/#ping-event) to be sent to the hook.
     PostReposownerrepoHookshookIdPings(String, String, String),
     /// * tags repos
     /// * post `/repos/{owner}/{repo}/hooks/{hook_id}/tests`
-    /// * docs https://docs.github.com/rest/reference/repos#test-the-push-repository-webhook
+    /// * docs <https://docs.github.com/rest/reference/repos#test-the-push-repository-webhook>
     ///
     /// Test the push repository webhook
     /// This will trigger the hook with the latest push to the current repository if the hook is subscribed to `push` events. If the hook is not subscribed to `push` events, the server will respond with 204 but no test POST will be generated.
@@ -4911,7 +4911,7 @@ pub enum EndPoints {
     PostReposownerrepoHookshookIdTests(String, String, String),
     /// * tags migrations
     /// * get `/repos/{owner}/{repo}/import`
-    /// * docs https://docs.github.com/rest/reference/migrations#get-an-import-status
+    /// * docs <https://docs.github.com/rest/reference/migrations#get-an-import-status>
     ///
     /// Get an import status
     /// View the progress of an import.
@@ -4951,14 +4951,14 @@ pub enum EndPoints {
     GetReposownerrepoImport(String, String),
     /// * tags migrations
     /// * put `/repos/{owner}/{repo}/import`
-    /// * docs https://docs.github.com/rest/reference/migrations#start-an-import
+    /// * docs <https://docs.github.com/rest/reference/migrations#start-an-import>
     ///
     /// Start an import
     /// Start a source import to a GitHub repository using GitHub Importer.
     PutReposownerrepoImport(String, String),
     /// * tags migrations
     /// * patch `/repos/{owner}/{repo}/import`
-    /// * docs https://docs.github.com/rest/reference/migrations#update-an-import
+    /// * docs <https://docs.github.com/rest/reference/migrations#update-an-import>
     ///
     /// Update an import
     /// An import can be updated with credentials or a project choice by passing in the appropriate parameters in this API
@@ -4966,14 +4966,14 @@ pub enum EndPoints {
     PatchReposownerrepoImport(String, String),
     /// * tags migrations
     /// * delete `/repos/{owner}/{repo}/import`
-    /// * docs https://docs.github.com/rest/reference/migrations#cancel-an-import
+    /// * docs <https://docs.github.com/rest/reference/migrations#cancel-an-import>
     ///
     /// Cancel an import
     /// Stop an import for a repository.
     DeleteReposownerrepoImport(String, String),
     /// * tags migrations
     /// * get `/repos/{owner}/{repo}/import/authors`
-    /// * docs https://docs.github.com/rest/reference/migrations#get-commit-authors
+    /// * docs <https://docs.github.com/rest/reference/migrations#get-commit-authors>
     ///
     /// Get commit authors
     /// Each type of source control system represents authors in a different way. For example, a Git commit author has a display name and an email address, but a Subversion commit author just has a username. The GitHub Importer will make the author information valid, but the author might not be correct. For example, it will change the bare Subversion username `hubot` into something like `hubot <hubot@12341234-abab-fefe-8787-fedcba987654>`.
@@ -4982,28 +4982,28 @@ pub enum EndPoints {
     GetReposownerrepoImportAuthors(String, String),
     /// * tags migrations
     /// * patch `/repos/{owner}/{repo}/import/authors/{author_id}`
-    /// * docs https://docs.github.com/rest/reference/migrations#map-a-commit-author
+    /// * docs <https://docs.github.com/rest/reference/migrations#map-a-commit-author>
     ///
     /// Map a commit author
     /// Update an author's identity for the import. Your application can continue updating authors any time before you push new commits to the repository.
     PatchReposownerrepoImportAuthorsauthorId(String, String, String),
     /// * tags migrations
     /// * get `/repos/{owner}/{repo}/import/large_files`
-    /// * docs https://docs.github.com/rest/reference/migrations#get-large-files
+    /// * docs <https://docs.github.com/rest/reference/migrations#get-large-files>
     ///
     /// Get large files
     /// List files larger than 100MB found during the import
     GetReposownerrepoImportLargeFiles(String, String),
     /// * tags migrations
     /// * patch `/repos/{owner}/{repo}/import/lfs`
-    /// * docs https://docs.github.com/rest/reference/migrations#update-git-lfs-preference
+    /// * docs <https://docs.github.com/rest/reference/migrations#update-git-lfs-preference>
     ///
     /// Update Git LFS preference
     /// You can import repositories from Subversion, Mercurial, and TFS that include files larger than 100MB. This ability is powered by [Git LFS](https://git-lfs.github.com). You can learn more about our LFS feature and working with large files [on our help site](https://help.github.com/articles/versioning-large-files/).
     PatchReposownerrepoImportLfs(String, String),
     /// * tags apps
     /// * get `/repos/{owner}/{repo}/installation`
-    /// * docs https://docs.github.com/rest/reference/apps#get-a-repository-installation-for-the-authenticated-app
+    /// * docs <https://docs.github.com/rest/reference/apps#get-a-repository-installation-for-the-authenticated-app>
     ///
     /// Get a repository installation for the authenticated app
     /// Enables an authenticated GitHub App to find the repository's installation information. The installation's account type will be either an organization or a user account, depending which account the repository belongs to.
@@ -5012,49 +5012,49 @@ pub enum EndPoints {
     GetReposownerrepoInstallation(String, String),
     /// * tags interactions
     /// * get `/repos/{owner}/{repo}/interaction-limits`
-    /// * docs https://docs.github.com/rest/reference/interactions#get-interaction-restrictions-for-a-repository
+    /// * docs <https://docs.github.com/rest/reference/interactions#get-interaction-restrictions-for-a-repository>
     ///
     /// Get interaction restrictions for a repository
     /// Shows which type of GitHub user can interact with this repository and when the restriction expires. If there are no restrictions, you will see an empty response.
     GetReposownerrepoInteractionLimits(String, String),
     /// * tags interactions
     /// * put `/repos/{owner}/{repo}/interaction-limits`
-    /// * docs https://docs.github.com/rest/reference/interactions#set-interaction-restrictions-for-a-repository
+    /// * docs <https://docs.github.com/rest/reference/interactions#set-interaction-restrictions-for-a-repository>
     ///
     /// Set interaction restrictions for a repository
     /// Temporarily restricts interactions to a certain type of GitHub user within the given repository. You must have owner or admin access to set these restrictions. If an interaction limit is set for the user or organization that owns this repository, you will receive a `409 Conflict` response and will not be able to use this endpoint to change the interaction limit for a single repository.
     PutReposownerrepoInteractionLimits(String, String),
     /// * tags interactions
     /// * delete `/repos/{owner}/{repo}/interaction-limits`
-    /// * docs https://docs.github.com/rest/reference/interactions#remove-interaction-restrictions-for-a-repository
+    /// * docs <https://docs.github.com/rest/reference/interactions#remove-interaction-restrictions-for-a-repository>
     ///
     /// Remove interaction restrictions for a repository
     /// Removes all interaction restrictions from the given repository. You must have owner or admin access to remove restrictions. If the interaction limit is set for the user or organization that owns this repository, you will receive a `409 Conflict` response and will not be able to use this endpoint to change the interaction limit for a single repository.
     DeleteReposownerrepoInteractionLimits(String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/invitations`
-    /// * docs https://docs.github.com/rest/reference/repos#list-repository-invitations
+    /// * docs <https://docs.github.com/rest/reference/repos#list-repository-invitations>
     ///
     /// List repository invitations
     /// When authenticating as a user with admin rights to a repository, this endpoint will list all currently open repository invitations.
     GetReposownerrepoInvitations(String, String),
     /// * tags repos
     /// * patch `/repos/{owner}/{repo}/invitations/{invitation_id}`
-    /// * docs https://docs.github.com/rest/reference/repos#update-a-repository-invitation
+    /// * docs <https://docs.github.com/rest/reference/repos#update-a-repository-invitation>
     ///
     /// Update a repository invitation
     ///
     PatchReposownerrepoInvitationsinvitationId(String, String, String),
     /// * tags repos
     /// * delete `/repos/{owner}/{repo}/invitations/{invitation_id}`
-    /// * docs https://docs.github.com/rest/reference/repos#delete-a-repository-invitation
+    /// * docs <https://docs.github.com/rest/reference/repos#delete-a-repository-invitation>
     ///
     /// Delete a repository invitation
     ///
     DeleteReposownerrepoInvitationsinvitationId(String, String, String),
     /// * tags issues
     /// * get `/repos/{owner}/{repo}/issues`
-    /// * docs https://docs.github.com/rest/reference/issues#list-repository-issues
+    /// * docs <https://docs.github.com/rest/reference/issues#list-repository-issues>
     ///
     /// List repository issues
     /// List issues in a repository.
@@ -5066,7 +5066,7 @@ pub enum EndPoints {
     GetReposownerrepoIssues(String, String),
     /// * tags issues
     /// * post `/repos/{owner}/{repo}/issues`
-    /// * docs https://docs.github.com/rest/reference/issues#create-an-issue
+    /// * docs <https://docs.github.com/rest/reference/issues#create-an-issue>
     ///
     /// Create an issue
     /// Any user with pull access to a repository can create an issue. If [issues are disabled in the repository](https://help.github.com/articles/disabling-issues/), the API returns a `410 Gone` status.
@@ -5075,49 +5075,49 @@ pub enum EndPoints {
     PostReposownerrepoIssues(String, String),
     /// * tags issues
     /// * get `/repos/{owner}/{repo}/issues/comments`
-    /// * docs https://docs.github.com/rest/reference/issues#list-issue-comments-for-a-repository
+    /// * docs <https://docs.github.com/rest/reference/issues#list-issue-comments-for-a-repository>
     ///
     /// List issue comments for a repository
     /// By default, Issue Comments are ordered by ascending ID.
     GetReposownerrepoIssuesComments(String, String),
     /// * tags issues
     /// * get `/repos/{owner}/{repo}/issues/comments/{comment_id}`
-    /// * docs https://docs.github.com/rest/reference/issues#get-an-issue-comment
+    /// * docs <https://docs.github.com/rest/reference/issues#get-an-issue-comment>
     ///
     /// Get an issue comment
     ///
     GetReposownerrepoIssuesCommentscommentId(String, String, String),
     /// * tags issues
     /// * patch `/repos/{owner}/{repo}/issues/comments/{comment_id}`
-    /// * docs https://docs.github.com/rest/reference/issues#update-an-issue-comment
+    /// * docs <https://docs.github.com/rest/reference/issues#update-an-issue-comment>
     ///
     /// Update an issue comment
     ///
     PatchReposownerrepoIssuesCommentscommentId(String, String, String),
     /// * tags issues
     /// * delete `/repos/{owner}/{repo}/issues/comments/{comment_id}`
-    /// * docs https://docs.github.com/rest/reference/issues#delete-an-issue-comment
+    /// * docs <https://docs.github.com/rest/reference/issues#delete-an-issue-comment>
     ///
     /// Delete an issue comment
     ///
     DeleteReposownerrepoIssuesCommentscommentId(String, String, String),
     /// * tags reactions
     /// * get `/repos/{owner}/{repo}/issues/comments/{comment_id}/reactions`
-    /// * docs https://docs.github.com/rest/reference/reactions#list-reactions-for-an-issue-comment
+    /// * docs <https://docs.github.com/rest/reference/reactions#list-reactions-for-an-issue-comment>
     ///
     /// List reactions for an issue comment
     /// List the reactions to an [issue comment](https://docs.github.com/rest/reference/issues#comments).
     GetReposownerrepoIssuesCommentscommentIdReactions(String, String, String),
     /// * tags reactions
     /// * post `/repos/{owner}/{repo}/issues/comments/{comment_id}/reactions`
-    /// * docs https://docs.github.com/rest/reference/reactions#create-reaction-for-an-issue-comment
+    /// * docs <https://docs.github.com/rest/reference/reactions#create-reaction-for-an-issue-comment>
     ///
     /// Create reaction for an issue comment
     /// Create a reaction to an [issue comment](https://docs.github.com/rest/reference/issues#comments). A response with an HTTP `200` status means that you already added the reaction type to this issue comment.
     PostReposownerrepoIssuesCommentscommentIdReactions(String, String, String),
     /// * tags reactions
     /// * delete `/repos/{owner}/{repo}/issues/comments/{comment_id}/reactions/{reaction_id}`
-    /// * docs https://docs.github.com/rest/reference/reactions#delete-an-issue-comment-reaction
+    /// * docs <https://docs.github.com/rest/reference/reactions#delete-an-issue-comment-reaction>
     ///
     /// Delete an issue comment reaction
     /// **Note:** You can also specify a repository by `repository_id` using the route `DELETE delete /repositories/:repository_id/issues/comments/:comment_id/reactions/:reaction_id`.
@@ -5126,21 +5126,21 @@ pub enum EndPoints {
     DeleteReposownerrepoIssuesCommentscommentIdReactionsreactionId(String, String, String, String),
     /// * tags issues
     /// * get `/repos/{owner}/{repo}/issues/events`
-    /// * docs https://docs.github.com/rest/reference/issues#list-issue-events-for-a-repository
+    /// * docs <https://docs.github.com/rest/reference/issues#list-issue-events-for-a-repository>
     ///
     /// List issue events for a repository
     ///
     GetReposownerrepoIssuesEvents(String, String),
     /// * tags issues
     /// * get `/repos/{owner}/{repo}/issues/events/{event_id}`
-    /// * docs https://docs.github.com/rest/reference/issues#get-an-issue-event
+    /// * docs <https://docs.github.com/rest/reference/issues#get-an-issue-event>
     ///
     /// Get an issue event
     ///
     GetReposownerrepoIssuesEventseventId(String, String, String),
     /// * tags issues
     /// * get `/repos/{owner}/{repo}/issues/{issue_number}`
-    /// * docs https://docs.github.com/rest/reference/issues#get-an-issue
+    /// * docs <https://docs.github.com/rest/reference/issues#get-an-issue>
     ///
     /// Get an issue
     /// The API returns a [`301 Moved Permanently` status](https://docs.github.com/rest/overview/resources-in-the-rest-api#http-redirects-redirects) if the issue was
@@ -5157,84 +5157,84 @@ pub enum EndPoints {
     GetReposownerrepoIssuesissueNumber(String, String, String),
     /// * tags issues
     /// * patch `/repos/{owner}/{repo}/issues/{issue_number}`
-    /// * docs https://docs.github.com/rest/reference/issues/#update-an-issue
+    /// * docs <https://docs.github.com/rest/reference/issues/#update-an-issue>
     ///
     /// Update an issue
     /// Issue owners and users with push access can edit an issue.
     PatchReposownerrepoIssuesissueNumber(String, String, String),
     /// * tags issues
     /// * post `/repos/{owner}/{repo}/issues/{issue_number}/assignees`
-    /// * docs https://docs.github.com/rest/reference/issues#add-assignees-to-an-issue
+    /// * docs <https://docs.github.com/rest/reference/issues#add-assignees-to-an-issue>
     ///
     /// Add assignees to an issue
     /// Adds up to 10 assignees to an issue. Users already assigned to an issue are not replaced.
     PostReposownerrepoIssuesissueNumberAssignees(String, String, String),
     /// * tags issues
     /// * delete `/repos/{owner}/{repo}/issues/{issue_number}/assignees`
-    /// * docs https://docs.github.com/rest/reference/issues#remove-assignees-from-an-issue
+    /// * docs <https://docs.github.com/rest/reference/issues#remove-assignees-from-an-issue>
     ///
     /// Remove assignees from an issue
     /// Removes one or more assignees from an issue.
     DeleteReposownerrepoIssuesissueNumberAssignees(String, String, String),
     /// * tags issues
     /// * get `/repos/{owner}/{repo}/issues/{issue_number}/comments`
-    /// * docs https://docs.github.com/rest/reference/issues#list-issue-comments
+    /// * docs <https://docs.github.com/rest/reference/issues#list-issue-comments>
     ///
     /// List issue comments
     /// Issue Comments are ordered by ascending ID.
     GetReposownerrepoIssuesissueNumberComments(String, String, String),
     /// * tags issues
     /// * post `/repos/{owner}/{repo}/issues/{issue_number}/comments`
-    /// * docs https://docs.github.com/rest/reference/issues#create-an-issue-comment
+    /// * docs <https://docs.github.com/rest/reference/issues#create-an-issue-comment>
     ///
     /// Create an issue comment
     /// This endpoint triggers [notifications](https://docs.github.com/en/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
     PostReposownerrepoIssuesissueNumberComments(String, String, String),
     /// * tags issues
     /// * get `/repos/{owner}/{repo}/issues/{issue_number}/events`
-    /// * docs https://docs.github.com/rest/reference/issues#list-issue-events
+    /// * docs <https://docs.github.com/rest/reference/issues#list-issue-events>
     ///
     /// List issue events
     ///
     GetReposownerrepoIssuesissueNumberEvents(String, String, String),
     /// * tags issues
     /// * get `/repos/{owner}/{repo}/issues/{issue_number}/labels`
-    /// * docs https://docs.github.com/rest/reference/issues#list-labels-for-an-issue
+    /// * docs <https://docs.github.com/rest/reference/issues#list-labels-for-an-issue>
     ///
     /// List labels for an issue
     ///
     GetReposownerrepoIssuesissueNumberLabels(String, String, String),
     /// * tags issues
     /// * post `/repos/{owner}/{repo}/issues/{issue_number}/labels`
-    /// * docs https://docs.github.com/rest/reference/issues#add-labels-to-an-issue
+    /// * docs <https://docs.github.com/rest/reference/issues#add-labels-to-an-issue>
     ///
     /// Add labels to an issue
     ///
     PostReposownerrepoIssuesissueNumberLabels(String, String, String),
     /// * tags issues
     /// * put `/repos/{owner}/{repo}/issues/{issue_number}/labels`
-    /// * docs https://docs.github.com/rest/reference/issues#set-labels-for-an-issue
+    /// * docs <https://docs.github.com/rest/reference/issues#set-labels-for-an-issue>
     ///
     /// Set labels for an issue
     /// Removes any previous labels and sets the new labels for an issue.
     PutReposownerrepoIssuesissueNumberLabels(String, String, String),
     /// * tags issues
     /// * delete `/repos/{owner}/{repo}/issues/{issue_number}/labels`
-    /// * docs https://docs.github.com/rest/reference/issues#remove-all-labels-from-an-issue
+    /// * docs <https://docs.github.com/rest/reference/issues#remove-all-labels-from-an-issue>
     ///
     /// Remove all labels from an issue
     ///
     DeleteReposownerrepoIssuesissueNumberLabels(String, String, String),
     /// * tags issues
     /// * delete `/repos/{owner}/{repo}/issues/{issue_number}/labels/{name}`
-    /// * docs https://docs.github.com/rest/reference/issues#remove-a-label-from-an-issue
+    /// * docs <https://docs.github.com/rest/reference/issues#remove-a-label-from-an-issue>
     ///
     /// Remove a label from an issue
     /// Removes the specified label from the issue, and returns the remaining labels on the issue. This endpoint returns a `404 Not Found` status if the label does not exist.
     DeleteReposownerrepoIssuesissueNumberLabelsname(String, String, String, String),
     /// * tags issues
     /// * put `/repos/{owner}/{repo}/issues/{issue_number}/lock`
-    /// * docs https://docs.github.com/rest/reference/issues#lock-an-issue
+    /// * docs <https://docs.github.com/rest/reference/issues#lock-an-issue>
     ///
     /// Lock an issue
     /// Users with push access can lock an issue or pull request's conversation.
@@ -5243,28 +5243,28 @@ pub enum EndPoints {
     PutReposownerrepoIssuesissueNumberLock(String, String, String),
     /// * tags issues
     /// * delete `/repos/{owner}/{repo}/issues/{issue_number}/lock`
-    /// * docs https://docs.github.com/rest/reference/issues#unlock-an-issue
+    /// * docs <https://docs.github.com/rest/reference/issues#unlock-an-issue>
     ///
     /// Unlock an issue
     /// Users with push access can unlock an issue's conversation.
     DeleteReposownerrepoIssuesissueNumberLock(String, String, String),
     /// * tags reactions
     /// * get `/repos/{owner}/{repo}/issues/{issue_number}/reactions`
-    /// * docs https://docs.github.com/rest/reference/reactions#list-reactions-for-an-issue
+    /// * docs <https://docs.github.com/rest/reference/reactions#list-reactions-for-an-issue>
     ///
     /// List reactions for an issue
     /// List the reactions to an [issue](https://docs.github.com/rest/reference/issues).
     GetReposownerrepoIssuesissueNumberReactions(String, String, String),
     /// * tags reactions
     /// * post `/repos/{owner}/{repo}/issues/{issue_number}/reactions`
-    /// * docs https://docs.github.com/rest/reference/reactions#create-reaction-for-an-issue
+    /// * docs <https://docs.github.com/rest/reference/reactions#create-reaction-for-an-issue>
     ///
     /// Create reaction for an issue
     /// Create a reaction to an [issue](https://docs.github.com/rest/reference/issues/). A response with an HTTP `200` status means that you already added the reaction type to this issue.
     PostReposownerrepoIssuesissueNumberReactions(String, String, String),
     /// * tags reactions
     /// * delete `/repos/{owner}/{repo}/issues/{issue_number}/reactions/{reaction_id}`
-    /// * docs https://docs.github.com/rest/reference/reactions#delete-an-issue-reaction
+    /// * docs <https://docs.github.com/rest/reference/reactions#delete-an-issue-reaction>
     ///
     /// Delete an issue reaction
     /// **Note:** You can also specify a repository by `repository_id` using the route `DELETE /repositories/:repository_id/issues/:issue_number/reactions/:reaction_id`.
@@ -5273,98 +5273,98 @@ pub enum EndPoints {
     DeleteReposownerrepoIssuesissueNumberReactionsreactionId(String, String, String, String),
     /// * tags issues
     /// * get `/repos/{owner}/{repo}/issues/{issue_number}/timeline`
-    /// * docs https://docs.github.com/rest/reference/issues#list-timeline-events-for-an-issue
+    /// * docs <https://docs.github.com/rest/reference/issues#list-timeline-events-for-an-issue>
     ///
     /// List timeline events for an issue
     ///
     GetReposownerrepoIssuesissueNumberTimeline(String, String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/keys`
-    /// * docs https://docs.github.com/rest/reference/repos#list-deploy-keys
+    /// * docs <https://docs.github.com/rest/reference/repos#list-deploy-keys>
     ///
     /// List deploy keys
     ///
     GetReposownerrepoKeys(String, String),
     /// * tags repos
     /// * post `/repos/{owner}/{repo}/keys`
-    /// * docs https://docs.github.com/rest/reference/repos#create-a-deploy-key
+    /// * docs <https://docs.github.com/rest/reference/repos#create-a-deploy-key>
     ///
     /// Create a deploy key
     /// You can create a read-only deploy key.
     PostReposownerrepoKeys(String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/keys/{key_id}`
-    /// * docs https://docs.github.com/rest/reference/repos#get-a-deploy-key
+    /// * docs <https://docs.github.com/rest/reference/repos#get-a-deploy-key>
     ///
     /// Get a deploy key
     ///
     GetReposownerrepoKeyskeyId(String, String, String),
     /// * tags repos
     /// * delete `/repos/{owner}/{repo}/keys/{key_id}`
-    /// * docs https://docs.github.com/rest/reference/repos#delete-a-deploy-key
+    /// * docs <https://docs.github.com/rest/reference/repos#delete-a-deploy-key>
     ///
     /// Delete a deploy key
     /// Deploy keys are immutable. If you need to update a key, remove the key and create a new one instead.
     DeleteReposownerrepoKeyskeyId(String, String, String),
     /// * tags issues
     /// * get `/repos/{owner}/{repo}/labels`
-    /// * docs https://docs.github.com/rest/reference/issues#list-labels-for-a-repository
+    /// * docs <https://docs.github.com/rest/reference/issues#list-labels-for-a-repository>
     ///
     /// List labels for a repository
     ///
     GetReposownerrepoLabels(String, String),
     /// * tags issues
     /// * post `/repos/{owner}/{repo}/labels`
-    /// * docs https://docs.github.com/rest/reference/issues#create-a-label
+    /// * docs <https://docs.github.com/rest/reference/issues#create-a-label>
     ///
     /// Create a label
     ///
     PostReposownerrepoLabels(String, String),
     /// * tags issues
     /// * get `/repos/{owner}/{repo}/labels/{name}`
-    /// * docs https://docs.github.com/rest/reference/issues#get-a-label
+    /// * docs <https://docs.github.com/rest/reference/issues#get-a-label>
     ///
     /// Get a label
     ///
     GetReposownerrepoLabelsname(String, String, String),
     /// * tags issues
     /// * patch `/repos/{owner}/{repo}/labels/{name}`
-    /// * docs https://docs.github.com/rest/reference/issues#update-a-label
+    /// * docs <https://docs.github.com/rest/reference/issues#update-a-label>
     ///
     /// Update a label
     ///
     PatchReposownerrepoLabelsname(String, String, String),
     /// * tags issues
     /// * delete `/repos/{owner}/{repo}/labels/{name}`
-    /// * docs https://docs.github.com/rest/reference/issues#delete-a-label
+    /// * docs <https://docs.github.com/rest/reference/issues#delete-a-label>
     ///
     /// Delete a label
     ///
     DeleteReposownerrepoLabelsname(String, String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/languages`
-    /// * docs https://docs.github.com/rest/reference/repos#list-repository-languages
+    /// * docs <https://docs.github.com/rest/reference/repos#list-repository-languages>
     ///
     /// List repository languages
     /// Lists languages for the specified repository. The value shown for each language is the number of bytes of code written in that language.
     GetReposownerrepoLanguages(String, String),
     /// * tags repos
     /// * put `/repos/{owner}/{repo}/lfs`
-    /// * docs https://docs.github.com/rest/reference/repos#enable-git-lfs-for-a-repository
+    /// * docs <https://docs.github.com/rest/reference/repos#enable-git-lfs-for-a-repository>
     ///
     /// Enable Git LFS for a repository
     ///
     PutReposownerrepoLfs(String, String),
     /// * tags repos
     /// * delete `/repos/{owner}/{repo}/lfs`
-    /// * docs https://docs.github.com/rest/reference/repos#disable-git-lfs-for-a-repository
+    /// * docs <https://docs.github.com/rest/reference/repos#disable-git-lfs-for-a-repository>
     ///
     /// Disable Git LFS for a repository
     ///
     DeleteReposownerrepoLfs(String, String),
     /// * tags licenses
     /// * get `/repos/{owner}/{repo}/license`
-    /// * docs https://docs.github.com/rest/reference/licenses/#get-the-license-for-a-repository
+    /// * docs <https://docs.github.com/rest/reference/licenses/#get-the-license-for-a-repository>
     ///
     /// Get the license for a repository
     /// This method returns the contents of the repository's license file, if one is detected.
@@ -5373,112 +5373,112 @@ pub enum EndPoints {
     GetReposownerrepoLicense(String, String),
     /// * tags repos
     /// * post `/repos/{owner}/{repo}/merge-upstream`
-    /// * docs https://docs.github.com/rest/reference/repos#sync-a-fork-branch-with-the-upstream-repository
+    /// * docs <https://docs.github.com/rest/reference/repos#sync-a-fork-branch-with-the-upstream-repository>
     ///
     /// Sync a fork branch with the upstream repository
     /// Sync a branch of a forked repository to keep it up-to-date with the upstream repository.
     PostReposownerrepoMergeUpstream(String, String),
     /// * tags repos
     /// * post `/repos/{owner}/{repo}/merges`
-    /// * docs https://docs.github.com/rest/reference/repos#merge-a-branch
+    /// * docs <https://docs.github.com/rest/reference/repos#merge-a-branch>
     ///
     /// Merge a branch
     ///
     PostReposownerrepoMerges(String, String),
     /// * tags issues
     /// * get `/repos/{owner}/{repo}/milestones`
-    /// * docs https://docs.github.com/rest/reference/issues#list-milestones
+    /// * docs <https://docs.github.com/rest/reference/issues#list-milestones>
     ///
     /// List milestones
     ///
     GetReposownerrepoMilestones(String, String),
     /// * tags issues
     /// * post `/repos/{owner}/{repo}/milestones`
-    /// * docs https://docs.github.com/rest/reference/issues#create-a-milestone
+    /// * docs <https://docs.github.com/rest/reference/issues#create-a-milestone>
     ///
     /// Create a milestone
     ///
     PostReposownerrepoMilestones(String, String),
     /// * tags issues
     /// * get `/repos/{owner}/{repo}/milestones/{milestone_number}`
-    /// * docs https://docs.github.com/rest/reference/issues#get-a-milestone
+    /// * docs <https://docs.github.com/rest/reference/issues#get-a-milestone>
     ///
     /// Get a milestone
     ///
     GetReposownerrepoMilestonesmilestoneNumber(String, String, String),
     /// * tags issues
     /// * patch `/repos/{owner}/{repo}/milestones/{milestone_number}`
-    /// * docs https://docs.github.com/rest/reference/issues#update-a-milestone
+    /// * docs <https://docs.github.com/rest/reference/issues#update-a-milestone>
     ///
     /// Update a milestone
     ///
     PatchReposownerrepoMilestonesmilestoneNumber(String, String, String),
     /// * tags issues
     /// * delete `/repos/{owner}/{repo}/milestones/{milestone_number}`
-    /// * docs https://docs.github.com/rest/reference/issues#delete-a-milestone
+    /// * docs <https://docs.github.com/rest/reference/issues#delete-a-milestone>
     ///
     /// Delete a milestone
     ///
     DeleteReposownerrepoMilestonesmilestoneNumber(String, String, String),
     /// * tags issues
     /// * get `/repos/{owner}/{repo}/milestones/{milestone_number}/labels`
-    /// * docs https://docs.github.com/rest/reference/issues#list-labels-for-issues-in-a-milestone
+    /// * docs <https://docs.github.com/rest/reference/issues#list-labels-for-issues-in-a-milestone>
     ///
     /// List labels for issues in a milestone
     ///
     GetReposownerrepoMilestonesmilestoneNumberLabels(String, String, String),
     /// * tags activity
     /// * get `/repos/{owner}/{repo}/notifications`
-    /// * docs https://docs.github.com/rest/reference/activity#list-repository-notifications-for-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/activity#list-repository-notifications-for-the-authenticated-user>
     ///
     /// List repository notifications for the authenticated user
     /// List all notifications for the current user.
     GetReposownerrepoNotifications(String, String),
     /// * tags activity
     /// * put `/repos/{owner}/{repo}/notifications`
-    /// * docs https://docs.github.com/rest/reference/activity#mark-repository-notifications-as-read
+    /// * docs <https://docs.github.com/rest/reference/activity#mark-repository-notifications-as-read>
     ///
     /// Mark repository notifications as read
     /// Marks all notifications in a repository as "read" removes them from the [default view on GitHub](https://github.com/notifications). If the number of notifications is too large to complete in one request, you will receive a `202 Accepted` status and GitHub will run an asynchronous process to mark notifications as "read." To check whether any "unread" notifications remain, you can use the [List repository notifications for the authenticated user](https://docs.github.com/rest/reference/activity#list-repository-notifications-for-the-authenticated-user) endpoint and pass the query parameter `all=false`.
     PutReposownerrepoNotifications(String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/pages`
-    /// * docs https://docs.github.com/rest/reference/repos#get-a-github-pages-site
+    /// * docs <https://docs.github.com/rest/reference/repos#get-a-github-pages-site>
     ///
     /// Get a GitHub Pages site
     ///
     GetReposownerrepoPages(String, String),
     /// * tags repos
     /// * post `/repos/{owner}/{repo}/pages`
-    /// * docs https://docs.github.com/rest/reference/repos#create-a-github-pages-site
+    /// * docs <https://docs.github.com/rest/reference/repos#create-a-github-pages-site>
     ///
     /// Create a GitHub Pages site
     /// Configures a GitHub Pages site. For more information, see "[About GitHub Pages](/github/working-with-github-pages/about-github-pages)."
     PostReposownerrepoPages(String, String),
     /// * tags repos
     /// * put `/repos/{owner}/{repo}/pages`
-    /// * docs https://docs.github.com/rest/reference/repos#update-information-about-a-github-pages-site
+    /// * docs <https://docs.github.com/rest/reference/repos#update-information-about-a-github-pages-site>
     ///
     /// Update information about a GitHub Pages site
     /// Updates information for a GitHub Pages site. For more information, see "[About GitHub Pages](/github/working-with-github-pages/about-github-pages).
     PutReposownerrepoPages(String, String),
     /// * tags repos
     /// * delete `/repos/{owner}/{repo}/pages`
-    /// * docs https://docs.github.com/rest/reference/repos#delete-a-github-pages-site
+    /// * docs <https://docs.github.com/rest/reference/repos#delete-a-github-pages-site>
     ///
     /// Delete a GitHub Pages site
     ///
     DeleteReposownerrepoPages(String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/pages/builds`
-    /// * docs https://docs.github.com/rest/reference/repos#list-github-pages-builds
+    /// * docs <https://docs.github.com/rest/reference/repos#list-github-pages-builds>
     ///
     /// List GitHub Pages builds
     ///
     GetReposownerrepoPagesBuilds(String, String),
     /// * tags repos
     /// * post `/repos/{owner}/{repo}/pages/builds`
-    /// * docs https://docs.github.com/rest/reference/repos#request-a-github-pages-build
+    /// * docs <https://docs.github.com/rest/reference/repos#request-a-github-pages-build>
     ///
     /// Request a GitHub Pages build
     /// You can request that your site be built from the latest revision on the default branch. This has the same effect as pushing a commit to your default branch, but does not require an additional commit. Manually triggering page builds can be helpful when diagnosing build warnings and failures.
@@ -5487,21 +5487,21 @@ pub enum EndPoints {
     PostReposownerrepoPagesBuilds(String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/pages/builds/latest`
-    /// * docs https://docs.github.com/rest/reference/repos#get-latest-pages-build
+    /// * docs <https://docs.github.com/rest/reference/repos#get-latest-pages-build>
     ///
     /// Get latest Pages build
     ///
     GetReposownerrepoPagesBuildsLatest(String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/pages/builds/{build_id}`
-    /// * docs https://docs.github.com/rest/reference/repos#get-github-pages-build
+    /// * docs <https://docs.github.com/rest/reference/repos#get-github-pages-build>
     ///
     /// Get GitHub Pages build
     ///
     GetReposownerrepoPagesBuildsbuildId(String, String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/pages/health`
-    /// * docs https://docs.github.com/rest/reference/repos#get-a-dns-health-check-for-github-pages
+    /// * docs <https://docs.github.com/rest/reference/repos#get-a-dns-health-check-for-github-pages>
     ///
     /// Get a DNS health check for GitHub Pages
     /// Gets a health check of the DNS settings for the `CNAME` record configured for a repository's GitHub Pages.
@@ -5512,28 +5512,28 @@ pub enum EndPoints {
     GetReposownerrepoPagesHealth(String, String),
     /// * tags projects
     /// * get `/repos/{owner}/{repo}/projects`
-    /// * docs https://docs.github.com/rest/reference/projects#list-repository-projects
+    /// * docs <https://docs.github.com/rest/reference/projects#list-repository-projects>
     ///
     /// List repository projects
     /// Lists the projects in a repository. Returns a `404 Not Found` status if projects are disabled in the repository. If you do not have sufficient privileges to perform this action, a `401 Unauthorized` or `410 Gone` status is returned.
     GetReposownerrepoProjects(String, String),
     /// * tags projects
     /// * post `/repos/{owner}/{repo}/projects`
-    /// * docs https://docs.github.com/rest/reference/projects#create-a-repository-project
+    /// * docs <https://docs.github.com/rest/reference/projects#create-a-repository-project>
     ///
     /// Create a repository project
     /// Creates a repository project board. Returns a `404 Not Found` status if projects are disabled in the repository. If you do not have sufficient privileges to perform this action, a `401 Unauthorized` or `410 Gone` status is returned.
     PostReposownerrepoProjects(String, String),
     /// * tags pulls
     /// * get `/repos/{owner}/{repo}/pulls`
-    /// * docs https://docs.github.com/rest/reference/pulls#list-pull-requests
+    /// * docs <https://docs.github.com/rest/reference/pulls#list-pull-requests>
     ///
     /// List pull requests
     /// Draft pull requests are available in public repositories with GitHub Free and GitHub Free for organizations, GitHub Pro, and legacy per-repository billing plans, and in public and private repositories with GitHub Team and GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     GetReposownerrepoPulls(String, String),
     /// * tags pulls
     /// * post `/repos/{owner}/{repo}/pulls`
-    /// * docs https://docs.github.com/rest/reference/pulls#create-a-pull-request
+    /// * docs <https://docs.github.com/rest/reference/pulls#create-a-pull-request>
     ///
     /// Create a pull request
     /// Draft pull requests are available in public repositories with GitHub Free and GitHub Free for organizations, GitHub Pro, and legacy per-repository billing plans, and in public and private repositories with GitHub Team and GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
@@ -5546,49 +5546,49 @@ pub enum EndPoints {
     PostReposownerrepoPulls(String, String),
     /// * tags pulls
     /// * get `/repos/{owner}/{repo}/pulls/comments`
-    /// * docs https://docs.github.com/rest/reference/pulls#list-review-comments-in-a-repository
+    /// * docs <https://docs.github.com/rest/reference/pulls#list-review-comments-in-a-repository>
     ///
     /// List review comments in a repository
     /// Lists review comments for all pull requests in a repository. By default, review comments are in ascending order by ID.
     GetReposownerrepoPullsComments(String, String),
     /// * tags pulls
     /// * get `/repos/{owner}/{repo}/pulls/comments/{comment_id}`
-    /// * docs https://docs.github.com/rest/reference/pulls#get-a-review-comment-for-a-pull-request
+    /// * docs <https://docs.github.com/rest/reference/pulls#get-a-review-comment-for-a-pull-request>
     ///
     /// Get a review comment for a pull request
     /// Provides details for a review comment.
     GetReposownerrepoPullsCommentscommentId(String, String, String),
     /// * tags pulls
     /// * patch `/repos/{owner}/{repo}/pulls/comments/{comment_id}`
-    /// * docs https://docs.github.com/rest/reference/pulls#update-a-review-comment-for-a-pull-request
+    /// * docs <https://docs.github.com/rest/reference/pulls#update-a-review-comment-for-a-pull-request>
     ///
     /// Update a review comment for a pull request
     /// Enables you to edit a review comment.
     PatchReposownerrepoPullsCommentscommentId(String, String, String),
     /// * tags pulls
     /// * delete `/repos/{owner}/{repo}/pulls/comments/{comment_id}`
-    /// * docs https://docs.github.com/rest/reference/pulls#delete-a-review-comment-for-a-pull-request
+    /// * docs <https://docs.github.com/rest/reference/pulls#delete-a-review-comment-for-a-pull-request>
     ///
     /// Delete a review comment for a pull request
     /// Deletes a review comment.
     DeleteReposownerrepoPullsCommentscommentId(String, String, String),
     /// * tags reactions
     /// * get `/repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions`
-    /// * docs https://docs.github.com/rest/reference/reactions#list-reactions-for-a-pull-request-review-comment
+    /// * docs <https://docs.github.com/rest/reference/reactions#list-reactions-for-a-pull-request-review-comment>
     ///
     /// List reactions for a pull request review comment
     /// List the reactions to a [pull request review comment](https://docs.github.com/rest/reference/pulls#review-comments).
     GetReposownerrepoPullsCommentscommentIdReactions(String, String, String),
     /// * tags reactions
     /// * post `/repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions`
-    /// * docs https://docs.github.com/rest/reference/reactions#create-reaction-for-a-pull-request-review-comment
+    /// * docs <https://docs.github.com/rest/reference/reactions#create-reaction-for-a-pull-request-review-comment>
     ///
     /// Create reaction for a pull request review comment
     /// Create a reaction to a [pull request review comment](https://docs.github.com/rest/reference/pulls#comments). A response with an HTTP `200` status means that you already added the reaction type to this pull request review comment.
     PostReposownerrepoPullsCommentscommentIdReactions(String, String, String),
     /// * tags reactions
     /// * delete `/repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions/{reaction_id}`
-    /// * docs https://docs.github.com/rest/reference/reactions#delete-a-pull-request-comment-reaction
+    /// * docs <https://docs.github.com/rest/reference/reactions#delete-a-pull-request-comment-reaction>
     ///
     /// Delete a pull request comment reaction
     /// **Note:** You can also specify a repository by `repository_id` using the route `DELETE /repositories/:repository_id/pulls/comments/:comment_id/reactions/:reaction_id.`
@@ -5597,7 +5597,7 @@ pub enum EndPoints {
     DeleteReposownerrepoPullsCommentscommentIdReactionsreactionId(String, String, String, String),
     /// * tags pulls
     /// * get `/repos/{owner}/{repo}/pulls/{pull_number}`
-    /// * docs https://docs.github.com/rest/reference/pulls#get-a-pull-request
+    /// * docs <https://docs.github.com/rest/reference/pulls#get-a-pull-request>
     ///
     /// Get a pull request
     /// Draft pull requests are available in public repositories with GitHub Free and GitHub Free for organizations, GitHub Pro, and legacy per-repository billing plans, and in public and private repositories with GitHub Team and GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
@@ -5618,7 +5618,7 @@ pub enum EndPoints {
     GetReposownerrepoPullspullNumber(String, String, String),
     /// * tags pulls
     /// * patch `/repos/{owner}/{repo}/pulls/{pull_number}`
-    /// * docs https://docs.github.com/rest/reference/pulls/#update-a-pull-request
+    /// * docs <https://docs.github.com/rest/reference/pulls/#update-a-pull-request>
     ///
     /// Update a pull request
     /// Draft pull requests are available in public repositories with GitHub Free and GitHub Free for organizations, GitHub Pro, and legacy per-repository billing plans, and in public and private repositories with GitHub Team and GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
@@ -5627,7 +5627,7 @@ pub enum EndPoints {
     PatchReposownerrepoPullspullNumber(String, String, String),
     /// * tags codespaces
     /// * post `/repos/{owner}/{repo}/pulls/{pull_number}/codespaces`
-    /// * docs https://docs.github.com/rest/reference/codespaces#create-a-codespace-from-a-pull-request
+    /// * docs <https://docs.github.com/rest/reference/codespaces#create-a-codespace-from-a-pull-request>
     ///
     /// Create a codespace from a pull request
     /// Creates a codespace owned by the authenticated user for the specified pull request.
@@ -5636,14 +5636,14 @@ pub enum EndPoints {
     PostReposownerrepoPullspullNumberCodespaces(String, String, String),
     /// * tags pulls
     /// * get `/repos/{owner}/{repo}/pulls/{pull_number}/comments`
-    /// * docs https://docs.github.com/rest/reference/pulls#list-review-comments-on-a-pull-request
+    /// * docs <https://docs.github.com/rest/reference/pulls#list-review-comments-on-a-pull-request>
     ///
     /// List review comments on a pull request
     /// Lists all review comments for a pull request. By default, review comments are in ascending order by ID.
     GetReposownerrepoPullspullNumberComments(String, String, String),
     /// * tags pulls
     /// * post `/repos/{owner}/{repo}/pulls/{pull_number}/comments`
-    /// * docs https://docs.github.com/rest/reference/pulls#create-a-review-comment-for-a-pull-request
+    /// * docs <https://docs.github.com/rest/reference/pulls#create-a-review-comment-for-a-pull-request>
     ///
     /// Create a review comment for a pull request
     ///
@@ -5657,7 +5657,7 @@ pub enum EndPoints {
     PostReposownerrepoPullspullNumberComments(String, String, String),
     /// * tags pulls
     /// * post `/repos/{owner}/{repo}/pulls/{pull_number}/comments/{comment_id}/replies`
-    /// * docs https://docs.github.com/rest/reference/pulls#create-a-reply-for-a-review-comment
+    /// * docs <https://docs.github.com/rest/reference/pulls#create-a-reply-for-a-review-comment>
     ///
     /// Create a reply for a review comment
     /// Creates a reply to a review comment for a pull request. For the `comment_id`, provide the ID of the review comment you are replying to. This must be the ID of a _top-level review comment_, not a reply to that comment. Replies to replies are not supported.
@@ -5666,63 +5666,63 @@ pub enum EndPoints {
     PostReposownerrepoPullspullNumberCommentscommentIdReplies(String, String, String, String),
     /// * tags pulls
     /// * get `/repos/{owner}/{repo}/pulls/{pull_number}/commits`
-    /// * docs https://docs.github.com/rest/reference/pulls#list-commits-on-a-pull-request
+    /// * docs <https://docs.github.com/rest/reference/pulls#list-commits-on-a-pull-request>
     ///
     /// List commits on a pull request
     /// Lists a maximum of 250 commits for a pull request. To receive a complete commit list for pull requests with more than 250 commits, use the [List commits](https://docs.github.com/rest/reference/repos#list-commits) endpoint.
     GetReposownerrepoPullspullNumberCommits(String, String, String),
     /// * tags pulls
     /// * get `/repos/{owner}/{repo}/pulls/{pull_number}/files`
-    /// * docs https://docs.github.com/rest/reference/pulls#list-pull-requests-files
+    /// * docs <https://docs.github.com/rest/reference/pulls#list-pull-requests-files>
     ///
     /// List pull requests files
     /// **Note:** Responses include a maximum of 3000 files. The paginated response returns 30 files per page by default.
     GetReposownerrepoPullspullNumberFiles(String, String, String),
     /// * tags pulls
     /// * get `/repos/{owner}/{repo}/pulls/{pull_number}/merge`
-    /// * docs https://docs.github.com/rest/reference/pulls#check-if-a-pull-request-has-been-merged
+    /// * docs <https://docs.github.com/rest/reference/pulls#check-if-a-pull-request-has-been-merged>
     ///
     /// Check if a pull request has been merged
     ///
     GetReposownerrepoPullspullNumberMerge(String, String, String),
     /// * tags pulls
     /// * put `/repos/{owner}/{repo}/pulls/{pull_number}/merge`
-    /// * docs https://docs.github.com/rest/reference/pulls#merge-a-pull-request
+    /// * docs <https://docs.github.com/rest/reference/pulls#merge-a-pull-request>
     ///
     /// Merge a pull request
     /// This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
     PutReposownerrepoPullspullNumberMerge(String, String, String),
     /// * tags pulls
     /// * get `/repos/{owner}/{repo}/pulls/{pull_number}/requested_reviewers`
-    /// * docs https://docs.github.com/rest/reference/pulls#list-requested-reviewers-for-a-pull-request
+    /// * docs <https://docs.github.com/rest/reference/pulls#list-requested-reviewers-for-a-pull-request>
     ///
     /// List requested reviewers for a pull request
     ///
     GetReposownerrepoPullspullNumberRequestedReviewers(String, String, String),
     /// * tags pulls
     /// * post `/repos/{owner}/{repo}/pulls/{pull_number}/requested_reviewers`
-    /// * docs https://docs.github.com/rest/reference/pulls#request-reviewers-for-a-pull-request
+    /// * docs <https://docs.github.com/rest/reference/pulls#request-reviewers-for-a-pull-request>
     ///
     /// Request reviewers for a pull request
     /// This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
     PostReposownerrepoPullspullNumberRequestedReviewers(String, String, String),
     /// * tags pulls
     /// * delete `/repos/{owner}/{repo}/pulls/{pull_number}/requested_reviewers`
-    /// * docs https://docs.github.com/rest/reference/pulls#remove-requested-reviewers-from-a-pull-request
+    /// * docs <https://docs.github.com/rest/reference/pulls#remove-requested-reviewers-from-a-pull-request>
     ///
     /// Remove requested reviewers from a pull request
     ///
     DeleteReposownerrepoPullspullNumberRequestedReviewers(String, String, String),
     /// * tags pulls
     /// * get `/repos/{owner}/{repo}/pulls/{pull_number}/reviews`
-    /// * docs https://docs.github.com/rest/reference/pulls#list-reviews-for-a-pull-request
+    /// * docs <https://docs.github.com/rest/reference/pulls#list-reviews-for-a-pull-request>
     ///
     /// List reviews for a pull request
     /// The list of reviews returns in chronological order.
     GetReposownerrepoPullspullNumberReviews(String, String, String),
     /// * tags pulls
     /// * post `/repos/{owner}/{repo}/pulls/{pull_number}/reviews`
-    /// * docs https://docs.github.com/rest/reference/pulls#create-a-review-for-a-pull-request
+    /// * docs <https://docs.github.com/rest/reference/pulls#create-a-review-for-a-pull-request>
     ///
     /// Create a review for a pull request
     /// This endpoint triggers [notifications](https://docs.github.com/en/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
@@ -5735,56 +5735,56 @@ pub enum EndPoints {
     PostReposownerrepoPullspullNumberReviews(String, String, String),
     /// * tags pulls
     /// * get `/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}`
-    /// * docs https://docs.github.com/rest/reference/pulls#get-a-review-for-a-pull-request
+    /// * docs <https://docs.github.com/rest/reference/pulls#get-a-review-for-a-pull-request>
     ///
     /// Get a review for a pull request
     ///
     GetReposownerrepoPullspullNumberReviewsreviewId(String, String, String, String),
     /// * tags pulls
     /// * put `/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}`
-    /// * docs https://docs.github.com/rest/reference/pulls#update-a-review-for-a-pull-request
+    /// * docs <https://docs.github.com/rest/reference/pulls#update-a-review-for-a-pull-request>
     ///
     /// Update a review for a pull request
     /// Update the review summary comment with new text.
     PutReposownerrepoPullspullNumberReviewsreviewId(String, String, String, String),
     /// * tags pulls
     /// * delete `/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}`
-    /// * docs https://docs.github.com/rest/reference/pulls#delete-a-pending-review-for-a-pull-request
+    /// * docs <https://docs.github.com/rest/reference/pulls#delete-a-pending-review-for-a-pull-request>
     ///
     /// Delete a pending review for a pull request
     ///
     DeleteReposownerrepoPullspullNumberReviewsreviewId(String, String, String, String),
     /// * tags pulls
     /// * get `/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/comments`
-    /// * docs https://docs.github.com/rest/reference/pulls#list-comments-for-a-pull-request-review
+    /// * docs <https://docs.github.com/rest/reference/pulls#list-comments-for-a-pull-request-review>
     ///
     /// List comments for a pull request review
     /// List comments for a specific pull request review.
     GetReposownerrepoPullspullNumberReviewsreviewIdComments(String, String, String, String),
     /// * tags pulls
     /// * put `/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/dismissals`
-    /// * docs https://docs.github.com/rest/reference/pulls#dismiss-a-review-for-a-pull-request
+    /// * docs <https://docs.github.com/rest/reference/pulls#dismiss-a-review-for-a-pull-request>
     ///
     /// Dismiss a review for a pull request
     /// **Note:** To dismiss a pull request review on a [protected branch](https://docs.github.com/rest/reference/repos#branches), you must be a repository administrator or be included in the list of people or teams who can dismiss pull request reviews.
     PutReposownerrepoPullspullNumberReviewsreviewIdDismissals(String, String, String, String),
     /// * tags pulls
     /// * post `/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/events`
-    /// * docs https://docs.github.com/rest/reference/pulls#submit-a-review-for-a-pull-request
+    /// * docs <https://docs.github.com/rest/reference/pulls#submit-a-review-for-a-pull-request>
     ///
     /// Submit a review for a pull request
     ///
     PostReposownerrepoPullspullNumberReviewsreviewIdEvents(String, String, String, String),
     /// * tags pulls
     /// * put `/repos/{owner}/{repo}/pulls/{pull_number}/update-branch`
-    /// * docs https://docs.github.com/rest/reference/pulls#update-a-pull-request-branch
+    /// * docs <https://docs.github.com/rest/reference/pulls#update-a-pull-request-branch>
     ///
     /// Update a pull request branch
     /// Updates the pull request branch with the latest upstream changes by merging HEAD from the base branch into the pull request branch.
     PutReposownerrepoPullspullNumberUpdateBranch(String, String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/readme`
-    /// * docs https://docs.github.com/rest/reference/repos#get-a-repository-readme
+    /// * docs <https://docs.github.com/rest/reference/repos#get-a-repository-readme>
     ///
     /// Get a repository README
     /// Gets the preferred README for a repository.
@@ -5793,7 +5793,7 @@ pub enum EndPoints {
     GetReposownerrepoReadme(String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/readme/{dir}`
-    /// * docs https://docs.github.com/rest/reference/repos#get-a-repository-directory-readme
+    /// * docs <https://docs.github.com/rest/reference/repos#get-a-repository-directory-readme>
     ///
     /// Get a repository README for a directory
     /// Gets the README from a repository directory.
@@ -5802,7 +5802,7 @@ pub enum EndPoints {
     GetReposownerrepoReadmedir(String, String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/releases`
-    /// * docs https://docs.github.com/rest/reference/repos#list-releases
+    /// * docs <https://docs.github.com/rest/reference/repos#list-releases>
     ///
     /// List releases
     /// This returns a list of releases, which does not include regular Git tags that have not been associated with a release. To get a list of Git tags, use the [Repository Tags API](https://docs.github.com/rest/reference/repos#list-repository-tags).
@@ -5811,7 +5811,7 @@ pub enum EndPoints {
     GetReposownerrepoReleases(String, String),
     /// * tags repos
     /// * post `/repos/{owner}/{repo}/releases`
-    /// * docs https://docs.github.com/rest/reference/repos#create-a-release
+    /// * docs <https://docs.github.com/rest/reference/repos#create-a-release>
     ///
     /// Create a release
     /// Users with push access to the repository can create a release.
@@ -5820,35 +5820,35 @@ pub enum EndPoints {
     PostReposownerrepoReleases(String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/releases/assets/{asset_id}`
-    /// * docs https://docs.github.com/rest/reference/repos#get-a-release-asset
+    /// * docs <https://docs.github.com/rest/reference/repos#get-a-release-asset>
     ///
     /// Get a release asset
     /// To download the asset's binary content, set the `Accept` header of the request to [`application/octet-stream`](https://docs.github.com/rest/overview/media-types). The API will either redirect the client to the location, or stream it directly if possible. API clients should handle both a `200` or `302` response.
     GetReposownerrepoReleasesAssetsassetId(String, String, String),
     /// * tags repos
     /// * patch `/repos/{owner}/{repo}/releases/assets/{asset_id}`
-    /// * docs https://docs.github.com/rest/reference/repos#update-a-release-asset
+    /// * docs <https://docs.github.com/rest/reference/repos#update-a-release-asset>
     ///
     /// Update a release asset
     /// Users with push access to the repository can edit a release asset.
     PatchReposownerrepoReleasesAssetsassetId(String, String, String),
     /// * tags repos
     /// * delete `/repos/{owner}/{repo}/releases/assets/{asset_id}`
-    /// * docs https://docs.github.com/rest/reference/repos#delete-a-release-asset
+    /// * docs <https://docs.github.com/rest/reference/repos#delete-a-release-asset>
     ///
     /// Delete a release asset
     ///
     DeleteReposownerrepoReleasesAssetsassetId(String, String, String),
     /// * tags repos
     /// * post `/repos/{owner}/{repo}/releases/generate-notes`
-    /// * docs https://docs.github.com/rest/reference/repos#generate-release-notes
+    /// * docs <https://docs.github.com/rest/reference/repos#generate-release-notes>
     ///
     /// Generate release notes content for a release
     /// Generate a name and body describing a [release](https://docs.github.com/rest/reference/repos#releases). The body content will be markdown formatted and contain information like the changes since last release and users who contributed. The generated release notes are not saved anywhere. They are intended to be generated and used when creating a new release.
     PostReposownerrepoReleasesGenerateNotes(String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/releases/latest`
-    /// * docs https://docs.github.com/rest/reference/repos#get-the-latest-release
+    /// * docs <https://docs.github.com/rest/reference/repos#get-the-latest-release>
     ///
     /// Get the latest release
     /// View the latest published full release for the repository.
@@ -5857,42 +5857,42 @@ pub enum EndPoints {
     GetReposownerrepoReleasesLatest(String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/releases/tags/{tag}`
-    /// * docs https://docs.github.com/rest/reference/repos#get-a-release-by-tag-name
+    /// * docs <https://docs.github.com/rest/reference/repos#get-a-release-by-tag-name>
     ///
     /// Get a release by tag name
     /// Get a published release with the specified tag.
     GetReposownerrepoReleasesTagstag(String, String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/releases/{release_id}`
-    /// * docs https://docs.github.com/rest/reference/repos#get-a-release
+    /// * docs <https://docs.github.com/rest/reference/repos#get-a-release>
     ///
     /// Get a release
     /// **Note:** This returns an `upload_url` key corresponding to the endpoint for uploading release assets. This key is a [hypermedia resource](https://docs.github.com/rest/overview/resources-in-the-rest-api#hypermedia).
     GetReposownerrepoReleasesreleaseId(String, String, String),
     /// * tags repos
     /// * patch `/repos/{owner}/{repo}/releases/{release_id}`
-    /// * docs https://docs.github.com/rest/reference/repos#update-a-release
+    /// * docs <https://docs.github.com/rest/reference/repos#update-a-release>
     ///
     /// Update a release
     /// Users with push access to the repository can edit a release.
     PatchReposownerrepoReleasesreleaseId(String, String, String),
     /// * tags repos
     /// * delete `/repos/{owner}/{repo}/releases/{release_id}`
-    /// * docs https://docs.github.com/rest/reference/repos#delete-a-release
+    /// * docs <https://docs.github.com/rest/reference/repos#delete-a-release>
     ///
     /// Delete a release
     /// Users with push access to the repository can delete a release.
     DeleteReposownerrepoReleasesreleaseId(String, String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/releases/{release_id}/assets`
-    /// * docs https://docs.github.com/rest/reference/repos#list-release-assets
+    /// * docs <https://docs.github.com/rest/reference/repos#list-release-assets>
     ///
     /// List release assets
     ///
     GetReposownerrepoReleasesreleaseIdAssets(String, String, String),
     /// * tags repos
     /// * post `/repos/{owner}/{repo}/releases/{release_id}/assets`
-    /// * docs https://docs.github.com/rest/reference/repos#upload-a-release-asset
+    /// * docs <https://docs.github.com/rest/reference/repos#upload-a-release-asset>
     ///
     /// Upload a release asset
     /// This endpoint makes use of [a Hypermedia relation](https://docs.github.com/rest/overview/resources-in-the-rest-api#hypermedia) to determine which URL to access. The endpoint you call to upload release assets is specific to your release. Use the `upload_url` returned in
@@ -5916,14 +5916,14 @@ pub enum EndPoints {
     PostReposownerrepoReleasesreleaseIdAssets(String, String, String),
     /// * tags reactions
     /// * post `/repos/{owner}/{repo}/releases/{release_id}/reactions`
-    /// * docs https://docs.github.com/rest/reference/reactions/#create-reaction-for-a-release
+    /// * docs <https://docs.github.com/rest/reference/reactions/#create-reaction-for-a-release>
     ///
     /// Create reaction for a release
     /// Create a reaction to a [release](https://docs.github.com/rest/reference/repos#releases). A response with a `Status: 200 OK` means that you already added the reaction type to this release.
     PostReposownerrepoReleasesreleaseIdReactions(String, String, String),
     /// * tags secret-scanning
     /// * get `/repos/{owner}/{repo}/secret-scanning/alerts`
-    /// * docs https://docs.github.com/rest/reference/secret-scanning#list-secret-scanning-alerts-for-a-repository
+    /// * docs <https://docs.github.com/rest/reference/secret-scanning#list-secret-scanning-alerts-for-a-repository>
     ///
     /// List secret scanning alerts for a repository
     /// Lists secret scanning alerts for a private repository, from newest to oldest. To use this endpoint, you must be an administrator for the repository or organization, and you must use an access token with the `repo` scope or `security_events` scope.
@@ -5932,7 +5932,7 @@ pub enum EndPoints {
     GetReposownerrepoSecretScanningAlerts(String, String),
     /// * tags secret-scanning
     /// * get `/repos/{owner}/{repo}/secret-scanning/alerts/{alert_number}`
-    /// * docs https://docs.github.com/rest/reference/secret-scanning#get-a-secret-scanning-alert
+    /// * docs <https://docs.github.com/rest/reference/secret-scanning#get-a-secret-scanning-alert>
     ///
     /// Get a secret scanning alert
     /// Gets a single secret scanning alert detected in a private repository. To use this endpoint, you must be an administrator for the repository or organization, and you must use an access token with the `repo` scope or `security_events` scope.
@@ -5941,7 +5941,7 @@ pub enum EndPoints {
     GetReposownerrepoSecretScanningAlertsalertNumber(String, String, String),
     /// * tags secret-scanning
     /// * patch `/repos/{owner}/{repo}/secret-scanning/alerts/{alert_number}`
-    /// * docs https://docs.github.com/rest/reference/secret-scanning#update-a-secret-scanning-alert
+    /// * docs <https://docs.github.com/rest/reference/secret-scanning#update-a-secret-scanning-alert>
     ///
     /// Update a secret scanning alert
     /// Updates the status of a secret scanning alert in a private repository. To use this endpoint, you must be an administrator for the repository or organization, and you must use an access token with the `repo` scope or `security_events` scope.
@@ -5950,7 +5950,7 @@ pub enum EndPoints {
     PatchReposownerrepoSecretScanningAlertsalertNumber(String, String, String),
     /// * tags secret-scanning
     /// * get `/repos/{owner}/{repo}/secret-scanning/alerts/{alert_number}/locations`
-    /// * docs https://docs.github.com/rest/reference/secret-scanning#list-locations-for-a-secret-scanning-alert
+    /// * docs <https://docs.github.com/rest/reference/secret-scanning#list-locations-for-a-secret-scanning-alert>
     ///
     /// List locations for a secret scanning alert
     /// Lists all locations for a given secret scanning alert for a private repository. To use this endpoint, you must be an administrator for the repository or organization, and you must use an access token with the `repo` scope or `security_events` scope.
@@ -5959,7 +5959,7 @@ pub enum EndPoints {
     GetReposownerrepoSecretScanningAlertsalertNumberLocations(String, String, String),
     /// * tags activity
     /// * get `/repos/{owner}/{repo}/stargazers`
-    /// * docs https://docs.github.com/rest/reference/activity#list-stargazers
+    /// * docs <https://docs.github.com/rest/reference/activity#list-stargazers>
     ///
     /// List stargazers
     /// Lists the people that have starred the repository.
@@ -5968,21 +5968,21 @@ pub enum EndPoints {
     GetReposownerrepoStargazers(String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/stats/code_frequency`
-    /// * docs https://docs.github.com/rest/reference/repos#get-the-weekly-commit-activity
+    /// * docs <https://docs.github.com/rest/reference/repos#get-the-weekly-commit-activity>
     ///
     /// Get the weekly commit activity
     /// Returns a weekly aggregate of the number of additions and deletions pushed to a repository.
     GetReposownerrepoStatsCodeFrequency(String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/stats/commit_activity`
-    /// * docs https://docs.github.com/rest/reference/repos#get-the-last-year-of-commit-activity
+    /// * docs <https://docs.github.com/rest/reference/repos#get-the-last-year-of-commit-activity>
     ///
     /// Get the last year of commit activity
     /// Returns the last year of commit activity grouped by week. The `days` array is a group of commits per day, starting on `Sunday`.
     GetReposownerrepoStatsCommitActivity(String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/stats/contributors`
-    /// * docs https://docs.github.com/rest/reference/repos#get-all-contributor-commit-activity
+    /// * docs <https://docs.github.com/rest/reference/repos#get-all-contributor-commit-activity>
     ///
     /// Get all contributor commit activity
     ///
@@ -5995,7 +5995,7 @@ pub enum EndPoints {
     GetReposownerrepoStatsContributors(String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/stats/participation`
-    /// * docs https://docs.github.com/rest/reference/repos#get-the-weekly-commit-count
+    /// * docs <https://docs.github.com/rest/reference/repos#get-the-weekly-commit-count>
     ///
     /// Get the weekly commit count
     /// Returns the total commit counts for the `owner` and total commit counts in `all`. `all` is everyone combined, including the `owner` in the last 52 weeks. If you'd like to get the commit counts for non-owners, you can subtract `owner` from `all`.
@@ -6004,7 +6004,7 @@ pub enum EndPoints {
     GetReposownerrepoStatsParticipation(String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/stats/punch_card`
-    /// * docs https://docs.github.com/rest/reference/repos#get-the-hourly-commit-count-for-each-day
+    /// * docs <https://docs.github.com/rest/reference/repos#get-the-hourly-commit-count-for-each-day>
     ///
     /// Get the hourly commit count for each day
     /// Each array contains the day number, hour number, and number of commits:
@@ -6017,7 +6017,7 @@ pub enum EndPoints {
     GetReposownerrepoStatsPunchCard(String, String),
     /// * tags repos
     /// * post `/repos/{owner}/{repo}/statuses/{sha}`
-    /// * docs https://docs.github.com/rest/reference/repos#create-a-commit-status
+    /// * docs <https://docs.github.com/rest/reference/repos#create-a-commit-status>
     ///
     /// Create a commit status
     /// Users with push access in a repository can create commit statuses for a given SHA.
@@ -6026,42 +6026,42 @@ pub enum EndPoints {
     PostReposownerrepoStatusessha(String, String, String),
     /// * tags activity
     /// * get `/repos/{owner}/{repo}/subscribers`
-    /// * docs https://docs.github.com/rest/reference/activity#list-watchers
+    /// * docs <https://docs.github.com/rest/reference/activity#list-watchers>
     ///
     /// List watchers
     /// Lists the people watching the specified repository.
     GetReposownerrepoSubscribers(String, String),
     /// * tags activity
     /// * get `/repos/{owner}/{repo}/subscription`
-    /// * docs https://docs.github.com/rest/reference/activity#get-a-repository-subscription
+    /// * docs <https://docs.github.com/rest/reference/activity#get-a-repository-subscription>
     ///
     /// Get a repository subscription
     ///
     GetReposownerrepoSubscription(String, String),
     /// * tags activity
     /// * put `/repos/{owner}/{repo}/subscription`
-    /// * docs https://docs.github.com/rest/reference/activity#set-a-repository-subscription
+    /// * docs <https://docs.github.com/rest/reference/activity#set-a-repository-subscription>
     ///
     /// Set a repository subscription
     /// If you would like to watch a repository, set `subscribed` to `true`. If you would like to ignore notifications made within a repository, set `ignored` to `true`. If you would like to stop watching a repository, [delete the repository's subscription](https://docs.github.com/rest/reference/activity#delete-a-repository-subscription) completely.
     PutReposownerrepoSubscription(String, String),
     /// * tags activity
     /// * delete `/repos/{owner}/{repo}/subscription`
-    /// * docs https://docs.github.com/rest/reference/activity#delete-a-repository-subscription
+    /// * docs <https://docs.github.com/rest/reference/activity#delete-a-repository-subscription>
     ///
     /// Delete a repository subscription
     /// This endpoint should only be used to stop watching a repository. To control whether or not you wish to receive notifications from a repository, [set the repository's subscription manually](https://docs.github.com/rest/reference/activity#set-a-repository-subscription).
     DeleteReposownerrepoSubscription(String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/tags`
-    /// * docs https://docs.github.com/rest/reference/repos#list-repository-tags
+    /// * docs <https://docs.github.com/rest/reference/repos#list-repository-tags>
     ///
     /// List repository tags
     ///
     GetReposownerrepoTags(String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/tarball/{ref}`
-    /// * docs https://docs.github.com/rest/reference/repos#download-a-repository-archive
+    /// * docs <https://docs.github.com/rest/reference/repos#download-a-repository-archive>
     ///
     /// Download a repository archive (tar)
     /// Gets a redirect URL to download a tar archive for a repository. If you omit `:ref`, the repository’s default branch (usually
@@ -6071,84 +6071,84 @@ pub enum EndPoints {
     GetReposownerrepoTarballref(String, String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/teams`
-    /// * docs https://docs.github.com/rest/reference/repos#list-repository-teams
+    /// * docs <https://docs.github.com/rest/reference/repos#list-repository-teams>
     ///
     /// List repository teams
     ///
     GetReposownerrepoTeams(String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/topics`
-    /// * docs https://docs.github.com/rest/reference/repos#get-all-repository-topics
+    /// * docs <https://docs.github.com/rest/reference/repos#get-all-repository-topics>
     ///
     /// Get all repository topics
     ///
     GetReposownerrepoTopics(String, String),
     /// * tags repos
     /// * put `/repos/{owner}/{repo}/topics`
-    /// * docs https://docs.github.com/rest/reference/repos#replace-all-repository-topics
+    /// * docs <https://docs.github.com/rest/reference/repos#replace-all-repository-topics>
     ///
     /// Replace all repository topics
     ///
     PutReposownerrepoTopics(String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/traffic/clones`
-    /// * docs https://docs.github.com/rest/reference/repos#get-repository-clones
+    /// * docs <https://docs.github.com/rest/reference/repos#get-repository-clones>
     ///
     /// Get repository clones
     /// Get the total number of clones and breakdown per day or week for the last 14 days. Timestamps are aligned to UTC midnight of the beginning of the day or week. Week begins on Monday.
     GetReposownerrepoTrafficClones(String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/traffic/popular/paths`
-    /// * docs https://docs.github.com/rest/reference/repos#get-top-referral-paths
+    /// * docs <https://docs.github.com/rest/reference/repos#get-top-referral-paths>
     ///
     /// Get top referral paths
     /// Get the top 10 popular contents over the last 14 days.
     GetReposownerrepoTrafficPopularPaths(String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/traffic/popular/referrers`
-    /// * docs https://docs.github.com/rest/reference/repos#get-top-referral-sources
+    /// * docs <https://docs.github.com/rest/reference/repos#get-top-referral-sources>
     ///
     /// Get top referral sources
     /// Get the top 10 referrers over the last 14 days.
     GetReposownerrepoTrafficPopularReferrers(String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/traffic/views`
-    /// * docs https://docs.github.com/rest/reference/repos#get-page-views
+    /// * docs <https://docs.github.com/rest/reference/repos#get-page-views>
     ///
     /// Get page views
     /// Get the total number of views and breakdown per day or week for the last 14 days. Timestamps are aligned to UTC midnight of the beginning of the day or week. Week begins on Monday.
     GetReposownerrepoTrafficViews(String, String),
     /// * tags repos
     /// * post `/repos/{owner}/{repo}/transfer`
-    /// * docs https://docs.github.com/rest/reference/repos#transfer-a-repository
+    /// * docs <https://docs.github.com/rest/reference/repos#transfer-a-repository>
     ///
     /// Transfer a repository
     /// A transfer request will need to be accepted by the new owner when transferring a personal repository to another user. The response will contain the original `owner`, and the transfer will continue asynchronously. For more details on the requirements to transfer personal and organization-owned repositories, see [about repository transfers](https://help.github.com/articles/about-repository-transfers/).
     PostReposownerrepoTransfer(String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/vulnerability-alerts`
-    /// * docs https://docs.github.com/rest/reference/repos#check-if-vulnerability-alerts-are-enabled-for-a-repository
+    /// * docs <https://docs.github.com/rest/reference/repos#check-if-vulnerability-alerts-are-enabled-for-a-repository>
     ///
     /// Check if vulnerability alerts are enabled for a repository
     /// Shows whether dependency alerts are enabled or disabled for a repository. The authenticated user must have admin access to the repository. For more information, see "[About security alerts for vulnerable dependencies](https://help.github.com/en/articles/about-security-alerts-for-vulnerable-dependencies)".
     GetReposownerrepoVulnerabilityAlerts(String, String),
     /// * tags repos
     /// * put `/repos/{owner}/{repo}/vulnerability-alerts`
-    /// * docs https://docs.github.com/rest/reference/repos#enable-vulnerability-alerts
+    /// * docs <https://docs.github.com/rest/reference/repos#enable-vulnerability-alerts>
     ///
     /// Enable vulnerability alerts
     /// Enables dependency alerts and the dependency graph for a repository. The authenticated user must have admin access to the repository. For more information, see "[About security alerts for vulnerable dependencies](https://help.github.com/en/articles/about-security-alerts-for-vulnerable-dependencies)".
     PutReposownerrepoVulnerabilityAlerts(String, String),
     /// * tags repos
     /// * delete `/repos/{owner}/{repo}/vulnerability-alerts`
-    /// * docs https://docs.github.com/rest/reference/repos#disable-vulnerability-alerts
+    /// * docs <https://docs.github.com/rest/reference/repos#disable-vulnerability-alerts>
     ///
     /// Disable vulnerability alerts
     /// Disables dependency alerts and the dependency graph for a repository. The authenticated user must have admin access to the repository. For more information, see "[About security alerts for vulnerable dependencies](https://help.github.com/en/articles/about-security-alerts-for-vulnerable-dependencies)".
     DeleteReposownerrepoVulnerabilityAlerts(String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/zipball/{ref}`
-    /// * docs https://docs.github.com/rest/reference/repos#download-a-repository-archive
+    /// * docs <https://docs.github.com/rest/reference/repos#download-a-repository-archive>
     ///
     /// Download a repository archive (zip)
     /// Gets a redirect URL to download a zip archive for a repository. If you omit `:ref`, the repository’s default branch (usually
@@ -6158,7 +6158,7 @@ pub enum EndPoints {
     GetReposownerrepoZipballref(String, String, String),
     /// * tags repos
     /// * post `/repos/{template_owner}/{template_repo}/generate`
-    /// * docs https://docs.github.com/rest/reference/repos#create-a-repository-using-a-template
+    /// * docs <https://docs.github.com/rest/reference/repos#create-a-repository-using-a-template>
     ///
     /// Create a repository using a template
     /// Creates a new repository using a repository template. Use the `template_owner` and `template_repo` route parameters to specify the repository to use as the template. The authenticated user must own or be a member of an organization that owns the repository. To check if a repository is available to use as a template, get the repository's information using the [Get a repository](https://docs.github.com/rest/reference/repos#get-a-repository) endpoint and check that the `is_template` key is `true`.
@@ -6172,7 +6172,7 @@ pub enum EndPoints {
     PostRepostemplateOwnertemplateRepoGenerate(String, String),
     /// * tags repos
     /// * get `/repositories`
-    /// * docs https://docs.github.com/rest/reference/repos#list-public-repositories
+    /// * docs <https://docs.github.com/rest/reference/repos#list-public-repositories>
     ///
     /// List public repositories
     /// Lists all public repositories in the order that they were created.
@@ -6183,28 +6183,28 @@ pub enum EndPoints {
     GetRepositories(),
     /// * tags actions
     /// * get `/repositories/{repository_id}/environments/{environment_name}/secrets`
-    /// * docs https://docs.github.com/rest/reference/actions#list-environment-secrets
+    /// * docs <https://docs.github.com/rest/reference/actions#list-environment-secrets>
     ///
     /// List environment secrets
     /// Lists all secrets available in an environment without revealing their encrypted values. You must authenticate using an access token with the `repo` scope to use this endpoint. GitHub Apps must have the `secrets` repository permission to use this endpoint.
     GetRepositoriesrepositoryIdEnvironmentsenvironmentNameSecrets(String, String),
     /// * tags actions
     /// * get `/repositories/{repository_id}/environments/{environment_name}/secrets/public-key`
-    /// * docs https://docs.github.com/rest/reference/actions#get-an-environment-public-key
+    /// * docs <https://docs.github.com/rest/reference/actions#get-an-environment-public-key>
     ///
     /// Get an environment public key
     /// Get the public key for an environment, which you need to encrypt environment secrets. You need to encrypt a secret before you can create or update secrets. Anyone with read access to the repository can use this endpoint. If the repository is private you must use an access token with the `repo` scope. GitHub Apps must have the `secrets` repository permission to use this endpoint.
     GetRepositoriesrepositoryIdEnvironmentsenvironmentNameSecretsPublicKey(String, String),
     /// * tags actions
     /// * get `/repositories/{repository_id}/environments/{environment_name}/secrets/{secret_name}`
-    /// * docs https://docs.github.com/rest/reference/actions#get-an-environment-secret
+    /// * docs <https://docs.github.com/rest/reference/actions#get-an-environment-secret>
     ///
     /// Get an environment secret
     /// Gets a single environment secret without revealing its encrypted value. You must authenticate using an access token with the `repo` scope to use this endpoint. GitHub Apps must have the `secrets` repository permission to use this endpoint.
     GetRepositoriesrepositoryIdEnvironmentsenvironmentNameSecretssecretName(String, String, String),
     /// * tags actions
     /// * put `/repositories/{repository_id}/environments/{environment_name}/secrets/{secret_name}`
-    /// * docs https://docs.github.com/rest/reference/actions#create-or-update-an-environment-secret
+    /// * docs <https://docs.github.com/rest/reference/actions#create-or-update-an-environment-secret>
     ///
     /// Create or update an environment secret
     /// Creates or updates an environment secret with an encrypted value. Encrypt your secret using
@@ -6285,7 +6285,7 @@ pub enum EndPoints {
     PutRepositoriesrepositoryIdEnvironmentsenvironmentNameSecretssecretName(String, String, String),
     /// * tags actions
     /// * delete `/repositories/{repository_id}/environments/{environment_name}/secrets/{secret_name}`
-    /// * docs https://docs.github.com/rest/reference/actions#delete-an-environment-secret
+    /// * docs <https://docs.github.com/rest/reference/actions#delete-an-environment-secret>
     ///
     /// Delete an environment secret
     /// Deletes a secret in an environment using the secret name. You must authenticate using an access token with the `repo` scope to use this endpoint. GitHub Apps must have the `secrets` repository permission to use this endpoint.
@@ -6296,14 +6296,14 @@ pub enum EndPoints {
     ),
     /// * tags enterprise-admin
     /// * get `/scim/v2/enterprises/{enterprise}/Groups`
-    /// * docs https://docs.github.com/rest/reference/enterprise-admin#list-provisioned-scim-groups-for-an-enterprise
+    /// * docs <https://docs.github.com/rest/reference/enterprise-admin#list-provisioned-scim-groups-for-an-enterprise>
     ///
     /// List provisioned SCIM groups for an enterprise
     /// **Note:** The SCIM API endpoints for enterprise accounts are currently in beta and are subject to change.
     GetScimV2EnterprisesenterpriseGroups(String),
     /// * tags enterprise-admin
     /// * post `/scim/v2/enterprises/{enterprise}/Groups`
-    /// * docs https://docs.github.com/rest/reference/enterprise-admin#provision-a-scim-enterprise-group-and-invite-users
+    /// * docs <https://docs.github.com/rest/reference/enterprise-admin#provision-a-scim-enterprise-group-and-invite-users>
     ///
     /// Provision a SCIM enterprise group and invite users
     /// **Note:** The SCIM API endpoints for enterprise accounts are currently in beta and are subject to change.
@@ -6312,14 +6312,14 @@ pub enum EndPoints {
     PostScimV2EnterprisesenterpriseGroups(String),
     /// * tags enterprise-admin
     /// * get `/scim/v2/enterprises/{enterprise}/Groups/{scim_group_id}`
-    /// * docs https://docs.github.com/rest/reference/enterprise-admin#get-scim-provisioning-information-for-an-enterprise-group
+    /// * docs <https://docs.github.com/rest/reference/enterprise-admin#get-scim-provisioning-information-for-an-enterprise-group>
     ///
     /// Get SCIM provisioning information for an enterprise group
     /// **Note:** The SCIM API endpoints for enterprise accounts are currently in beta and are subject to change.
     GetScimV2EnterprisesenterpriseGroupsscimGroupId(String, String),
     /// * tags enterprise-admin
     /// * put `/scim/v2/enterprises/{enterprise}/Groups/{scim_group_id}`
-    /// * docs https://docs.github.com/rest/reference/enterprise-admin#set-scim-information-for-a-provisioned-enterprise-group
+    /// * docs <https://docs.github.com/rest/reference/enterprise-admin#set-scim-information-for-a-provisioned-enterprise-group>
     ///
     /// Set SCIM information for a provisioned enterprise group
     /// **Note:** The SCIM API endpoints for enterprise accounts are currently in beta and are subject to change.
@@ -6328,7 +6328,7 @@ pub enum EndPoints {
     PutScimV2EnterprisesenterpriseGroupsscimGroupId(String, String),
     /// * tags enterprise-admin
     /// * patch `/scim/v2/enterprises/{enterprise}/Groups/{scim_group_id}`
-    /// * docs https://docs.github.com/rest/reference/enterprise-admin#update-an-attribute-for-a-scim-enterprise-group
+    /// * docs <https://docs.github.com/rest/reference/enterprise-admin#update-an-attribute-for-a-scim-enterprise-group>
     ///
     /// Update an attribute for a SCIM enterprise group
     /// **Note:** The SCIM API endpoints for enterprise accounts are currently in beta and are subject to change.
@@ -6337,14 +6337,14 @@ pub enum EndPoints {
     PatchScimV2EnterprisesenterpriseGroupsscimGroupId(String, String),
     /// * tags enterprise-admin
     /// * delete `/scim/v2/enterprises/{enterprise}/Groups/{scim_group_id}`
-    /// * docs https://docs.github.com/rest/reference/enterprise-admin#delete-a-scim-group-from-an-enterprise
+    /// * docs <https://docs.github.com/rest/reference/enterprise-admin#delete-a-scim-group-from-an-enterprise>
     ///
     /// Delete a SCIM group from an enterprise
     /// **Note:** The SCIM API endpoints for enterprise accounts are currently in beta and are subject to change.
     DeleteScimV2EnterprisesenterpriseGroupsscimGroupId(String, String),
     /// * tags enterprise-admin
     /// * get `/scim/v2/enterprises/{enterprise}/Users`
-    /// * docs https://docs.github.com/rest/reference/enterprise-admin#list-scim-provisioned-identities-for-an-enterprise
+    /// * docs <https://docs.github.com/rest/reference/enterprise-admin#list-scim-provisioned-identities-for-an-enterprise>
     ///
     /// List SCIM provisioned identities for an enterprise
     /// **Note:** The SCIM API endpoints for enterprise accounts are currently in beta and are subject to change.
@@ -6368,7 +6368,7 @@ pub enum EndPoints {
     GetScimV2EnterprisesenterpriseUsers(String),
     /// * tags enterprise-admin
     /// * post `/scim/v2/enterprises/{enterprise}/Users`
-    /// * docs https://docs.github.com/rest/reference/enterprise-admin#provision-and-invite-a-scim-enterprise-user
+    /// * docs <https://docs.github.com/rest/reference/enterprise-admin#provision-and-invite-a-scim-enterprise-user>
     ///
     /// Provision and invite a SCIM enterprise user
     /// **Note:** The SCIM API endpoints for enterprise accounts are currently in beta and are subject to change.
@@ -6379,14 +6379,14 @@ pub enum EndPoints {
     PostScimV2EnterprisesenterpriseUsers(String),
     /// * tags enterprise-admin
     /// * get `/scim/v2/enterprises/{enterprise}/Users/{scim_user_id}`
-    /// * docs https://docs.github.com/rest/reference/enterprise-admin#get-scim-provisioning-information-for-an-enterprise-user
+    /// * docs <https://docs.github.com/rest/reference/enterprise-admin#get-scim-provisioning-information-for-an-enterprise-user>
     ///
     /// Get SCIM provisioning information for an enterprise user
     /// **Note:** The SCIM API endpoints for enterprise accounts are currently in beta and are subject to change.
     GetScimV2EnterprisesenterpriseUsersscimUserId(String, String),
     /// * tags enterprise-admin
     /// * put `/scim/v2/enterprises/{enterprise}/Users/{scim_user_id}`
-    /// * docs https://docs.github.com/rest/reference/enterprise-admin#set-scim-information-for-a-provisioned-enterprise-user
+    /// * docs <https://docs.github.com/rest/reference/enterprise-admin#set-scim-information-for-a-provisioned-enterprise-user>
     ///
     /// Set SCIM information for a provisioned enterprise user
     /// **Note:** The SCIM API endpoints for enterprise accounts are currently in beta and are subject to change.
@@ -6399,7 +6399,7 @@ pub enum EndPoints {
     PutScimV2EnterprisesenterpriseUsersscimUserId(String, String),
     /// * tags enterprise-admin
     /// * patch `/scim/v2/enterprises/{enterprise}/Users/{scim_user_id}`
-    /// * docs https://docs.github.com/rest/reference/enterprise-admin#update-an-attribute-for-a-scim-enterprise-user
+    /// * docs <https://docs.github.com/rest/reference/enterprise-admin#update-an-attribute-for-a-scim-enterprise-user>
     ///
     /// Update an attribute for a SCIM enterprise user
     /// **Note:** The SCIM API endpoints for enterprise accounts are currently in beta and are subject to change.
@@ -6423,14 +6423,14 @@ pub enum EndPoints {
     PatchScimV2EnterprisesenterpriseUsersscimUserId(String, String),
     /// * tags enterprise-admin
     /// * delete `/scim/v2/enterprises/{enterprise}/Users/{scim_user_id}`
-    /// * docs https://docs.github.com/rest/reference/enterprise-admin#delete-a-scim-user-from-an-enterprise
+    /// * docs <https://docs.github.com/rest/reference/enterprise-admin#delete-a-scim-user-from-an-enterprise>
     ///
     /// Delete a SCIM user from an enterprise
     /// **Note:** The SCIM API endpoints for enterprise accounts are currently in beta and are subject to change.
     DeleteScimV2EnterprisesenterpriseUsersscimUserId(String, String),
     /// * tags scim
     /// * get `/scim/v2/organizations/{org}/Users`
-    /// * docs https://docs.github.com/rest/reference/scim#list-scim-provisioned-identities
+    /// * docs <https://docs.github.com/rest/reference/scim#list-scim-provisioned-identities>
     ///
     /// List SCIM provisioned identities
     /// Retrieves a paginated list of all provisioned organization members, including pending invitations. If you provide the `filter` parameter, the resources for all matching provisions members are returned.
@@ -6452,21 +6452,21 @@ pub enum EndPoints {
     GetScimV2OrganizationsorgUsers(String),
     /// * tags scim
     /// * post `/scim/v2/organizations/{org}/Users`
-    /// * docs https://docs.github.com/rest/reference/scim#provision-and-invite-a-scim-user
+    /// * docs <https://docs.github.com/rest/reference/scim#provision-and-invite-a-scim-user>
     ///
     /// Provision and invite a SCIM user
     /// Provision organization membership for a user, and send an activation email to the email address.
     PostScimV2OrganizationsorgUsers(String),
     /// * tags scim
     /// * get `/scim/v2/organizations/{org}/Users/{scim_user_id}`
-    /// * docs https://docs.github.com/rest/reference/scim#get-scim-provisioning-information-for-a-user
+    /// * docs <https://docs.github.com/rest/reference/scim#get-scim-provisioning-information-for-a-user>
     ///
     /// Get SCIM provisioning information for a user
     ///
     GetScimV2OrganizationsorgUsersscimUserId(String, String),
     /// * tags scim
     /// * put `/scim/v2/organizations/{org}/Users/{scim_user_id}`
-    /// * docs https://docs.github.com/rest/reference/scim#set-scim-information-for-a-provisioned-user
+    /// * docs <https://docs.github.com/rest/reference/scim#set-scim-information-for-a-provisioned-user>
     ///
     /// Update a provisioned organization membership
     /// Replaces an existing provisioned user's information. You must provide all the information required for the user as if you were provisioning them for the first time. Any existing user information that you don't provide will be removed. If you want to only update a specific attribute, use the [Update an attribute for a SCIM user](https://docs.github.com/rest/reference/scim#update-an-attribute-for-a-scim-user) endpoint instead.
@@ -6477,7 +6477,7 @@ pub enum EndPoints {
     PutScimV2OrganizationsorgUsersscimUserId(String, String),
     /// * tags scim
     /// * patch `/scim/v2/organizations/{org}/Users/{scim_user_id}`
-    /// * docs https://docs.github.com/rest/reference/scim#update-an-attribute-for-a-scim-user
+    /// * docs <https://docs.github.com/rest/reference/scim#update-an-attribute-for-a-scim-user>
     ///
     /// Update an attribute for a SCIM user
     /// Allows you to change a provisioned user's individual attributes. To change a user's values, you must provide a specific `Operations` JSON format that contains at least one of the `add`, `remove`, or `replace` operations. For examples and more information on the SCIM operations format, see the [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.5.2).
@@ -6499,14 +6499,14 @@ pub enum EndPoints {
     PatchScimV2OrganizationsorgUsersscimUserId(String, String),
     /// * tags scim
     /// * delete `/scim/v2/organizations/{org}/Users/{scim_user_id}`
-    /// * docs https://docs.github.com/rest/reference/scim#delete-a-scim-user-from-an-organization
+    /// * docs <https://docs.github.com/rest/reference/scim#delete-a-scim-user-from-an-organization>
     ///
     /// Delete a SCIM user from an organization
     ///
     DeleteScimV2OrganizationsorgUsersscimUserId(String, String),
     /// * tags search
     /// * get `/search/code`
-    /// * docs https://docs.github.com/rest/reference/search#search-code
+    /// * docs <https://docs.github.com/rest/reference/search#search-code>
     ///
     /// Search code
     /// Searches for query terms inside of a file. This method returns up to 100 results [per page](https://docs.github.com/rest/overview/resources-in-the-rest-api#pagination).
@@ -6530,7 +6530,7 @@ pub enum EndPoints {
     GetSearchCode(),
     /// * tags search
     /// * get `/search/commits`
-    /// * docs https://docs.github.com/rest/reference/search#search-commits
+    /// * docs <https://docs.github.com/rest/reference/search#search-commits>
     ///
     /// Search commits
     /// Find commits via various criteria on the default branch (usually `master`). This method returns up to 100 results [per page](https://docs.github.com/rest/overview/resources-in-the-rest-api#pagination).
@@ -6544,7 +6544,7 @@ pub enum EndPoints {
     GetSearchCommits(),
     /// * tags search
     /// * get `/search/issues`
-    /// * docs https://docs.github.com/rest/reference/search#search-issues-and-pull-requests
+    /// * docs <https://docs.github.com/rest/reference/search#search-issues-and-pull-requests>
     ///
     /// Search issues and pull requests
     /// Find issues by state and keyword. This method returns up to 100 results [per page](https://docs.github.com/rest/overview/resources-in-the-rest-api#pagination).
@@ -6562,7 +6562,7 @@ pub enum EndPoints {
     GetSearchIssues(),
     /// * tags search
     /// * get `/search/labels`
-    /// * docs https://docs.github.com/rest/reference/search#search-labels
+    /// * docs <https://docs.github.com/rest/reference/search#search-labels>
     ///
     /// Search labels
     /// Find labels in a repository with names or descriptions that match search keywords. Returns up to 100 results [per page](https://docs.github.com/rest/overview/resources-in-the-rest-api#pagination).
@@ -6577,7 +6577,7 @@ pub enum EndPoints {
     GetSearchLabels(),
     /// * tags search
     /// * get `/search/repositories`
-    /// * docs https://docs.github.com/rest/reference/search#search-repositories
+    /// * docs <https://docs.github.com/rest/reference/search#search-repositories>
     ///
     /// Search repositories
     /// Find repositories via various criteria. This method returns up to 100 results [per page](https://docs.github.com/rest/overview/resources-in-the-rest-api#pagination).
@@ -6592,7 +6592,7 @@ pub enum EndPoints {
     GetSearchRepositories(),
     /// * tags search
     /// * get `/search/topics`
-    /// * docs https://docs.github.com/rest/reference/search#search-topics
+    /// * docs <https://docs.github.com/rest/reference/search#search-topics>
     ///
     /// Search topics
     /// Find topics via various criteria. Results are sorted by best match. This method returns up to 100 results [per page](https://docs.github.com/rest/overview/resources-in-the-rest-api#pagination). See "[Searching topics](https://help.github.com/articles/searching-topics/)" for a detailed list of qualifiers.
@@ -6607,7 +6607,7 @@ pub enum EndPoints {
     GetSearchTopics(),
     /// * tags search
     /// * get `/search/users`
-    /// * docs https://docs.github.com/rest/reference/search#search-users
+    /// * docs <https://docs.github.com/rest/reference/search#search-users>
     ///
     /// Search users
     /// Find users via various criteria. This method returns up to 100 results [per page](https://docs.github.com/rest/overview/resources-in-the-rest-api#pagination).
@@ -6622,14 +6622,14 @@ pub enum EndPoints {
     GetSearchUsers(),
     /// * tags teams
     /// * get `/teams/{team_id}`
-    /// * docs https://docs.github.com/rest/reference/teams/#get-a-team-legacy
+    /// * docs <https://docs.github.com/rest/reference/teams/#get-a-team-legacy>
     ///
     /// Get a team (Legacy)
     /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the [Get a team by name](https://docs.github.com/rest/reference/teams#get-a-team-by-name) endpoint.
     GetTeamsteamId(String),
     /// * tags teams
     /// * patch `/teams/{team_id}`
-    /// * docs https://docs.github.com/rest/reference/teams/#update-a-team-legacy
+    /// * docs <https://docs.github.com/rest/reference/teams/#update-a-team-legacy>
     ///
     /// Update a team (Legacy)
     /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Update a team](https://docs.github.com/rest/reference/teams#update-a-team) endpoint.
@@ -6640,7 +6640,7 @@ pub enum EndPoints {
     PatchTeamsteamId(String),
     /// * tags teams
     /// * delete `/teams/{team_id}`
-    /// * docs https://docs.github.com/rest/reference/teams/#delete-a-team-legacy
+    /// * docs <https://docs.github.com/rest/reference/teams/#delete-a-team-legacy>
     ///
     /// Delete a team (Legacy)
     /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Delete a team](https://docs.github.com/rest/reference/teams#delete-a-team) endpoint.
@@ -6651,7 +6651,7 @@ pub enum EndPoints {
     DeleteTeamsteamId(String),
     /// * tags teams
     /// * get `/teams/{team_id}/discussions`
-    /// * docs https://docs.github.com/rest/reference/teams#list-discussions-legacy
+    /// * docs <https://docs.github.com/rest/reference/teams#list-discussions-legacy>
     ///
     /// List discussions (Legacy)
     /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List discussions`](https://docs.github.com/rest/reference/teams#list-discussions) endpoint.
@@ -6660,7 +6660,7 @@ pub enum EndPoints {
     GetTeamsteamIdDiscussions(String),
     /// * tags teams
     /// * post `/teams/{team_id}/discussions`
-    /// * docs https://docs.github.com/rest/reference/teams#create-a-discussion-legacy
+    /// * docs <https://docs.github.com/rest/reference/teams#create-a-discussion-legacy>
     ///
     /// Create a discussion (Legacy)
     /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`Create a discussion`](https://docs.github.com/rest/reference/teams#create-a-discussion) endpoint.
@@ -6671,7 +6671,7 @@ pub enum EndPoints {
     PostTeamsteamIdDiscussions(String),
     /// * tags teams
     /// * get `/teams/{team_id}/discussions/{discussion_number}`
-    /// * docs https://docs.github.com/rest/reference/teams#get-a-discussion-legacy
+    /// * docs <https://docs.github.com/rest/reference/teams#get-a-discussion-legacy>
     ///
     /// Get a discussion (Legacy)
     /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Get a discussion](https://docs.github.com/rest/reference/teams#get-a-discussion) endpoint.
@@ -6680,7 +6680,7 @@ pub enum EndPoints {
     GetTeamsteamIdDiscussionsdiscussionNumber(String, String),
     /// * tags teams
     /// * patch `/teams/{team_id}/discussions/{discussion_number}`
-    /// * docs https://docs.github.com/rest/reference/teams#update-a-discussion-legacy
+    /// * docs <https://docs.github.com/rest/reference/teams#update-a-discussion-legacy>
     ///
     /// Update a discussion (Legacy)
     /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Update a discussion](https://docs.github.com/rest/reference/teams#update-a-discussion) endpoint.
@@ -6689,7 +6689,7 @@ pub enum EndPoints {
     PatchTeamsteamIdDiscussionsdiscussionNumber(String, String),
     /// * tags teams
     /// * delete `/teams/{team_id}/discussions/{discussion_number}`
-    /// * docs https://docs.github.com/rest/reference/teams#delete-a-discussion-legacy
+    /// * docs <https://docs.github.com/rest/reference/teams#delete-a-discussion-legacy>
     ///
     /// Delete a discussion (Legacy)
     /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`Delete a discussion`](https://docs.github.com/rest/reference/teams#delete-a-discussion) endpoint.
@@ -6698,7 +6698,7 @@ pub enum EndPoints {
     DeleteTeamsteamIdDiscussionsdiscussionNumber(String, String),
     /// * tags teams
     /// * get `/teams/{team_id}/discussions/{discussion_number}/comments`
-    /// * docs https://docs.github.com/rest/reference/teams#list-discussion-comments-legacy
+    /// * docs <https://docs.github.com/rest/reference/teams#list-discussion-comments-legacy>
     ///
     /// List discussion comments (Legacy)
     /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [List discussion comments](https://docs.github.com/rest/reference/teams#list-discussion-comments) endpoint.
@@ -6707,7 +6707,7 @@ pub enum EndPoints {
     GetTeamsteamIdDiscussionsdiscussionNumberComments(String, String),
     /// * tags teams
     /// * post `/teams/{team_id}/discussions/{discussion_number}/comments`
-    /// * docs https://docs.github.com/rest/reference/teams#create-a-discussion-comment-legacy
+    /// * docs <https://docs.github.com/rest/reference/teams#create-a-discussion-comment-legacy>
     ///
     /// Create a discussion comment (Legacy)
     /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Create a discussion comment](https://docs.github.com/rest/reference/teams#create-a-discussion-comment) endpoint.
@@ -6718,7 +6718,7 @@ pub enum EndPoints {
     PostTeamsteamIdDiscussionsdiscussionNumberComments(String, String),
     /// * tags teams
     /// * get `/teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}`
-    /// * docs https://docs.github.com/rest/reference/teams#get-a-discussion-comment-legacy
+    /// * docs <https://docs.github.com/rest/reference/teams#get-a-discussion-comment-legacy>
     ///
     /// Get a discussion comment (Legacy)
     /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Get a discussion comment](https://docs.github.com/rest/reference/teams#get-a-discussion-comment) endpoint.
@@ -6727,7 +6727,7 @@ pub enum EndPoints {
     GetTeamsteamIdDiscussionsdiscussionNumberCommentscommentNumber(String, String, String),
     /// * tags teams
     /// * patch `/teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}`
-    /// * docs https://docs.github.com/rest/reference/teams#update-a-discussion-comment-legacy
+    /// * docs <https://docs.github.com/rest/reference/teams#update-a-discussion-comment-legacy>
     ///
     /// Update a discussion comment (Legacy)
     /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Update a discussion comment](https://docs.github.com/rest/reference/teams#update-a-discussion-comment) endpoint.
@@ -6736,7 +6736,7 @@ pub enum EndPoints {
     PatchTeamsteamIdDiscussionsdiscussionNumberCommentscommentNumber(String, String, String),
     /// * tags teams
     /// * delete `/teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}`
-    /// * docs https://docs.github.com/rest/reference/teams#delete-a-discussion-comment-legacy
+    /// * docs <https://docs.github.com/rest/reference/teams#delete-a-discussion-comment-legacy>
     ///
     /// Delete a discussion comment (Legacy)
     /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Delete a discussion comment](https://docs.github.com/rest/reference/teams#delete-a-discussion-comment) endpoint.
@@ -6745,7 +6745,7 @@ pub enum EndPoints {
     DeleteTeamsteamIdDiscussionsdiscussionNumberCommentscommentNumber(String, String, String),
     /// * tags reactions
     /// * get `/teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}/reactions`
-    /// * docs https://docs.github.com/rest/reference/reactions/#list-reactions-for-a-team-discussion-comment-legacy
+    /// * docs <https://docs.github.com/rest/reference/reactions/#list-reactions-for-a-team-discussion-comment-legacy>
     ///
     /// List reactions for a team discussion comment (Legacy)
     /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List reactions for a team discussion comment`](https://docs.github.com/rest/reference/reactions#list-reactions-for-a-team-discussion-comment) endpoint.
@@ -6754,7 +6754,7 @@ pub enum EndPoints {
     GetTeamsteamIdDiscussionsdiscussionNumberCommentscommentNumberReactions(String, String, String),
     /// * tags reactions
     /// * post `/teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}/reactions`
-    /// * docs https://docs.github.com/rest/reference/reactions/#create-reaction-for-a-team-discussion-comment-legacy
+    /// * docs <https://docs.github.com/rest/reference/reactions/#create-reaction-for-a-team-discussion-comment-legacy>
     ///
     /// Create reaction for a team discussion comment (Legacy)
     /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new "[Create reaction for a team discussion comment](https://docs.github.com/rest/reference/reactions#create-reaction-for-a-team-discussion-comment)" endpoint.
@@ -6767,7 +6767,7 @@ pub enum EndPoints {
     ),
     /// * tags reactions
     /// * get `/teams/{team_id}/discussions/{discussion_number}/reactions`
-    /// * docs https://docs.github.com/rest/reference/reactions/#list-reactions-for-a-team-discussion-legacy
+    /// * docs <https://docs.github.com/rest/reference/reactions/#list-reactions-for-a-team-discussion-legacy>
     ///
     /// List reactions for a team discussion (Legacy)
     /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List reactions for a team discussion`](https://docs.github.com/rest/reference/reactions#list-reactions-for-a-team-discussion) endpoint.
@@ -6776,7 +6776,7 @@ pub enum EndPoints {
     GetTeamsteamIdDiscussionsdiscussionNumberReactions(String, String),
     /// * tags reactions
     /// * post `/teams/{team_id}/discussions/{discussion_number}/reactions`
-    /// * docs https://docs.github.com/rest/reference/reactions/#create-reaction-for-a-team-discussion-legacy
+    /// * docs <https://docs.github.com/rest/reference/reactions/#create-reaction-for-a-team-discussion-legacy>
     ///
     /// Create reaction for a team discussion (Legacy)
     /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`Create reaction for a team discussion`](https://docs.github.com/rest/reference/reactions#create-reaction-for-a-team-discussion) endpoint.
@@ -6785,7 +6785,7 @@ pub enum EndPoints {
     PostTeamsteamIdDiscussionsdiscussionNumberReactions(String, String),
     /// * tags teams
     /// * get `/teams/{team_id}/invitations`
-    /// * docs https://docs.github.com/rest/reference/teams#list-pending-team-invitations-legacy
+    /// * docs <https://docs.github.com/rest/reference/teams#list-pending-team-invitations-legacy>
     ///
     /// List pending team invitations (Legacy)
     /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List pending team invitations`](https://docs.github.com/rest/reference/teams#list-pending-team-invitations) endpoint.
@@ -6794,7 +6794,7 @@ pub enum EndPoints {
     GetTeamsteamIdInvitations(String),
     /// * tags teams
     /// * get `/teams/{team_id}/members`
-    /// * docs https://docs.github.com/rest/reference/teams#list-team-members-legacy
+    /// * docs <https://docs.github.com/rest/reference/teams#list-team-members-legacy>
     ///
     /// List team members (Legacy)
     /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List team members`](https://docs.github.com/rest/reference/teams#list-team-members) endpoint.
@@ -6803,7 +6803,7 @@ pub enum EndPoints {
     GetTeamsteamIdMembers(String),
     /// * tags teams
     /// * get `/teams/{team_id}/members/{username}`
-    /// * docs https://docs.github.com/rest/reference/teams#get-team-member-legacy
+    /// * docs <https://docs.github.com/rest/reference/teams#get-team-member-legacy>
     ///
     /// Get team member (Legacy)
     /// The "Get team member" endpoint (described below) is deprecated.
@@ -6814,7 +6814,7 @@ pub enum EndPoints {
     GetTeamsteamIdMembersusername(String, String),
     /// * tags teams
     /// * put `/teams/{team_id}/members/{username}`
-    /// * docs https://docs.github.com/rest/reference/teams#add-team-member-legacy
+    /// * docs <https://docs.github.com/rest/reference/teams#add-team-member-legacy>
     ///
     /// Add team member (Legacy)
     /// The "Add team member" endpoint (described below) is deprecated.
@@ -6831,7 +6831,7 @@ pub enum EndPoints {
     PutTeamsteamIdMembersusername(String, String),
     /// * tags teams
     /// * delete `/teams/{team_id}/members/{username}`
-    /// * docs https://docs.github.com/rest/reference/teams#remove-team-member-legacy
+    /// * docs <https://docs.github.com/rest/reference/teams#remove-team-member-legacy>
     ///
     /// Remove team member (Legacy)
     /// The "Remove team member" endpoint (described below) is deprecated.
@@ -6846,7 +6846,7 @@ pub enum EndPoints {
     DeleteTeamsteamIdMembersusername(String, String),
     /// * tags teams
     /// * get `/teams/{team_id}/memberships/{username}`
-    /// * docs https://docs.github.com/rest/reference/teams#get-team-membership-for-a-user-legacy
+    /// * docs <https://docs.github.com/rest/reference/teams#get-team-membership-for-a-user-legacy>
     ///
     /// Get team membership for a user (Legacy)
     /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Get team membership for a user](https://docs.github.com/rest/reference/teams#get-team-membership-for-a-user) endpoint.
@@ -6862,7 +6862,7 @@ pub enum EndPoints {
     GetTeamsteamIdMembershipsusername(String, String),
     /// * tags teams
     /// * put `/teams/{team_id}/memberships/{username}`
-    /// * docs https://docs.github.com/rest/reference/teams#add-or-update-team-membership-for-a-user-legacy
+    /// * docs <https://docs.github.com/rest/reference/teams#add-or-update-team-membership-for-a-user-legacy>
     ///
     /// Add or update team membership for a user (Legacy)
     /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Add or update team membership for a user](https://docs.github.com/rest/reference/teams#add-or-update-team-membership-for-a-user) endpoint.
@@ -6879,7 +6879,7 @@ pub enum EndPoints {
     PutTeamsteamIdMembershipsusername(String, String),
     /// * tags teams
     /// * delete `/teams/{team_id}/memberships/{username}`
-    /// * docs https://docs.github.com/rest/reference/teams#remove-team-membership-for-a-user-legacy
+    /// * docs <https://docs.github.com/rest/reference/teams#remove-team-membership-for-a-user-legacy>
     ///
     /// Remove team membership for a user (Legacy)
     /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Remove team membership for a user](https://docs.github.com/rest/reference/teams#remove-team-membership-for-a-user) endpoint.
@@ -6892,7 +6892,7 @@ pub enum EndPoints {
     DeleteTeamsteamIdMembershipsusername(String, String),
     /// * tags teams
     /// * get `/teams/{team_id}/projects`
-    /// * docs https://docs.github.com/rest/reference/teams/#list-team-projects-legacy
+    /// * docs <https://docs.github.com/rest/reference/teams/#list-team-projects-legacy>
     ///
     /// List team projects (Legacy)
     /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List team projects`](https://docs.github.com/rest/reference/teams#list-team-projects) endpoint.
@@ -6901,7 +6901,7 @@ pub enum EndPoints {
     GetTeamsteamIdProjects(String),
     /// * tags teams
     /// * get `/teams/{team_id}/projects/{project_id}`
-    /// * docs https://docs.github.com/rest/reference/teams/#check-team-permissions-for-a-project-legacy
+    /// * docs <https://docs.github.com/rest/reference/teams/#check-team-permissions-for-a-project-legacy>
     ///
     /// Check team permissions for a project (Legacy)
     /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Check team permissions for a project](https://docs.github.com/rest/reference/teams#check-team-permissions-for-a-project) endpoint.
@@ -6910,7 +6910,7 @@ pub enum EndPoints {
     GetTeamsteamIdProjectsprojectId(String, String),
     /// * tags teams
     /// * put `/teams/{team_id}/projects/{project_id}`
-    /// * docs https://docs.github.com/rest/reference/teams/#add-or-update-team-project-permissions-legacy
+    /// * docs <https://docs.github.com/rest/reference/teams/#add-or-update-team-project-permissions-legacy>
     ///
     /// Add or update team project permissions (Legacy)
     /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Add or update team project permissions](https://docs.github.com/rest/reference/teams#add-or-update-team-project-permissions) endpoint.
@@ -6919,7 +6919,7 @@ pub enum EndPoints {
     PutTeamsteamIdProjectsprojectId(String, String),
     /// * tags teams
     /// * delete `/teams/{team_id}/projects/{project_id}`
-    /// * docs https://docs.github.com/rest/reference/teams/#remove-a-project-from-a-team-legacy
+    /// * docs <https://docs.github.com/rest/reference/teams/#remove-a-project-from-a-team-legacy>
     ///
     /// Remove a project from a team (Legacy)
     /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Remove a project from a team](https://docs.github.com/rest/reference/teams#remove-a-project-from-a-team) endpoint.
@@ -6928,14 +6928,14 @@ pub enum EndPoints {
     DeleteTeamsteamIdProjectsprojectId(String, String),
     /// * tags teams
     /// * get `/teams/{team_id}/repos`
-    /// * docs https://docs.github.com/rest/reference/teams/#list-team-repositories-legacy
+    /// * docs <https://docs.github.com/rest/reference/teams/#list-team-repositories-legacy>
     ///
     /// List team repositories (Legacy)
     /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [List team repositories](https://docs.github.com/rest/reference/teams#list-team-repositories) endpoint.
     GetTeamsteamIdRepos(String),
     /// * tags teams
     /// * get `/teams/{team_id}/repos/{owner}/{repo}`
-    /// * docs https://docs.github.com/rest/reference/teams/#check-team-permissions-for-a-repository-legacy
+    /// * docs <https://docs.github.com/rest/reference/teams/#check-team-permissions-for-a-repository-legacy>
     ///
     /// Check team permissions for a repository (Legacy)
     /// **Note**: Repositories inherited through a parent team will also be checked.
@@ -6946,7 +6946,7 @@ pub enum EndPoints {
     GetTeamsteamIdReposownerrepo(String, String, String),
     /// * tags teams
     /// * put `/teams/{team_id}/repos/{owner}/{repo}`
-    /// * docs https://docs.github.com/rest/reference/teams/#add-or-update-team-repository-permissions-legacy
+    /// * docs <https://docs.github.com/rest/reference/teams/#add-or-update-team-repository-permissions-legacy>
     ///
     /// Add or update team repository permissions (Legacy)
     /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new "[Add or update team repository permissions](https://docs.github.com/rest/reference/teams#add-or-update-team-repository-permissions)" endpoint.
@@ -6957,7 +6957,7 @@ pub enum EndPoints {
     PutTeamsteamIdReposownerrepo(String, String, String),
     /// * tags teams
     /// * delete `/teams/{team_id}/repos/{owner}/{repo}`
-    /// * docs https://docs.github.com/rest/reference/teams/#remove-a-repository-from-a-team-legacy
+    /// * docs <https://docs.github.com/rest/reference/teams/#remove-a-repository-from-a-team-legacy>
     ///
     /// Remove a repository from a team (Legacy)
     /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Remove a repository from a team](https://docs.github.com/rest/reference/teams#remove-a-repository-from-a-team) endpoint.
@@ -6966,7 +6966,7 @@ pub enum EndPoints {
     DeleteTeamsteamIdReposownerrepo(String, String, String),
     /// * tags teams
     /// * get `/teams/{team_id}/team-sync/group-mappings`
-    /// * docs https://docs.github.com/rest/reference/teams#list-idp-groups-for-a-team-legacy
+    /// * docs <https://docs.github.com/rest/reference/teams#list-idp-groups-for-a-team-legacy>
     ///
     /// List IdP groups for a team (Legacy)
     /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List IdP groups for a team`](https://docs.github.com/rest/reference/teams#list-idp-groups-for-a-team) endpoint.
@@ -6977,7 +6977,7 @@ pub enum EndPoints {
     GetTeamsteamIdTeamSyncGroupMappings(String),
     /// * tags teams
     /// * patch `/teams/{team_id}/team-sync/group-mappings`
-    /// * docs https://docs.github.com/rest/reference/teams#create-or-update-idp-group-connections-legacy
+    /// * docs <https://docs.github.com/rest/reference/teams#create-or-update-idp-group-connections-legacy>
     ///
     /// Create or update IdP group connections (Legacy)
     /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`Create or update IdP group connections`](https://docs.github.com/rest/reference/teams#create-or-update-idp-group-connections) endpoint.
@@ -6988,14 +6988,14 @@ pub enum EndPoints {
     PatchTeamsteamIdTeamSyncGroupMappings(String),
     /// * tags teams
     /// * get `/teams/{team_id}/teams`
-    /// * docs https://docs.github.com/rest/reference/teams/#list-child-teams-legacy
+    /// * docs <https://docs.github.com/rest/reference/teams/#list-child-teams-legacy>
     ///
     /// List child teams (Legacy)
     /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List child teams`](https://docs.github.com/rest/reference/teams#list-child-teams) endpoint.
     GetTeamsteamIdTeams(String),
     /// * tags users
     /// * get `/user`
-    /// * docs https://docs.github.com/rest/reference/users#get-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/users#get-the-authenticated-user>
     ///
     /// Get the authenticated user
     /// If the authenticated user is authenticated through basic authentication or OAuth with the `user` scope, then the response lists public and private profile information.
@@ -7004,42 +7004,42 @@ pub enum EndPoints {
     GetUser(),
     /// * tags users
     /// * patch `/user`
-    /// * docs https://docs.github.com/rest/reference/users/#update-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/users/#update-the-authenticated-user>
     ///
     /// Update the authenticated user
     /// **Note:** If your email is set to private and you send an `email` parameter as part of this request to update your profile, your privacy settings are still enforced: the email address will not be displayed on your public profile or via the API.
     PatchUser(),
     /// * tags users
     /// * get `/user/blocks`
-    /// * docs https://docs.github.com/rest/reference/users#list-users-blocked-by-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/users#list-users-blocked-by-the-authenticated-user>
     ///
     /// List users blocked by the authenticated user
     /// List the users you've blocked on your personal account.
     GetUserBlocks(),
     /// * tags users
     /// * get `/user/blocks/{username}`
-    /// * docs https://docs.github.com/rest/reference/users#check-if-a-user-is-blocked-by-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/users#check-if-a-user-is-blocked-by-the-authenticated-user>
     ///
     /// Check if a user is blocked by the authenticated user
     ///
     GetUserBlocksusername(String),
     /// * tags users
     /// * put `/user/blocks/{username}`
-    /// * docs https://docs.github.com/rest/reference/users#block-a-user
+    /// * docs <https://docs.github.com/rest/reference/users#block-a-user>
     ///
     /// Block a user
     ///
     PutUserBlocksusername(String),
     /// * tags users
     /// * delete `/user/blocks/{username}`
-    /// * docs https://docs.github.com/rest/reference/users#unblock-a-user
+    /// * docs <https://docs.github.com/rest/reference/users#unblock-a-user>
     ///
     /// Unblock a user
     ///
     DeleteUserBlocksusername(String),
     /// * tags codespaces
     /// * get `/user/codespaces`
-    /// * docs https://docs.github.com/rest/reference/codespaces#list-codespaces-for-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/codespaces#list-codespaces-for-the-authenticated-user>
     ///
     /// List codespaces for the authenticated user
     /// Lists the authenticated user's codespaces.
@@ -7048,7 +7048,7 @@ pub enum EndPoints {
     GetUserCodespaces(),
     /// * tags codespaces
     /// * post `/user/codespaces`
-    /// * docs https://docs.github.com/rest/reference/codespaces#create-a-codespace-for-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/codespaces#create-a-codespace-for-the-authenticated-user>
     ///
     /// Create a codespace for the authenticated user
     /// Creates a new codespace, owned by the authenticated user.
@@ -7059,7 +7059,7 @@ pub enum EndPoints {
     PostUserCodespaces(),
     /// * tags codespaces
     /// * get `/user/codespaces/secrets`
-    /// * docs https://docs.github.com/rest/reference/codespaces#list-secrets-for-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/codespaces#list-secrets-for-the-authenticated-user>
     ///
     /// List secrets for the authenticated user
     /// Lists all secrets available for a user's Codespaces without revealing their
@@ -7068,14 +7068,14 @@ pub enum EndPoints {
     GetUserCodespacesSecrets(),
     /// * tags codespaces
     /// * get `/user/codespaces/secrets/public-key`
-    /// * docs https://docs.github.com/rest/reference/codespaces#get-public-key-for-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/codespaces#get-public-key-for-the-authenticated-user>
     ///
     /// Get public key for the authenticated user
     /// Gets your public key, which you need to encrypt secrets. You need to encrypt a secret before you can create or update secrets. Anyone with one of the 'read:user' or 'user' scopes in their personal access token. User must have Codespaces access to use this endpoint.
     GetUserCodespacesSecretsPublicKey(),
     /// * tags codespaces
     /// * get `/user/codespaces/secrets/{secret_name}`
-    /// * docs https://docs.github.com/rest/reference/codespaces#get-a-secret-for-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/codespaces#get-a-secret-for-the-authenticated-user>
     ///
     /// Get a secret for the authenticated user
     /// Gets a secret available to a user's codespaces without revealing its encrypted value.
@@ -7083,7 +7083,7 @@ pub enum EndPoints {
     GetUserCodespacesSecretssecretName(String),
     /// * tags codespaces
     /// * put `/user/codespaces/secrets/{secret_name}`
-    /// * docs https://docs.github.com/rest/reference/codespaces#create-or-update-a-secret-for-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/codespaces#create-or-update-a-secret-for-the-authenticated-user>
     ///
     /// Create or update a secret for the authenticated user
     /// Creates or updates a secret for a user's codespace with an encrypted value. Encrypt your secret using
@@ -7162,14 +7162,14 @@ pub enum EndPoints {
     PutUserCodespacesSecretssecretName(String),
     /// * tags codespaces
     /// * delete `/user/codespaces/secrets/{secret_name}`
-    /// * docs https://docs.github.com/rest/reference/codespaces#delete-a-secret-for-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/codespaces#delete-a-secret-for-the-authenticated-user>
     ///
     /// Delete a secret for the authenticated user
     /// Deletes a secret from a user's codespaces using the secret name. Deleting the secret will remove access from all codespaces that were allowed to access the secret. You must authenticate using an access token with the `user` scope to use this endpoint. User must have Codespaces access to use this endpoint.
     DeleteUserCodespacesSecretssecretName(String),
     /// * tags codespaces
     /// * get `/user/codespaces/secrets/{secret_name}/repositories`
-    /// * docs https://docs.github.com/rest/reference/codespaces#list-selected-repositories-for-a-user-secret
+    /// * docs <https://docs.github.com/rest/reference/codespaces#list-selected-repositories-for-a-user-secret>
     ///
     /// List selected repositories for a user secret
     /// List the repositories that have been granted the ability to use a user's codespace secret.
@@ -7177,7 +7177,7 @@ pub enum EndPoints {
     GetUserCodespacesSecretssecretNameRepositories(String),
     /// * tags codespaces
     /// * put `/user/codespaces/secrets/{secret_name}/repositories`
-    /// * docs https://docs.github.com/rest/reference/codespaces#set-selected-repositories-for-a-user-secret
+    /// * docs <https://docs.github.com/rest/reference/codespaces#set-selected-repositories-for-a-user-secret>
     ///
     /// Set selected repositories for a user secret
     /// Select the repositories that will use a user's codespace secret.
@@ -7185,7 +7185,7 @@ pub enum EndPoints {
     PutUserCodespacesSecretssecretNameRepositories(String),
     /// * tags codespaces
     /// * put `/user/codespaces/secrets/{secret_name}/repositories/{repository_id}`
-    /// * docs https://docs.github.com/rest/reference/codespaces#add-a-selected-repository-to-a-user-secret
+    /// * docs <https://docs.github.com/rest/reference/codespaces#add-a-selected-repository-to-a-user-secret>
     ///
     /// Add a selected repository to a user secret
     /// Adds a repository to the selected repositories for a user's codespace secret.
@@ -7193,7 +7193,7 @@ pub enum EndPoints {
     PutUserCodespacesSecretssecretNameRepositoriesrepositoryId(String, String),
     /// * tags codespaces
     /// * delete `/user/codespaces/secrets/{secret_name}/repositories/{repository_id}`
-    /// * docs https://docs.github.com/rest/reference/codespaces#remove-a-selected-repository-from-a-user-secret
+    /// * docs <https://docs.github.com/rest/reference/codespaces#remove-a-selected-repository-from-a-user-secret>
     ///
     /// Remove a selected repository from a user secret
     /// Removes a repository from the selected repositories for a user's codespace secret.
@@ -7201,7 +7201,7 @@ pub enum EndPoints {
     DeleteUserCodespacesSecretssecretNameRepositoriesrepositoryId(String, String),
     /// * tags codespaces
     /// * get `/user/codespaces/{codespace_name}`
-    /// * docs https://docs.github.com/rest/reference/codespaces#get-a-codespace-for-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/codespaces#get-a-codespace-for-the-authenticated-user>
     ///
     /// Get a codespace for the authenticated user
     /// Gets information about a user's codespace.
@@ -7210,7 +7210,7 @@ pub enum EndPoints {
     GetUserCodespacescodespaceName(String),
     /// * tags codespaces
     /// * patch `/user/codespaces/{codespace_name}`
-    /// * docs https://docs.github.com/rest/reference/codespaces#update-a-codespace-for-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/codespaces#update-a-codespace-for-the-authenticated-user>
     ///
     /// Update a codespace for the authenticated user
     /// Updates a codespace owned by the authenticated user. Currently only the codespace's machine type can be modified using this endpoint.
@@ -7221,7 +7221,7 @@ pub enum EndPoints {
     PatchUserCodespacescodespaceName(String),
     /// * tags codespaces
     /// * delete `/user/codespaces/{codespace_name}`
-    /// * docs https://docs.github.com/rest/reference/codespaces#delete-a-codespace-for-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/codespaces#delete-a-codespace-for-the-authenticated-user>
     ///
     /// Delete a codespace for the authenticated user
     /// Deletes a user's codespace.
@@ -7230,7 +7230,7 @@ pub enum EndPoints {
     DeleteUserCodespacescodespaceName(String),
     /// * tags codespaces
     /// * get `/user/codespaces/{codespace_name}/machines`
-    /// * docs https://docs.github.com/rest/reference/codespaces#list-machine-types-for-a-codespace
+    /// * docs <https://docs.github.com/rest/reference/codespaces#list-machine-types-for-a-codespace>
     ///
     /// List machine types for a codespace
     /// List the machine types a codespace can transition to use.
@@ -7239,7 +7239,7 @@ pub enum EndPoints {
     GetUserCodespacescodespaceNameMachines(String),
     /// * tags codespaces
     /// * post `/user/codespaces/{codespace_name}/start`
-    /// * docs https://docs.github.com/rest/reference/codespaces#start-a-codespace-for-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/codespaces#start-a-codespace-for-the-authenticated-user>
     ///
     /// Start a codespace for the authenticated user
     /// Starts a user's codespace.
@@ -7248,7 +7248,7 @@ pub enum EndPoints {
     PostUserCodespacescodespaceNameStart(String),
     /// * tags codespaces
     /// * post `/user/codespaces/{codespace_name}/stop`
-    /// * docs https://docs.github.com/rest/reference/codespaces#stop-a-codespace-for-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/codespaces#stop-a-codespace-for-the-authenticated-user>
     ///
     /// Stop a codespace for the authenticated user
     /// Stops a user's codespace.
@@ -7257,56 +7257,56 @@ pub enum EndPoints {
     PostUserCodespacescodespaceNameStop(String),
     /// * tags users
     /// * patch `/user/email/visibility`
-    /// * docs https://docs.github.com/rest/reference/users#set-primary-email-visibility-for-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/users#set-primary-email-visibility-for-the-authenticated-user>
     ///
     /// Set primary email visibility for the authenticated user
     /// Sets the visibility for your primary email addresses.
     PatchUserEmailVisibility(),
     /// * tags users
     /// * get `/user/emails`
-    /// * docs https://docs.github.com/rest/reference/users#list-email-addresses-for-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/users#list-email-addresses-for-the-authenticated-user>
     ///
     /// List email addresses for the authenticated user
     /// Lists all of your email addresses, and specifies which one is visible to the public. This endpoint is accessible with the `user:email` scope.
     GetUserEmails(),
     /// * tags users
     /// * post `/user/emails`
-    /// * docs https://docs.github.com/rest/reference/users#add-an-email-address-for-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/users#add-an-email-address-for-the-authenticated-user>
     ///
     /// Add an email address for the authenticated user
     /// This endpoint is accessible with the `user` scope.
     PostUserEmails(),
     /// * tags users
     /// * delete `/user/emails`
-    /// * docs https://docs.github.com/rest/reference/users#delete-an-email-address-for-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/users#delete-an-email-address-for-the-authenticated-user>
     ///
     /// Delete an email address for the authenticated user
     /// This endpoint is accessible with the `user` scope.
     DeleteUserEmails(),
     /// * tags users
     /// * get `/user/followers`
-    /// * docs https://docs.github.com/rest/reference/users#list-followers-of-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/users#list-followers-of-the-authenticated-user>
     ///
     /// List followers of the authenticated user
     /// Lists the people following the authenticated user.
     GetUserFollowers(),
     /// * tags users
     /// * get `/user/following`
-    /// * docs https://docs.github.com/rest/reference/users#list-the-people-the-authenticated-user-follows
+    /// * docs <https://docs.github.com/rest/reference/users#list-the-people-the-authenticated-user-follows>
     ///
     /// List the people the authenticated user follows
     /// Lists the people who the authenticated user follows.
     GetUserFollowing(),
     /// * tags users
     /// * get `/user/following/{username}`
-    /// * docs https://docs.github.com/rest/reference/users#check-if-a-person-is-followed-by-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/users#check-if-a-person-is-followed-by-the-authenticated-user>
     ///
     /// Check if a person is followed by the authenticated user
     ///
     GetUserFollowingusername(String),
     /// * tags users
     /// * put `/user/following/{username}`
-    /// * docs https://docs.github.com/rest/reference/users#follow-a-user
+    /// * docs <https://docs.github.com/rest/reference/users#follow-a-user>
     ///
     /// Follow a user
     /// Note that you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information, see "[HTTP verbs](https://docs.github.com/rest/overview/resources-in-the-rest-api#http-verbs)."
@@ -7315,42 +7315,42 @@ pub enum EndPoints {
     PutUserFollowingusername(String),
     /// * tags users
     /// * delete `/user/following/{username}`
-    /// * docs https://docs.github.com/rest/reference/users#unfollow-a-user
+    /// * docs <https://docs.github.com/rest/reference/users#unfollow-a-user>
     ///
     /// Unfollow a user
     /// Unfollowing a user requires the user to be logged in and authenticated with basic auth or OAuth with the `user:follow` scope.
     DeleteUserFollowingusername(String),
     /// * tags users
     /// * get `/user/gpg_keys`
-    /// * docs https://docs.github.com/rest/reference/users#list-gpg-keys-for-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/users#list-gpg-keys-for-the-authenticated-user>
     ///
     /// List GPG keys for the authenticated user
     /// Lists the current user's GPG keys. Requires that you are authenticated via Basic Auth or via OAuth with at least `read:gpg_key` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
     GetUserGpgKeys(),
     /// * tags users
     /// * post `/user/gpg_keys`
-    /// * docs https://docs.github.com/rest/reference/users#create-a-gpg-key-for-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/users#create-a-gpg-key-for-the-authenticated-user>
     ///
     /// Create a GPG key for the authenticated user
     /// Adds a GPG key to the authenticated user's GitHub account. Requires that you are authenticated via Basic Auth, or OAuth with at least `write:gpg_key` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
     PostUserGpgKeys(),
     /// * tags users
     /// * get `/user/gpg_keys/{gpg_key_id}`
-    /// * docs https://docs.github.com/rest/reference/users#get-a-gpg-key-for-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/users#get-a-gpg-key-for-the-authenticated-user>
     ///
     /// Get a GPG key for the authenticated user
     /// View extended details for a single GPG key. Requires that you are authenticated via Basic Auth or via OAuth with at least `read:gpg_key` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
     GetUserGpgKeysgpgKeyId(String),
     /// * tags users
     /// * delete `/user/gpg_keys/{gpg_key_id}`
-    /// * docs https://docs.github.com/rest/reference/users#delete-a-gpg-key-for-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/users#delete-a-gpg-key-for-the-authenticated-user>
     ///
     /// Delete a GPG key for the authenticated user
     /// Removes a GPG key from the authenticated user's GitHub account. Requires that you are authenticated via Basic Auth or via OAuth with at least `admin:gpg_key` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
     DeleteUserGpgKeysgpgKeyId(String),
     /// * tags apps
     /// * get `/user/installations`
-    /// * docs https://docs.github.com/rest/reference/apps#list-app-installations-accessible-to-the-user-access-token
+    /// * docs <https://docs.github.com/rest/reference/apps#list-app-installations-accessible-to-the-user-access-token>
     ///
     /// List app installations accessible to the user access token
     /// Lists installations of your GitHub App that the authenticated user has explicit permission (`:read`, `:write`, or `:admin`) to access.
@@ -7363,7 +7363,7 @@ pub enum EndPoints {
     GetUserInstallations(),
     /// * tags apps
     /// * get `/user/installations/{installation_id}/repositories`
-    /// * docs https://docs.github.com/rest/reference/apps#list-repositories-accessible-to-the-user-access-token
+    /// * docs <https://docs.github.com/rest/reference/apps#list-repositories-accessible-to-the-user-access-token>
     ///
     /// List repositories accessible to the user access token
     /// List repositories that the authenticated user has explicit permission (`:read`, `:write`, or `:admin`) to access for an installation.
@@ -7376,7 +7376,7 @@ pub enum EndPoints {
     GetUserInstallationsinstallationIdRepositories(String),
     /// * tags apps
     /// * put `/user/installations/{installation_id}/repositories/{repository_id}`
-    /// * docs https://docs.github.com/rest/reference/apps#add-a-repository-to-an-app-installation
+    /// * docs <https://docs.github.com/rest/reference/apps#add-a-repository-to-an-app-installation>
     ///
     /// Add a repository to an app installation
     /// Add a single repository to an installation. The authenticated user must have admin access to the repository.
@@ -7385,7 +7385,7 @@ pub enum EndPoints {
     PutUserInstallationsinstallationIdRepositoriesrepositoryId(String, String),
     /// * tags apps
     /// * delete `/user/installations/{installation_id}/repositories/{repository_id}`
-    /// * docs https://docs.github.com/rest/reference/apps#remove-a-repository-from-an-app-installation
+    /// * docs <https://docs.github.com/rest/reference/apps#remove-a-repository-from-an-app-installation>
     ///
     /// Remove a repository from an app installation
     /// Remove a single repository from an installation. The authenticated user must have admin access to the repository.
@@ -7394,28 +7394,28 @@ pub enum EndPoints {
     DeleteUserInstallationsinstallationIdRepositoriesrepositoryId(String, String),
     /// * tags interactions
     /// * get `/user/interaction-limits`
-    /// * docs https://docs.github.com/rest/reference/interactions#get-interaction-restrictions-for-your-public-repositories
+    /// * docs <https://docs.github.com/rest/reference/interactions#get-interaction-restrictions-for-your-public-repositories>
     ///
     /// Get interaction restrictions for your public repositories
     /// Shows which type of GitHub user can interact with your public repositories and when the restriction expires.
     GetUserInteractionLimits(),
     /// * tags interactions
     /// * put `/user/interaction-limits`
-    /// * docs https://docs.github.com/rest/reference/interactions#set-interaction-restrictions-for-your-public-repositories
+    /// * docs <https://docs.github.com/rest/reference/interactions#set-interaction-restrictions-for-your-public-repositories>
     ///
     /// Set interaction restrictions for your public repositories
     /// Temporarily restricts which type of GitHub user can interact with your public repositories. Setting the interaction limit at the user level will overwrite any interaction limits that are set for individual repositories owned by the user.
     PutUserInteractionLimits(),
     /// * tags interactions
     /// * delete `/user/interaction-limits`
-    /// * docs https://docs.github.com/rest/reference/interactions#remove-interaction-restrictions-from-your-public-repositories
+    /// * docs <https://docs.github.com/rest/reference/interactions#remove-interaction-restrictions-from-your-public-repositories>
     ///
     /// Remove interaction restrictions from your public repositories
     /// Removes any interaction restrictions from your public repositories.
     DeleteUserInteractionLimits(),
     /// * tags issues
     /// * get `/user/issues`
-    /// * docs https://docs.github.com/rest/reference/issues#list-user-account-issues-assigned-to-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/issues#list-user-account-issues-assigned-to-the-authenticated-user>
     ///
     /// List user account issues assigned to the authenticated user
     /// List issues across owned and member repositories assigned to the authenticated user.
@@ -7427,84 +7427,84 @@ pub enum EndPoints {
     GetUserIssues(),
     /// * tags users
     /// * get `/user/keys`
-    /// * docs https://docs.github.com/rest/reference/users#list-public-ssh-keys-for-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/users#list-public-ssh-keys-for-the-authenticated-user>
     ///
     /// List public SSH keys for the authenticated user
     /// Lists the public SSH keys for the authenticated user's GitHub account. Requires that you are authenticated via Basic Auth or via OAuth with at least `read:public_key` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
     GetUserKeys(),
     /// * tags users
     /// * post `/user/keys`
-    /// * docs https://docs.github.com/rest/reference/users#create-a-public-ssh-key-for-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/users#create-a-public-ssh-key-for-the-authenticated-user>
     ///
     /// Create a public SSH key for the authenticated user
     /// Adds a public SSH key to the authenticated user's GitHub account. Requires that you are authenticated via Basic Auth, or OAuth with at least `write:public_key` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
     PostUserKeys(),
     /// * tags users
     /// * get `/user/keys/{key_id}`
-    /// * docs https://docs.github.com/rest/reference/users#get-a-public-ssh-key-for-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/users#get-a-public-ssh-key-for-the-authenticated-user>
     ///
     /// Get a public SSH key for the authenticated user
     /// View extended details for a single public SSH key. Requires that you are authenticated via Basic Auth or via OAuth with at least `read:public_key` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
     GetUserKeyskeyId(String),
     /// * tags users
     /// * delete `/user/keys/{key_id}`
-    /// * docs https://docs.github.com/rest/reference/users#delete-a-public-ssh-key-for-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/users#delete-a-public-ssh-key-for-the-authenticated-user>
     ///
     /// Delete a public SSH key for the authenticated user
     /// Removes a public SSH key from the authenticated user's GitHub account. Requires that you are authenticated via Basic Auth or via OAuth with at least `admin:public_key` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
     DeleteUserKeyskeyId(String),
     /// * tags apps
     /// * get `/user/marketplace_purchases`
-    /// * docs https://docs.github.com/rest/reference/apps#list-subscriptions-for-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/apps#list-subscriptions-for-the-authenticated-user>
     ///
     /// List subscriptions for the authenticated user
     /// Lists the active subscriptions for the authenticated user. You must use a [user-to-server OAuth access token](https://docs.github.com/apps/building-github-apps/identifying-and-authorizing-users-for-github-apps/#identifying-users-on-your-site), created for a user who has authorized your GitHub App, to access this endpoint. . OAuth Apps must authenticate using an [OAuth token](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/).
     GetUserMarketplacePurchases(),
     /// * tags apps
     /// * get `/user/marketplace_purchases/stubbed`
-    /// * docs https://docs.github.com/rest/reference/apps#list-subscriptions-for-the-authenticated-user-stubbed
+    /// * docs <https://docs.github.com/rest/reference/apps#list-subscriptions-for-the-authenticated-user-stubbed>
     ///
     /// List subscriptions for the authenticated user (stubbed)
     /// Lists the active subscriptions for the authenticated user. You must use a [user-to-server OAuth access token](https://docs.github.com/apps/building-github-apps/identifying-and-authorizing-users-for-github-apps/#identifying-users-on-your-site), created for a user who has authorized your GitHub App, to access this endpoint. . OAuth Apps must authenticate using an [OAuth token](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/).
     GetUserMarketplacePurchasesStubbed(),
     /// * tags orgs
     /// * get `/user/memberships/orgs`
-    /// * docs https://docs.github.com/rest/reference/orgs#list-organization-memberships-for-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/orgs#list-organization-memberships-for-the-authenticated-user>
     ///
     /// List organization memberships for the authenticated user
     ///
     GetUserMembershipsOrgs(),
     /// * tags orgs
     /// * get `/user/memberships/orgs/{org}`
-    /// * docs https://docs.github.com/rest/reference/orgs#get-an-organization-membership-for-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/orgs#get-an-organization-membership-for-the-authenticated-user>
     ///
     /// Get an organization membership for the authenticated user
     ///
     GetUserMembershipsOrgsorg(String),
     /// * tags orgs
     /// * patch `/user/memberships/orgs/{org}`
-    /// * docs https://docs.github.com/rest/reference/orgs#update-an-organization-membership-for-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/orgs#update-an-organization-membership-for-the-authenticated-user>
     ///
     /// Update an organization membership for the authenticated user
     ///
     PatchUserMembershipsOrgsorg(String),
     /// * tags migrations
     /// * get `/user/migrations`
-    /// * docs https://docs.github.com/rest/reference/migrations#list-user-migrations
+    /// * docs <https://docs.github.com/rest/reference/migrations#list-user-migrations>
     ///
     /// List user migrations
     /// Lists all migrations a user has started.
     GetUserMigrations(),
     /// * tags migrations
     /// * post `/user/migrations`
-    /// * docs https://docs.github.com/rest/reference/migrations#start-a-user-migration
+    /// * docs <https://docs.github.com/rest/reference/migrations#start-a-user-migration>
     ///
     /// Start a user migration
     /// Initiates the generation of a user migration archive.
     PostUserMigrations(),
     /// * tags migrations
     /// * get `/user/migrations/{migration_id}`
-    /// * docs https://docs.github.com/rest/reference/migrations#get-a-user-migration-status
+    /// * docs <https://docs.github.com/rest/reference/migrations#get-a-user-migration-status>
     ///
     /// Get a user migration status
     /// Fetches a single user migration. The response includes the `state` of the migration, which can be one of the following values:
@@ -7518,7 +7518,7 @@ pub enum EndPoints {
     GetUserMigrationsmigrationId(String),
     /// * tags migrations
     /// * get `/user/migrations/{migration_id}/archive`
-    /// * docs https://docs.github.com/rest/reference/migrations#download-a-user-migration-archive
+    /// * docs <https://docs.github.com/rest/reference/migrations#download-a-user-migration-archive>
     ///
     /// Download a user migration archive
     /// Fetches the URL to download the migration archive as a `tar.gz` file. Depending on the resources your repository uses, the migration archive can contain JSON files with data for these objects:
@@ -7545,28 +7545,28 @@ pub enum EndPoints {
     GetUserMigrationsmigrationIdArchive(String),
     /// * tags migrations
     /// * delete `/user/migrations/{migration_id}/archive`
-    /// * docs https://docs.github.com/rest/reference/migrations#delete-a-user-migration-archive
+    /// * docs <https://docs.github.com/rest/reference/migrations#delete-a-user-migration-archive>
     ///
     /// Delete a user migration archive
     /// Deletes a previous migration archive. Downloadable migration archives are automatically deleted after seven days. Migration metadata, which is returned in the [List user migrations](https://docs.github.com/rest/reference/migrations#list-user-migrations) and [Get a user migration status](https://docs.github.com/rest/reference/migrations#get-a-user-migration-status) endpoints, will continue to be available even after an archive is deleted.
     DeleteUserMigrationsmigrationIdArchive(String),
     /// * tags migrations
     /// * delete `/user/migrations/{migration_id}/repos/{repo_name}/lock`
-    /// * docs https://docs.github.com/rest/reference/migrations#unlock-a-user-repository
+    /// * docs <https://docs.github.com/rest/reference/migrations#unlock-a-user-repository>
     ///
     /// Unlock a user repository
     /// Unlocks a repository. You can lock repositories when you [start a user migration](https://docs.github.com/rest/reference/migrations#start-a-user-migration). Once the migration is complete you can unlock each repository to begin using it again or [delete the repository](https://docs.github.com/rest/reference/repos#delete-a-repository) if you no longer need the source data. Returns a status of `404 Not Found` if the repository is not locked.
     DeleteUserMigrationsmigrationIdReposrepoNameLock(String, String),
     /// * tags migrations
     /// * get `/user/migrations/{migration_id}/repositories`
-    /// * docs https://docs.github.com/rest/reference/migrations#list-repositories-for-a-user-migration
+    /// * docs <https://docs.github.com/rest/reference/migrations#list-repositories-for-a-user-migration>
     ///
     /// List repositories for a user migration
     /// Lists all the repositories for this user migration.
     GetUserMigrationsmigrationIdRepositories(String),
     /// * tags orgs
     /// * get `/user/orgs`
-    /// * docs https://docs.github.com/rest/reference/orgs#list-organizations-for-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/orgs#list-organizations-for-the-authenticated-user>
     ///
     /// List organizations for the authenticated user
     /// List organizations for the authenticated user.
@@ -7577,7 +7577,7 @@ pub enum EndPoints {
     GetUserOrgs(),
     /// * tags packages
     /// * get `/user/packages`
-    /// * docs https://docs.github.com/rest/reference/packages#list-packages-for-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/packages#list-packages-for-the-authenticated-user>
     ///
     /// List packages for the authenticated user's namespace
     /// Lists packages owned by the authenticated user within the user's namespace.
@@ -7587,7 +7587,7 @@ pub enum EndPoints {
     GetUserPackages(),
     /// * tags packages
     /// * get `/user/packages/{package_type}/{package_name}`
-    /// * docs https://docs.github.com/rest/reference/packages#get-a-package-for-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/packages#get-a-package-for-the-authenticated-user>
     ///
     /// Get a package for the authenticated user
     /// Gets a specific package for a package owned by the authenticated user.
@@ -7597,7 +7597,7 @@ pub enum EndPoints {
     GetUserPackagespackageTypepackageName(String, String),
     /// * tags packages
     /// * delete `/user/packages/{package_type}/{package_name}`
-    /// * docs https://docs.github.com/rest/reference/packages#delete-a-package-for-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/packages#delete-a-package-for-the-authenticated-user>
     ///
     /// Delete a package for the authenticated user
     /// Deletes a package owned by the authenticated user. You cannot delete a public package if any version of the package has more than 5,000 downloads. In this scenario, contact GitHub support for further assistance.
@@ -7607,7 +7607,7 @@ pub enum EndPoints {
     DeleteUserPackagespackageTypepackageName(String, String),
     /// * tags packages
     /// * post `/user/packages/{package_type}/{package_name}/restore`
-    /// * docs https://docs.github.com/rest/reference/packages#restore-a-package-for-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/packages#restore-a-package-for-the-authenticated-user>
     ///
     /// Restore a package for the authenticated user
     /// Restores a package owned by the authenticated user.
@@ -7620,7 +7620,7 @@ pub enum EndPoints {
     PostUserPackagespackageTypepackageNameRestore(String, String),
     /// * tags packages
     /// * get `/user/packages/{package_type}/{package_name}/versions`
-    /// * docs https://docs.github.com/rest/reference/packages#get-all-package-versions-for-a-package-owned-by-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/packages#get-all-package-versions-for-a-package-owned-by-the-authenticated-user>
     ///
     /// Get all package versions for a package owned by the authenticated user
     /// Returns all package versions for a package owned by the authenticated user.
@@ -7630,7 +7630,7 @@ pub enum EndPoints {
     GetUserPackagespackageTypepackageNameVersions(String, String),
     /// * tags packages
     /// * get `/user/packages/{package_type}/{package_name}/versions/{package_version_id}`
-    /// * docs https://docs.github.com/rest/reference/packages#get-a-package-version-for-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/packages#get-a-package-version-for-the-authenticated-user>
     ///
     /// Get a package version for the authenticated user
     /// Gets a specific package version for a package owned by the authenticated user.
@@ -7640,7 +7640,7 @@ pub enum EndPoints {
     GetUserPackagespackageTypepackageNameVersionspackageVersionId(String, String, String),
     /// * tags packages
     /// * delete `/user/packages/{package_type}/{package_name}/versions/{package_version_id}`
-    /// * docs https://docs.github.com/rest/reference/packages#delete-a-package-version-for-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/packages#delete-a-package-version-for-the-authenticated-user>
     ///
     /// Delete a package version for the authenticated user
     /// Deletes a specific package version for a package owned by the authenticated user.  If the package is public and the package version has more than 5,000 downloads, you cannot delete the package version. In this scenario, contact GitHub support for further assistance.
@@ -7650,7 +7650,7 @@ pub enum EndPoints {
     DeleteUserPackagespackageTypepackageNameVersionspackageVersionId(String, String, String),
     /// * tags packages
     /// * post `/user/packages/{package_type}/{package_name}/versions/{package_version_id}/restore`
-    /// * docs https://docs.github.com/rest/reference/packages#restore-a-package-version-for-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/packages#restore-a-package-version-for-the-authenticated-user>
     ///
     /// Restore a package version for the authenticated user
     /// Restores a package version owned by the authenticated user.
@@ -7663,21 +7663,21 @@ pub enum EndPoints {
     PostUserPackagespackageTypepackageNameVersionspackageVersionIdRestore(String, String, String),
     /// * tags projects
     /// * post `/user/projects`
-    /// * docs https://docs.github.com/rest/reference/projects#create-a-user-project
+    /// * docs <https://docs.github.com/rest/reference/projects#create-a-user-project>
     ///
     /// Create a user project
     ///
     PostUserProjects(),
     /// * tags users
     /// * get `/user/public_emails`
-    /// * docs https://docs.github.com/rest/reference/users#list-public-email-addresses-for-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/users#list-public-email-addresses-for-the-authenticated-user>
     ///
     /// List public email addresses for the authenticated user
     /// Lists your publicly visible email address, which you can set with the [Set primary email visibility for the authenticated user](https://docs.github.com/rest/reference/users#set-primary-email-visibility-for-the-authenticated-user) endpoint. This endpoint is accessible with the `user:email` scope.
     GetUserPublicEmails(),
     /// * tags repos
     /// * get `/user/repos`
-    /// * docs https://docs.github.com/rest/reference/repos#list-repositories-for-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/repos#list-repositories-for-the-authenticated-user>
     ///
     /// List repositories for the authenticated user
     /// Lists repositories that the authenticated user has explicit permission (`:read`, `:write`, or `:admin`) to access.
@@ -7686,7 +7686,7 @@ pub enum EndPoints {
     GetUserRepos(),
     /// * tags repos
     /// * post `/user/repos`
-    /// * docs https://docs.github.com/rest/reference/repos#create-a-repository-for-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/repos#create-a-repository-for-the-authenticated-user>
     ///
     /// Create a repository for the authenticated user
     /// Creates a new repository for the authenticated user.
@@ -7700,28 +7700,28 @@ pub enum EndPoints {
     PostUserRepos(),
     /// * tags repos
     /// * get `/user/repository_invitations`
-    /// * docs https://docs.github.com/rest/reference/repos#list-repository-invitations-for-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/repos#list-repository-invitations-for-the-authenticated-user>
     ///
     /// List repository invitations for the authenticated user
     /// When authenticating as a user, this endpoint will list all currently open repository invitations for that user.
     GetUserRepositoryInvitations(),
     /// * tags repos
     /// * patch `/user/repository_invitations/{invitation_id}`
-    /// * docs https://docs.github.com/rest/reference/repos#accept-a-repository-invitation
+    /// * docs <https://docs.github.com/rest/reference/repos#accept-a-repository-invitation>
     ///
     /// Accept a repository invitation
     ///
     PatchUserRepositoryInvitationsinvitationId(String),
     /// * tags repos
     /// * delete `/user/repository_invitations/{invitation_id}`
-    /// * docs https://docs.github.com/rest/reference/repos#decline-a-repository-invitation
+    /// * docs <https://docs.github.com/rest/reference/repos#decline-a-repository-invitation>
     ///
     /// Decline a repository invitation
     ///
     DeleteUserRepositoryInvitationsinvitationId(String),
     /// * tags activity
     /// * get `/user/starred`
-    /// * docs https://docs.github.com/rest/reference/activity#list-repositories-starred-by-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/activity#list-repositories-starred-by-the-authenticated-user>
     ///
     /// List repositories starred by the authenticated user
     /// Lists repositories the authenticated user has starred.
@@ -7730,42 +7730,42 @@ pub enum EndPoints {
     GetUserStarred(),
     /// * tags activity
     /// * get `/user/starred/{owner}/{repo}`
-    /// * docs https://docs.github.com/rest/reference/activity#check-if-a-repository-is-starred-by-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/activity#check-if-a-repository-is-starred-by-the-authenticated-user>
     ///
     /// Check if a repository is starred by the authenticated user
     ///
     GetUserStarredownerrepo(String, String),
     /// * tags activity
     /// * put `/user/starred/{owner}/{repo}`
-    /// * docs https://docs.github.com/rest/reference/activity#star-a-repository-for-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/activity#star-a-repository-for-the-authenticated-user>
     ///
     /// Star a repository for the authenticated user
     /// Note that you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information, see "[HTTP verbs](https://docs.github.com/rest/overview/resources-in-the-rest-api#http-verbs)."
     PutUserStarredownerrepo(String, String),
     /// * tags activity
     /// * delete `/user/starred/{owner}/{repo}`
-    /// * docs https://docs.github.com/rest/reference/activity#unstar-a-repository-for-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/activity#unstar-a-repository-for-the-authenticated-user>
     ///
     /// Unstar a repository for the authenticated user
     ///
     DeleteUserStarredownerrepo(String, String),
     /// * tags activity
     /// * get `/user/subscriptions`
-    /// * docs https://docs.github.com/rest/reference/activity#list-repositories-watched-by-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/activity#list-repositories-watched-by-the-authenticated-user>
     ///
     /// List repositories watched by the authenticated user
     /// Lists repositories the authenticated user is watching.
     GetUserSubscriptions(),
     /// * tags teams
     /// * get `/user/teams`
-    /// * docs https://docs.github.com/rest/reference/teams#list-teams-for-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/teams#list-teams-for-the-authenticated-user>
     ///
     /// List teams for the authenticated user
     /// List all of the teams across all of the organizations to which the authenticated user belongs. This method requires `user`, `repo`, or `read:org` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/) when authenticating via [OAuth](https://docs.github.com/apps/building-oauth-apps/).
     GetUserTeams(),
     /// * tags users
     /// * get `/users`
-    /// * docs https://docs.github.com/rest/reference/users#list-users
+    /// * docs <https://docs.github.com/rest/reference/users#list-users>
     ///
     /// List users
     /// Lists all users, in the order that they signed up on GitHub. This list includes personal user accounts and organization accounts.
@@ -7774,7 +7774,7 @@ pub enum EndPoints {
     GetUsers(),
     /// * tags users
     /// * get `/users/{username}`
-    /// * docs https://docs.github.com/rest/reference/users#get-a-user
+    /// * docs <https://docs.github.com/rest/reference/users#get-a-user>
     ///
     /// Get a user
     /// Provides publicly available information about someone with a GitHub account.
@@ -7787,63 +7787,63 @@ pub enum EndPoints {
     GetUsersusername(String),
     /// * tags activity
     /// * get `/users/{username}/events`
-    /// * docs https://docs.github.com/rest/reference/activity#list-events-for-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/activity#list-events-for-the-authenticated-user>
     ///
     /// List events for the authenticated user
     /// If you are authenticated as the given user, you will see your private events. Otherwise, you'll only see public events.
     GetUsersusernameEvents(String),
     /// * tags activity
     /// * get `/users/{username}/events/orgs/{org}`
-    /// * docs https://docs.github.com/rest/reference/activity#list-organization-events-for-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/activity#list-organization-events-for-the-authenticated-user>
     ///
     /// List organization events for the authenticated user
     /// This is the user's organization dashboard. You must be authenticated as the user to view this.
     GetUsersusernameEventsOrgsorg(String, String),
     /// * tags activity
     /// * get `/users/{username}/events/public`
-    /// * docs https://docs.github.com/rest/reference/activity#list-public-events-for-a-user
+    /// * docs <https://docs.github.com/rest/reference/activity#list-public-events-for-a-user>
     ///
     /// List public events for a user
     ///
     GetUsersusernameEventsPublic(String),
     /// * tags users
     /// * get `/users/{username}/followers`
-    /// * docs https://docs.github.com/rest/reference/users#list-followers-of-a-user
+    /// * docs <https://docs.github.com/rest/reference/users#list-followers-of-a-user>
     ///
     /// List followers of a user
     /// Lists the people following the specified user.
     GetUsersusernameFollowers(String),
     /// * tags users
     /// * get `/users/{username}/following`
-    /// * docs https://docs.github.com/rest/reference/users#list-the-people-a-user-follows
+    /// * docs <https://docs.github.com/rest/reference/users#list-the-people-a-user-follows>
     ///
     /// List the people a user follows
     /// Lists the people who the specified user follows.
     GetUsersusernameFollowing(String),
     /// * tags users
     /// * get `/users/{username}/following/{target_user}`
-    /// * docs https://docs.github.com/rest/reference/users#check-if-a-user-follows-another-user
+    /// * docs <https://docs.github.com/rest/reference/users#check-if-a-user-follows-another-user>
     ///
     /// Check if a user follows another user
     ///
     GetUsersusernameFollowingtargetUser(String, String),
     /// * tags gists
     /// * get `/users/{username}/gists`
-    /// * docs https://docs.github.com/rest/reference/gists#list-gists-for-a-user
+    /// * docs <https://docs.github.com/rest/reference/gists#list-gists-for-a-user>
     ///
     /// List gists for a user
     /// Lists public gists for the specified user:
     GetUsersusernameGists(String),
     /// * tags users
     /// * get `/users/{username}/gpg_keys`
-    /// * docs https://docs.github.com/rest/reference/users#list-gpg-keys-for-a-user
+    /// * docs <https://docs.github.com/rest/reference/users#list-gpg-keys-for-a-user>
     ///
     /// List GPG keys for a user
     /// Lists the GPG keys for a user. This information is accessible by anyone.
     GetUsersusernameGpgKeys(String),
     /// * tags users
     /// * get `/users/{username}/hovercard`
-    /// * docs https://docs.github.com/rest/reference/users#get-contextual-information-for-a-user
+    /// * docs <https://docs.github.com/rest/reference/users#get-contextual-information-for-a-user>
     ///
     /// Get contextual information for a user
     /// Provides hovercard information when authenticated through basic auth or OAuth with the `repo` scope. You can find out more about someone in relation to their pull requests, issues, repositories, and organizations.
@@ -7857,7 +7857,7 @@ pub enum EndPoints {
     GetUsersusernameHovercard(String),
     /// * tags apps
     /// * get `/users/{username}/installation`
-    /// * docs https://docs.github.com/rest/reference/apps#get-a-user-installation-for-the-authenticated-app
+    /// * docs <https://docs.github.com/rest/reference/apps#get-a-user-installation-for-the-authenticated-app>
     ///
     /// Get a user installation for the authenticated app
     /// Enables an authenticated GitHub App to find the user’s installation information.
@@ -7866,14 +7866,14 @@ pub enum EndPoints {
     GetUsersusernameInstallation(String),
     /// * tags users
     /// * get `/users/{username}/keys`
-    /// * docs https://docs.github.com/rest/reference/users#list-public-keys-for-a-user
+    /// * docs <https://docs.github.com/rest/reference/users#list-public-keys-for-a-user>
     ///
     /// List public keys for a user
     /// Lists the _verified_ public SSH keys for a user. This is accessible by anyone.
     GetUsersusernameKeys(String),
     /// * tags orgs
     /// * get `/users/{username}/orgs`
-    /// * docs https://docs.github.com/rest/reference/orgs#list-organizations-for-a-user
+    /// * docs <https://docs.github.com/rest/reference/orgs#list-organizations-for-a-user>
     ///
     /// List organizations for a user
     /// List [public organization memberships](https://help.github.com/articles/publicizing-or-concealing-organization-membership) for the specified user.
@@ -7882,7 +7882,7 @@ pub enum EndPoints {
     GetUsersusernameOrgs(String),
     /// * tags packages
     /// * get `/users/{username}/packages`
-    /// * docs https://docs.github.com/rest/reference/packages#list-packages-for-user
+    /// * docs <https://docs.github.com/rest/reference/packages#list-packages-for-user>
     ///
     /// List packages for a user
     /// Lists all packages in a user's namespace for which the requesting user has access.
@@ -7892,7 +7892,7 @@ pub enum EndPoints {
     GetUsersusernamePackages(String),
     /// * tags packages
     /// * get `/users/{username}/packages/{package_type}/{package_name}`
-    /// * docs https://docs.github.com/rest/reference/packages#get-a-package-for-a-user
+    /// * docs <https://docs.github.com/rest/reference/packages#get-a-package-for-a-user>
     ///
     /// Get a package for a user
     /// Gets a specific package metadata for a public package owned by a user.
@@ -7902,7 +7902,7 @@ pub enum EndPoints {
     GetUsersusernamePackagespackageTypepackageName(String, String, String),
     /// * tags packages
     /// * delete `/users/{username}/packages/{package_type}/{package_name}`
-    /// * docs https://docs.github.com/rest/reference/packages#delete-a-package-for-a-user
+    /// * docs <https://docs.github.com/rest/reference/packages#delete-a-package-for-a-user>
     ///
     /// Delete a package for a user
     /// Deletes an entire package for a user. You cannot delete a public package if any version of the package has more than 5,000 downloads. In this scenario, contact GitHub support for further assistance.
@@ -7913,7 +7913,7 @@ pub enum EndPoints {
     DeleteUsersusernamePackagespackageTypepackageName(String, String, String),
     /// * tags packages
     /// * post `/users/{username}/packages/{package_type}/{package_name}/restore`
-    /// * docs https://docs.github.com/rest/reference/packages#restore-a-package-for-a-user
+    /// * docs <https://docs.github.com/rest/reference/packages#restore-a-package-for-a-user>
     ///
     /// Restore a package for a user
     /// Restores an entire package for a user.
@@ -7928,7 +7928,7 @@ pub enum EndPoints {
     PostUsersusernamePackagespackageTypepackageNameRestore(String, String, String),
     /// * tags packages
     /// * get `/users/{username}/packages/{package_type}/{package_name}/versions`
-    /// * docs https://docs.github.com/rest/reference/packages#get-all-package-versions-for-a-package-owned-by-a-user
+    /// * docs <https://docs.github.com/rest/reference/packages#get-all-package-versions-for-a-package-owned-by-a-user>
     ///
     /// Get all package versions for a package owned by a user
     /// Returns all package versions for a public package owned by a specified user.
@@ -7938,7 +7938,7 @@ pub enum EndPoints {
     GetUsersusernamePackagespackageTypepackageNameVersions(String, String, String),
     /// * tags packages
     /// * get `/users/{username}/packages/{package_type}/{package_name}/versions/{package_version_id}`
-    /// * docs https://docs.github.com/rest/reference/packages#get-a-package-version-for-a-user
+    /// * docs <https://docs.github.com/rest/reference/packages#get-a-package-version-for-a-user>
     ///
     /// Get a package version for a user
     /// Gets a specific package version for a public package owned by a specified user.
@@ -7953,7 +7953,7 @@ pub enum EndPoints {
     ),
     /// * tags packages
     /// * delete `/users/{username}/packages/{package_type}/{package_name}/versions/{package_version_id}`
-    /// * docs https://docs.github.com/rest/reference/packages#delete-a-package-version-for-a-user
+    /// * docs <https://docs.github.com/rest/reference/packages#delete-a-package-version-for-a-user>
     ///
     /// Delete package version for a user
     /// Deletes a specific package version for a user. If the package is public and the package version has more than 5,000 downloads, you cannot delete the package version. In this scenario, contact GitHub support for further assistance.
@@ -7969,7 +7969,7 @@ pub enum EndPoints {
     ),
     /// * tags packages
     /// * post `/users/{username}/packages/{package_type}/{package_name}/versions/{package_version_id}/restore`
-    /// * docs https://docs.github.com/rest/reference/packages#restore-a-package-version-for-a-user
+    /// * docs <https://docs.github.com/rest/reference/packages#restore-a-package-version-for-a-user>
     ///
     /// Restore package version for a user
     /// Restores a specific package version for a user.
@@ -7989,35 +7989,35 @@ pub enum EndPoints {
     ),
     /// * tags projects
     /// * get `/users/{username}/projects`
-    /// * docs https://docs.github.com/rest/reference/projects#list-user-projects
+    /// * docs <https://docs.github.com/rest/reference/projects#list-user-projects>
     ///
     /// List user projects
     ///
     GetUsersusernameProjects(String),
     /// * tags activity
     /// * get `/users/{username}/received_events`
-    /// * docs https://docs.github.com/rest/reference/activity#list-events-received-by-the-authenticated-user
+    /// * docs <https://docs.github.com/rest/reference/activity#list-events-received-by-the-authenticated-user>
     ///
     /// List events received by the authenticated user
     /// These are events that you've received by watching repos and following users. If you are authenticated as the given user, you will see private events. Otherwise, you'll only see public events.
     GetUsersusernameReceivedEvents(String),
     /// * tags activity
     /// * get `/users/{username}/received_events/public`
-    /// * docs https://docs.github.com/rest/reference/activity#list-public-events-received-by-a-user
+    /// * docs <https://docs.github.com/rest/reference/activity#list-public-events-received-by-a-user>
     ///
     /// List public events received by a user
     ///
     GetUsersusernameReceivedEventsPublic(String),
     /// * tags repos
     /// * get `/users/{username}/repos`
-    /// * docs https://docs.github.com/rest/reference/repos#list-repositories-for-a-user
+    /// * docs <https://docs.github.com/rest/reference/repos#list-repositories-for-a-user>
     ///
     /// List repositories for a user
     /// Lists public repositories for the specified user. Note: For GitHub AE, this endpoint will list internal repositories for the specified user.
     GetUsersusernameRepos(String),
     /// * tags billing
     /// * get `/users/{username}/settings/billing/actions`
-    /// * docs https://docs.github.com/rest/reference/billing#get-github-actions-billing-for-a-user
+    /// * docs <https://docs.github.com/rest/reference/billing#get-github-actions-billing-for-a-user>
     ///
     /// Get GitHub Actions billing for a user
     /// Gets the summary of the free and paid GitHub Actions minutes used.
@@ -8028,7 +8028,7 @@ pub enum EndPoints {
     GetUsersusernameSettingsBillingActions(String),
     /// * tags billing
     /// * get `/users/{username}/settings/billing/packages`
-    /// * docs https://docs.github.com/rest/reference/billing#get-github-packages-billing-for-a-user
+    /// * docs <https://docs.github.com/rest/reference/billing#get-github-packages-billing-for-a-user>
     ///
     /// Get GitHub Packages billing for a user
     /// Gets the free and paid storage used for GitHub Packages in gigabytes.
@@ -8039,7 +8039,7 @@ pub enum EndPoints {
     GetUsersusernameSettingsBillingPackages(String),
     /// * tags billing
     /// * get `/users/{username}/settings/billing/shared-storage`
-    /// * docs https://docs.github.com/rest/reference/billing#get-shared-storage-billing-for-a-user
+    /// * docs <https://docs.github.com/rest/reference/billing#get-shared-storage-billing-for-a-user>
     ///
     /// Get shared storage billing for a user
     /// Gets the estimated paid and estimated total storage used for GitHub Actions and Github Packages.
@@ -8050,7 +8050,7 @@ pub enum EndPoints {
     GetUsersusernameSettingsBillingSharedStorage(String),
     /// * tags activity
     /// * get `/users/{username}/starred`
-    /// * docs https://docs.github.com/rest/reference/activity#list-repositories-starred-by-a-user
+    /// * docs <https://docs.github.com/rest/reference/activity#list-repositories-starred-by-a-user>
     ///
     /// List repositories starred by a user
     /// Lists repositories a user has starred.
@@ -8059,7 +8059,7 @@ pub enum EndPoints {
     GetUsersusernameStarred(String),
     /// * tags activity
     /// * get `/users/{username}/subscriptions`
-    /// * docs https://docs.github.com/rest/reference/activity#list-repositories-watched-by-a-user
+    /// * docs <https://docs.github.com/rest/reference/activity#list-repositories-watched-by-a-user>
     ///
     /// List repositories watched by a user
     /// Lists repositories a user is watching.

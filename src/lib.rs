@@ -61,11 +61,11 @@ mod test {
     use reqwest::Body;
     use serde::Serialize;
 
-    #[tokio::test]
-    pub async fn aaa() {
-        let client = Client {};
-        println!("{:#?}", client.get_::<String, String>(None, None).await)
-    }
+    // #[tokio::test]
+    // pub async fn aaa() {
+    //     let client = Client {};
+    //     println!("{:#?}", client.get_::<String, String>(None, None).await)
+    // }
 
     #[test]
     pub fn test() {

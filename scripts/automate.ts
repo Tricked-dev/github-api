@@ -8,7 +8,7 @@ const getPath = [];
 const implementsFunctions = [];
 const structs = [];
 const functions = [];
-
+let b:any = {}
 const methods = new Set();
 const typemap: Record<string, string> = {
   integer: "i64",
@@ -17,6 +17,7 @@ const typemap: Record<string, string> = {
   boolean: "bool",
   array: "Vec",
   object: "Value",
+  
 };
 
 function generateDocString(
@@ -71,20 +72,54 @@ for (const [key, val] of Object.entries(api.paths)) {
     if (response) {
       for (const [name, obj] of Object.entries(response) as any) {
         if (obj.type) {
-          if (!typemap[obj.type]) console.log(obj.type, typemap[obj.type]);
+          let option = false
+          if(Array.isArray(obj.type) ){
+            let arr = new Set<string>(obj.type);
+            if(arr.size == 2 && arr.has("null")){
+              option = true
+              arr.delete("null")
+             obj.type = `${Array.from(arr).join("")}`
+              // b[obj.type] = Array.from(arr).join(",\n")
+            
+             typemap[ obj.type] = `${Array.from(arr).map(x=>typemap[x]).join("")}`
+            } else {
+              console.log(obj.type)
+              let types = obj.type.map((x: string|number)=>typemap[x]);
+              console.log(types)
+              let name = types.map(upperFirst).join("")
+              b[name] = types.join(",\n")
+              typemap[obj.type] = name
+              obj.type = name;
+            }
+       
+          }
+          if (!typemap[obj.type]) console.log(obj.type, typemap[obj.type],typemap);
           const defaults = { doc: obj.description, example: obj.example };
           if (obj.type == "array") {
             if (obj.items.type) {
-              types[name] = {
+              console.log(typemap[obj.items.type])
+              if(option) {
+                 types[name] = {
+                type: `Option<Vec<${typemap[obj.items.type]}>>`,
+                ...defaults,
+              };
+              } else {
+types[name] = {
                 type: `Vec<${typemap[obj.items.type]}>`,
                 ...defaults,
               };
+              }
+              
             }
           } else {
-            types[name] = {
+             if(option) {  types[name] = {
+              type: `Option<${typemap[obj.type]}>`,
+              ...defaults,
+            };}else{  types[name] = {
               type: typemap[obj.type],
               ...defaults,
-            };
+            };}
+          
           }
         }
       }
@@ -131,10 +166,10 @@ for (const key of data) {
       `\n${key.name}(${"String,".repeat(key.vars.length).slice(0, -1)})`,
   );
   if (Object.entries(key.types).length !== 0) {
-    let items = [];
-
-    for (const [keys, val] of Object.entries(key.types)) {
-      let docs = `${
+    const items = [];
+    // const methods = []
+    for (let [keys, val] of Object.entries(key.types)) {
+      const docs = `${
         val.example
           ? `* example - ${val.example}`
           : "" + `${val.doc ? `\n${val.doc}` : ""}`
@@ -147,15 +182,20 @@ for (const key of data) {
         items.push(
           `${docs}\n#[serde(rename = "${keys}")]\na${keys}: ${val.type}\n`,
         );
+        keys = "a"+keys
       } else {
         items.push(`${docs}\n${keys}: ${val.type}`);
       }
+         
+        // methods.push(`pub fn ${keys}(&self) -> ${val.type} { self.${keys} }`)
+      
     }
     structs.push(
       `#[derive(Serialize, Deserialize, Clone, Debug)]\npub struct ${key.name}Response {\n ${
         items.join(",\n	")
       } \n}`,
     );
+    //\nimpl ${key.name}Response {\n${methods.join("\n\n")}\n  }
     functions.push(
       generateFunction(
         key.docs
@@ -200,6 +240,10 @@ implementsFunctions.push(
       .join(",\n  ")
   }} }`,
 );
+
+for(const [key,val] of Object.entries(b)){
+  structs.push(`pub enum ${key} { \n${val}\n}`)
+}
 
 toWrite.push(`pub enum EndPoints { \n    ${enums.join(",\n    ")} \n}`);
 toWrite.push(`impl EndPoints {  ${implementsFunctions.join("\n")} }`);

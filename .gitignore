@@ -2,3 +2,5 @@
 spec.yml
 scripts/api.json
 scripts/api2.json
+scripts/api_old.json
+api.github.com.deref.json

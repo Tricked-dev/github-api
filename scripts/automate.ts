@@ -83,9 +83,9 @@ for (const [key, val] of Object.entries(api.paths)) {
             
              typemap[ obj.type] = `${Array.from(arr).map(x=>typemap[x]).join("")}`
             } else {
-              console.log(obj.type)
+              // console.log(obj.type)
               let types = obj.type.map((x: string|number)=>typemap[x]);
-              console.log(types)
+              // console.log(types)
               let name = types.map(upperFirst).join("")
               b[name] = types.join(",\n")
               typemap[obj.type] = name
@@ -93,11 +93,11 @@ for (const [key, val] of Object.entries(api.paths)) {
             }
        
           }
-          if (!typemap[obj.type]) console.log(obj.type, typemap[obj.type],typemap);
+          // if (!typemap[obj.type]) console.log(obj.type, typemap[obj.type],typemap);
           const defaults = { doc: obj.description, example: obj.example };
           if (obj.type == "array") {
             if (obj.items.type) {
-              console.log(typemap[obj.items.type])
+              // console.log(typemap[obj.items.type])
               if(option) {
                  types[name] = {
                 type: `Option<Vec<${typemap[obj.items.type]}>>`,
@@ -152,8 +152,8 @@ types[name] = {
 
 let toWrite = [
   `use serde::{Deserialize, Serialize};\n` +
-  `use serde_json::Value;\n` +
-  `use std::collections::HashMap;\n`,
+  `use serde_json::Value;\n` ,
+  // `use std::collections::HashMap;\n`,
   `pub enum Methods { \n    ${Array.from(methods).join(",\n    ")} \n}`,
 ];
 
@@ -250,17 +250,22 @@ toWrite.push(`impl EndPoints {  ${implementsFunctions.join("\n")} }`);
 toWrite.push(structs.join("\n"));
 
 Deno.writeTextFileSync("src/end_points.rs", toWrite.join("\n\n"));
-Deno.writeTextFileSync(
-  "src/implements.rs",
-  `use crate::{client::Client, end_points::*, Error};\nuse reqwest::Body;\nuse serde::{Deserialize, Serialize};\nimpl Client {\n${
-    functions.join(
-      "\n",
-    )
-  } \n}`,
-);
-
+// Deno.writeTextFileSync(
+//   "src/implements.rs",
+//   `use crate::{client::Client, end_points::*, Error};\nuse reqwest::Body;\nuse serde::{Deserialize, Serialize};\nimpl Client {\n${
+//     functions.join(
+//       "\n",
+//     )
+//   } \n}`,
+// );
+console.log("Running cleanup commands.")
+await Deno.run({
+  cmd: ["cargo", "clippy", "--fix", "--allow-dirty"],
+  stderr: "inherit",
+  stdout: "inherit",
+}).status()
 await Deno.run({
   cmd: ["cargo", "fmt"],
-  stderr: "piped",
-  stdout: "piped",
-}).output();
+  stderr: "inherit",
+  stdout: "inherit",
+}).status()

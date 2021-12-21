@@ -9902,6 +9902,25 @@ pub struct GetAppInstallationsinstallationIdResponse {
     contact_email: Option<String>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostAppInstallationsinstallationIdAccessTokensResponse {
+    ///
+    token: String,
+    ///
+    expires_at: String,
+    /// * example - [object Object]
+    permissions: Value,
+    ///
+    repository_selection: String,
+    ///
+    repositories: Vec<Value>,
+    ///
+    single_file: String,
+    ///
+    has_multiple_single_files: bool,
+    ///
+    single_file_paths: Vec<String>,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetApplicationsGrantsgrantIdResponse {
     ///
     id: i64,
@@ -10037,6 +10056,35 @@ pub struct GetAppsappSlugResponse {
     webhook_secret: Option<String>,
     ///
     pem: String,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostAuthorizationsResponse {
+    ///
+    id: i64,
+    ///
+    url: String,
+    /// A list of scopes that this authorization is in.
+    scopes: Option<Vec<String>>,
+    ///
+    token: String,
+    ///
+    token_last_eight: Option<String>,
+    ///
+    hashed_token: Option<String>,
+    ///
+    app: Value,
+    ///
+    note: Option<String>,
+    ///
+    note_url: Option<String>,
+    ///
+    updated_at: String,
+    ///
+    created_at: String,
+    ///
+    fingerprint: Option<String>,
+    ///
+    expires_at: Option<String>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PutAuthorizationsClientsclientIdResponse {
@@ -10202,6 +10250,23 @@ pub struct GetEnterprisesenterpriseActionsRunnerGroupsResponse {
     runner_groups: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostEnterprisesenterpriseActionsRunnerGroupsResponse {
+    ///
+    id: f64,
+    ///
+    name: String,
+    ///
+    visibility: String,
+    ///
+    default: bool,
+    ///
+    selected_organizations_url: String,
+    ///
+    runners_url: String,
+    ///
+    allows_public_repositories: bool,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetEnterprisesenterpriseActionsRunnerGroupsrunnerGroupIdResponse {
     ///
     id: f64,
@@ -10255,6 +10320,36 @@ pub struct GetEnterprisesenterpriseActionsRunnersResponse {
     total_count: f64,
     ///
     runners: Vec<Value>,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostEnterprisesenterpriseActionsRunnersRegistrationTokenResponse {
+    /// The token used for authentication
+    token: String,
+    /// The time this token expires
+    expires_at: String,
+    ///
+    permissions: Value,
+    /// The repositories this token has access to
+    repositories: Vec<Value>,
+    ///
+    single_file: Option<String>,
+    /// Describe whether all repositories have been selected or there's a selection involved
+    repository_selection: String,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostEnterprisesenterpriseActionsRunnersRemoveTokenResponse {
+    /// The token used for authentication
+    token: String,
+    /// The time this token expires
+    expires_at: String,
+    ///
+    permissions: Value,
+    /// The repositories this token has access to
+    repositories: Vec<Value>,
+    ///
+    single_file: Option<String>,
+    /// Describe whether all repositories have been selected or there's a selection involved
+    repository_selection: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetEnterprisesenterpriseActionsRunnersrunnerIdResponse {
@@ -10364,6 +10459,51 @@ pub struct GetFeedsResponse {
     _links: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostGistsResponse {
+    ///
+    forks: Option<Vec<Value>>,
+    ///
+    history: Option<Vec<Value>>,
+    /// Gist
+    fork_of: Option<Value>,
+    ///
+    url: String,
+    ///
+    forks_url: String,
+    ///
+    commits_url: String,
+    ///
+    id: String,
+    ///
+    node_id: String,
+    ///
+    git_pull_url: String,
+    ///
+    git_push_url: String,
+    ///
+    html_url: String,
+    ///
+    files: Value,
+    ///
+    public: bool,
+    ///
+    created_at: String,
+    ///
+    updated_at: String,
+    ///
+    description: Option<String>,
+    ///
+    comments: i64,
+    ///
+    user: Option<String>,
+    ///
+    comments_url: String,
+    /// Simple User
+    owner: Value,
+    ///
+    truncated: bool,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetGistsgistIdResponse {
     ///
     forks: Option<Vec<Value>>,
@@ -10454,6 +10594,23 @@ pub struct PatchGistsgistIdResponse {
     truncated: bool,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostGistsgistIdCommentsResponse {
+    ///
+    id: i64,
+    ///
+    node_id: String,
+    ///
+    url: String,
+    /// The comment text.
+    body: String,
+    ///
+    created_at: String,
+    ///
+    updated_at: String,
+    /// How the author is associated with the repository.
+    author_association: String,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetGistsgistIdCommentscommentIdResponse {
     ///
     id: i64,
@@ -10486,6 +10643,43 @@ pub struct PatchGistsgistIdCommentscommentIdResponse {
     updated_at: String,
     /// How the author is associated with the repository.
     author_association: String,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostGistsgistIdForksResponse {
+    ///
+    url: String,
+    ///
+    forks_url: String,
+    ///
+    commits_url: String,
+    ///
+    id: String,
+    ///
+    node_id: String,
+    ///
+    git_pull_url: String,
+    ///
+    git_push_url: String,
+    ///
+    html_url: String,
+    ///
+    files: Value,
+    ///
+    public: bool,
+    ///
+    created_at: String,
+    ///
+    updated_at: String,
+    ///
+    description: Option<String>,
+    ///
+    comments: i64,
+    ///
+    comments_url: String,
+    /// Simple User
+    owner: Value,
+    ///
+    truncated: bool,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetGistsgistIdshaResponse {
@@ -10641,6 +10835,11 @@ pub struct GetMetaResponse {
     actions: Vec<String>,
     ///
     dependabot: Vec<String>,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PutNotificationsResponse {
+    ///
+    message: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetNotificationsThreadsthreadIdResponse {
@@ -10935,6 +11134,27 @@ pub struct GetOrgsorgActionsRunnerGroupsResponse {
     runner_groups: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostOrgsorgActionsRunnerGroupsResponse {
+    ///
+    id: f64,
+    ///
+    name: String,
+    ///
+    visibility: String,
+    ///
+    default: bool,
+    /// Link to the selected repositories resource for this runner group. Not present unless visibility was set to `selected`
+    selected_repositories_url: String,
+    ///
+    runners_url: String,
+    ///
+    inherited: bool,
+    ///
+    inherited_allows_public_repositories: bool,
+    ///
+    allows_public_repositories: bool,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetOrgsorgActionsRunnerGroupsrunnerGroupIdResponse {
     ///
     id: f64,
@@ -10996,6 +11216,36 @@ pub struct GetOrgsorgActionsRunnersResponse {
     total_count: i64,
     ///
     runners: Vec<Value>,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostOrgsorgActionsRunnersRegistrationTokenResponse {
+    /// The token used for authentication
+    token: String,
+    /// The time this token expires
+    expires_at: String,
+    ///
+    permissions: Value,
+    /// The repositories this token has access to
+    repositories: Vec<Value>,
+    ///
+    single_file: Option<String>,
+    /// Describe whether all repositories have been selected or there's a selection involved
+    repository_selection: String,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostOrgsorgActionsRunnersRemoveTokenResponse {
+    /// The token used for authentication
+    token: String,
+    /// The time this token expires
+    expires_at: String,
+    ///
+    permissions: Value,
+    /// The repositories this token has access to
+    repositories: Vec<Value>,
+    ///
+    single_file: Option<String>,
+    /// Describe whether all repositories have been selected or there's a selection involved
+    repository_selection: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetOrgsorgActionsRunnersrunnerIdResponse {
@@ -11106,6 +11356,32 @@ pub struct GetOrgsorgExternalGroupgroupIdResponse {
 pub struct GetOrgsorgExternalGroupsResponse {
     /// An array of external groups available to be mapped to a team
     groups: Vec<Value>,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostOrgsorgHooksResponse {
+    ///
+    id: i64,
+    ///
+    url: String,
+    ///
+    ping_url: String,
+    ///
+    deliveries_url: String,
+    ///
+    name: String,
+    ///
+    events: Vec<String>,
+    ///
+    active: bool,
+    ///
+    config: Value,
+    ///
+    updated_at: String,
+    ///
+    created_at: String,
+    ///
+    #[serde(rename = "type")]
+    atype: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetOrgsorgHookshookIdResponse {
@@ -11266,6 +11542,31 @@ pub struct PutOrgsorgInteractionLimitsResponse {
     expires_at: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostOrgsorgInvitationsResponse {
+    ///
+    id: i64,
+    ///
+    login: Option<String>,
+    ///
+    email: Option<String>,
+    ///
+    role: String,
+    ///
+    created_at: String,
+    ///
+    failed_at: Option<String>,
+    ///
+    failed_reason: Option<String>,
+    /// Simple User
+    inviter: Value,
+    ///
+    team_count: i64,
+    ///
+    node_id: String,
+    ///
+    invitation_teams_url: String,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetOrgsorgMembershipsusernameResponse {
     ///
     url: String,
@@ -11294,6 +11595,39 @@ pub struct PutOrgsorgMembershipsusernameResponse {
     organization: Value,
     ///
     permissions: Value,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostOrgsorgMigrationsResponse {
+    ///
+    id: i64,
+    ///
+    guid: String,
+    ///
+    state: String,
+    ///
+    lock_repositories: bool,
+    ///
+    exclude_metadata: bool,
+    ///
+    exclude_git_data: bool,
+    ///
+    exclude_attachments: bool,
+    ///
+    exclude_releases: bool,
+    ///
+    exclude_owner_projects: bool,
+    ///
+    repositories: Vec<Value>,
+    ///
+    url: String,
+    ///
+    created_at: String,
+    ///
+    updated_at: String,
+    ///
+    node_id: String,
+    ///
+    archive_url: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetOrgsorgMigrationsmigrationIdResponse {
@@ -11375,6 +11709,216 @@ pub struct GetOrgsorgPackagespackageTypepackageNameVersionspackageVersionIdRespo
     metadata: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostOrgsorgProjectsResponse {
+    ///
+    owner_url: String,
+    ///
+    url: String,
+    ///
+    html_url: String,
+    ///
+    columns_url: String,
+    ///
+    id: i64,
+    ///
+    node_id: String,
+    /// Name of the project
+    name: String,
+    /// Body of the project
+    body: Option<String>,
+    ///
+    number: i64,
+    /// State of the project; either 'open' or 'closed'
+    state: String,
+    ///
+    created_at: String,
+    ///
+    updated_at: String,
+    /// The baseline permission that all organization members have on this project. Only present if owner is an organization.
+    organization_permission: String,
+    /// Whether or not this project can be seen by everyone. Only present if owner is an organization.
+    private: bool,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostOrgsorgReposResponse {
+    /// Unique identifier of the repository
+    id: i64,
+    ///
+    node_id: String,
+    /// The name of the repository.
+    name: String,
+    ///
+    full_name: String,
+    ///
+    forks: i64,
+    ///
+    permissions: Value,
+    /// Simple User
+    owner: Value,
+    /// Whether the repository is private or public.
+    private: bool,
+    ///
+    html_url: String,
+    ///
+    description: Option<String>,
+    ///
+    fork: bool,
+    ///
+    url: String,
+    ///
+    archive_url: String,
+    ///
+    assignees_url: String,
+    ///
+    blobs_url: String,
+    ///
+    branches_url: String,
+    ///
+    collaborators_url: String,
+    ///
+    comments_url: String,
+    ///
+    commits_url: String,
+    ///
+    compare_url: String,
+    ///
+    contents_url: String,
+    ///
+    contributors_url: String,
+    ///
+    deployments_url: String,
+    ///
+    downloads_url: String,
+    ///
+    events_url: String,
+    ///
+    forks_url: String,
+    ///
+    git_commits_url: String,
+    ///
+    git_refs_url: String,
+    ///
+    git_tags_url: String,
+    ///
+    git_url: String,
+    ///
+    issue_comment_url: String,
+    ///
+    issue_events_url: String,
+    ///
+    issues_url: String,
+    ///
+    keys_url: String,
+    ///
+    labels_url: String,
+    ///
+    languages_url: String,
+    ///
+    merges_url: String,
+    ///
+    milestones_url: String,
+    ///
+    notifications_url: String,
+    ///
+    pulls_url: String,
+    ///
+    releases_url: String,
+    ///
+    ssh_url: String,
+    ///
+    stargazers_url: String,
+    ///
+    statuses_url: String,
+    ///
+    subscribers_url: String,
+    ///
+    subscription_url: String,
+    ///
+    tags_url: String,
+    ///
+    teams_url: String,
+    ///
+    trees_url: String,
+    ///
+    clone_url: String,
+    ///
+    mirror_url: Option<String>,
+    ///
+    hooks_url: String,
+    ///
+    svn_url: String,
+    ///
+    homepage: Option<String>,
+    ///
+    language: Option<String>,
+    ///
+    forks_count: i64,
+    ///
+    stargazers_count: i64,
+    ///
+    watchers_count: i64,
+    ///
+    size: i64,
+    /// The default branch of the repository.
+    default_branch: String,
+    ///
+    open_issues_count: i64,
+    /// Whether this repository acts as a template that can be used to generate new repositories.
+    is_template: bool,
+    ///
+    topics: Vec<String>,
+    /// Whether issues are enabled.
+    has_issues: bool,
+    /// Whether projects are enabled.
+    has_projects: bool,
+    /// Whether the wiki is enabled.
+    has_wiki: bool,
+    ///
+    has_pages: bool,
+    /// Whether downloads are enabled.
+    has_downloads: bool,
+    /// Whether the repository is archived.
+    archived: bool,
+    /// Returns whether or not this repository disabled.
+    disabled: bool,
+    /// The repository visibility: public, private, or internal.
+    visibility: String,
+    ///
+    pushed_at: Option<String>,
+    ///
+    created_at: Option<String>,
+    ///
+    updated_at: Option<String>,
+    /// Whether to allow rebase merges for pull requests.
+    allow_rebase_merge: bool,
+    ///
+    template_repository: Option<Value>,
+    ///
+    temp_clone_token: String,
+    /// Whether to allow squash merges for pull requests.
+    allow_squash_merge: bool,
+    /// Whether to allow Auto-merge to be used on pull requests.
+    allow_auto_merge: bool,
+    /// Whether to delete head branches when pull requests are merged
+    delete_branch_on_merge: bool,
+    /// Whether to allow merge commits for pull requests.
+    allow_merge_commit: bool,
+    /// Whether to allow forking this repo
+    allow_forking: bool,
+    ///
+    subscribers_count: i64,
+    ///
+    network_count: i64,
+    ///
+    open_issues: i64,
+    ///
+    watchers: i64,
+    ///
+    master_branch: String,
+    ///
+    starred_at: String,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetOrgsorgSettingsBillingActionsResponse {
     /// The sum of the free and paid GitHub Actions minutes used.
     total_minutes_used: i64,
@@ -11416,6 +11960,43 @@ pub struct GetOrgsorgTeamSyncGroupsResponse {
     groups: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostOrgsorgTeamsResponse {
+    /// Unique identifier of the team
+    id: i64,
+    ///
+    node_id: String,
+    /// URL for the team
+    url: String,
+    ///
+    html_url: String,
+    /// Name of the team
+    name: String,
+    ///
+    slug: String,
+    ///
+    description: Option<String>,
+    /// The level of privacy this team should have
+    privacy: String,
+    /// Permission that the team will have for its repositories
+    permission: String,
+    ///
+    members_url: String,
+    ///
+    repositories_url: String,
+    ///
+    members_count: i64,
+    ///
+    repos_count: i64,
+    ///
+    created_at: String,
+    ///
+    updated_at: String,
+    /// Organization Full
+    organization: Value,
+    /// Distinguished Name (DN) that team maps to within LDAP environment
+    ldap_dn: String,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetOrgsorgTeamsteamSlugResponse {
     /// Unique identifier of the team
     id: i64,
@@ -11451,6 +12032,80 @@ pub struct GetOrgsorgTeamsteamSlugResponse {
     organization: Value,
     /// Distinguished Name (DN) that team maps to within LDAP environment
     ldap_dn: String,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PatchOrgsorgTeamsteamSlugResponse {
+    /// Unique identifier of the team
+    id: i64,
+    ///
+    node_id: String,
+    /// URL for the team
+    url: String,
+    ///
+    html_url: String,
+    /// Name of the team
+    name: String,
+    ///
+    slug: String,
+    ///
+    description: Option<String>,
+    /// The level of privacy this team should have
+    privacy: String,
+    /// Permission that the team will have for its repositories
+    permission: String,
+    ///
+    members_url: String,
+    ///
+    repositories_url: String,
+    ///
+    members_count: i64,
+    ///
+    repos_count: i64,
+    ///
+    created_at: String,
+    ///
+    updated_at: String,
+    /// Organization Full
+    organization: Value,
+    /// Distinguished Name (DN) that team maps to within LDAP environment
+    ldap_dn: String,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostOrgsorgTeamsteamSlugDiscussionsResponse {
+    /// The main text of the discussion.
+    body: String,
+    ///
+    body_html: String,
+    /// The current version of the body content. If provided, this update operation will be rejected if the given version does not match the latest version on the server.
+    body_version: String,
+    ///
+    comments_count: i64,
+    ///
+    comments_url: String,
+    ///
+    created_at: String,
+    ///
+    last_edited_at: Option<String>,
+    ///
+    html_url: String,
+    ///
+    node_id: String,
+    /// The unique sequence number of a team discussion.
+    number: i64,
+    /// Whether or not this discussion should be pinned for easy retrieval.
+    pinned: bool,
+    /// Whether or not this discussion should be restricted to team members and organization administrators.
+    private: bool,
+    ///
+    team_url: String,
+    /// The title of the discussion.
+    title: String,
+    ///
+    updated_at: String,
+    ///
+    url: String,
+    ///
+    reactions: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetOrgsorgTeamsteamSlugDiscussionsdiscussionNumberResponse {
@@ -11519,6 +12174,33 @@ pub struct PatchOrgsorgTeamsteamSlugDiscussionsdiscussionNumberResponse {
     team_url: String,
     /// The title of the discussion.
     title: String,
+    ///
+    updated_at: String,
+    ///
+    url: String,
+    ///
+    reactions: Value,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostOrgsorgTeamsteamSlugDiscussionsdiscussionNumberCommentsResponse {
+    /// The main text of the comment.
+    body: String,
+    ///
+    body_html: String,
+    /// The current version of the body content. If provided, this update operation will be rejected if the given version does not match the latest version on the server.
+    body_version: String,
+    ///
+    created_at: String,
+    ///
+    last_edited_at: Option<String>,
+    ///
+    discussion_url: String,
+    ///
+    html_url: String,
+    ///
+    node_id: String,
+    /// The unique sequence number of a team discussion comment.
+    number: i64,
     ///
     updated_at: String,
     ///
@@ -11947,6 +12629,33 @@ pub struct PatchProjectsColumnscolumnIdResponse {
     updated_at: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostProjectsColumnscolumnIdCardsResponse {
+    ///
+    url: String,
+    /// The project card's ID
+    id: i64,
+    ///
+    node_id: String,
+    ///
+    note: Option<String>,
+    ///
+    created_at: String,
+    ///
+    updated_at: String,
+    /// Whether or not the card is archived
+    archived: bool,
+    ///
+    column_name: String,
+    ///
+    project_id: String,
+    ///
+    column_url: String,
+    ///
+    content_url: String,
+    ///
+    project_url: String,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetProjectsprojectIdResponse {
     ///
     owner_url: String,
@@ -12012,6 +12721,25 @@ pub struct PatchProjectsprojectIdResponse {
 pub struct GetProjectsprojectIdCollaboratorsusernamePermissionResponse {
     ///
     permission: String,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostProjectsprojectIdColumnsResponse {
+    ///
+    url: String,
+    ///
+    project_url: String,
+    ///
+    cards_url: String,
+    /// The unique identifier of the project column
+    id: i64,
+    ///
+    node_id: String,
+    /// Name of the project column
+    name: String,
+    ///
+    created_at: String,
+    ///
+    updated_at: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetRateLimitResponse {
@@ -12489,6 +13217,36 @@ pub struct GetReposownerrepoActionsRunnersResponse {
     runners: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostReposownerrepoActionsRunnersRegistrationTokenResponse {
+    /// The token used for authentication
+    token: String,
+    /// The time this token expires
+    expires_at: String,
+    ///
+    permissions: Value,
+    /// The repositories this token has access to
+    repositories: Vec<Value>,
+    ///
+    single_file: Option<String>,
+    /// Describe whether all repositories have been selected or there's a selection involved
+    repository_selection: String,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostReposownerrepoActionsRunnersRemoveTokenResponse {
+    /// The token used for authentication
+    token: String,
+    /// The time this token expires
+    expires_at: String,
+    ///
+    permissions: Value,
+    /// The repositories this token has access to
+    repositories: Vec<Value>,
+    ///
+    single_file: Option<String>,
+    /// Describe whether all repositories have been selected or there's a selection involved
+    repository_selection: String,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoActionsRunnersrunnerIdResponse {
     /// The id of the runner.
     id: i64,
@@ -12775,6 +13533,15 @@ pub struct GetReposownerrepoActionsWorkflowsworkflowIdTimingResponse {
     billable: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostReposownerrepoAutolinksResponse {
+    ///
+    id: i64,
+    /// The prefix of a key that is linkified.
+    key_prefix: String,
+    /// A template for the target URL that is generated if a key was found.
+    url_template: String,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoAutolinksautolinkIdResponse {
     ///
     id: i64,
@@ -12874,6 +13641,8 @@ pub struct GetReposownerrepoBranchesbranchProtectionRequiredPullRequestReviewsRe
     url: String,
     ///
     dismissal_restrictions: Value,
+    /// Allow specific users or teams to bypass pull request requirements. Set to `null` to disable.
+    bypass_pull_request_allowances: Option<Value>,
     ///
     dismiss_stale_reviews: bool,
     ///
@@ -12887,6 +13656,8 @@ pub struct PatchReposownerrepoBranchesbranchProtectionRequiredPullRequestReviews
     url: String,
     ///
     dismissal_restrictions: Value,
+    /// Allow specific users or teams to bypass pull request requirements. Set to `null` to disable.
+    bypass_pull_request_allowances: Option<Value>,
     ///
     dismiss_stale_reviews: bool,
     ///
@@ -12950,6 +13721,60 @@ pub struct GetReposownerrepoBranchesbranchProtectionRestrictionsResponse {
     teams: Vec<Value>,
     ///
     apps: Vec<Value>,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostReposownerrepoBranchesbranchRenameResponse {
+    ///
+    name: String,
+    /// Commit
+    commit: Value,
+    ///
+    _links: Value,
+    ///
+    protected: bool,
+    /// Branch Protection
+    protection: Value,
+    ///
+    protection_url: String,
+    ///
+    pattern: String,
+    ///
+    required_approving_review_count: i64,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostReposownerrepoCheckRunsResponse {
+    /// The id of the check.
+    id: i64,
+    /// The SHA of the commit that is being checked.
+    head_sha: String,
+    ///
+    node_id: String,
+    ///
+    external_id: Option<String>,
+    ///
+    url: String,
+    ///
+    html_url: Option<String>,
+    ///
+    details_url: Option<String>,
+    /// The phase of the lifecycle that the check is currently in.
+    status: String,
+    ///
+    conclusion: Option<String>,
+    ///
+    started_at: Option<String>,
+    ///
+    completed_at: Option<String>,
+    ///
+    output: Value,
+    /// The name of the check.
+    name: String,
+    ///
+    check_suite: Option<Value>,
+    ///
+    pull_requests: Vec<Value>,
+    /// A deployment created as the result of an Actions check run from a workflow that references an environment
+    deployment: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoCheckRunscheckRunIdResponse {
@@ -13214,6 +14039,13 @@ pub struct DeleteReposownerrepoCodeScanningAnalysesanalysisIdResponse {
     confirm_delete_url: Option<String>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostReposownerrepoCodeScanningSarifsResponse {
+    /// An identifier for the upload.
+    id: String,
+    /// The REST API URL for checking the status of the upload.
+    url: String,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoCodeScanningSarifssarifIdResponse {
     /// `pending` files have not yet been processed, while `complete` means results from the SARIF have been stored. `failed` files have either not been processed at all, or could only be partially processed.
     processing_status: String,
@@ -13230,11 +14062,77 @@ pub struct GetReposownerrepoCodespacesResponse {
     codespaces: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostReposownerrepoCodespacesResponse {
+    ///
+    id: i64,
+    /// Automatically generated name of this codespace.
+    name: String,
+    /// UUID identifying this codespace's environment.
+    environment_id: Option<String>,
+    /// Simple User
+    owner: Value,
+    /// Simple User
+    billable_owner: Value,
+    /// Minimal Repository
+    repository: Value,
+    /// Whether the codespace was created from a prebuild.
+    prebuild: Option<bool>,
+    ///
+    created_at: String,
+    ///
+    updated_at: String,
+    /// Last known time this codespace was started.
+    last_used_at: String,
+    /// State of this codespace.
+    state: String,
+    /// API URL for this codespace.
+    url: String,
+    /// Details about the codespace's git repository.
+    git_status: Value,
+    /// The Azure region where this codespace is located.
+    location: String,
+    /// The number of minutes of inactivity after which this codespace will be automatically stopped.
+    idle_timeout_minutes: Option<i64>,
+    /// URL to access this codespace on the web.
+    web_url: String,
+    /// API URL to access available alternate machine types for this codespace.
+    machines_url: String,
+    /// API URL to start this codespace.
+    start_url: String,
+    /// API URL to stop this codespace.
+    stop_url: String,
+    /// API URL for the Pull Request associated with this codespace, if any.
+    pulls_url: Option<String>,
+    ///
+    recent_folders: Vec<String>,
+    ///
+    runtime_constraints: Value,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoCodespacesMachinesResponse {
     ///
     total_count: i64,
     ///
     machines: Vec<Value>,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PutReposownerrepoCollaboratorsusernameResponse {
+    /// Unique identifier of the repository invitation.
+    id: i64,
+    /// Minimal Repository
+    repository: Value,
+    /// The permission associated with the invitation.
+    permissions: String,
+    ///
+    created_at: String,
+    /// Whether or not the invitation has expired
+    expired: bool,
+    /// URL for the repository invitation
+    url: String,
+    ///
+    html_url: String,
+    ///
+    node_id: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoCollaboratorsusernamePermissionResponse {
@@ -13311,6 +14209,35 @@ pub struct PostReposownerrepoCommentscommentIdReactionsResponse {
     content: String,
     ///
     created_at: String,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostReposownerrepoCommitscommitShaCommentsResponse {
+    ///
+    html_url: String,
+    ///
+    url: String,
+    ///
+    id: i64,
+    ///
+    node_id: String,
+    ///
+    body: String,
+    ///
+    path: Option<String>,
+    ///
+    position: Option<i64>,
+    ///
+    line: Option<i64>,
+    ///
+    commit_id: String,
+    ///
+    created_at: String,
+    ///
+    updated_at: String,
+    /// How the author is associated with the repository.
+    author_association: String,
+    ///
+    reactions: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoCommitsrefResponse {
@@ -13423,6 +14350,40 @@ pub struct DeleteReposownerrepoContentspathResponse {
     commit: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostReposownerrepoDeploymentsResponse {
+    ///
+    url: String,
+    /// Unique identifier of the deployment
+    id: i64,
+    ///
+    node_id: String,
+    ///
+    sha: String,
+    /// The ref to deploy. This can be a branch, tag, or sha.
+    #[serde(rename = "ref")]
+    aref: String,
+    /// Parameter to specify a task to execute
+    task: String,
+    ///
+    original_environment: String,
+    /// Name for the target deployment environment.
+    environment: String,
+    ///
+    description: Option<String>,
+    ///
+    created_at: String,
+    ///
+    updated_at: String,
+    ///
+    statuses_url: String,
+    ///
+    repository_url: String,
+    /// Specifies if the given environment is will no longer exist at some point in the future. Default: false.
+    transient_environment: bool,
+    /// Specifies if the given environment is one that end-users directly interact with. Default: false.
+    production_environment: bool,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoDeploymentsdeploymentIdResponse {
     ///
     url: String,
@@ -13455,6 +14416,35 @@ pub struct GetReposownerrepoDeploymentsdeploymentIdResponse {
     transient_environment: bool,
     /// Specifies if the given environment is one that end-users directly interact with. Default: false.
     production_environment: bool,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostReposownerrepoDeploymentsdeploymentIdStatusesResponse {
+    ///
+    url: String,
+    ///
+    id: i64,
+    ///
+    node_id: String,
+    /// The state of the status.
+    state: String,
+    /// A short description of the status.
+    description: String,
+    /// The environment of the deployment that the status is for.
+    environment: String,
+    /// Deprecated: the URL to associate with this status.
+    target_url: String,
+    ///
+    created_at: String,
+    ///
+    updated_at: String,
+    ///
+    deployment_url: String,
+    ///
+    repository_url: String,
+    /// The URL for accessing your environment.
+    environment_url: String,
+    /// The URL to associate with this status.
+    log_url: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoDeploymentsdeploymentIdStatusesstatusIdResponse {
@@ -13531,6 +14521,198 @@ pub struct PutReposownerrepoEnvironmentsenvironmentNameResponse {
     deployment_branch_policy: Option<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostReposownerrepoForksResponse {
+    ///
+    id: i64,
+    ///
+    node_id: String,
+    ///
+    name: String,
+    ///
+    full_name: String,
+    /// Simple User
+    owner: Value,
+    ///
+    private: bool,
+    ///
+    html_url: String,
+    ///
+    description: Option<String>,
+    ///
+    fork: bool,
+    ///
+    url: String,
+    ///
+    archive_url: String,
+    ///
+    assignees_url: String,
+    ///
+    blobs_url: String,
+    ///
+    branches_url: String,
+    ///
+    collaborators_url: String,
+    ///
+    comments_url: String,
+    ///
+    commits_url: String,
+    ///
+    compare_url: String,
+    ///
+    contents_url: String,
+    ///
+    contributors_url: String,
+    ///
+    deployments_url: String,
+    ///
+    downloads_url: String,
+    ///
+    events_url: String,
+    ///
+    forks_url: String,
+    ///
+    git_commits_url: String,
+    ///
+    git_refs_url: String,
+    ///
+    git_tags_url: String,
+    ///
+    git_url: String,
+    ///
+    issue_comment_url: String,
+    ///
+    issue_events_url: String,
+    ///
+    issues_url: String,
+    ///
+    keys_url: String,
+    ///
+    labels_url: String,
+    ///
+    languages_url: String,
+    ///
+    merges_url: String,
+    ///
+    milestones_url: String,
+    ///
+    notifications_url: String,
+    ///
+    pulls_url: String,
+    ///
+    releases_url: String,
+    ///
+    ssh_url: String,
+    ///
+    stargazers_url: String,
+    ///
+    statuses_url: String,
+    ///
+    subscribers_url: String,
+    ///
+    subscription_url: String,
+    ///
+    tags_url: String,
+    ///
+    teams_url: String,
+    ///
+    trees_url: String,
+    ///
+    clone_url: String,
+    ///
+    mirror_url: Option<String>,
+    ///
+    hooks_url: String,
+    ///
+    svn_url: String,
+    ///
+    homepage: Option<String>,
+    ///
+    language: Option<String>,
+    ///
+    forks_count: i64,
+    ///
+    stargazers_count: i64,
+    ///
+    watchers_count: i64,
+    ///
+    size: i64,
+    ///
+    default_branch: String,
+    ///
+    open_issues_count: i64,
+    ///
+    is_template: bool,
+    ///
+    topics: Vec<String>,
+    ///
+    has_issues: bool,
+    ///
+    has_projects: bool,
+    ///
+    has_wiki: bool,
+    ///
+    has_pages: bool,
+    ///
+    has_downloads: bool,
+    ///
+    archived: bool,
+    /// Returns whether or not this repository disabled.
+    disabled: bool,
+    /// The repository visibility: public, private, or internal.
+    visibility: String,
+    ///
+    pushed_at: String,
+    ///
+    created_at: String,
+    ///
+    updated_at: String,
+    ///
+    permissions: Value,
+    ///
+    allow_rebase_merge: bool,
+    ///
+    temp_clone_token: Option<String>,
+    ///
+    allow_squash_merge: bool,
+    ///
+    allow_auto_merge: bool,
+    ///
+    delete_branch_on_merge: bool,
+    ///
+    allow_merge_commit: bool,
+    ///
+    allow_forking: bool,
+    ///
+    subscribers_count: i64,
+    ///
+    network_count: i64,
+    /// A git repository
+    parent: Value,
+    /// A git repository
+    source: Value,
+    ///
+    forks: i64,
+    ///
+    master_branch: String,
+    ///
+    open_issues: i64,
+    ///
+    watchers: i64,
+    /// Whether anonymous git access is allowed.
+    anonymous_access_enabled: bool,
+    /// Code of Conduct Simple
+    code_of_conduct: Value,
+    ///
+    security_and_analysis: Option<Value>,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostReposownerrepoGitBlobsResponse {
+    ///
+    url: String,
+    ///
+    sha: String,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoGitBlobsfileShaResponse {
     ///
     content: String,
@@ -13546,6 +14728,29 @@ pub struct GetReposownerrepoGitBlobsfileShaResponse {
     node_id: String,
     ///
     highlighted_content: String,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostReposownerrepoGitCommitsResponse {
+    /// SHA for the commit
+    sha: String,
+    ///
+    node_id: String,
+    ///
+    url: String,
+    /// Identifying information for the git-user
+    author: Value,
+    /// Identifying information for the git-user
+    committer: Value,
+    /// Message describing the purpose of the commit
+    message: String,
+    ///
+    tree: Value,
+    ///
+    parents: Vec<Value>,
+    ///
+    verification: Value,
+    ///
+    html_url: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoGitCommitscommitShaResponse {
@@ -13583,6 +14788,18 @@ pub struct GetReposownerrepoGitRefrefResponse {
     object: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostReposownerrepoGitRefsResponse {
+    ///
+    #[serde(rename = "ref")]
+    aref: String,
+    ///
+    node_id: String,
+    ///
+    url: String,
+    ///
+    object: Value,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PatchReposownerrepoGitRefsrefResponse {
     ///
     #[serde(rename = "ref")]
@@ -13593,6 +14810,25 @@ pub struct PatchReposownerrepoGitRefsrefResponse {
     url: String,
     ///
     object: Value,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostReposownerrepoGitTagsResponse {
+    ///
+    node_id: String,
+    /// Name of the tag
+    tag: String,
+    ///
+    sha: String,
+    /// URL for the tag
+    url: String,
+    /// Message describing the purpose of the tag
+    message: String,
+    ///
+    tagger: Value,
+    ///
+    object: Value,
+    ///
+    verification: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoGitTagstagShaResponse {
@@ -13614,6 +14850,17 @@ pub struct GetReposownerrepoGitTagstagShaResponse {
     verification: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostReposownerrepoGitTreesResponse {
+    ///
+    sha: String,
+    ///
+    url: String,
+    ///
+    truncated: bool,
+    /// Objects specifying a tree structure
+    tree: Vec<Value>,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoGitTreestreeShaResponse {
     ///
     sha: String,
@@ -13623,6 +14870,36 @@ pub struct GetReposownerrepoGitTreestreeShaResponse {
     truncated: bool,
     /// Objects specifying a tree structure
     tree: Vec<Value>,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostReposownerrepoHooksResponse {
+    ///
+    #[serde(rename = "type")]
+    atype: String,
+    /// Unique identifier of the webhook.
+    id: i64,
+    /// The name of a valid service, use 'web' for a webhook.
+    name: String,
+    /// Determines whether the hook is actually triggered on pushes.
+    active: bool,
+    /// Determines what events the hook is triggered for. Default: ['push'].
+    events: Vec<String>,
+    ///
+    config: Value,
+    ///
+    updated_at: String,
+    ///
+    created_at: String,
+    ///
+    url: String,
+    ///
+    test_url: String,
+    ///
+    ping_url: String,
+    ///
+    deliveries_url: String,
+    ///
+    last_response: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoHookshookIdResponse {
@@ -13735,6 +15012,55 @@ pub struct GetReposownerrepoHookshookIdDeliveriesdeliveryIdResponse {
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoImportResponse {
+    ///
+    vcs: Option<String>,
+    ///
+    use_lfs: bool,
+    /// The URL of the originating repository.
+    vcs_url: String,
+    ///
+    svc_root: String,
+    ///
+    tfvc_project: String,
+    ///
+    status: String,
+    ///
+    status_text: Option<String>,
+    ///
+    failed_step: Option<String>,
+    ///
+    error_message: Option<String>,
+    ///
+    import_percent: Option<i64>,
+    ///
+    commit_count: Option<i64>,
+    ///
+    push_percent: Option<i64>,
+    ///
+    has_large_files: bool,
+    ///
+    large_files_size: i64,
+    ///
+    large_files_count: i64,
+    ///
+    project_choices: Vec<Value>,
+    ///
+    message: String,
+    ///
+    authors_count: Option<i64>,
+    ///
+    url: String,
+    ///
+    html_url: String,
+    ///
+    authors_url: String,
+    ///
+    repository_url: String,
+    ///
+    svn_root: String,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PutReposownerrepoImportResponse {
     ///
     vcs: Option<String>,
     ///
@@ -13967,6 +15293,63 @@ pub struct PatchReposownerrepoInvitationsinvitationIdResponse {
     node_id: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostReposownerrepoIssuesResponse {
+    ///
+    id: i64,
+    ///
+    node_id: String,
+    /// URL for the issue
+    url: String,
+    ///
+    repository_url: String,
+    ///
+    labels_url: String,
+    ///
+    comments_url: String,
+    ///
+    events_url: String,
+    ///
+    html_url: String,
+    /// Number uniquely identifying the issue within its repository
+    number: i64,
+    /// State of the issue; either 'open' or 'closed'
+    state: String,
+    /// Title of the issue
+    title: String,
+    /// Contents of the issue
+    body: Option<String>,
+    ///
+    assignees: Option<Vec<Value>>,
+    ///
+    locked: bool,
+    ///
+    active_lock_reason: Option<String>,
+    ///
+    comments: i64,
+    ///
+    pull_request: Value,
+    ///
+    closed_at: Option<String>,
+    ///
+    created_at: String,
+    ///
+    updated_at: String,
+    ///
+    draft: bool,
+    ///
+    body_html: String,
+    ///
+    body_text: String,
+    ///
+    timeline_url: String,
+    /// A git repository
+    repository: Value,
+    /// How the author is associated with the repository.
+    author_association: String,
+    ///
+    reactions: Value,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoIssuesCommentscommentIdResponse {
     /// Unique identifier of the issue comment
     id: i64,
@@ -14179,6 +15562,63 @@ pub struct PatchReposownerrepoIssuesissueNumberResponse {
     reactions: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostReposownerrepoIssuesissueNumberAssigneesResponse {
+    ///
+    id: i64,
+    ///
+    node_id: String,
+    /// URL for the issue
+    url: String,
+    ///
+    repository_url: String,
+    ///
+    labels_url: String,
+    ///
+    comments_url: String,
+    ///
+    events_url: String,
+    ///
+    html_url: String,
+    /// Number uniquely identifying the issue within its repository
+    number: i64,
+    /// State of the issue; either 'open' or 'closed'
+    state: String,
+    /// Title of the issue
+    title: String,
+    /// Contents of the issue
+    body: Option<String>,
+    ///
+    assignees: Option<Vec<Value>>,
+    ///
+    locked: bool,
+    ///
+    active_lock_reason: Option<String>,
+    ///
+    comments: i64,
+    ///
+    pull_request: Value,
+    ///
+    closed_at: Option<String>,
+    ///
+    created_at: String,
+    ///
+    updated_at: String,
+    ///
+    draft: bool,
+    ///
+    body_html: String,
+    ///
+    body_text: String,
+    ///
+    timeline_url: String,
+    /// A git repository
+    repository: Value,
+    /// How the author is associated with the repository.
+    author_association: String,
+    ///
+    reactions: Value,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct DeleteReposownerrepoIssuesissueNumberAssigneesResponse {
     ///
     id: i64,
@@ -14236,6 +15676,33 @@ pub struct DeleteReposownerrepoIssuesissueNumberAssigneesResponse {
     reactions: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostReposownerrepoIssuesissueNumberCommentsResponse {
+    /// Unique identifier of the issue comment
+    id: i64,
+    ///
+    node_id: String,
+    /// URL for the issue comment
+    url: String,
+    /// Contents of the issue comment
+    body: String,
+    ///
+    body_text: String,
+    ///
+    body_html: String,
+    ///
+    html_url: String,
+    ///
+    created_at: String,
+    ///
+    updated_at: String,
+    ///
+    issue_url: String,
+    /// How the author is associated with the repository.
+    author_association: String,
+    ///
+    reactions: Value,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PostReposownerrepoIssuesissueNumberReactionsResponse {
     ///
     id: i64,
@@ -14245,6 +15712,23 @@ pub struct PostReposownerrepoIssuesissueNumberReactionsResponse {
     content: String,
     ///
     created_at: String,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostReposownerrepoKeysResponse {
+    ///
+    id: i64,
+    ///
+    key: String,
+    ///
+    url: String,
+    ///
+    title: String,
+    ///
+    verified: bool,
+    ///
+    created_at: String,
+    ///
+    read_only: bool,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoKeyskeyIdResponse {
@@ -14262,6 +15746,23 @@ pub struct GetReposownerrepoKeyskeyIdResponse {
     created_at: String,
     ///
     read_only: bool,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostReposownerrepoLabelsResponse {
+    ///
+    id: i64,
+    ///
+    node_id: String,
+    /// URL for the label
+    url: String,
+    /// The name of the label.
+    name: String,
+    ///
+    description: Option<String>,
+    /// 6-character hex code, without the leading #, identifying the color
+    color: String,
+    ///
+    default: bool,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoLabelsnameResponse {
@@ -14335,6 +15836,60 @@ pub struct PostReposownerrepoMergeUpstreamResponse {
     base_branch: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostReposownerrepoMergesResponse {
+    ///
+    url: String,
+    ///
+    sha: String,
+    ///
+    node_id: String,
+    ///
+    html_url: String,
+    ///
+    comments_url: String,
+    ///
+    commit: Value,
+    ///
+    parents: Vec<Value>,
+    ///
+    stats: Value,
+    ///
+    files: Vec<Value>,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostReposownerrepoMilestonesResponse {
+    ///
+    url: String,
+    ///
+    html_url: String,
+    ///
+    labels_url: String,
+    ///
+    id: i64,
+    ///
+    node_id: String,
+    /// The number of the milestone.
+    number: i64,
+    /// The state of the milestone.
+    state: String,
+    /// The title of the milestone.
+    title: String,
+    ///
+    description: Option<String>,
+    ///
+    open_issues: i64,
+    ///
+    closed_issues: i64,
+    ///
+    created_at: String,
+    ///
+    updated_at: String,
+    ///
+    closed_at: Option<String>,
+    ///
+    due_on: Option<String>,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoMilestonesmilestoneNumberResponse {
     ///
     url: String,
@@ -14401,6 +15956,13 @@ pub struct PatchReposownerrepoMilestonesmilestoneNumberResponse {
     due_on: Option<String>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PutReposownerrepoNotificationsResponse {
+    ///
+    message: String,
+    ///
+    url: String,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoPagesResponse {
     /// The API address for accessing this Page resource.
     url: String,
@@ -14424,6 +15986,38 @@ pub struct GetReposownerrepoPagesResponse {
     https_certificate: Value,
     /// Whether https is enabled on the domain
     https_enforced: bool,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostReposownerrepoPagesResponse {
+    /// The API address for accessing this Page resource.
+    url: String,
+    /// The status of the most recent build of the Page.
+    status: Option<String>,
+    /// The Pages site's custom domain
+    cname: Option<String>,
+    /// The state if the domain is verified
+    protected_domain_state: Option<String>,
+    /// The timestamp when a pending domain becomes unverified.
+    pending_domain_unverified_at: Option<String>,
+    /// Whether the Page has a custom 404 page.
+    custom_404: bool,
+    /// The web address the Page can be accessed from.
+    html_url: String,
+    ///
+    source: Value,
+    /// Whether the GitHub Pages site is publicly visible. If set to `true`, the site is accessible to anyone on the internet. If set to `false`, the site will only be accessible to users who have at least `read` access to the repository that published the site.
+    public: bool,
+    ///
+    https_certificate: Value,
+    /// Whether https is enabled on the domain
+    https_enforced: bool,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostReposownerrepoPagesBuildsResponse {
+    ///
+    url: String,
+    ///
+    status: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoPagesBuildsLatestResponse {
@@ -14465,6 +16059,128 @@ pub struct GetReposownerrepoPagesHealthResponse {
     domain: Value,
     ///
     alt_domain: Option<Value>,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostReposownerrepoProjectsResponse {
+    ///
+    owner_url: String,
+    ///
+    url: String,
+    ///
+    html_url: String,
+    ///
+    columns_url: String,
+    ///
+    id: i64,
+    ///
+    node_id: String,
+    /// Name of the project
+    name: String,
+    /// Body of the project
+    body: Option<String>,
+    ///
+    number: i64,
+    /// State of the project; either 'open' or 'closed'
+    state: String,
+    ///
+    created_at: String,
+    ///
+    updated_at: String,
+    /// The baseline permission that all organization members have on this project. Only present if owner is an organization.
+    organization_permission: String,
+    /// Whether or not this project can be seen by everyone. Only present if owner is an organization.
+    private: bool,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostReposownerrepoPullsResponse {
+    ///
+    url: String,
+    ///
+    id: i64,
+    ///
+    node_id: String,
+    ///
+    html_url: String,
+    ///
+    diff_url: String,
+    ///
+    patch_url: String,
+    ///
+    issue_url: String,
+    ///
+    commits_url: String,
+    ///
+    review_comments_url: String,
+    ///
+    review_comment_url: String,
+    ///
+    comments_url: String,
+    ///
+    statuses_url: String,
+    /// Number uniquely identifying the pull request within its repository.
+    number: i64,
+    /// State of this Pull Request. Either `open` or `closed`.
+    state: String,
+    ///
+    locked: bool,
+    /// The title of the pull request.
+    title: String,
+    ///
+    body: Option<String>,
+    ///
+    labels: Vec<Value>,
+    ///
+    active_lock_reason: Option<String>,
+    ///
+    created_at: String,
+    ///
+    updated_at: String,
+    ///
+    closed_at: Option<String>,
+    ///
+    merged_at: Option<String>,
+    ///
+    merge_commit_sha: Option<String>,
+    ///
+    assignees: Option<Vec<Value>>,
+    ///
+    requested_reviewers: Option<Vec<Value>>,
+    ///
+    requested_teams: Option<Vec<Value>>,
+    ///
+    head: Value,
+    ///
+    base: Value,
+    ///
+    _links: Value,
+    /// How the author is associated with the repository.
+    author_association: String,
+    /// The status of auto merging a pull request.
+    auto_merge: Option<Value>,
+    /// Indicates whether or not the pull request is a draft.
+    draft: bool,
+    ///
+    merged: bool,
+    ///
+    mergeable: Option<bool>,
+    ///
+    rebaseable: Option<bool>,
+    ///
+    mergeable_state: String,
+    ///
+    comments: i64,
+    ///
+    review_comments: i64,
+    /// Indicates whether maintainers can modify the pull request.
+    maintainer_can_modify: bool,
+    ///
+    commits: i64,
+    ///
+    additions: i64,
+    ///
+    deletions: i64,
+    ///
+    changed_files: i64,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoPullsCommentscommentIdResponse {
@@ -14778,6 +16494,171 @@ pub struct PatchReposownerrepoPullspullNumberResponse {
     changed_files: i64,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostReposownerrepoPullspullNumberCodespacesResponse {
+    ///
+    id: i64,
+    /// Automatically generated name of this codespace.
+    name: String,
+    /// UUID identifying this codespace's environment.
+    environment_id: Option<String>,
+    /// Simple User
+    owner: Value,
+    /// Simple User
+    billable_owner: Value,
+    /// Minimal Repository
+    repository: Value,
+    /// Whether the codespace was created from a prebuild.
+    prebuild: Option<bool>,
+    ///
+    created_at: String,
+    ///
+    updated_at: String,
+    /// Last known time this codespace was started.
+    last_used_at: String,
+    /// State of this codespace.
+    state: String,
+    /// API URL for this codespace.
+    url: String,
+    /// Details about the codespace's git repository.
+    git_status: Value,
+    /// The Azure region where this codespace is located.
+    location: String,
+    /// The number of minutes of inactivity after which this codespace will be automatically stopped.
+    idle_timeout_minutes: Option<i64>,
+    /// URL to access this codespace on the web.
+    web_url: String,
+    /// API URL to access available alternate machine types for this codespace.
+    machines_url: String,
+    /// API URL to start this codespace.
+    start_url: String,
+    /// API URL to stop this codespace.
+    stop_url: String,
+    /// API URL for the Pull Request associated with this codespace, if any.
+    pulls_url: Option<String>,
+    ///
+    recent_folders: Vec<String>,
+    ///
+    runtime_constraints: Value,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostReposownerrepoPullspullNumberCommentsResponse {
+    /// URL for the pull request review comment
+    url: String,
+    /// The ID of the pull request review to which the comment belongs.
+    pull_request_review_id: Option<i64>,
+    /// The ID of the pull request review comment.
+    id: i64,
+    /// The node ID of the pull request review comment.
+    node_id: String,
+    /// The diff of the line that the comment refers to.
+    diff_hunk: String,
+    /// The relative path of the file to which the comment applies.
+    path: String,
+    /// The line index in the diff to which the comment applies.
+    position: i64,
+    /// The index of the original line in the diff to which the comment applies.
+    original_position: i64,
+    /// The SHA of the commit to which the comment applies.
+    commit_id: String,
+    /// The SHA of the original commit to which the comment applies.
+    original_commit_id: String,
+    /// The comment ID to reply to.
+    in_reply_to_id: i64,
+    /// Simple User
+    user: Value,
+    /// The text of the comment.
+    body: String,
+    ///
+    created_at: String,
+    ///
+    updated_at: String,
+    /// HTML URL for the pull request review comment.
+    html_url: String,
+    /// URL for the pull request that the review comment belongs to.
+    pull_request_url: String,
+    /// How the author is associated with the repository.
+    author_association: String,
+    ///
+    _links: Value,
+    /// The first line of the range for a multi-line comment.
+    start_line: Option<i64>,
+    /// The first line of the range for a multi-line comment.
+    original_start_line: Option<i64>,
+    /// The side of the first line of the range for a multi-line comment.
+    start_side: Option<String>,
+    /// The line of the blob to which the comment applies. The last line of the range for a multi-line comment
+    line: i64,
+    /// The line of the blob to which the comment applies. The last line of the range for a multi-line comment
+    original_line: i64,
+    /// The side of the diff to which the comment applies. The side of the last line of the range for a multi-line comment
+    side: String,
+    ///
+    reactions: Value,
+    ///
+    body_html: String,
+    ///
+    body_text: String,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostReposownerrepoPullspullNumberCommentscommentIdRepliesResponse {
+    /// URL for the pull request review comment
+    url: String,
+    /// The ID of the pull request review to which the comment belongs.
+    pull_request_review_id: Option<i64>,
+    /// The ID of the pull request review comment.
+    id: i64,
+    /// The node ID of the pull request review comment.
+    node_id: String,
+    /// The diff of the line that the comment refers to.
+    diff_hunk: String,
+    /// The relative path of the file to which the comment applies.
+    path: String,
+    /// The line index in the diff to which the comment applies.
+    position: i64,
+    /// The index of the original line in the diff to which the comment applies.
+    original_position: i64,
+    /// The SHA of the commit to which the comment applies.
+    commit_id: String,
+    /// The SHA of the original commit to which the comment applies.
+    original_commit_id: String,
+    /// The comment ID to reply to.
+    in_reply_to_id: i64,
+    /// Simple User
+    user: Value,
+    /// The text of the comment.
+    body: String,
+    ///
+    created_at: String,
+    ///
+    updated_at: String,
+    /// HTML URL for the pull request review comment.
+    html_url: String,
+    /// URL for the pull request that the review comment belongs to.
+    pull_request_url: String,
+    /// How the author is associated with the repository.
+    author_association: String,
+    ///
+    _links: Value,
+    /// The first line of the range for a multi-line comment.
+    start_line: Option<i64>,
+    /// The first line of the range for a multi-line comment.
+    original_start_line: Option<i64>,
+    /// The side of the first line of the range for a multi-line comment.
+    start_side: Option<String>,
+    /// The line of the blob to which the comment applies. The last line of the range for a multi-line comment
+    line: i64,
+    /// The line of the blob to which the comment applies. The last line of the range for a multi-line comment
+    original_line: i64,
+    /// The side of the diff to which the comment applies. The side of the last line of the range for a multi-line comment
+    side: String,
+    ///
+    reactions: Value,
+    ///
+    body_html: String,
+    ///
+    body_text: String,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PutReposownerrepoPullspullNumberMergeResponse {
     ///
     sha: String,
@@ -14792,6 +16673,75 @@ pub struct GetReposownerrepoPullspullNumberRequestedReviewersResponse {
     users: Vec<Value>,
     ///
     teams: Vec<Value>,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostReposownerrepoPullspullNumberRequestedReviewersResponse {
+    ///
+    url: String,
+    ///
+    id: i64,
+    ///
+    node_id: String,
+    ///
+    html_url: String,
+    ///
+    diff_url: String,
+    ///
+    patch_url: String,
+    ///
+    issue_url: String,
+    ///
+    commits_url: String,
+    ///
+    review_comments_url: String,
+    ///
+    review_comment_url: String,
+    ///
+    comments_url: String,
+    ///
+    statuses_url: String,
+    ///
+    number: i64,
+    ///
+    state: String,
+    ///
+    locked: bool,
+    ///
+    title: String,
+    ///
+    body: Option<String>,
+    ///
+    labels: Vec<Value>,
+    ///
+    active_lock_reason: Option<String>,
+    ///
+    created_at: String,
+    ///
+    updated_at: String,
+    ///
+    closed_at: Option<String>,
+    ///
+    merged_at: Option<String>,
+    ///
+    merge_commit_sha: Option<String>,
+    ///
+    assignees: Option<Vec<Value>>,
+    ///
+    requested_reviewers: Option<Vec<Value>>,
+    ///
+    requested_teams: Option<Vec<Value>>,
+    ///
+    head: Value,
+    ///
+    base: Value,
+    ///
+    _links: Value,
+    /// How the author is associated with the repository.
+    author_association: String,
+    /// The status of auto merging a pull request.
+    auto_merge: Option<Value>,
+    /// Indicates whether or not the pull request is a draft.
+    draft: bool,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct DeleteReposownerrepoPullspullNumberRequestedReviewersResponse {
@@ -15025,6 +16975,13 @@ pub struct PostReposownerrepoPullspullNumberReviewsreviewIdEventsResponse {
     author_association: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PutReposownerrepoPullspullNumberUpdateBranchResponse {
+    ///
+    message: String,
+    ///
+    url: String,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoReadmeResponse {
     ///
     #[serde(rename = "type")]
@@ -15087,6 +17044,55 @@ pub struct GetReposownerrepoReadmedirResponse {
     target: String,
     ///
     submodule_git_url: String,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostReposownerrepoReleasesResponse {
+    ///
+    url: String,
+    ///
+    html_url: String,
+    ///
+    assets_url: String,
+    ///
+    upload_url: String,
+    ///
+    tarball_url: Option<String>,
+    ///
+    zipball_url: Option<String>,
+    ///
+    id: i64,
+    ///
+    node_id: String,
+    /// The name of the tag.
+    tag_name: String,
+    /// Specifies the commitish value that determines where the Git tag is created from.
+    target_commitish: String,
+    ///
+    name: Option<String>,
+    ///
+    body: Option<String>,
+    /// true to create a draft (unpublished) release, false to create a published one.
+    draft: bool,
+    /// Whether to identify the release as a prerelease or a full release.
+    prerelease: bool,
+    ///
+    created_at: String,
+    ///
+    published_at: Option<String>,
+    /// Simple User
+    author: Value,
+    ///
+    assets: Vec<Value>,
+    ///
+    body_html: String,
+    ///
+    body_text: String,
+    ///
+    mentions_count: i64,
+    /// The URL of the release discussion.
+    discussion_url: String,
+    ///
+    reactions: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoReleasesAssetsassetIdResponse {
@@ -15346,6 +17352,33 @@ pub struct PatchReposownerrepoReleasesreleaseIdResponse {
     reactions: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostReposownerrepoReleasesreleaseIdAssetsResponse {
+    ///
+    url: String,
+    ///
+    browser_download_url: String,
+    ///
+    id: i64,
+    ///
+    node_id: String,
+    /// The file name of the asset.
+    name: String,
+    ///
+    label: Option<String>,
+    /// State of the release asset.
+    state: String,
+    ///
+    content_type: String,
+    ///
+    size: i64,
+    ///
+    download_count: i64,
+    ///
+    created_at: String,
+    ///
+    updated_at: String,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct PostReposownerrepoReleasesreleaseIdReactionsResponse {
     ///
     id: i64,
@@ -15410,6 +17443,29 @@ pub struct GetReposownerrepoStatsParticipationResponse {
     owner: Vec<i64>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostReposownerrepoStatusesshaResponse {
+    ///
+    url: String,
+    ///
+    avatar_url: Option<String>,
+    ///
+    id: i64,
+    ///
+    node_id: String,
+    ///
+    state: String,
+    ///
+    description: String,
+    ///
+    target_url: String,
+    ///
+    context: String,
+    ///
+    created_at: String,
+    ///
+    updated_at: String,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetReposownerrepoSubscriptionResponse {
     /// Determines if notifications should be received from this repository.
     subscribed: bool,
@@ -15468,6 +17524,356 @@ pub struct GetReposownerrepoTrafficViewsResponse {
     views: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostReposownerrepoTransferResponse {
+    ///
+    id: i64,
+    ///
+    node_id: String,
+    ///
+    name: String,
+    ///
+    full_name: String,
+    /// Simple User
+    owner: Value,
+    ///
+    private: bool,
+    ///
+    html_url: String,
+    ///
+    description: Option<String>,
+    ///
+    fork: bool,
+    ///
+    url: String,
+    ///
+    archive_url: String,
+    ///
+    assignees_url: String,
+    ///
+    blobs_url: String,
+    ///
+    branches_url: String,
+    ///
+    collaborators_url: String,
+    ///
+    comments_url: String,
+    ///
+    commits_url: String,
+    ///
+    compare_url: String,
+    ///
+    contents_url: String,
+    ///
+    contributors_url: String,
+    ///
+    deployments_url: String,
+    ///
+    downloads_url: String,
+    ///
+    events_url: String,
+    ///
+    forks_url: String,
+    ///
+    git_commits_url: String,
+    ///
+    git_refs_url: String,
+    ///
+    git_tags_url: String,
+    ///
+    git_url: String,
+    ///
+    issue_comment_url: String,
+    ///
+    issue_events_url: String,
+    ///
+    issues_url: String,
+    ///
+    keys_url: String,
+    ///
+    labels_url: String,
+    ///
+    languages_url: String,
+    ///
+    merges_url: String,
+    ///
+    milestones_url: String,
+    ///
+    notifications_url: String,
+    ///
+    pulls_url: String,
+    ///
+    releases_url: String,
+    ///
+    ssh_url: String,
+    ///
+    stargazers_url: String,
+    ///
+    statuses_url: String,
+    ///
+    subscribers_url: String,
+    ///
+    subscription_url: String,
+    ///
+    tags_url: String,
+    ///
+    teams_url: String,
+    ///
+    trees_url: String,
+    ///
+    clone_url: String,
+    ///
+    mirror_url: Option<String>,
+    ///
+    hooks_url: String,
+    ///
+    svn_url: String,
+    ///
+    homepage: Option<String>,
+    ///
+    language: Option<String>,
+    ///
+    forks_count: i64,
+    ///
+    stargazers_count: i64,
+    ///
+    watchers_count: i64,
+    ///
+    size: i64,
+    ///
+    default_branch: String,
+    ///
+    open_issues_count: i64,
+    ///
+    is_template: bool,
+    ///
+    topics: Vec<String>,
+    ///
+    has_issues: bool,
+    ///
+    has_projects: bool,
+    ///
+    has_wiki: bool,
+    ///
+    has_pages: bool,
+    ///
+    has_downloads: bool,
+    ///
+    archived: bool,
+    ///
+    disabled: bool,
+    ///
+    visibility: String,
+    ///
+    pushed_at: Option<String>,
+    ///
+    created_at: Option<String>,
+    ///
+    updated_at: Option<String>,
+    ///
+    permissions: Value,
+    ///
+    role_name: String,
+    ///
+    temp_clone_token: String,
+    ///
+    delete_branch_on_merge: bool,
+    ///
+    subscribers_count: i64,
+    ///
+    network_count: i64,
+    /// Code Of Conduct
+    code_of_conduct: Value,
+    ///
+    license: Option<Value>,
+    ///
+    forks: i64,
+    ///
+    open_issues: i64,
+    ///
+    watchers: i64,
+    ///
+    allow_forking: bool,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostRepostemplateOwnertemplateRepoGenerateResponse {
+    /// Unique identifier of the repository
+    id: i64,
+    ///
+    node_id: String,
+    /// The name of the repository.
+    name: String,
+    ///
+    full_name: String,
+    ///
+    forks: i64,
+    ///
+    permissions: Value,
+    /// Simple User
+    owner: Value,
+    /// Whether the repository is private or public.
+    private: bool,
+    ///
+    html_url: String,
+    ///
+    description: Option<String>,
+    ///
+    fork: bool,
+    ///
+    url: String,
+    ///
+    archive_url: String,
+    ///
+    assignees_url: String,
+    ///
+    blobs_url: String,
+    ///
+    branches_url: String,
+    ///
+    collaborators_url: String,
+    ///
+    comments_url: String,
+    ///
+    commits_url: String,
+    ///
+    compare_url: String,
+    ///
+    contents_url: String,
+    ///
+    contributors_url: String,
+    ///
+    deployments_url: String,
+    ///
+    downloads_url: String,
+    ///
+    events_url: String,
+    ///
+    forks_url: String,
+    ///
+    git_commits_url: String,
+    ///
+    git_refs_url: String,
+    ///
+    git_tags_url: String,
+    ///
+    git_url: String,
+    ///
+    issue_comment_url: String,
+    ///
+    issue_events_url: String,
+    ///
+    issues_url: String,
+    ///
+    keys_url: String,
+    ///
+    labels_url: String,
+    ///
+    languages_url: String,
+    ///
+    merges_url: String,
+    ///
+    milestones_url: String,
+    ///
+    notifications_url: String,
+    ///
+    pulls_url: String,
+    ///
+    releases_url: String,
+    ///
+    ssh_url: String,
+    ///
+    stargazers_url: String,
+    ///
+    statuses_url: String,
+    ///
+    subscribers_url: String,
+    ///
+    subscription_url: String,
+    ///
+    tags_url: String,
+    ///
+    teams_url: String,
+    ///
+    trees_url: String,
+    ///
+    clone_url: String,
+    ///
+    mirror_url: Option<String>,
+    ///
+    hooks_url: String,
+    ///
+    svn_url: String,
+    ///
+    homepage: Option<String>,
+    ///
+    language: Option<String>,
+    ///
+    forks_count: i64,
+    ///
+    stargazers_count: i64,
+    ///
+    watchers_count: i64,
+    ///
+    size: i64,
+    /// The default branch of the repository.
+    default_branch: String,
+    ///
+    open_issues_count: i64,
+    /// Whether this repository acts as a template that can be used to generate new repositories.
+    is_template: bool,
+    ///
+    topics: Vec<String>,
+    /// Whether issues are enabled.
+    has_issues: bool,
+    /// Whether projects are enabled.
+    has_projects: bool,
+    /// Whether the wiki is enabled.
+    has_wiki: bool,
+    ///
+    has_pages: bool,
+    /// Whether downloads are enabled.
+    has_downloads: bool,
+    /// Whether the repository is archived.
+    archived: bool,
+    /// Returns whether or not this repository disabled.
+    disabled: bool,
+    /// The repository visibility: public, private, or internal.
+    visibility: String,
+    ///
+    pushed_at: Option<String>,
+    ///
+    created_at: Option<String>,
+    ///
+    updated_at: Option<String>,
+    /// Whether to allow rebase merges for pull requests.
+    allow_rebase_merge: bool,
+    ///
+    template_repository: Option<Value>,
+    ///
+    temp_clone_token: String,
+    /// Whether to allow squash merges for pull requests.
+    allow_squash_merge: bool,
+    /// Whether to allow Auto-merge to be used on pull requests.
+    allow_auto_merge: bool,
+    /// Whether to delete head branches when pull requests are merged
+    delete_branch_on_merge: bool,
+    /// Whether to allow merge commits for pull requests.
+    allow_merge_commit: bool,
+    /// Whether to allow forking this repo
+    allow_forking: bool,
+    ///
+    subscribers_count: i64,
+    ///
+    network_count: i64,
+    ///
+    open_issues: i64,
+    ///
+    watchers: i64,
+    ///
+    master_branch: String,
+    ///
+    starred_at: String,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetRepositoriesrepositoryIdEnvironmentsenvironmentNameSecretsResponse {
     ///
     total_count: i64,
@@ -15510,6 +17916,21 @@ pub struct GetScimV2EnterprisesenterpriseGroupsResponse {
     startIndex: f64,
     ///
     Resources: Vec<Value>,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostScimV2EnterprisesenterpriseGroupsResponse {
+    ///
+    schemas: Vec<String>,
+    ///
+    id: String,
+    ///
+    externalId: Option<String>,
+    ///
+    displayName: String,
+    ///
+    members: Vec<Value>,
+    ///
+    meta: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetScimV2EnterprisesenterpriseGroupsscimGroupIdResponse {
@@ -15568,6 +17989,27 @@ pub struct GetScimV2EnterprisesenterpriseUsersResponse {
     startIndex: f64,
     ///
     Resources: Vec<Value>,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostScimV2EnterprisesenterpriseUsersResponse {
+    ///
+    schemas: Vec<String>,
+    ///
+    id: String,
+    ///
+    externalId: String,
+    ///
+    userName: String,
+    ///
+    name: Value,
+    ///
+    emails: Vec<Value>,
+    ///
+    groups: Vec<Value>,
+    ///
+    active: bool,
+    ///
+    meta: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetScimV2EnterprisesenterpriseUsersscimUserIdResponse {
@@ -15770,6 +18212,43 @@ pub struct PatchTeamsteamIdResponse {
     ldap_dn: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostTeamsteamIdDiscussionsResponse {
+    /// The main text of the discussion.
+    body: String,
+    ///
+    body_html: String,
+    /// The current version of the body content. If provided, this update operation will be rejected if the given version does not match the latest version on the server.
+    body_version: String,
+    ///
+    comments_count: i64,
+    ///
+    comments_url: String,
+    ///
+    created_at: String,
+    ///
+    last_edited_at: Option<String>,
+    ///
+    html_url: String,
+    ///
+    node_id: String,
+    /// The unique sequence number of a team discussion.
+    number: i64,
+    /// Whether or not this discussion should be pinned for easy retrieval.
+    pinned: bool,
+    /// Whether or not this discussion should be restricted to team members and organization administrators.
+    private: bool,
+    ///
+    team_url: String,
+    /// The title of the discussion.
+    title: String,
+    ///
+    updated_at: String,
+    ///
+    url: String,
+    ///
+    reactions: Value,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetTeamsteamIdDiscussionsdiscussionNumberResponse {
     /// The main text of the discussion.
     body: String,
@@ -15844,6 +18323,33 @@ pub struct PatchTeamsteamIdDiscussionsdiscussionNumberResponse {
     reactions: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostTeamsteamIdDiscussionsdiscussionNumberCommentsResponse {
+    /// The main text of the comment.
+    body: String,
+    ///
+    body_html: String,
+    /// The current version of the body content. If provided, this update operation will be rejected if the given version does not match the latest version on the server.
+    body_version: String,
+    ///
+    created_at: String,
+    ///
+    last_edited_at: Option<String>,
+    ///
+    discussion_url: String,
+    ///
+    html_url: String,
+    ///
+    node_id: String,
+    /// The unique sequence number of a team discussion comment.
+    number: i64,
+    ///
+    updated_at: String,
+    ///
+    url: String,
+    ///
+    reactions: Value,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetTeamsteamIdDiscussionsdiscussionNumberCommentscommentNumberResponse {
     /// The main text of the comment.
     body: String,
@@ -15896,6 +18402,28 @@ pub struct PatchTeamsteamIdDiscussionsdiscussionNumberCommentscommentNumberRespo
     url: String,
     ///
     reactions: Value,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostTeamsteamIdDiscussionsdiscussionNumberCommentscommentNumberReactionsResponse {
+    ///
+    id: i64,
+    ///
+    node_id: String,
+    /// The reaction to use
+    content: String,
+    ///
+    created_at: String,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostTeamsteamIdDiscussionsdiscussionNumberReactionsResponse {
+    ///
+    id: i64,
+    ///
+    node_id: String,
+    /// The reaction to use
+    content: String,
+    ///
+    created_at: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetTeamsteamIdMembershipsusernameResponse {
@@ -16231,6 +18759,53 @@ pub struct GetUserCodespacesResponse {
     codespaces: Vec<Value>,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostUserCodespacesResponse {
+    ///
+    id: i64,
+    /// Automatically generated name of this codespace.
+    name: String,
+    /// UUID identifying this codespace's environment.
+    environment_id: Option<String>,
+    /// Simple User
+    owner: Value,
+    /// Simple User
+    billable_owner: Value,
+    /// Minimal Repository
+    repository: Value,
+    /// Whether the codespace was created from a prebuild.
+    prebuild: Option<bool>,
+    ///
+    created_at: String,
+    ///
+    updated_at: String,
+    /// Last known time this codespace was started.
+    last_used_at: String,
+    /// State of this codespace.
+    state: String,
+    /// API URL for this codespace.
+    url: String,
+    /// Details about the codespace's git repository.
+    git_status: Value,
+    /// The Azure region where this codespace is located.
+    location: String,
+    /// The number of minutes of inactivity after which this codespace will be automatically stopped.
+    idle_timeout_minutes: Option<i64>,
+    /// URL to access this codespace on the web.
+    web_url: String,
+    /// API URL to access available alternate machine types for this codespace.
+    machines_url: String,
+    /// API URL to start this codespace.
+    start_url: String,
+    /// API URL to stop this codespace.
+    stop_url: String,
+    /// API URL for the Pull Request associated with this codespace, if any.
+    pulls_url: Option<String>,
+    ///
+    recent_folders: Vec<String>,
+    ///
+    runtime_constraints: Value,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetUserCodespacesSecretsResponse {
     ///
     total_count: i64,
@@ -16460,6 +19035,35 @@ pub struct PostUserCodespacescodespaceNameStopResponse {
     runtime_constraints: Value,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostUserGpgKeysResponse {
+    ///
+    id: i64,
+    ///
+    primary_key_id: Option<i64>,
+    ///
+    key_id: String,
+    ///
+    public_key: String,
+    ///
+    emails: Vec<Value>,
+    ///
+    subkeys: Vec<Value>,
+    ///
+    can_sign: bool,
+    ///
+    can_encrypt_comms: bool,
+    ///
+    can_encrypt_storage: bool,
+    ///
+    can_certify: bool,
+    ///
+    created_at: String,
+    ///
+    expires_at: Option<String>,
+    ///
+    raw_key: Option<String>,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetUserGpgKeysgpgKeyIdResponse {
     ///
     id: i64,
@@ -16514,6 +19118,23 @@ pub struct PutUserInteractionLimitsResponse {
     expires_at: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostUserKeysResponse {
+    ///
+    key: String,
+    ///
+    id: i64,
+    ///
+    url: String,
+    ///
+    title: String,
+    ///
+    created_at: String,
+    ///
+    verified: bool,
+    ///
+    read_only: bool,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetUserKeyskeyIdResponse {
     ///
     key: String,
@@ -16559,6 +19180,39 @@ pub struct PatchUserMembershipsOrgsorgResponse {
     organization: Value,
     ///
     permissions: Value,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostUserMigrationsResponse {
+    ///
+    id: i64,
+    ///
+    guid: String,
+    ///
+    state: String,
+    ///
+    lock_repositories: bool,
+    ///
+    exclude_metadata: bool,
+    ///
+    exclude_git_data: bool,
+    ///
+    exclude_attachments: bool,
+    ///
+    exclude_releases: bool,
+    ///
+    exclude_owner_projects: bool,
+    ///
+    repositories: Vec<Value>,
+    ///
+    url: String,
+    ///
+    created_at: String,
+    ///
+    updated_at: String,
+    ///
+    node_id: String,
+    ///
+    archive_url: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetUserMigrationsmigrationIdResponse {
@@ -16638,6 +19292,216 @@ pub struct GetUserPackagespackageTypepackageNameVersionspackageVersionIdResponse
     deleted_at: String,
     ///
     metadata: Value,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostUserProjectsResponse {
+    ///
+    owner_url: String,
+    ///
+    url: String,
+    ///
+    html_url: String,
+    ///
+    columns_url: String,
+    ///
+    id: i64,
+    ///
+    node_id: String,
+    /// Name of the project
+    name: String,
+    /// Body of the project
+    body: Option<String>,
+    ///
+    number: i64,
+    /// State of the project; either 'open' or 'closed'
+    state: String,
+    ///
+    created_at: String,
+    ///
+    updated_at: String,
+    /// The baseline permission that all organization members have on this project. Only present if owner is an organization.
+    organization_permission: String,
+    /// Whether or not this project can be seen by everyone. Only present if owner is an organization.
+    private: bool,
+}
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct PostUserReposResponse {
+    /// Unique identifier of the repository
+    id: i64,
+    ///
+    node_id: String,
+    /// The name of the repository.
+    name: String,
+    ///
+    full_name: String,
+    ///
+    forks: i64,
+    ///
+    permissions: Value,
+    /// Simple User
+    owner: Value,
+    /// Whether the repository is private or public.
+    private: bool,
+    ///
+    html_url: String,
+    ///
+    description: Option<String>,
+    ///
+    fork: bool,
+    ///
+    url: String,
+    ///
+    archive_url: String,
+    ///
+    assignees_url: String,
+    ///
+    blobs_url: String,
+    ///
+    branches_url: String,
+    ///
+    collaborators_url: String,
+    ///
+    comments_url: String,
+    ///
+    commits_url: String,
+    ///
+    compare_url: String,
+    ///
+    contents_url: String,
+    ///
+    contributors_url: String,
+    ///
+    deployments_url: String,
+    ///
+    downloads_url: String,
+    ///
+    events_url: String,
+    ///
+    forks_url: String,
+    ///
+    git_commits_url: String,
+    ///
+    git_refs_url: String,
+    ///
+    git_tags_url: String,
+    ///
+    git_url: String,
+    ///
+    issue_comment_url: String,
+    ///
+    issue_events_url: String,
+    ///
+    issues_url: String,
+    ///
+    keys_url: String,
+    ///
+    labels_url: String,
+    ///
+    languages_url: String,
+    ///
+    merges_url: String,
+    ///
+    milestones_url: String,
+    ///
+    notifications_url: String,
+    ///
+    pulls_url: String,
+    ///
+    releases_url: String,
+    ///
+    ssh_url: String,
+    ///
+    stargazers_url: String,
+    ///
+    statuses_url: String,
+    ///
+    subscribers_url: String,
+    ///
+    subscription_url: String,
+    ///
+    tags_url: String,
+    ///
+    teams_url: String,
+    ///
+    trees_url: String,
+    ///
+    clone_url: String,
+    ///
+    mirror_url: Option<String>,
+    ///
+    hooks_url: String,
+    ///
+    svn_url: String,
+    ///
+    homepage: Option<String>,
+    ///
+    language: Option<String>,
+    ///
+    forks_count: i64,
+    ///
+    stargazers_count: i64,
+    ///
+    watchers_count: i64,
+    ///
+    size: i64,
+    /// The default branch of the repository.
+    default_branch: String,
+    ///
+    open_issues_count: i64,
+    /// Whether this repository acts as a template that can be used to generate new repositories.
+    is_template: bool,
+    ///
+    topics: Vec<String>,
+    /// Whether issues are enabled.
+    has_issues: bool,
+    /// Whether projects are enabled.
+    has_projects: bool,
+    /// Whether the wiki is enabled.
+    has_wiki: bool,
+    ///
+    has_pages: bool,
+    /// Whether downloads are enabled.
+    has_downloads: bool,
+    /// Whether the repository is archived.
+    archived: bool,
+    /// Returns whether or not this repository disabled.
+    disabled: bool,
+    /// The repository visibility: public, private, or internal.
+    visibility: String,
+    ///
+    pushed_at: Option<String>,
+    ///
+    created_at: Option<String>,
+    ///
+    updated_at: Option<String>,
+    /// Whether to allow rebase merges for pull requests.
+    allow_rebase_merge: bool,
+    ///
+    template_repository: Option<Value>,
+    ///
+    temp_clone_token: String,
+    /// Whether to allow squash merges for pull requests.
+    allow_squash_merge: bool,
+    /// Whether to allow Auto-merge to be used on pull requests.
+    allow_auto_merge: bool,
+    /// Whether to delete head branches when pull requests are merged
+    delete_branch_on_merge: bool,
+    /// Whether to allow merge commits for pull requests.
+    allow_merge_commit: bool,
+    /// Whether to allow forking this repo
+    allow_forking: bool,
+    ///
+    subscribers_count: i64,
+    ///
+    network_count: i64,
+    ///
+    open_issues: i64,
+    ///
+    watchers: i64,
+    ///
+    master_branch: String,
+    ///
+    starred_at: String,
 }
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct GetUsersusernameHovercardResponse {

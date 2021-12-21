@@ -56,6 +56,9 @@ function upperFirst(i: string): string {
   return i.charAt(0).toUpperCase() + i.slice(1);
 }
 
+
+
+
 for (const [key, val] of Object.entries(api.paths)) {
   for (const [method, values] of Object.entries(val as any) as any) {
     methods.add(upperFirst(method));
@@ -66,6 +69,10 @@ for (const [key, val] of Object.entries(api.paths)) {
     });
     const response =
       values.responses?.["200"]?.content?.["application/json"]?.schema
+        .properties|| values.responses?.["201"]?.content?.["application/json"]?.schema
+        .properties|| values.responses?.["204"]?.content?.["application/json"]?.schema
+        .properties|| values.responses?.["202"]?.content?.["application/json"]?.schema
+        .properties|| values.responses?.["203"]?.content?.["application/json"]?.schema
         .properties;
     const types: Record<string, any> = {};
 

@@ -1,4 +1,9 @@
 #!/bin/deno
+let fmt = Deno.run({
+  cmd: ["deno", "fmt"],
+  stderr: "inherit",
+  stdout: "inherit",
+}).status();
 import api from "./api.json" assert { type: "json" };
 
 const data = [];
@@ -8,7 +13,7 @@ const getPath = [];
 const implementsFunctions = [];
 const structs = [];
 const functions = [];
-let b:any = {}
+const b: Record<any, any> = {};
 const methods = new Set();
 const typemap: Record<string, string> = {
   integer: "i64",
@@ -17,7 +22,6 @@ const typemap: Record<string, string> = {
   boolean: "bool",
   array: "Vec",
   object: "Value",
-  
 };
 
 function generateDocString(
@@ -56,8 +60,71 @@ function upperFirst(i: string): string {
   return i.charAt(0).toUpperCase() + i.slice(1);
 }
 
+function iter(name: any, obj: any, types: Record<string, any>) {
+  if (obj.type) {
+    let option = false;
+    if (Array.isArray(obj.type)) {
+      let arr = new Set<string>(obj.type);
+      if (arr.size == 2 && arr.has("null")) {
+        option = true;
+        arr.delete("null");
+        obj.type = `${Array.from(arr).join("")}`;
+        // b[obj.type] = Array.from(arr).join(",\n")
 
-
+        typemap[obj.type] = `${
+          Array.from(arr).map((x) => typemap[x]).join("")
+        }`;
+      } else {
+        // console.log(obj.type)
+        let types = obj.type.map((x: string | number) => typemap[x]);
+        // console.log(types)
+        let name = types.map(upperFirst).join("");
+        b[name] = types.join(",\n");
+        typemap[obj.type] = name;
+        obj.type = name;
+      }
+    }
+    // if (!typemap[obj.type]) console.log(obj.type, typemap[obj.type],typemap);
+    const defaults = { doc: obj.description, example: obj.example };
+    if (obj.type == "array") {
+      if (obj.items.type) {
+        // console.log(typemap[obj.items.type])
+        if (option) {
+          types[name] = {
+            type: `Option<Vec<${typemap[obj.items.type]}>>`,
+            ...defaults,
+          };
+        } else {
+          types[name] = {
+            type: `Vec<${typemap[obj.items.type]}>`,
+            ...defaults,
+          };
+        }
+      }
+    } else {
+      if (option) {
+        types[name] = {
+          type: `Option<${typemap[obj.type]}>`,
+          ...defaults,
+        };
+      } else {
+        types[name] = {
+          type: typemap[obj.type],
+          ...defaults,
+        };
+      }
+    }
+  } else {
+    if (
+      obj?.anyOf?.length == 2 && obj?.anyOf.find((x: any) => x.type === "null")
+    ) {
+      let response = obj.anyOf.find((x: any) => x.type !== "null")!;
+      for (const [name, obj] of Object.entries(response) as any) {
+        iter(name, obj, types);
+      }
+    }
+  }
+}
 
 for (const [key, val] of Object.entries(api.paths)) {
   for (const [method, values] of Object.entries(val as any) as any) {
@@ -67,68 +134,18 @@ for (const [key, val] of Object.entries(api.paths)) {
       vars.push(g1.replace("ref", "aref"));
       return "";
     });
-    const response =
-      values.responses?.["200"]?.content?.["application/json"]?.schema
-        .properties|| values.responses?.["201"]?.content?.["application/json"]?.schema
-        .properties|| values.responses?.["204"]?.content?.["application/json"]?.schema
-        .properties|| values.responses?.["202"]?.content?.["application/json"]?.schema
-        .properties|| values.responses?.["203"]?.content?.["application/json"]?.schema
+    const tried = (num: number | string) =>
+      values.responses?.[num.toString()]?.content?.["application/json"]?.schema
         .properties;
+
+    const response = tried(200) || tried(201) || tried(204) || tried(202) ||
+      tried(203) || tried(205) || tried(206) || tried(207) || tried(208) ||
+      tried(209) || tried(2010) || tried(2011);
     const types: Record<string, any> = {};
 
     if (response) {
       for (const [name, obj] of Object.entries(response) as any) {
-        if (obj.type) {
-          let option = false
-          if(Array.isArray(obj.type) ){
-            let arr = new Set<string>(obj.type);
-            if(arr.size == 2 && arr.has("null")){
-              option = true
-              arr.delete("null")
-             obj.type = `${Array.from(arr).join("")}`
-              // b[obj.type] = Array.from(arr).join(",\n")
-            
-             typemap[ obj.type] = `${Array.from(arr).map(x=>typemap[x]).join("")}`
-            } else {
-              // console.log(obj.type)
-              let types = obj.type.map((x: string|number)=>typemap[x]);
-              // console.log(types)
-              let name = types.map(upperFirst).join("")
-              b[name] = types.join(",\n")
-              typemap[obj.type] = name
-              obj.type = name;
-            }
-       
-          }
-          // if (!typemap[obj.type]) console.log(obj.type, typemap[obj.type],typemap);
-          const defaults = { doc: obj.description, example: obj.example };
-          if (obj.type == "array") {
-            if (obj.items.type) {
-              // console.log(typemap[obj.items.type])
-              if(option) {
-                 types[name] = {
-                type: `Option<Vec<${typemap[obj.items.type]}>>`,
-                ...defaults,
-              };
-              } else {
-types[name] = {
-                type: `Vec<${typemap[obj.items.type]}>`,
-                ...defaults,
-              };
-              }
-              
-            }
-          } else {
-             if(option) {  types[name] = {
-              type: `Option<${typemap[obj.type]}>`,
-              ...defaults,
-            };}else{  types[name] = {
-              type: typemap[obj.type],
-              ...defaults,
-            };}
-          
-          }
-        }
+        iter(name, obj, types);
       }
     }
     data.push({
@@ -159,7 +176,7 @@ types[name] = {
 
 let toWrite = [
   `use serde::{Deserialize, Serialize};\n` +
-  `use serde_json::Value;\n` ,
+  `use serde_json::Value;\n`,
   // `use std::collections::HashMap;\n`,
   `pub enum Methods { \n    ${Array.from(methods).join(",\n    ")} \n}`,
 ];
@@ -176,6 +193,7 @@ for (const key of data) {
     const items = [];
     // const methods = []
     for (let [keys, val] of Object.entries(key.types)) {
+      if (val.type == undefined) continue;
       const docs = `${
         val.example
           ? `* example - ${val.example}`
@@ -189,13 +207,12 @@ for (const key of data) {
         items.push(
           `${docs}\n#[serde(rename = "${keys}")]\na${keys}: ${val.type}\n`,
         );
-        keys = "a"+keys
+        keys = "a" + keys;
       } else {
         items.push(`${docs}\n${keys}: ${val.type}`);
       }
-         
-        // methods.push(`pub fn ${keys}(&self) -> ${val.type} { self.${keys} }`)
-      
+
+      // methods.push(`pub fn ${keys}(&self) -> ${val.type} { self.${keys} }`)
     }
     structs.push(
       `#[derive(Serialize, Deserialize, Clone, Debug)]\npub struct ${key.name}Response {\n ${
@@ -248,8 +265,8 @@ implementsFunctions.push(
   }} }`,
 );
 
-for(const [key,val] of Object.entries(b)){
-  structs.push(`pub enum ${key} { \n${val}\n}`)
+for (const [key, val] of Object.entries(b)) {
+  structs.push(`pub enum ${key} { \n${val}\n}`);
 }
 
 toWrite.push(`pub enum EndPoints { \n    ${enums.join(",\n    ")} \n}`);
@@ -265,14 +282,18 @@ Deno.writeTextFileSync("src/end_points.rs", toWrite.join("\n\n"));
 //     )
 //   } \n}`,
 // );
-console.log("Running cleanup commands.")
-await Deno.run({
-  cmd: ["cargo", "clippy", "--fix", "--allow-dirty"],
-  stderr: "inherit",
-  stdout: "inherit",
-}).status()
+console.log("Running cleanup commands.");
+await Promise.all([
+  fmt,
+
+  Deno.run({
+    cmd: ["cargo", "clippy", "--fix", "--allow-dirty"],
+    stderr: "inherit",
+    stdout: "inherit",
+  }).status(),
+]);
 await Deno.run({
   cmd: ["cargo", "fmt"],
   stderr: "inherit",
   stdout: "inherit",
-}).status()
+}).status();

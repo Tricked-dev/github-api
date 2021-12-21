@@ -1,5 +1,5 @@
 #!/bin/deno
-let fmt = Deno.run({
+const fmt = Deno.run({
   cmd: ["deno", "fmt"],
   stderr: "inherit",
   stdout: "inherit",
@@ -120,6 +120,7 @@ function iter(name: any, obj: any, types: Record<string, any>) {
     ) {
       let response = obj.anyOf.find((x: any) => x.type !== "null")!;
       for (const [name, obj] of Object.entries(response) as any) {
+        console
         iter(name, obj, types);
       }
     }

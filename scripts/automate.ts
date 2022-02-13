@@ -72,7 +72,9 @@ function iter(name: any, obj: any, types: Record<string, any>) {
         // b[obj.type] = Array.from(arr).join(",\n")
 
         typemap[obj.type] = `${
-          Array.from(arr).map((x) => typemap[x]).join("")
+          Array.from(arr)
+            .map((x) => typemap[x])
+            .join("")
         }`;
       } else {
         // console.log(obj.type)
@@ -116,11 +118,11 @@ function iter(name: any, obj: any, types: Record<string, any>) {
     }
   } else {
     if (
-      obj?.anyOf?.length == 2 && obj?.anyOf.find((x: any) => x.type === "null")
+      obj?.anyOf?.length == 2 &&
+      obj?.anyOf.find((x: any) => x.type === "null")
     ) {
       let response = obj.anyOf.find((x: any) => x.type !== "null")!;
       for (const [name, obj] of Object.entries(response) as any) {
-        console
         iter(name, obj, types);
       }
     }
@@ -139,9 +141,18 @@ for (const [key, val] of Object.entries(api.paths)) {
       values.responses?.[num.toString()]?.content?.["application/json"]?.schema
         .properties;
 
-    const response = tried(200) || tried(201) || tried(204) || tried(202) ||
-      tried(203) || tried(205) || tried(206) || tried(207) || tried(208) ||
-      tried(209) || tried(2010) || tried(2011);
+    const response = tried(200) ||
+      tried(201) ||
+      tried(204) ||
+      tried(202) ||
+      tried(203) ||
+      tried(205) ||
+      tried(206) ||
+      tried(207) ||
+      tried(208) ||
+      tried(209) ||
+      tried(2010) ||
+      tried(2011);
     const types: Record<string, any> = {};
 
     if (response) {
@@ -176,8 +187,7 @@ for (const [key, val] of Object.entries(api.paths)) {
 }
 
 let toWrite = [
-  `use serde::{Deserialize, Serialize};\n` +
-  `use serde_json::Value;\n`,
+  `use serde::{Deserialize, Serialize};\n` + `use serde_json::Value;\n`,
   // `use std::collections::HashMap;\n`,
   `pub enum Methods { \n    ${Array.from(methods).join(",\n    ")} \n}`,
 ];
@@ -215,11 +225,7 @@ for (const key of data) {
 
       // methods.push(`pub fn ${keys}(&self) -> ${val.type} { self.${keys} }`)
     }
-    structs.push(
-      `#[derive(Serialize, Deserialize, Clone, Debug)]\npub struct ${key.name}Response {\n ${
-        items.join(",\n	")
-      } \n}`,
-    );
+
     //\nimpl ${key.name}Response {\n${methods.join("\n\n")}\n  }
     functions.push(
       generateFunction(
@@ -255,12 +261,12 @@ implementsFunctions.push(
       .map(
         (x) =>
           //@ts-ignore -
-          `EndPoints::${x[0]}(${x[2].join(",")}) => format!("${x[1]}",${
+          `EndPoints::${x[0]}(${x[2].join(",")}) => format!("${x[1]}", ${
             x[2]
               //@ts-ignore -
               .map((x) => `${x} = ${x}`)
               .join(",")
-          } )`,
+          })`,
       )
       .join(",\n  ")
   }} }`,

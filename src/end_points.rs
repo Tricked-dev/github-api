@@ -1,6 +1,3 @@
-use serde::{Deserialize, Serialize};
-use serde_json::Value;
-
 pub enum Methods {
     Get,
     Post,
@@ -92,7 +89,7 @@ pub enum EndPoints {
     /// * docs <https://docs.github.com/rest/reference/apps#get-an-installation-for-the-authenticated-app>
     ///
     /// Get an installation for the authenticated app
-    /// Enables an authenticated GitHub App to find an installation's information using the installation id. The installation's account type (`target_type`) will be either an organization or a user account, depending which account the repository belongs to.
+    /// Enables an authenticated GitHub App to find an installation's information using the installation id.
     ///
     /// You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
     GetAppInstallationsinstallationId(String),
@@ -200,7 +197,7 @@ pub enum EndPoints {
     /// Get an app
     /// **Note**: The `:app_slug` is just the URL-friendly name of your GitHub App. You can find this on the settings page for your GitHub App (e.g., `https://github.com/settings/apps/:app_slug`).
     ///
-    /// If the GitHub App you specify is public, you can access this endpoint without authenticating. If the GitHub App you specify is private, you must authenticate with a [personal access token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/) or an [installation access token](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-an-installation) to access this endpoint.
+    /// If the GitHub App you specify is public, you can access this endpoint without authenticating. If the GitHub App you specify is private, you must authenticate with a [personal access token](https://docs.github.com/articles/creating-a-personal-access-token-for-the-command-line/) or an [installation access token](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-an-installation) to access this endpoint.
     GetAppsappSlug(String),
     /// * tags oauth-authorizations
     /// * get `/authorizations`
@@ -222,9 +219,9 @@ pub enum EndPoints {
     ///
     /// To create tokens for a particular OAuth application using this endpoint, you must authenticate as the user you want to create an authorization for and provide the app's client ID and secret, found on your OAuth application's settings page. If your OAuth application intends to create multiple tokens for one user, use `fingerprint` to differentiate between them.
     ///
-    /// You can also create tokens on GitHub from the [personal access tokens settings](https://github.com/settings/tokens) page. Read more about these tokens in [the GitHub Help documentation](https://help.github.com/articles/creating-an-access-token-for-command-line-use).
+    /// You can also create tokens on GitHub from the [personal access tokens settings](https://github.com/settings/tokens) page. Read more about these tokens in [the GitHub Help documentation](https://docs.github.com/articles/creating-an-access-token-for-command-line-use).
     ///
-    /// Organizations that enforce SAML SSO require personal access tokens to be allowed. Read more about allowing tokens in [the GitHub Help documentation](https://help.github.com/articles/about-identity-and-access-management-with-saml-single-sign-on).
+    /// Organizations that enforce SAML SSO require personal access tokens to be allowed. Read more about allowing tokens in [the GitHub Help documentation](https://docs.github.com/articles/about-identity-and-access-management-with-saml-single-sign-on).
     PostAuthorizations(),
     /// * tags oauth-authorizations
     /// * put `/authorizations/clients/{client_id}`
@@ -631,6 +628,14 @@ pub enum EndPoints {
     /// Get the audit log for an enterprise
     /// Gets the audit log for an enterprise. To use this endpoint, you must be an enterprise admin, and you must use an access token with the `admin:enterprise` scope.
     GetEnterprisesenterpriseAuditLog(String),
+    /// * tags secret-scanning
+    /// * get `/enterprises/{enterprise}/secret-scanning/alerts`
+    /// * docs <https://docs.github.com/rest/reference/secret-scanning#list-secret-scanning-alerts-for-an-enterprise>
+    ///
+    /// List secret scanning alerts for an enterprise
+    /// Lists secret scanning alerts for eligible repositories in an enterprise, from newest to oldest.
+    /// To use this endpoint, you must be a member of the enterprise, and you must use an access token with the `repo` scope or `security_events` scope. Alerts are only returned for organizations in the enterprise for which you are an organization owner or a [security manager](https://docs.github.com/organizations/managing-peoples-access-to-your-organization-with-roles/managing-security-managers-in-your-organization).
+    GetEnterprisesenterpriseSecretScanningAlerts(String),
     /// * tags billing
     /// * get `/enterprises/{enterprise}/settings/billing/actions`
     /// * docs <https://docs.github.com/rest/reference/billing#get-github-actions-billing-for-an-enterprise>
@@ -638,7 +643,7 @@ pub enum EndPoints {
     /// Get GitHub Actions billing for an enterprise
     /// Gets the summary of the free and paid GitHub Actions minutes used.
     ///
-    /// Paid minutes only apply to workflows in private repositories that use GitHub-hosted runners. Minutes used is listed for each GitHub-hosted runner operating system. Any job re-runs are also included in the usage. The usage does not include the multiplier for macOS and Windows runners and is not rounded up to the nearest whole minute. For more information, see "[Managing billing for GitHub Actions](https://help.github.com/github/setting-up-and-managing-billing-and-payments-on-github/managing-billing-for-github-actions)".
+    /// Paid minutes only apply to workflows in private repositories that use GitHub-hosted runners. Minutes used is listed for each GitHub-hosted runner operating system. Any job re-runs are also included in the usage. The usage does not include the multiplier for macOS and Windows runners and is not rounded up to the nearest whole minute. For more information, see "[Managing billing for GitHub Actions](https://docs.github.com/github/setting-up-and-managing-billing-and-payments-on-github/managing-billing-for-github-actions)".
     ///
     /// The authenticated user must be an enterprise admin.
     GetEnterprisesenterpriseSettingsBillingActions(String),
@@ -657,7 +662,7 @@ pub enum EndPoints {
     /// Get GitHub Packages billing for an enterprise
     /// Gets the free and paid storage used for GitHub Packages in gigabytes.
     ///
-    /// Paid minutes only apply to packages stored for private repositories. For more information, see "[Managing billing for GitHub Packages](https://help.github.com/github/setting-up-and-managing-billing-and-payments-on-github/managing-billing-for-github-packages)."
+    /// Paid minutes only apply to packages stored for private repositories. For more information, see "[Managing billing for GitHub Packages](https://docs.github.com/github/setting-up-and-managing-billing-and-payments-on-github/managing-billing-for-github-packages)."
     ///
     /// The authenticated user must be an enterprise admin.
     GetEnterprisesenterpriseSettingsBillingPackages(String),
@@ -668,7 +673,7 @@ pub enum EndPoints {
     /// Get shared storage billing for an enterprise
     /// Gets the estimated paid and estimated total storage used for GitHub Actions and Github Packages.
     ///
-    /// Paid minutes only apply to packages stored for private repositories. For more information, see "[Managing billing for GitHub Packages](https://help.github.com/github/setting-up-and-managing-billing-and-payments-on-github/managing-billing-for-github-packages)."
+    /// Paid minutes only apply to packages stored for private repositories. For more information, see "[Managing billing for GitHub Packages](https://docs.github.com/github/setting-up-and-managing-billing-and-payments-on-github/managing-billing-for-github-packages)."
     ///
     /// The authenticated user must be an enterprise admin.
     GetEnterprisesenterpriseSettingsBillingSharedStorage(String),
@@ -970,7 +975,7 @@ pub enum EndPoints {
     /// * docs <https://docs.github.com/rest/reference/meta#get-github-meta-information>
     ///
     /// Get GitHub meta information
-    /// Returns meta information about GitHub, including a list of GitHub's IP addresses. For more information, see "[About GitHub's IP addresses](https://help.github.com/articles/about-github-s-ip-addresses/)."
+    /// Returns meta information about GitHub, including a list of GitHub's IP addresses. For more information, see "[About GitHub's IP addresses](https://docs.github.com/articles/about-github-s-ip-addresses/)."
     ///
     /// **Note:** The IP addresses shown in the documentation's response are only example values. You must always query the API directly to get the latest list of IP addresses.
     GetMeta(),
@@ -1062,12 +1067,21 @@ pub enum EndPoints {
     ///
     /// For more information on custom repository roles, see "[Managing custom repository roles for an organization](https://docs.github.com/organizations/managing-peoples-access-to-your-organization-with-roles/managing-custom-repository-roles-for-an-organization)".
     GetOrganizationsorganizationIdCustomRoles(String),
+    /// * tags teams
+    /// * get `/organizations/{org}/team/{team_slug}/external-groups`
+    /// * docs <https://docs.github.com/rest/reference/teams#list-external-idp-group-team-connection>
+    ///
+    /// List a connection between an external group and a team
+    /// Lists a connection between a team and an external group.
+    ///
+    /// You can manage team membership with your identity provider using Enterprise Managed Users for GitHub Enterprise Cloud. For more information, see "[GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products)" in the GitHub Help documentation.
+    GetOrganizationsorgTeamteamSlugExternalGroups(String, String),
     /// * tags orgs
     /// * get `/orgs/{org}`
     /// * docs <https://docs.github.com/rest/reference/orgs#get-an-organization>
     ///
     /// Get an organization
-    /// To see many of the organization response values, you need to be an authenticated organization owner with the `admin:org` scope. When the value of `two_factor_requirement_enabled` is `true`, the organization requires all members, billing managers, and outside collaborators to enable [two-factor authentication](https://help.github.com/articles/securing-your-account-with-two-factor-authentication-2fa/).
+    /// To see many of the organization response values, you need to be an authenticated organization owner with the `admin:org` scope. When the value of `two_factor_requirement_enabled` is `true`, the organization requires all members, billing managers, and outside collaborators to enable [two-factor authentication](https://docs.github.com/articles/securing-your-account-with-two-factor-authentication-2fa/).
     ///
     /// GitHub Apps with the `Organization plan` permission can use this endpoint to retrieve information about an organization's GitHub plan. See "[Authenticating with GitHub Apps](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/)" for details. For an example response, see 'Response with GitHub plan information' below."
     GetOrgsorg(String),
@@ -1158,6 +1172,26 @@ pub enum EndPoints {
     ///
     /// You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `administration` organization permission to use this API.
     PutOrgsorgActionsPermissionsSelectedActions(String),
+    /// * tags actions
+    /// * get `/orgs/{org}/actions/permissions/workflow`
+    /// * docs <https://docs.github.com/rest/reference/actions#get-default-workflow-permissions>
+    ///
+    /// Get default workflow permissions
+    /// Gets the default workflow permissions granted to the `GITHUB_TOKEN` when running workflows in an organization,
+    /// as well if GitHub Actions can submit approving pull request reviews.
+    ///
+    /// You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `administration` organization permission to use this API.
+    GetOrgsorgActionsPermissionsWorkflow(String),
+    /// * tags actions
+    /// * put `/orgs/{org}/actions/permissions/workflow`
+    /// * docs <https://docs.github.com/rest/reference/actions#set-default-workflow-permissions>
+    ///
+    /// Set default workflow permissions
+    /// Sets the default workflow permissions granted to the `GITHUB_TOKEN` when running workflows in an organization, and sets if GitHub Actions
+    /// can submit approving pull request reviews.
+    ///
+    /// You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `administration` organization permission to use this API.
+    PutOrgsorgActionsPermissionsWorkflow(String),
     /// * tags actions
     /// * get `/orgs/{org}/actions/runner-groups`
     /// * docs <https://docs.github.com/rest/reference/actions#list-self-hosted-runner-groups-for-an-organization>
@@ -1486,7 +1520,7 @@ pub enum EndPoints {
     ///
     /// #### Example encrypting a secret using Python
     ///
-    /// Encrypt your secret using [pynacl](https://pynacl.readthedocs.io/en/stable/public/#nacl-public-sealedbox) with Python 3.
+    /// Encrypt your secret using [pynacl](https://pynacl.readthedocs.io/en/latest/public/#nacl-public-sealedbox) with Python 3.
     ///
     /// ```
     /// from base64 import b64encode
@@ -1573,7 +1607,7 @@ pub enum EndPoints {
     /// Get the audit log for an organization
     /// Gets the audit log for an organization. For more information, see "[Reviewing the audit log for your organization](https://docs.github.com/github/setting-up-and-managing-organizations-and-teams/reviewing-the-audit-log-for-your-organization)."
     ///
-    /// To use this endpoint, you must be an organization owner, and you must use an access token with the `admin:org` scope. GitHub Apps must have the `organization_administration` read permission to use this endpoint.
+    /// This endpoint is available for organizations on GitHub Enterprise Cloud. To use this endpoint, you must be an organization owner, and you must use an access token with the `admin:org` scope. GitHub Apps must have the `organization_administration` read permission to use this endpoint.
     GetOrgsorgAuditLog(String),
     /// * tags orgs
     /// * get `/orgs/{org}/blocks`
@@ -1603,24 +1637,172 @@ pub enum EndPoints {
     /// Unblock a user from an organization
     ///
     DeleteOrgsorgBlocksusername(String, String),
+    /// * tags code-scanning
+    /// * get `/orgs/{org}/code-scanning/alerts`
+    /// * docs <https://docs.github.com/rest/reference/code-scanning#list-code-scanning-alerts-by-organization>
+    ///
+    /// List code scanning alerts for an organization
+    /// Lists all code scanning alerts for the default branch (usually `main`
+    /// or `master`) for all eligible repositories in an organization.
+    /// To use this endpoint, you must be an administrator or security manager for the organization, and you must use an access token with the `repo` scope or `security_events` scope.
+    ///
+    /// GitHub Apps must have the `security_events` read permission to use this endpoint.
+    GetOrgsorgCodeScanningAlerts(String),
     /// * tags orgs
     /// * get `/orgs/{org}/credential-authorizations`
     /// * docs <https://docs.github.com/rest/reference/orgs#list-saml-sso-authorizations-for-an-organization>
     ///
     /// List SAML SSO authorizations for an organization
-    /// Listing and deleting credential authorizations is available to organizations with GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products).
+    /// Listing and deleting credential authorizations is available to organizations with GitHub Enterprise Cloud. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products).
     ///
-    /// An authenticated organization owner with the `read:org` scope can list all credential authorizations for an organization that uses SAML single sign-on (SSO). The credentials are either personal access tokens or SSH keys that organization members have authorized for the organization. For more information, see [About authentication with SAML single sign-on](https://help.github.com/en/articles/about-authentication-with-saml-single-sign-on).
+    /// An authenticated organization owner with the `read:org` scope can list all credential authorizations for an organization that uses SAML single sign-on (SSO). The credentials are either personal access tokens or SSH keys that organization members have authorized for the organization. For more information, see [About authentication with SAML single sign-on](https://docs.github.com/en/articles/about-authentication-with-saml-single-sign-on).
     GetOrgsorgCredentialAuthorizations(String),
     /// * tags orgs
     /// * delete `/orgs/{org}/credential-authorizations/{credential_id}`
     /// * docs <https://docs.github.com/rest/reference/orgs#remove-a-saml-sso-authorization-for-an-organization>
     ///
     /// Remove a SAML SSO authorization for an organization
-    /// Listing and deleting credential authorizations is available to organizations with GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products).
+    /// Listing and deleting credential authorizations is available to organizations with GitHub Enterprise Cloud. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products).
     ///
     /// An authenticated organization owner with the `admin:org` scope can remove a credential authorization for an organization that uses SAML SSO. Once you remove someone's credential authorization, they will need to create a new personal access token or SSH key and authorize it for the organization they want to access.
     DeleteOrgsorgCredentialAuthorizationscredentialId(String, String),
+    /// * tags dependabot
+    /// * get `/orgs/{org}/dependabot/secrets`
+    /// * docs <https://docs.github.com/rest/reference/dependabot#list-organization-secrets>
+    ///
+    /// List organization secrets
+    /// Lists all secrets available in an organization without revealing their encrypted values. You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `dependabot_secrets` organization permission to use this endpoint.
+    GetOrgsorgDependabotSecrets(String),
+    /// * tags dependabot
+    /// * get `/orgs/{org}/dependabot/secrets/public-key`
+    /// * docs <https://docs.github.com/rest/reference/dependabot#get-an-organization-public-key>
+    ///
+    /// Get an organization public key
+    /// Gets your public key, which you need to encrypt secrets. You need to encrypt a secret before you can create or update secrets. You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `dependabot_secrets` organization permission to use this endpoint.
+    GetOrgsorgDependabotSecretsPublicKey(String),
+    /// * tags dependabot
+    /// * get `/orgs/{org}/dependabot/secrets/{secret_name}`
+    /// * docs <https://docs.github.com/rest/reference/dependabot#get-an-organization-secret>
+    ///
+    /// Get an organization secret
+    /// Gets a single organization secret without revealing its encrypted value. You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `dependabot_secrets` organization permission to use this endpoint.
+    GetOrgsorgDependabotSecretssecretName(String, String),
+    /// * tags dependabot
+    /// * put `/orgs/{org}/dependabot/secrets/{secret_name}`
+    /// * docs <https://docs.github.com/rest/reference/dependabot#create-or-update-an-organization-secret>
+    ///
+    /// Create or update an organization secret
+    /// Creates or updates an organization secret with an encrypted value. Encrypt your secret using
+    /// [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages). You must authenticate using an access
+    /// token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `dependabot_secrets` organization
+    /// permission to use this endpoint.
+    ///
+    /// #### Example encrypting a secret using Node.js
+    ///
+    /// Encrypt your secret using the [tweetsodium](https://github.com/github/tweetsodium) library.
+    ///
+    /// ```
+    /// const sodium = require('tweetsodium');
+    ///
+    /// const key = "base64-encoded-public-key";
+    /// const value = "plain-text-secret";
+    ///
+    /// // Convert the message and key to Uint8Array's (Buffer implements that interface)
+    /// const messageBytes = Buffer.from(value);
+    /// const keyBytes = Buffer.from(key, 'base64');
+    ///
+    /// // Encrypt using LibSodium.
+    /// const encryptedBytes = sodium.seal(messageBytes, keyBytes);
+    ///
+    /// // Base64 the encrypted secret
+    /// const encrypted = Buffer.from(encryptedBytes).toString('base64');
+    ///
+    /// console.log(encrypted);
+    /// ```
+    ///
+    ///
+    /// #### Example encrypting a secret using Python
+    ///
+    /// Encrypt your secret using [pynacl](https://pynacl.readthedocs.io/en/latest/public/#nacl-public-sealedbox) with Python 3.
+    ///
+    /// ```
+    /// from base64 import b64encode
+    /// from nacl import encoding, public
+    ///
+    /// def encrypt(public_key: str, secret_value: str) -> str:
+    ///   """Encrypt a Unicode string using the public key."""
+    ///   public_key = public.PublicKey(public_key.encode("utf-8"), encoding.Base64Encoder())
+    ///   sealed_box = public.SealedBox(public_key)
+    ///   encrypted = sealed_box.encrypt(secret_value.encode("utf-8"))
+    ///   return b64encode(encrypted).decode("utf-8")
+    /// ```
+    ///
+    /// #### Example encrypting a secret using C#
+    ///
+    /// Encrypt your secret using the [Sodium.Core](https://www.nuget.org/packages/Sodium.Core/) package.
+    ///
+    /// ```
+    /// var secretValue = System.Text.Encoding.UTF8.GetBytes("mySecret");
+    /// var publicKey = Convert.FromBase64String("2Sg8iYjAxxmI2LvUXpJjkYrMxURPc8r+dB7TJyvvcCU=");
+    ///
+    /// var sealedPublicKeyBox = Sodium.SealedPublicKeyBox.Create(secretValue, publicKey);
+    ///
+    /// Console.WriteLine(Convert.ToBase64String(sealedPublicKeyBox));
+    /// ```
+    ///
+    /// #### Example encrypting a secret using Ruby
+    ///
+    /// Encrypt your secret using the [rbnacl](https://github.com/RubyCrypto/rbnacl) gem.
+    ///
+    /// ```ruby
+    /// require "rbnacl"
+    /// require "base64"
+    ///
+    /// key = Base64.decode64("+ZYvJDZMHUfBkJdyq5Zm9SKqeuBQ4sj+6sfjlH4CgG0=")
+    /// public_key = RbNaCl::PublicKey.new(key)
+    ///
+    /// box = RbNaCl::Boxes::Sealed.from_public_key(public_key)
+    /// encrypted_secret = box.encrypt("my_secret")
+    ///
+    /// # Print the base64 encoded secret
+    /// puts Base64.strict_encode64(encrypted_secret)
+    /// ```
+    PutOrgsorgDependabotSecretssecretName(String, String),
+    /// * tags dependabot
+    /// * delete `/orgs/{org}/dependabot/secrets/{secret_name}`
+    /// * docs <https://docs.github.com/rest/reference/dependabot#delete-an-organization-secret>
+    ///
+    /// Delete an organization secret
+    /// Deletes a secret in an organization using the secret name. You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `dependabot_secrets` organization permission to use this endpoint.
+    DeleteOrgsorgDependabotSecretssecretName(String, String),
+    /// * tags dependabot
+    /// * get `/orgs/{org}/dependabot/secrets/{secret_name}/repositories`
+    /// * docs <https://docs.github.com/rest/reference/dependabot#list-selected-repositories-for-an-organization-secret>
+    ///
+    /// List selected repositories for an organization secret
+    /// Lists all repositories that have been selected when the `visibility` for repository access to a secret is set to `selected`. You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `dependabot_secrets` organization permission to use this endpoint.
+    GetOrgsorgDependabotSecretssecretNameRepositories(String, String),
+    /// * tags dependabot
+    /// * put `/orgs/{org}/dependabot/secrets/{secret_name}/repositories`
+    /// * docs <https://docs.github.com/rest/reference/dependabot#set-selected-repositories-for-an-organization-secret>
+    ///
+    /// Set selected repositories for an organization secret
+    /// Replaces all repositories for an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/reference/dependabot#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `dependabot_secrets` organization permission to use this endpoint.
+    PutOrgsorgDependabotSecretssecretNameRepositories(String, String),
+    /// * tags dependabot
+    /// * put `/orgs/{org}/dependabot/secrets/{secret_name}/repositories/{repository_id}`
+    /// * docs <https://docs.github.com/rest/reference/dependabot#add-selected-repository-to-an-organization-secret>
+    ///
+    /// Add selected repository to an organization secret
+    /// Adds a repository to an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/reference/dependabot#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `dependabot_secrets` organization permission to use this endpoint.
+    PutOrgsorgDependabotSecretssecretNameRepositoriesrepositoryId(String, String, String),
+    /// * tags dependabot
+    /// * delete `/orgs/{org}/dependabot/secrets/{secret_name}/repositories/{repository_id}`
+    /// * docs <https://docs.github.com/rest/reference/dependabot#remove-selected-repository-from-an-organization-secret>
+    ///
+    /// Remove selected repository from an organization secret
+    /// Removes a repository from an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/reference/dependabot#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `dependabot_secrets` organization permission to use this endpoint.
+    DeleteOrgsorgDependabotSecretssecretNameRepositoriesrepositoryId(String, String, String),
     /// * tags activity
     /// * get `/orgs/{org}/events`
     /// * docs <https://docs.github.com/rest/reference/activity#list-public-organization-events>
@@ -1935,7 +2117,7 @@ pub enum EndPoints {
     /// * docs <https://docs.github.com/rest/reference/orgs#convert-an-organization-member-to-outside-collaborator>
     ///
     /// Convert an organization member to outside collaborator
-    /// When an organization member is converted to an outside collaborator, they'll only have access to the repositories that their current team membership allows. The user will no longer be a member of the organization. For more information, see "[Converting an organization member to an outside collaborator](https://help.github.com/articles/converting-an-organization-member-to-an-outside-collaborator/)".
+    /// When an organization member is converted to an outside collaborator, they'll only have access to the repositories that their current team membership allows. The user will no longer be a member of the organization. For more information, see "[Converting an organization member to an outside collaborator](https://docs.github.com/articles/converting-an-organization-member-to-an-outside-collaborator/)".
     PutOrgsorgOutsideCollaboratorsusername(String, String),
     /// * tags orgs
     /// * delete `/orgs/{org}/outside_collaborators/{username}`
@@ -2122,7 +2304,7 @@ pub enum EndPoints {
     ///
     /// List secret scanning alerts for an organization
     /// Lists secret scanning alerts for eligible repositories in an organization, from newest to oldest.
-    /// To use this endpoint, you must be an administrator for the repository or organization, and you must use an access token with the `repo` scope or `security_events` scope.
+    /// To use this endpoint, you must be an administrator or security manager for the organization, and you must use an access token with the `repo` scope or `security_events` scope.
     ///
     /// GitHub Apps must have the `secret_scanning_alerts` read permission to use this endpoint.
     GetOrgsorgSecretScanningAlerts(String),
@@ -2133,7 +2315,7 @@ pub enum EndPoints {
     /// Get GitHub Actions billing for an organization
     /// Gets the summary of the free and paid GitHub Actions minutes used.
     ///
-    /// Paid minutes only apply to workflows in private repositories that use GitHub-hosted runners. Minutes used is listed for each GitHub-hosted runner operating system. Any job re-runs are also included in the usage. The usage returned includes any minute multipliers for macOS and Windows runners, and is rounded up to the nearest whole minute. For more information, see "[Managing billing for GitHub Actions](https://help.github.com/github/setting-up-and-managing-billing-and-payments-on-github/managing-billing-for-github-actions)".
+    /// Paid minutes only apply to workflows in private repositories that use GitHub-hosted runners. Minutes used is listed for each GitHub-hosted runner operating system. Any job re-runs are also included in the usage. The usage returned includes any minute multipliers for macOS and Windows runners, and is rounded up to the nearest whole minute. For more information, see "[Managing billing for GitHub Actions](https://docs.github.com/github/setting-up-and-managing-billing-and-payments-on-github/managing-billing-for-github-actions)".
     ///
     /// Access tokens must have the `repo` or `admin:org` scope.
     GetOrgsorgSettingsBillingActions(String),
@@ -2153,7 +2335,7 @@ pub enum EndPoints {
     /// Get GitHub Packages billing for an organization
     /// Gets the free and paid storage used for GitHub Packages in gigabytes.
     ///
-    /// Paid minutes only apply to packages stored for private repositories. For more information, see "[Managing billing for GitHub Packages](https://help.github.com/github/setting-up-and-managing-billing-and-payments-on-github/managing-billing-for-github-packages)."
+    /// Paid minutes only apply to packages stored for private repositories. For more information, see "[Managing billing for GitHub Packages](https://docs.github.com/github/setting-up-and-managing-billing-and-payments-on-github/managing-billing-for-github-packages)."
     ///
     /// Access tokens must have the `repo` or `admin:org` scope.
     GetOrgsorgSettingsBillingPackages(String),
@@ -2164,7 +2346,7 @@ pub enum EndPoints {
     /// Get shared storage billing for an organization
     /// Gets the estimated paid and estimated total storage used for GitHub Actions and Github Packages.
     ///
-    /// Paid minutes only apply to packages stored for private repositories. For more information, see "[Managing billing for GitHub Packages](https://help.github.com/github/setting-up-and-managing-billing-and-payments-on-github/managing-billing-for-github-packages)."
+    /// Paid minutes only apply to packages stored for private repositories. For more information, see "[Managing billing for GitHub Packages](https://docs.github.com/github/setting-up-and-managing-billing-and-payments-on-github/managing-billing-for-github-packages)."
     ///
     /// Access tokens must have the `repo` or `admin:org` scope.
     GetOrgsorgSettingsBillingSharedStorage(String),
@@ -2173,7 +2355,7 @@ pub enum EndPoints {
     /// * docs <https://docs.github.com/rest/reference/teams#list-idp-groups-for-an-organization>
     ///
     /// List IdP groups for an organization
-    /// Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+    /// Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     ///
     /// List IdP groups available in an organization. You can limit your page results using the `per_page` parameter. GitHub generates a url-encoded `page` token using a cursor value for where the next page begins. For more information on cursor pagination, see "[Offset and Cursor Pagination explained](https://dev.to/jackmarchant/offset-and-cursor-pagination-explained-b89)."
     GetOrgsorgTeamSyncGroups(String),
@@ -2189,9 +2371,9 @@ pub enum EndPoints {
     /// * docs <https://docs.github.com/rest/reference/teams#create-a-team>
     ///
     /// Create a team
-    /// To create a team, the authenticated user must be a member or owner of `{org}`. By default, organization members can create teams. Organization owners can limit team creation to organization owners. For more information, see "[Setting team creation permissions](https://help.github.com/en/articles/setting-team-creation-permissions-in-your-organization)."
+    /// To create a team, the authenticated user must be a member or owner of `{org}`. By default, organization members can create teams. Organization owners can limit team creation to organization owners. For more information, see "[Setting team creation permissions](https://docs.github.com/en/articles/setting-team-creation-permissions-in-your-organization)."
     ///
-    /// When you create a new team, you automatically become a team maintainer without explicitly adding yourself to the optional array of `maintainers`. For more information, see "[About teams](https://help.github.com/en/github/setting-up-and-managing-organizations-and-teams/about-teams)".
+    /// When you create a new team, you automatically become a team maintainer without explicitly adding yourself to the optional array of `maintainers`. For more information, see "[About teams](https://docs.github.com/en/github/setting-up-and-managing-organizations-and-teams/about-teams)".
     PostOrgsorgTeams(String),
     /// * tags teams
     /// * get `/orgs/{org}/teams/{team_slug}`
@@ -2463,11 +2645,11 @@ pub enum EndPoints {
     /// * docs <https://docs.github.com/rest/reference/teams#add-or-update-team-membership-for-a-user>
     ///
     /// Add or update team membership for a user
-    /// Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+    /// Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     ///
     /// Adds an organization member to a team. An authenticated organization owner or team maintainer can add organization members to a team.
     ///
-    /// **Note:** When you have team synchronization set up for a team with your organization's identity provider (IdP), you will see an error if you attempt to use the API for making changes to the team's membership. If you have access to manage group membership in your IdP, you can manage GitHub team membership through your identity provider, which automatically adds and removes team members in an organization. For more information, see "[Synchronizing teams between your identity provider and GitHub](https://help.github.com/articles/synchronizing-teams-between-your-identity-provider-and-github/)."
+    /// **Note:** When you have team synchronization set up for a team with your organization's identity provider (IdP), you will see an error if you attempt to use the API for making changes to the team's membership. If you have access to manage group membership in your IdP, you can manage GitHub team membership through your identity provider, which automatically adds and removes team members in an organization. For more information, see "[Synchronizing teams between your identity provider and GitHub](https://docs.github.com/articles/synchronizing-teams-between-your-identity-provider-and-github/)."
     ///
     /// An organization owner can add someone who is not part of the team's organization to a team. When an organization owner adds someone to a team who is not an organization member, this endpoint will send an invitation to the person via email. This newly-created membership will be in the "pending" state until the person accepts the invitation, at which point the membership will transition to the "active" state and the user will be added as a member of the team.
     ///
@@ -2480,11 +2662,11 @@ pub enum EndPoints {
     /// * docs <https://docs.github.com/rest/reference/teams#remove-team-membership-for-a-user>
     ///
     /// Remove team membership for a user
-    /// Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+    /// Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     ///
     /// To remove a membership between a user and a team, the authenticated user must have 'admin' permissions to the team or be an owner of the organization that the team is associated with. Removing team membership does not delete the user, it just removes their membership from the team.
     ///
-    /// **Note:** When you have team synchronization set up for a team with your organization's identity provider (IdP), you will see an error if you attempt to use the API for making changes to the team's membership. If you have access to manage group membership in your IdP, you can manage GitHub team membership through your identity provider, which automatically adds and removes team members in an organization. For more information, see "[Synchronizing teams between your identity provider and GitHub](https://help.github.com/articles/synchronizing-teams-between-your-identity-provider-and-github/)."
+    /// **Note:** When you have team synchronization set up for a team with your organization's identity provider (IdP), you will see an error if you attempt to use the API for making changes to the team's membership. If you have access to manage group membership in your IdP, you can manage GitHub team membership through your identity provider, which automatically adds and removes team members in an organization. For more information, see "[Synchronizing teams between your identity provider and GitHub](https://docs.github.com/articles/synchronizing-teams-between-your-identity-provider-and-github/)."
     ///
     /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `DELETE /organizations/{org_id}/team/{team_id}/memberships/{username}`.
     DeleteOrgsorgTeamsteamSlugMembershipsusername(String, String, String),
@@ -2555,7 +2737,7 @@ pub enum EndPoints {
     ///
     /// **Note:** You can also specify a team by `org_id` and `team_id` using the route `PUT /organizations/{org_id}/team/{team_id}/repos/{owner}/{repo}`.
     ///
-    /// For more information about the permission levels, see "[Repository permission levels for an organization](https://help.github.com/en/github/setting-up-and-managing-organizations-and-teams/repository-permission-levels-for-an-organization#permission-levels-for-repositories-owned-by-an-organization)".
+    /// For more information about the permission levels, see "[Repository permission levels for an organization](https://docs.github.com/en/github/setting-up-and-managing-organizations-and-teams/repository-permission-levels-for-an-organization#permission-levels-for-repositories-owned-by-an-organization)".
     PutOrgsorgTeamsteamSlugReposownerrepo(String, String, String, String),
     /// * tags teams
     /// * delete `/orgs/{org}/teams/{team_slug}/repos/{owner}/{repo}`
@@ -2571,7 +2753,7 @@ pub enum EndPoints {
     /// * docs <https://docs.github.com/rest/reference/teams#list-idp-groups-for-a-team>
     ///
     /// List IdP groups for a team
-    /// Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+    /// Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     ///
     /// List IdP groups connected to a team on GitHub.
     ///
@@ -2582,7 +2764,7 @@ pub enum EndPoints {
     /// * docs <https://docs.github.com/rest/reference/teams#create-or-update-idp-group-connections>
     ///
     /// Create or update IdP group connections
-    /// Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+    /// Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     ///
     /// Creates, updates, or removes a connection between a team and an IdP group. When adding groups to a team, you must include all new and existing groups to avoid replacing existing groups with the new ones. Specifying an empty `groups` array will remove all connections for a team.
     ///
@@ -3123,7 +3305,7 @@ pub enum EndPoints {
     /// * docs <https://docs.github.com/rest/reference/actions#get-workflow-run-usage>
     ///
     /// Get workflow run usage
-    /// Gets the number of billable minutes and total run time for a specific workflow run. Billable minutes only apply to workflows in private repositories that use GitHub-hosted runners. Usage is listed for each GitHub-hosted runner operating system in milliseconds. Any job re-runs are also included in the usage. The usage does not include the multiplier for macOS and Windows runners and is not rounded up to the nearest whole minute. For more information, see "[Managing billing for GitHub Actions](https://help.github.com/github/setting-up-and-managing-billing-and-payments-on-github/managing-billing-for-github-actions)".
+    /// Gets the number of billable minutes and total run time for a specific workflow run. Billable minutes only apply to workflows in private repositories that use GitHub-hosted runners. Usage is listed for each GitHub-hosted runner operating system in milliseconds. Any job re-runs are also included in the usage. The usage does not include the multiplier for macOS and Windows runners and is not rounded up to the nearest whole minute. For more information, see "[Managing billing for GitHub Actions](https://docs.github.com/github/setting-up-and-managing-billing-and-payments-on-github/managing-billing-for-github-actions)".
     ///
     /// Anyone with read access to the repository can use this endpoint. If the repository is private you must use an access token with the `repo` scope. GitHub Apps must have the `actions:read` permission to use this endpoint.
     GetReposownerrepoActionsRunsrunIdTiming(String, String, String),
@@ -3184,7 +3366,7 @@ pub enum EndPoints {
     ///
     /// #### Example encrypting a secret using Python
     ///
-    /// Encrypt your secret using [pynacl](https://pynacl.readthedocs.io/en/stable/public/#nacl-public-sealedbox) with Python 3.
+    /// Encrypt your secret using [pynacl](https://pynacl.readthedocs.io/en/latest/public/#nacl-public-sealedbox) with Python 3.
     ///
     /// ```
     /// from base64 import b64encode
@@ -3268,7 +3450,7 @@ pub enum EndPoints {
     ///
     /// You must configure your GitHub Actions workflow to run when the [`workflow_dispatch` webhook](/developers/webhooks-and-events/webhook-events-and-payloads#workflow_dispatch) event occurs. The `inputs` are configured in the workflow file. For more information about how to configure the `workflow_dispatch` event in the workflow file, see "[Events that trigger workflows](/actions/reference/events-that-trigger-workflows#workflow_dispatch)."
     ///
-    /// You must authenticate using an access token with the `repo` scope to use this endpoint. GitHub Apps must have the `actions:write` permission to use this endpoint. For more information, see "[Creating a personal access token for the command line](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line)."
+    /// You must authenticate using an access token with the `repo` scope to use this endpoint. GitHub Apps must have the `actions:write` permission to use this endpoint. For more information, see "[Creating a personal access token for the command line](https://docs.github.com/articles/creating-a-personal-access-token-for-the-command-line)."
     PostReposownerrepoActionsWorkflowsworkflowIdDispatches(String, String, String),
     /// * tags actions
     /// * put `/repos/{owner}/{repo}/actions/workflows/{workflow_id}/enable`
@@ -3293,7 +3475,7 @@ pub enum EndPoints {
     /// * docs <https://docs.github.com/rest/reference/actions#get-workflow-usage>
     ///
     /// Get workflow usage
-    /// Gets the number of billable minutes used by a specific workflow during the current billing cycle. Billable minutes only apply to workflows in private repositories that use GitHub-hosted runners. Usage is listed for each GitHub-hosted runner operating system in milliseconds. Any job re-runs are also included in the usage. The usage does not include the multiplier for macOS and Windows runners and is not rounded up to the nearest whole minute. For more information, see "[Managing billing for GitHub Actions](https://help.github.com/github/setting-up-and-managing-billing-and-payments-on-github/managing-billing-for-github-actions)".
+    /// Gets the number of billable minutes used by a specific workflow during the current billing cycle. Billable minutes only apply to workflows in private repositories that use GitHub-hosted runners. Usage is listed for each GitHub-hosted runner operating system in milliseconds. Any job re-runs are also included in the usage. The usage does not include the multiplier for macOS and Windows runners and is not rounded up to the nearest whole minute. For more information, see "[Managing billing for GitHub Actions](https://docs.github.com/github/setting-up-and-managing-billing-and-payments-on-github/managing-billing-for-github-actions)".
     ///
     /// You can replace `workflow_id` with the workflow file name. For example, you could use `main.yaml`. Anyone with read access to the repository can use this endpoint. If the repository is private you must use an access token with the `repo` scope. GitHub Apps must have the `actions:read` permission to use this endpoint.
     GetReposownerrepoActionsWorkflowsworkflowIdTiming(String, String, String),
@@ -3302,7 +3484,7 @@ pub enum EndPoints {
     /// * docs <https://docs.github.com/rest/reference/issues#list-assignees>
     ///
     /// List assignees
-    /// Lists the [available assignees](https://help.github.com/articles/assigning-issues-and-pull-requests-to-other-github-users/) for issues in a repository.
+    /// Lists the [available assignees](https://docs.github.com/articles/assigning-issues-and-pull-requests-to-other-github-users/) for issues in a repository.
     GetReposownerrepoAssignees(String, String),
     /// * tags issues
     /// * get `/repos/{owner}/{repo}/assignees/{assignee}`
@@ -3354,14 +3536,14 @@ pub enum EndPoints {
     /// * docs <https://docs.github.com/rest/reference/repos#enable-automated-security-fixes>
     ///
     /// Enable automated security fixes
-    /// Enables automated security fixes for a repository. The authenticated user must have admin access to the repository. For more information, see "[Configuring automated security fixes](https://help.github.com/en/articles/configuring-automated-security-fixes)".
+    /// Enables automated security fixes for a repository. The authenticated user must have admin access to the repository. For more information, see "[Configuring automated security fixes](https://docs.github.com/en/articles/configuring-automated-security-fixes)".
     PutReposownerrepoAutomatedSecurityFixes(String, String),
     /// * tags repos
     /// * delete `/repos/{owner}/{repo}/automated-security-fixes`
     /// * docs <https://docs.github.com/rest/reference/repos#disable-automated-security-fixes>
     ///
     /// Disable automated security fixes
-    /// Disables automated security fixes for a repository. The authenticated user must have admin access to the repository. For more information, see "[Configuring automated security fixes](https://help.github.com/en/articles/configuring-automated-security-fixes)".
+    /// Disables automated security fixes for a repository. The authenticated user must have admin access to the repository. For more information, see "[Configuring automated security fixes](https://docs.github.com/en/articles/configuring-automated-security-fixes)".
     DeleteReposownerrepoAutomatedSecurityFixes(String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/branches`
@@ -3382,14 +3564,14 @@ pub enum EndPoints {
     /// * docs <https://docs.github.com/rest/reference/repos#get-branch-protection>
     ///
     /// Get branch protection
-    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     GetReposownerrepoBranchesbranchProtection(String, String, String),
     /// * tags repos
     /// * put `/repos/{owner}/{repo}/branches/{branch}/protection`
     /// * docs <https://docs.github.com/rest/reference/repos#update-branch-protection>
     ///
     /// Update branch protection
-    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     ///
     /// Protecting a branch requires admin or owner permissions to the repository.
     ///
@@ -3402,21 +3584,21 @@ pub enum EndPoints {
     /// * docs <https://docs.github.com/rest/reference/repos#delete-branch-protection>
     ///
     /// Delete branch protection
-    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     DeleteReposownerrepoBranchesbranchProtection(String, String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/branches/{branch}/protection/enforce_admins`
     /// * docs <https://docs.github.com/rest/reference/repos#get-admin-branch-protection>
     ///
     /// Get admin branch protection
-    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     GetReposownerrepoBranchesbranchProtectionEnforceAdmins(String, String, String),
     /// * tags repos
     /// * post `/repos/{owner}/{repo}/branches/{branch}/protection/enforce_admins`
     /// * docs <https://docs.github.com/rest/reference/repos#set-admin-branch-protection>
     ///
     /// Set admin branch protection
-    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     ///
     /// Adding admin enforcement requires admin or owner permissions to the repository and branch protection to be enabled.
     PostReposownerrepoBranchesbranchProtectionEnforceAdmins(String, String, String),
@@ -3425,7 +3607,7 @@ pub enum EndPoints {
     /// * docs <https://docs.github.com/rest/reference/repos#delete-admin-branch-protection>
     ///
     /// Delete admin branch protection
-    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     ///
     /// Removing admin enforcement requires admin or owner permissions to the repository and branch protection to be enabled.
     DeleteReposownerrepoBranchesbranchProtectionEnforceAdmins(String, String, String),
@@ -3434,14 +3616,14 @@ pub enum EndPoints {
     /// * docs <https://docs.github.com/rest/reference/repos#get-pull-request-review-protection>
     ///
     /// Get pull request review protection
-    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     GetReposownerrepoBranchesbranchProtectionRequiredPullRequestReviews(String, String, String),
     /// * tags repos
     /// * patch `/repos/{owner}/{repo}/branches/{branch}/protection/required_pull_request_reviews`
     /// * docs <https://docs.github.com/rest/reference/repos#update-pull-request-review-protection>
     ///
     /// Update pull request review protection
-    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     ///
     /// Updating pull request review enforcement requires admin or owner permissions to the repository and branch protection to be enabled.
     ///
@@ -3452,16 +3634,16 @@ pub enum EndPoints {
     /// * docs <https://docs.github.com/rest/reference/repos#delete-pull-request-review-protection>
     ///
     /// Delete pull request review protection
-    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     DeleteReposownerrepoBranchesbranchProtectionRequiredPullRequestReviews(String, String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/branches/{branch}/protection/required_signatures`
     /// * docs <https://docs.github.com/rest/reference/repos#get-commit-signature-protection>
     ///
     /// Get commit signature protection
-    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     ///
-    /// When authenticated with admin or owner permissions to the repository, you can use this endpoint to check whether a branch requires signed commits. An enabled status of `true` indicates you must sign commits on this branch. For more information, see [Signing commits with GPG](https://help.github.com/articles/signing-commits-with-gpg) in GitHub Help.
+    /// When authenticated with admin or owner permissions to the repository, you can use this endpoint to check whether a branch requires signed commits. An enabled status of `true` indicates you must sign commits on this branch. For more information, see [Signing commits with GPG](https://docs.github.com/articles/signing-commits-with-gpg) in GitHub Help.
     ///
     /// **Note**: You must enable branch protection to require signed commits.
     GetReposownerrepoBranchesbranchProtectionRequiredSignatures(String, String, String),
@@ -3470,7 +3652,7 @@ pub enum EndPoints {
     /// * docs <https://docs.github.com/rest/reference/repos#create-commit-signature-protection>
     ///
     /// Create commit signature protection
-    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     ///
     /// When authenticated with admin or owner permissions to the repository, you can use this endpoint to require signed commits on a branch. You must enable branch protection to require signed commits.
     PostReposownerrepoBranchesbranchProtectionRequiredSignatures(String, String, String),
@@ -3479,7 +3661,7 @@ pub enum EndPoints {
     /// * docs <https://docs.github.com/rest/reference/repos#delete-commit-signature-protection>
     ///
     /// Delete commit signature protection
-    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     ///
     /// When authenticated with admin or owner permissions to the repository, you can use this endpoint to disable required signed commits on a branch. You must enable branch protection to require signed commits.
     DeleteReposownerrepoBranchesbranchProtectionRequiredSignatures(String, String, String),
@@ -3488,14 +3670,14 @@ pub enum EndPoints {
     /// * docs <https://docs.github.com/rest/reference/repos#get-status-checks-protection>
     ///
     /// Get status checks protection
-    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     GetReposownerrepoBranchesbranchProtectionRequiredStatusChecks(String, String, String),
     /// * tags repos
     /// * patch `/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks`
     /// * docs <https://docs.github.com/rest/reference/repos#update-status-check-protection>
     ///
     /// Update status check protection
-    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     ///
     /// Updating required status checks requires admin or owner permissions to the repository and branch protection to be enabled.
     PatchReposownerrepoBranchesbranchProtectionRequiredStatusChecks(String, String, String),
@@ -3504,35 +3686,35 @@ pub enum EndPoints {
     /// * docs <https://docs.github.com/rest/reference/repos#remove-status-check-protection>
     ///
     /// Remove status check protection
-    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     DeleteReposownerrepoBranchesbranchProtectionRequiredStatusChecks(String, String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts`
     /// * docs <https://docs.github.com/rest/reference/repos#get-all-status-check-contexts>
     ///
     /// Get all status check contexts
-    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     GetReposownerrepoBranchesbranchProtectionRequiredStatusChecksContexts(String, String, String),
     /// * tags repos
     /// * post `/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts`
     /// * docs <https://docs.github.com/rest/reference/repos#add-status-check-contexts>
     ///
     /// Add status check contexts
-    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     PostReposownerrepoBranchesbranchProtectionRequiredStatusChecksContexts(String, String, String),
     /// * tags repos
     /// * put `/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts`
     /// * docs <https://docs.github.com/rest/reference/repos#set-status-check-contexts>
     ///
     /// Set status check contexts
-    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     PutReposownerrepoBranchesbranchProtectionRequiredStatusChecksContexts(String, String, String),
     /// * tags repos
     /// * delete `/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts`
     /// * docs <https://docs.github.com/rest/reference/repos#remove-status-check-contexts>
     ///
     /// Remove status check contexts
-    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     DeleteReposownerrepoBranchesbranchProtectionRequiredStatusChecksContexts(
         String,
         String,
@@ -3543,7 +3725,7 @@ pub enum EndPoints {
     /// * docs <https://docs.github.com/rest/reference/repos#get-access-restrictions>
     ///
     /// Get access restrictions
-    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     ///
     /// Lists who has access to this protected branch.
     ///
@@ -3554,7 +3736,7 @@ pub enum EndPoints {
     /// * docs <https://docs.github.com/rest/reference/repos#delete-access-restrictions>
     ///
     /// Delete access restrictions
-    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     ///
     /// Disables the ability to restrict who can push to this branch.
     DeleteReposownerrepoBranchesbranchProtectionRestrictions(String, String, String),
@@ -3563,7 +3745,7 @@ pub enum EndPoints {
     /// * docs <https://docs.github.com/rest/reference/repos#list-apps-with-access-to-the-protected-branch>
     ///
     /// Get apps with access to the protected branch
-    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     ///
     /// Lists the GitHub Apps that have push access to this branch. Only installed GitHub Apps with `write` access to the `contents` permission can be added as authorized actors on a protected branch.
     GetReposownerrepoBranchesbranchProtectionRestrictionsApps(String, String, String),
@@ -3572,7 +3754,7 @@ pub enum EndPoints {
     /// * docs <https://docs.github.com/rest/reference/repos#add-app-access-restrictions>
     ///
     /// Add app access restrictions
-    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     ///
     /// Grants the specified apps push access for this branch. Only installed GitHub Apps with `write` access to the `contents` permission can be added as authorized actors on a protected branch.
     ///
@@ -3585,7 +3767,7 @@ pub enum EndPoints {
     /// * docs <https://docs.github.com/rest/reference/repos#set-app-access-restrictions>
     ///
     /// Set app access restrictions
-    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     ///
     /// Replaces the list of apps that have push access to this branch. This removes all apps that previously had push access and grants push access to the new list of apps. Only installed GitHub Apps with `write` access to the `contents` permission can be added as authorized actors on a protected branch.
     ///
@@ -3598,7 +3780,7 @@ pub enum EndPoints {
     /// * docs <https://docs.github.com/rest/reference/repos#remove-app-access-restrictions>
     ///
     /// Remove app access restrictions
-    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     ///
     /// Removes the ability of an app to push to this branch. Only installed GitHub Apps with `write` access to the `contents` permission can be added as authorized actors on a protected branch.
     ///
@@ -3611,7 +3793,7 @@ pub enum EndPoints {
     /// * docs <https://docs.github.com/rest/reference/repos#list-teams-with-access-to-the-protected-branch>
     ///
     /// Get teams with access to the protected branch
-    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     ///
     /// Lists the teams who have push access to this branch. The list includes child teams.
     GetReposownerrepoBranchesbranchProtectionRestrictionsTeams(String, String, String),
@@ -3620,7 +3802,7 @@ pub enum EndPoints {
     /// * docs <https://docs.github.com/rest/reference/repos#add-team-access-restrictions>
     ///
     /// Add team access restrictions
-    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     ///
     /// Grants the specified teams push access for this branch. You can also give push access to child teams.
     ///
@@ -3633,7 +3815,7 @@ pub enum EndPoints {
     /// * docs <https://docs.github.com/rest/reference/repos#set-team-access-restrictions>
     ///
     /// Set team access restrictions
-    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     ///
     /// Replaces the list of teams that have push access to this branch. This removes all teams that previously had push access and grants push access to the new list of teams. Team restrictions include child teams.
     ///
@@ -3646,7 +3828,7 @@ pub enum EndPoints {
     /// * docs <https://docs.github.com/rest/reference/repos#remove-team-access-restrictions>
     ///
     /// Remove team access restrictions
-    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     ///
     /// Removes the ability of a team to push to this branch. You can also remove push access for child teams.
     ///
@@ -3659,7 +3841,7 @@ pub enum EndPoints {
     /// * docs <https://docs.github.com/rest/reference/repos#list-users-with-access-to-the-protected-branch>
     ///
     /// Get users with access to the protected branch
-    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     ///
     /// Lists the people who have push access to this branch.
     GetReposownerrepoBranchesbranchProtectionRestrictionsUsers(String, String, String),
@@ -3668,7 +3850,7 @@ pub enum EndPoints {
     /// * docs <https://docs.github.com/rest/reference/repos#add-user-access-restrictions>
     ///
     /// Add user access restrictions
-    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     ///
     /// Grants the specified people push access for this branch.
     ///
@@ -3681,7 +3863,7 @@ pub enum EndPoints {
     /// * docs <https://docs.github.com/rest/reference/repos#set-user-access-restrictions>
     ///
     /// Set user access restrictions
-    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     ///
     /// Replaces the list of people that have push access to this branch. This removes all people that previously had push access and grants push access to the new list of people.
     ///
@@ -3694,7 +3876,7 @@ pub enum EndPoints {
     /// * docs <https://docs.github.com/rest/reference/repos#remove-user-access-restrictions>
     ///
     /// Remove user access restrictions
-    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     ///
     /// Removes the ability of a user to push to this branch.
     ///
@@ -4042,7 +4224,9 @@ pub enum EndPoints {
     ///
     /// Team members will include the members of child teams.
     ///
-    /// You must have push access to the repository in order to list collaborators.
+    /// You must authenticate using an access token with the `read:org` and `repo` scopes with push access to use this
+    /// endpoint. GitHub Apps must have the `members` organization permission and `metadata` repository permission to use this
+    /// endpoint.
     GetReposownerrepoCollaborators(String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/collaborators/{username}`
@@ -4052,6 +4236,10 @@ pub enum EndPoints {
     /// For organization-owned repositories, the list of collaborators includes outside collaborators, organization members that are direct collaborators, organization members with access through team memberships, organization members with access through default organization permissions, and organization owners.
     ///
     /// Team members will include the members of child teams.
+    ///
+    /// You must authenticate using an access token with the `read:org` and `repo` scopes with push access to use this
+    /// endpoint. GitHub Apps must have the `members` organization permission and `metadata` repository permission to use this
+    /// endpoint.
     GetReposownerrepoCollaboratorsusername(String, String, String),
     /// * tags repos
     /// * put `/repos/{owner}/{repo}/collaborators/{username}`
@@ -4060,7 +4248,7 @@ pub enum EndPoints {
     /// Add a repository collaborator
     /// This endpoint triggers [notifications](https://docs.github.com/en/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
     ///
-    /// For more information on permission levels, see "[Repository permission levels for an organization](https://help.github.com/en/github/setting-up-and-managing-organizations-and-teams/repository-permission-levels-for-an-organization#permission-levels-for-repositories-owned-by-an-organization)". There are restrictions on which permissions can be granted to organization members when an organization base role is in place. In this case, the permission being given must be equal to or higher than the org base permission. Otherwise, the request will fail with:
+    /// For more information on permission levels, see "[Repository permission levels for an organization](https://docs.github.com/en/github/setting-up-and-managing-organizations-and-teams/repository-permission-levels-for-an-organization#permission-levels-for-repositories-owned-by-an-organization)". There are restrictions on which permissions can be granted to organization members when an organization base role is in place. In this case, the permission being given must be equal to or higher than the org base permission. Otherwise, the request will fail with:
     ///
     /// ```
     /// Cannot assign {member} permission of {role name}
@@ -4180,7 +4368,7 @@ pub enum EndPoints {
     /// * docs <https://docs.github.com/rest/reference/repos#list-branches-for-head-commit>
     ///
     /// List branches for HEAD commit
-    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     ///
     /// Returns all branches where the given commit SHA is the HEAD, or latest commit for the branch.
     GetReposownerrepoCommitscommitShaBranchesWhereHead(String, String, String),
@@ -4421,6 +4609,115 @@ pub enum EndPoints {
     ///
     /// GitHub identifies contributors by author email address. This endpoint groups contribution counts by GitHub user, which includes all associated email addresses. To improve performance, only the first 500 author email addresses in the repository link to GitHub users. The rest will appear as anonymous contributors without associated GitHub user information.
     GetReposownerrepoContributors(String, String),
+    /// * tags dependabot
+    /// * get `/repos/{owner}/{repo}/dependabot/secrets`
+    /// * docs <https://docs.github.com/rest/reference/dependabot#list-repository-secrets>
+    ///
+    /// List repository secrets
+    /// Lists all secrets available in a repository without revealing their encrypted values. You must authenticate using an access token with the `repo` scope to use this endpoint. GitHub Apps must have the `dependabot_secrets` repository permission to use this endpoint.
+    GetReposownerrepoDependabotSecrets(String, String),
+    /// * tags dependabot
+    /// * get `/repos/{owner}/{repo}/dependabot/secrets/public-key`
+    /// * docs <https://docs.github.com/rest/reference/dependabot#get-a-repository-public-key>
+    ///
+    /// Get a repository public key
+    /// Gets your public key, which you need to encrypt secrets. You need to encrypt a secret before you can create or update secrets. Anyone with read access to the repository can use this endpoint. If the repository is private you must use an access token with the `repo` scope. GitHub Apps must have the `dependabot_secrets` repository permission to use this endpoint.
+    GetReposownerrepoDependabotSecretsPublicKey(String, String),
+    /// * tags dependabot
+    /// * get `/repos/{owner}/{repo}/dependabot/secrets/{secret_name}`
+    /// * docs <https://docs.github.com/rest/reference/dependabot#get-a-repository-secret>
+    ///
+    /// Get a repository secret
+    /// Gets a single repository secret without revealing its encrypted value. You must authenticate using an access token with the `repo` scope to use this endpoint. GitHub Apps must have the `dependabot_secrets` repository permission to use this endpoint.
+    GetReposownerrepoDependabotSecretssecretName(String, String, String),
+    /// * tags dependabot
+    /// * put `/repos/{owner}/{repo}/dependabot/secrets/{secret_name}`
+    /// * docs <https://docs.github.com/rest/reference/dependabot#create-or-update-a-repository-secret>
+    ///
+    /// Create or update a repository secret
+    /// Creates or updates a repository secret with an encrypted value. Encrypt your secret using
+    /// [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages). You must authenticate using an access
+    /// token with the `repo` scope to use this endpoint. GitHub Apps must have the `dependabot_secrets` repository
+    /// permission to use this endpoint.
+    ///
+    /// #### Example encrypting a secret using Node.js
+    ///
+    /// Encrypt your secret using the [tweetsodium](https://github.com/github/tweetsodium) library.
+    ///
+    /// ```
+    /// const sodium = require('tweetsodium');
+    ///
+    /// const key = "base64-encoded-public-key";
+    /// const value = "plain-text-secret";
+    ///
+    /// // Convert the message and key to Uint8Array's (Buffer implements that interface)
+    /// const messageBytes = Buffer.from(value);
+    /// const keyBytes = Buffer.from(key, 'base64');
+    ///
+    /// // Encrypt using LibSodium.
+    /// const encryptedBytes = sodium.seal(messageBytes, keyBytes);
+    ///
+    /// // Base64 the encrypted secret
+    /// const encrypted = Buffer.from(encryptedBytes).toString('base64');
+    ///
+    /// console.log(encrypted);
+    /// ```
+    ///
+    ///
+    /// #### Example encrypting a secret using Python
+    ///
+    /// Encrypt your secret using [pynacl](https://pynacl.readthedocs.io/en/latest/public/#nacl-public-sealedbox) with Python 3.
+    ///
+    /// ```
+    /// from base64 import b64encode
+    /// from nacl import encoding, public
+    ///
+    /// def encrypt(public_key: str, secret_value: str) -> str:
+    ///   """Encrypt a Unicode string using the public key."""
+    ///   public_key = public.PublicKey(public_key.encode("utf-8"), encoding.Base64Encoder())
+    ///   sealed_box = public.SealedBox(public_key)
+    ///   encrypted = sealed_box.encrypt(secret_value.encode("utf-8"))
+    ///   return b64encode(encrypted).decode("utf-8")
+    /// ```
+    ///
+    /// #### Example encrypting a secret using C#
+    ///
+    /// Encrypt your secret using the [Sodium.Core](https://www.nuget.org/packages/Sodium.Core/) package.
+    ///
+    /// ```
+    /// var secretValue = System.Text.Encoding.UTF8.GetBytes("mySecret");
+    /// var publicKey = Convert.FromBase64String("2Sg8iYjAxxmI2LvUXpJjkYrMxURPc8r+dB7TJyvvcCU=");
+    ///
+    /// var sealedPublicKeyBox = Sodium.SealedPublicKeyBox.Create(secretValue, publicKey);
+    ///
+    /// Console.WriteLine(Convert.ToBase64String(sealedPublicKeyBox));
+    /// ```
+    ///
+    /// #### Example encrypting a secret using Ruby
+    ///
+    /// Encrypt your secret using the [rbnacl](https://github.com/RubyCrypto/rbnacl) gem.
+    ///
+    /// ```ruby
+    /// require "rbnacl"
+    /// require "base64"
+    ///
+    /// key = Base64.decode64("+ZYvJDZMHUfBkJdyq5Zm9SKqeuBQ4sj+6sfjlH4CgG0=")
+    /// public_key = RbNaCl::PublicKey.new(key)
+    ///
+    /// box = RbNaCl::Boxes::Sealed.from_public_key(public_key)
+    /// encrypted_secret = box.encrypt("my_secret")
+    ///
+    /// # Print the base64 encoded secret
+    /// puts Base64.strict_encode64(encrypted_secret)
+    /// ```
+    PutReposownerrepoDependabotSecretssecretName(String, String, String),
+    /// * tags dependabot
+    /// * delete `/repos/{owner}/{repo}/dependabot/secrets/{secret_name}`
+    /// * docs <https://docs.github.com/rest/reference/dependabot#delete-a-repository-secret>
+    ///
+    /// Delete a repository secret
+    /// Deletes a secret in a repository using the secret name. You must authenticate using an access token with the `repo` scope to use this endpoint. GitHub Apps must have the `dependabot_secrets` repository permission to use this endpoint.
+    DeleteReposownerrepoDependabotSecretssecretName(String, String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/deployments`
     /// * docs <https://docs.github.com/rest/reference/repos#list-deployments>
@@ -4447,7 +4744,7 @@ pub enum EndPoints {
     /// the API will return a successful merge commit. If merge conflicts prevent the merge from succeeding, the API will
     /// return a failure response.
     ///
-    /// By default, [commit statuses](https://docs.github.com/rest/reference/repos#statuses) for every submitted context must be in a `success`
+    /// By default, [commit statuses](https://docs.github.com/rest/reference/commits#commit-statuses) for every submitted context must be in a `success`
     /// state. The `required_contexts` parameter allows you to specify a subset of contexts that must be `success`, or to
     /// specify contexts that have not yet been submitted. You are not required to use commit statuses to deploy. If you do
     /// not require any contexts or create any commit statuses, the deployment will always succeed.
@@ -4491,7 +4788,7 @@ pub enum EndPoints {
     /// * docs <https://docs.github.com/rest/reference/repos#delete-a-deployment>
     ///
     /// Delete a deployment
-    /// To ensure there can always be an active deployment, you can only delete an _inactive_ deployment. Anyone with `repo` or `repo_deployment` scopes can delete an inactive deployment.
+    /// If the repository only has one deployment, you can delete the deployment regardless of its status. If the repository has more than one deployment, you can only delete inactive deployments. This ensures that repositories with multiple deployments will always have an active deployment. Anyone with `repo` or `repo_deployment` scopes can delete a deployment.
     ///
     /// To set a deployment as inactive, you must:
     ///
@@ -4534,7 +4831,7 @@ pub enum EndPoints {
     ///
     /// This endpoint requires write access to the repository by providing either:
     ///
-    ///   - Personal access tokens with `repo` scope. For more information, see "[Creating a personal access token for the command line](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line)" in the GitHub Help documentation.
+    ///   - Personal access tokens with `repo` scope. For more information, see "[Creating a personal access token for the command line](https://docs.github.com/articles/creating-a-personal-access-token-for-the-command-line)" in the GitHub Help documentation.
     ///   - GitHub Apps with both `metadata:read` and `contents:read&write` permissions.
     ///
     /// This input example shows how you can use the `client_payload` as a test to debug your workflow.
@@ -4998,7 +5295,7 @@ pub enum EndPoints {
     /// * docs <https://docs.github.com/rest/reference/migrations#update-git-lfs-preference>
     ///
     /// Update Git LFS preference
-    /// You can import repositories from Subversion, Mercurial, and TFS that include files larger than 100MB. This ability is powered by [Git LFS](https://git-lfs.github.com). You can learn more about our LFS feature and working with large files [on our help site](https://help.github.com/articles/versioning-large-files/).
+    /// You can import repositories from Subversion, Mercurial, and TFS that include files larger than 100MB. This ability is powered by [Git LFS](https://git-lfs.github.com). You can learn more about our LFS feature and working with large files [on our help site](https://docs.github.com/articles/versioning-large-files/).
     PatchReposownerrepoImportLfs(String, String),
     /// * tags apps
     /// * get `/repos/{owner}/{repo}/installation`
@@ -5068,9 +5365,9 @@ pub enum EndPoints {
     /// * docs <https://docs.github.com/rest/reference/issues#create-an-issue>
     ///
     /// Create an issue
-    /// Any user with pull access to a repository can create an issue. If [issues are disabled in the repository](https://help.github.com/articles/disabling-issues/), the API returns a `410 Gone` status.
+    /// Any user with pull access to a repository can create an issue. If [issues are disabled in the repository](https://docs.github.com/articles/disabling-issues/), the API returns a `410 Gone` status.
     ///
-    /// This endpoint triggers [notifications](https://docs.github.com/en/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
+    /// This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
     PostReposownerrepoIssues(String, String),
     /// * tags issues
     /// * get `/repos/{owner}/{repo}/issues/comments`
@@ -5143,7 +5440,7 @@ pub enum EndPoints {
     ///
     /// Get an issue
     /// The API returns a [`301 Moved Permanently` status](https://docs.github.com/rest/overview/resources-in-the-rest-api#http-redirects-redirects) if the issue was
-    /// [transferred](https://help.github.com/articles/transferring-an-issue-to-another-repository/) to another repository. If
+    /// [transferred](https://docs.github.com/articles/transferring-an-issue-to-another-repository/) to another repository. If
     /// the issue was transferred to or deleted from a repository where the authenticated user lacks read access, the API
     /// returns a `404 Not Found` status. If the issue was deleted from a repository where the authenticated user has read
     /// access, the API returns a `410 Gone` status. To receive webhook events for transferred and deleted issues, subscribe
@@ -5187,7 +5484,7 @@ pub enum EndPoints {
     /// * docs <https://docs.github.com/rest/reference/issues#create-an-issue-comment>
     ///
     /// Create an issue comment
-    /// This endpoint triggers [notifications](https://docs.github.com/en/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
+    /// This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
     PostReposownerrepoIssuesissueNumberComments(String, String, String),
     /// * tags issues
     /// * get `/repos/{owner}/{repo}/issues/{issue_number}/events`
@@ -5528,14 +5825,14 @@ pub enum EndPoints {
     /// * docs <https://docs.github.com/rest/reference/pulls#list-pull-requests>
     ///
     /// List pull requests
-    /// Draft pull requests are available in public repositories with GitHub Free and GitHub Free for organizations, GitHub Pro, and legacy per-repository billing plans, and in public and private repositories with GitHub Team and GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+    /// Draft pull requests are available in public repositories with GitHub Free and GitHub Free for organizations, GitHub Pro, and legacy per-repository billing plans, and in public and private repositories with GitHub Team and GitHub Enterprise Cloud. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     GetReposownerrepoPulls(String, String),
     /// * tags pulls
     /// * post `/repos/{owner}/{repo}/pulls`
     /// * docs <https://docs.github.com/rest/reference/pulls#create-a-pull-request>
     ///
     /// Create a pull request
-    /// Draft pull requests are available in public repositories with GitHub Free and GitHub Free for organizations, GitHub Pro, and legacy per-repository billing plans, and in public and private repositories with GitHub Team and GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+    /// Draft pull requests are available in public repositories with GitHub Free and GitHub Free for organizations, GitHub Pro, and legacy per-repository billing plans, and in public and private repositories with GitHub Team and GitHub Enterprise Cloud. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     ///
     /// To open or update a pull request in a public repository, you must have write access to the head or the source branch. For organization-owned repositories, you must be a member of the organization that owns the repository to open or update a pull request.
     ///
@@ -5599,7 +5896,7 @@ pub enum EndPoints {
     /// * docs <https://docs.github.com/rest/reference/pulls#get-a-pull-request>
     ///
     /// Get a pull request
-    /// Draft pull requests are available in public repositories with GitHub Free and GitHub Free for organizations, GitHub Pro, and legacy per-repository billing plans, and in public and private repositories with GitHub Team and GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+    /// Draft pull requests are available in public repositories with GitHub Free and GitHub Free for organizations, GitHub Pro, and legacy per-repository billing plans, and in public and private repositories with GitHub Team and GitHub Enterprise Cloud. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     ///
     /// Lists details of a pull request by providing its number.
     ///
@@ -5609,9 +5906,9 @@ pub enum EndPoints {
     ///
     /// The value of the `merge_commit_sha` attribute changes depending on the state of the pull request. Before merging a pull request, the `merge_commit_sha` attribute holds the SHA of the _test_ merge commit. After merging a pull request, the `merge_commit_sha` attribute changes depending on how you merged the pull request:
     ///
-    /// *   If merged as a [merge commit](https://help.github.com/articles/about-merge-methods-on-github/), `merge_commit_sha` represents the SHA of the merge commit.
-    /// *   If merged via a [squash](https://help.github.com/articles/about-merge-methods-on-github/#squashing-your-merge-commits), `merge_commit_sha` represents the SHA of the squashed commit on the base branch.
-    /// *   If [rebased](https://help.github.com/articles/about-merge-methods-on-github/#rebasing-and-merging-your-commits), `merge_commit_sha` represents the commit that the base branch was updated to.
+    /// *   If merged as a [merge commit](https://docs.github.com/articles/about-merge-methods-on-github/), `merge_commit_sha` represents the SHA of the merge commit.
+    /// *   If merged via a [squash](https://docs.github.com/articles/about-merge-methods-on-github/#squashing-your-merge-commits), `merge_commit_sha` represents the SHA of the squashed commit on the base branch.
+    /// *   If [rebased](https://docs.github.com/articles/about-merge-methods-on-github/#rebasing-and-merging-your-commits), `merge_commit_sha` represents the commit that the base branch was updated to.
     ///
     /// Pass the appropriate [media type](https://docs.github.com/rest/overview/media-types/#commits-commit-comparison-and-pull-requests) to fetch diff and patch formats.
     GetReposownerrepoPullspullNumber(String, String, String),
@@ -5620,7 +5917,7 @@ pub enum EndPoints {
     /// * docs <https://docs.github.com/rest/reference/pulls/#update-a-pull-request>
     ///
     /// Update a pull request
-    /// Draft pull requests are available in public repositories with GitHub Free and GitHub Free for organizations, GitHub Pro, and legacy per-repository billing plans, and in public and private repositories with GitHub Team and GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+    /// Draft pull requests are available in public repositories with GitHub Free and GitHub Free for organizations, GitHub Pro, and legacy per-repository billing plans, and in public and private repositories with GitHub Team and GitHub Enterprise Cloud. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     ///
     /// To open or update a pull request in a public repository, you must have write access to the head or the source branch. For organization-owned repositories, you must be a member of the organization that owns the repository to open or update a pull request.
     PatchReposownerrepoPullspullNumber(String, String, String),
@@ -6122,28 +6419,28 @@ pub enum EndPoints {
     /// * docs <https://docs.github.com/rest/reference/repos#transfer-a-repository>
     ///
     /// Transfer a repository
-    /// A transfer request will need to be accepted by the new owner when transferring a personal repository to another user. The response will contain the original `owner`, and the transfer will continue asynchronously. For more details on the requirements to transfer personal and organization-owned repositories, see [about repository transfers](https://help.github.com/articles/about-repository-transfers/).
+    /// A transfer request will need to be accepted by the new owner when transferring a personal repository to another user. The response will contain the original `owner`, and the transfer will continue asynchronously. For more details on the requirements to transfer personal and organization-owned repositories, see [about repository transfers](https://docs.github.com/articles/about-repository-transfers/).
     PostReposownerrepoTransfer(String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/vulnerability-alerts`
     /// * docs <https://docs.github.com/rest/reference/repos#check-if-vulnerability-alerts-are-enabled-for-a-repository>
     ///
     /// Check if vulnerability alerts are enabled for a repository
-    /// Shows whether dependency alerts are enabled or disabled for a repository. The authenticated user must have admin access to the repository. For more information, see "[About security alerts for vulnerable dependencies](https://help.github.com/en/articles/about-security-alerts-for-vulnerable-dependencies)".
+    /// Shows whether dependency alerts are enabled or disabled for a repository. The authenticated user must have admin access to the repository. For more information, see "[About security alerts for vulnerable dependencies](https://docs.github.com/en/articles/about-security-alerts-for-vulnerable-dependencies)".
     GetReposownerrepoVulnerabilityAlerts(String, String),
     /// * tags repos
     /// * put `/repos/{owner}/{repo}/vulnerability-alerts`
     /// * docs <https://docs.github.com/rest/reference/repos#enable-vulnerability-alerts>
     ///
     /// Enable vulnerability alerts
-    /// Enables dependency alerts and the dependency graph for a repository. The authenticated user must have admin access to the repository. For more information, see "[About security alerts for vulnerable dependencies](https://help.github.com/en/articles/about-security-alerts-for-vulnerable-dependencies)".
+    /// Enables dependency alerts and the dependency graph for a repository. The authenticated user must have admin access to the repository. For more information, see "[About security alerts for vulnerable dependencies](https://docs.github.com/en/articles/about-security-alerts-for-vulnerable-dependencies)".
     PutReposownerrepoVulnerabilityAlerts(String, String),
     /// * tags repos
     /// * delete `/repos/{owner}/{repo}/vulnerability-alerts`
     /// * docs <https://docs.github.com/rest/reference/repos#disable-vulnerability-alerts>
     ///
     /// Disable vulnerability alerts
-    /// Disables dependency alerts and the dependency graph for a repository. The authenticated user must have admin access to the repository. For more information, see "[About security alerts for vulnerable dependencies](https://help.github.com/en/articles/about-security-alerts-for-vulnerable-dependencies)".
+    /// Disables dependency alerts and the dependency graph for a repository. The authenticated user must have admin access to the repository. For more information, see "[About security alerts for vulnerable dependencies](https://docs.github.com/en/articles/about-security-alerts-for-vulnerable-dependencies)".
     DeleteReposownerrepoVulnerabilityAlerts(String, String),
     /// * tags repos
     /// * get `/repos/{owner}/{repo}/zipball/{ref}`
@@ -6237,7 +6534,7 @@ pub enum EndPoints {
     ///
     /// #### Example encrypting a secret using Python
     ///
-    /// Encrypt your secret using [pynacl](https://pynacl.readthedocs.io/en/stable/public/#nacl-public-sealedbox) with Python 3.
+    /// Encrypt your secret using [pynacl](https://pynacl.readthedocs.io/en/latest/public/#nacl-public-sealedbox) with Python 3.
     ///
     /// ```
     /// from base64 import b64encode
@@ -6594,7 +6891,7 @@ pub enum EndPoints {
     /// * docs <https://docs.github.com/rest/reference/search#search-topics>
     ///
     /// Search topics
-    /// Find topics via various criteria. Results are sorted by best match. This method returns up to 100 results [per page](https://docs.github.com/rest/overview/resources-in-the-rest-api#pagination). See "[Searching topics](https://help.github.com/articles/searching-topics/)" for a detailed list of qualifiers.
+    /// Find topics via various criteria. Results are sorted by best match. This method returns up to 100 results [per page](https://docs.github.com/rest/overview/resources-in-the-rest-api#pagination). See "[Searching topics](https://docs.github.com/articles/searching-topics/)" for a detailed list of qualifiers.
     ///
     /// When searching for topics, you can get text match metadata for the topic's **short\_description**, **description**, **name**, or **display\_name** field when you pass the `text-match` media type. For more details about how to receive highlighted search results, see [Text match metadata](https://docs.github.com/rest/reference/search#text-match-metadata).
     ///
@@ -6820,11 +7117,11 @@ pub enum EndPoints {
     ///
     /// We recommend using the [Add or update team membership for a user](https://docs.github.com/rest/reference/teams#add-or-update-team-membership-for-a-user) endpoint instead. It allows you to invite new organization members to your teams.
     ///
-    /// Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+    /// Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     ///
     /// To add someone to a team, the authenticated user must be an organization owner or a team maintainer in the team they're changing. The person being added to the team must be a member of the team's organization.
     ///
-    /// **Note:** When you have team synchronization set up for a team with your organization's identity provider (IdP), you will see an error if you attempt to use the API for making changes to the team's membership. If you have access to manage group membership in your IdP, you can manage GitHub team membership through your identity provider, which automatically adds and removes team members in an organization. For more information, see "[Synchronizing teams between your identity provider and GitHub](https://help.github.com/articles/synchronizing-teams-between-your-identity-provider-and-github/)."
+    /// **Note:** When you have team synchronization set up for a team with your organization's identity provider (IdP), you will see an error if you attempt to use the API for making changes to the team's membership. If you have access to manage group membership in your IdP, you can manage GitHub team membership through your identity provider, which automatically adds and removes team members in an organization. For more information, see "[Synchronizing teams between your identity provider and GitHub](https://docs.github.com/articles/synchronizing-teams-between-your-identity-provider-and-github/)."
     ///
     /// Note that you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information, see "[HTTP verbs](https://docs.github.com/rest/overview/resources-in-the-rest-api#http-verbs)."
     PutTeamsteamIdMembersusername(String, String),
@@ -6837,11 +7134,11 @@ pub enum EndPoints {
     ///
     /// We recommend using the [Remove team membership for a user](https://docs.github.com/rest/reference/teams#remove-team-membership-for-a-user) endpoint instead. It allows you to remove both active and pending memberships.
     ///
-    /// Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+    /// Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     ///
     /// To remove a team member, the authenticated user must have 'admin' permissions to the team or be an owner of the org that the team is associated with. Removing a team member does not delete the user, it just removes them from the team.
     ///
-    /// **Note:** When you have team synchronization set up for a team with your organization's identity provider (IdP), you will see an error if you attempt to use the API for making changes to the team's membership. If you have access to manage group membership in your IdP, you can manage GitHub team membership through your identity provider, which automatically adds and removes team members in an organization. For more information, see "[Synchronizing teams between your identity provider and GitHub](https://help.github.com/articles/synchronizing-teams-between-your-identity-provider-and-github/)."
+    /// **Note:** When you have team synchronization set up for a team with your organization's identity provider (IdP), you will see an error if you attempt to use the API for making changes to the team's membership. If you have access to manage group membership in your IdP, you can manage GitHub team membership through your identity provider, which automatically adds and removes team members in an organization. For more information, see "[Synchronizing teams between your identity provider and GitHub](https://docs.github.com/articles/synchronizing-teams-between-your-identity-provider-and-github/)."
     DeleteTeamsteamIdMembersusername(String, String),
     /// * tags teams
     /// * get `/teams/{team_id}/memberships/{username}`
@@ -6866,11 +7163,11 @@ pub enum EndPoints {
     /// Add or update team membership for a user (Legacy)
     /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Add or update team membership for a user](https://docs.github.com/rest/reference/teams#add-or-update-team-membership-for-a-user) endpoint.
     ///
-    /// Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+    /// Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     ///
     /// If the user is already a member of the team's organization, this endpoint will add the user to the team. To add a membership between an organization member and a team, the authenticated user must be an organization owner or a team maintainer.
     ///
-    /// **Note:** When you have team synchronization set up for a team with your organization's identity provider (IdP), you will see an error if you attempt to use the API for making changes to the team's membership. If you have access to manage group membership in your IdP, you can manage GitHub team membership through your identity provider, which automatically adds and removes team members in an organization. For more information, see "[Synchronizing teams between your identity provider and GitHub](https://help.github.com/articles/synchronizing-teams-between-your-identity-provider-and-github/)."
+    /// **Note:** When you have team synchronization set up for a team with your organization's identity provider (IdP), you will see an error if you attempt to use the API for making changes to the team's membership. If you have access to manage group membership in your IdP, you can manage GitHub team membership through your identity provider, which automatically adds and removes team members in an organization. For more information, see "[Synchronizing teams between your identity provider and GitHub](https://docs.github.com/articles/synchronizing-teams-between-your-identity-provider-and-github/)."
     ///
     /// If the user is unaffiliated with the team's organization, this endpoint will send an invitation to the user via email. This newly-created membership will be in the "pending" state until the user accepts the invitation, at which point the membership will transition to the "active" state and the user will be added as a member of the team. To add a membership between an unaffiliated user and a team, the authenticated user must be an organization owner.
     ///
@@ -6883,11 +7180,11 @@ pub enum EndPoints {
     /// Remove team membership for a user (Legacy)
     /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Remove team membership for a user](https://docs.github.com/rest/reference/teams#remove-team-membership-for-a-user) endpoint.
     ///
-    /// Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+    /// Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     ///
     /// To remove a membership between a user and a team, the authenticated user must have 'admin' permissions to the team or be an owner of the organization that the team is associated with. Removing team membership does not delete the user, it just removes their membership from the team.
     ///
-    /// **Note:** When you have team synchronization set up for a team with your organization's identity provider (IdP), you will see an error if you attempt to use the API for making changes to the team's membership. If you have access to manage group membership in your IdP, you can manage GitHub team membership through your identity provider, which automatically adds and removes team members in an organization. For more information, see "[Synchronizing teams between your identity provider and GitHub](https://help.github.com/articles/synchronizing-teams-between-your-identity-provider-and-github/)."
+    /// **Note:** When you have team synchronization set up for a team with your organization's identity provider (IdP), you will see an error if you attempt to use the API for making changes to the team's membership. If you have access to manage group membership in your IdP, you can manage GitHub team membership through your identity provider, which automatically adds and removes team members in an organization. For more information, see "[Synchronizing teams between your identity provider and GitHub](https://docs.github.com/articles/synchronizing-teams-between-your-identity-provider-and-github/)."
     DeleteTeamsteamIdMembershipsusername(String, String),
     /// * tags teams
     /// * get `/teams/{team_id}/projects`
@@ -6970,7 +7267,7 @@ pub enum EndPoints {
     /// List IdP groups for a team (Legacy)
     /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List IdP groups for a team`](https://docs.github.com/rest/reference/teams#list-idp-groups-for-a-team) endpoint.
     ///
-    /// Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+    /// Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     ///
     /// List IdP groups connected to a team on GitHub.
     GetTeamsteamIdTeamSyncGroupMappings(String),
@@ -6981,7 +7278,7 @@ pub enum EndPoints {
     /// Create or update IdP group connections (Legacy)
     /// **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`Create or update IdP group connections`](https://docs.github.com/rest/reference/teams#create-or-update-idp-group-connections) endpoint.
     ///
-    /// Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+    /// Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
     ///
     /// Creates, updates, or removes a connection between a team and an IdP group. When adding groups to a team, you must include all new and existing groups to avoid replacing existing groups with the new ones. Specifying an empty `groups` array will remove all connections for a team.
     PatchTeamsteamIdTeamSyncGroupMappings(String),
@@ -7114,7 +7411,7 @@ pub enum EndPoints {
     ///
     /// #### Example encrypting a secret using Python
     ///
-    /// Encrypt your secret using [pynacl](https://pynacl.readthedocs.io/en/stable/public/#nacl-public-sealedbox) with Python 3.
+    /// Encrypt your secret using [pynacl](https://pynacl.readthedocs.io/en/latest/public/#nacl-public-sealedbox) with Python 3.
     ///
     /// ```
     /// from base64 import b64encode
@@ -7212,9 +7509,9 @@ pub enum EndPoints {
     /// * docs <https://docs.github.com/rest/reference/codespaces#update-a-codespace-for-the-authenticated-user>
     ///
     /// Update a codespace for the authenticated user
-    /// Updates a codespace owned by the authenticated user. Currently only the codespace's machine type can be modified using this endpoint.
+    /// Updates a codespace owned by the authenticated user. Currently only the codespace's machine type and recent folders can be modified using this endpoint.
     ///
-    /// Once you specify a new machine type it will be applied the next time your codespace is started.
+    /// If you specify a new machine type it will be applied the next time your codespace is started.
     ///
     /// You must authenticate using an access token with the `codespace` scope to use this endpoint.
     PatchUserCodespacescodespaceName(String),
@@ -7227,6 +7524,24 @@ pub enum EndPoints {
     ///
     /// You must authenticate using an access token with the `codespace` scope to use this endpoint.
     DeleteUserCodespacescodespaceName(String),
+    /// * tags codespaces
+    /// * post `/user/codespaces/{codespace_name}/exports`
+    ///
+    ///
+    /// Export a codespace for the authenticated user
+    /// Triggers an export of the specified codespace and returns a URL and ID where the status of the export can be monitored.
+    ///
+    /// You must authenticate using a personal access token with the `codespace` scope to use this endpoint.
+    PostUserCodespacescodespaceNameExports(String),
+    /// * tags codespaces
+    /// * get `/user/codespaces/{codespace_name}/exports/{export_id}`
+    ///
+    ///
+    /// Get details about a codespace export
+    /// Gets information about an export of a codespace.
+    ///
+    /// You must authenticate using a personal access token with the `codespace` scope to use this endpoint.
+    GetUserCodespacescodespaceNameExportsexportId(String, String),
     /// * tags codespaces
     /// * get `/user/codespaces/{codespace_name}/machines`
     /// * docs <https://docs.github.com/rest/reference/codespaces#list-machine-types-for-a-codespace>
@@ -7875,7 +8190,7 @@ pub enum EndPoints {
     /// * docs <https://docs.github.com/rest/reference/orgs#list-organizations-for-a-user>
     ///
     /// List organizations for a user
-    /// List [public organization memberships](https://help.github.com/articles/publicizing-or-concealing-organization-membership) for the specified user.
+    /// List [public organization memberships](https://docs.github.com/articles/publicizing-or-concealing-organization-membership) for the specified user.
     ///
     /// This method only lists _public_ memberships, regardless of authentication. If you need to fetch all of the organization memberships (public and private) for the authenticated user, use the [List organizations for the authenticated user](https://docs.github.com/rest/reference/orgs#list-organizations-for-the-authenticated-user) API instead.
     GetUsersusernameOrgs(String),
@@ -8021,7 +8336,7 @@ pub enum EndPoints {
     /// Get GitHub Actions billing for a user
     /// Gets the summary of the free and paid GitHub Actions minutes used.
     ///
-    /// Paid minutes only apply to workflows in private repositories that use GitHub-hosted runners. Minutes used is listed for each GitHub-hosted runner operating system. Any job re-runs are also included in the usage. The usage returned includes any minute multipliers for macOS and Windows runners, and is rounded up to the nearest whole minute. For more information, see "[Managing billing for GitHub Actions](https://help.github.com/github/setting-up-and-managing-billing-and-payments-on-github/managing-billing-for-github-actions)".
+    /// Paid minutes only apply to workflows in private repositories that use GitHub-hosted runners. Minutes used is listed for each GitHub-hosted runner operating system. Any job re-runs are also included in the usage. The usage returned includes any minute multipliers for macOS and Windows runners, and is rounded up to the nearest whole minute. For more information, see "[Managing billing for GitHub Actions](https://docs.github.com/github/setting-up-and-managing-billing-and-payments-on-github/managing-billing-for-github-actions)".
     ///
     /// Access tokens must have the `user` scope.
     GetUsersusernameSettingsBillingActions(String),
@@ -8032,7 +8347,7 @@ pub enum EndPoints {
     /// Get GitHub Packages billing for a user
     /// Gets the free and paid storage used for GitHub Packages in gigabytes.
     ///
-    /// Paid minutes only apply to packages stored for private repositories. For more information, see "[Managing billing for GitHub Packages](https://help.github.com/github/setting-up-and-managing-billing-and-payments-on-github/managing-billing-for-github-packages)."
+    /// Paid minutes only apply to packages stored for private repositories. For more information, see "[Managing billing for GitHub Packages](https://docs.github.com/github/setting-up-and-managing-billing-and-payments-on-github/managing-billing-for-github-packages)."
     ///
     /// Access tokens must have the `user` scope.
     GetUsersusernameSettingsBillingPackages(String),
@@ -8043,7 +8358,7 @@ pub enum EndPoints {
     /// Get shared storage billing for a user
     /// Gets the estimated paid and estimated total storage used for GitHub Actions and Github Packages.
     ///
-    /// Paid minutes only apply to packages stored for private repositories. For more information, see "[Managing billing for GitHub Packages](https://help.github.com/github/setting-up-and-managing-billing-and-payments-on-github/managing-billing-for-github-packages)."
+    /// Paid minutes only apply to packages stored for private repositories. For more information, see "[Managing billing for GitHub Packages](https://docs.github.com/github/setting-up-and-managing-billing-and-payments-on-github/managing-billing-for-github-packages)."
     ///
     /// Access tokens must have the `user` scope.
     GetUsersusernameSettingsBillingSharedStorage(String),
@@ -8140,6 +8455,7 @@ impl EndPoints {
   EndPoints::DeleteEnterprisesenterpriseActionsRunnersrunnerIdLabels(..) => Methods::Delete,
   EndPoints::DeleteEnterprisesenterpriseActionsRunnersrunnerIdLabelsname(..) => Methods::Delete,
   EndPoints::GetEnterprisesenterpriseAuditLog(..) => Methods::Get,
+  EndPoints::GetEnterprisesenterpriseSecretScanningAlerts(..) => Methods::Get,
   EndPoints::GetEnterprisesenterpriseSettingsBillingActions(..) => Methods::Get,
   EndPoints::GetEnterprisesenterpriseSettingsBillingAdvancedSecurity(..) => Methods::Get,
   EndPoints::GetEnterprisesenterpriseSettingsBillingPackages(..) => Methods::Get,
@@ -8192,6 +8508,7 @@ impl EndPoints {
   EndPoints::GetOctocat(..) => Methods::Get,
   EndPoints::GetOrganizations(..) => Methods::Get,
   EndPoints::GetOrganizationsorganizationIdCustomRoles(..) => Methods::Get,
+  EndPoints::GetOrganizationsorgTeamteamSlugExternalGroups(..) => Methods::Get,
   EndPoints::GetOrgsorg(..) => Methods::Get,
   EndPoints::PatchOrgsorg(..) => Methods::Patch,
   EndPoints::GetOrgsorgActionsPermissions(..) => Methods::Get,
@@ -8202,6 +8519,8 @@ impl EndPoints {
   EndPoints::DeleteOrgsorgActionsPermissionsRepositoriesrepositoryId(..) => Methods::Delete,
   EndPoints::GetOrgsorgActionsPermissionsSelectedActions(..) => Methods::Get,
   EndPoints::PutOrgsorgActionsPermissionsSelectedActions(..) => Methods::Put,
+  EndPoints::GetOrgsorgActionsPermissionsWorkflow(..) => Methods::Get,
+  EndPoints::PutOrgsorgActionsPermissionsWorkflow(..) => Methods::Put,
   EndPoints::GetOrgsorgActionsRunnerGroups(..) => Methods::Get,
   EndPoints::PostOrgsorgActionsRunnerGroups(..) => Methods::Post,
   EndPoints::GetOrgsorgActionsRunnerGroupsrunnerGroupId(..) => Methods::Get,
@@ -8240,8 +8559,18 @@ impl EndPoints {
   EndPoints::GetOrgsorgBlocksusername(..) => Methods::Get,
   EndPoints::PutOrgsorgBlocksusername(..) => Methods::Put,
   EndPoints::DeleteOrgsorgBlocksusername(..) => Methods::Delete,
+  EndPoints::GetOrgsorgCodeScanningAlerts(..) => Methods::Get,
   EndPoints::GetOrgsorgCredentialAuthorizations(..) => Methods::Get,
   EndPoints::DeleteOrgsorgCredentialAuthorizationscredentialId(..) => Methods::Delete,
+  EndPoints::GetOrgsorgDependabotSecrets(..) => Methods::Get,
+  EndPoints::GetOrgsorgDependabotSecretsPublicKey(..) => Methods::Get,
+  EndPoints::GetOrgsorgDependabotSecretssecretName(..) => Methods::Get,
+  EndPoints::PutOrgsorgDependabotSecretssecretName(..) => Methods::Put,
+  EndPoints::DeleteOrgsorgDependabotSecretssecretName(..) => Methods::Delete,
+  EndPoints::GetOrgsorgDependabotSecretssecretNameRepositories(..) => Methods::Get,
+  EndPoints::PutOrgsorgDependabotSecretssecretNameRepositories(..) => Methods::Put,
+  EndPoints::PutOrgsorgDependabotSecretssecretNameRepositoriesrepositoryId(..) => Methods::Put,
+  EndPoints::DeleteOrgsorgDependabotSecretssecretNameRepositoriesrepositoryId(..) => Methods::Delete,
   EndPoints::GetOrgsorgEvents(..) => Methods::Get,
   EndPoints::GetOrgsorgExternalGroupgroupId(..) => Methods::Get,
   EndPoints::GetOrgsorgExternalGroups(..) => Methods::Get,
@@ -8512,6 +8841,11 @@ impl EndPoints {
   EndPoints::PutReposownerrepoContentspath(..) => Methods::Put,
   EndPoints::DeleteReposownerrepoContentspath(..) => Methods::Delete,
   EndPoints::GetReposownerrepoContributors(..) => Methods::Get,
+  EndPoints::GetReposownerrepoDependabotSecrets(..) => Methods::Get,
+  EndPoints::GetReposownerrepoDependabotSecretsPublicKey(..) => Methods::Get,
+  EndPoints::GetReposownerrepoDependabotSecretssecretName(..) => Methods::Get,
+  EndPoints::PutReposownerrepoDependabotSecretssecretName(..) => Methods::Put,
+  EndPoints::DeleteReposownerrepoDependabotSecretssecretName(..) => Methods::Delete,
   EndPoints::GetReposownerrepoDeployments(..) => Methods::Get,
   EndPoints::PostReposownerrepoDeployments(..) => Methods::Post,
   EndPoints::GetReposownerrepoDeploymentsdeploymentId(..) => Methods::Get,
@@ -8794,6 +9128,8 @@ impl EndPoints {
   EndPoints::GetUserCodespacescodespaceName(..) => Methods::Get,
   EndPoints::PatchUserCodespacescodespaceName(..) => Methods::Patch,
   EndPoints::DeleteUserCodespacescodespaceName(..) => Methods::Delete,
+  EndPoints::PostUserCodespacescodespaceNameExports(..) => Methods::Post,
+  EndPoints::GetUserCodespacescodespaceNameExportsexportId(..) => Methods::Get,
   EndPoints::GetUserCodespacescodespaceNameMachines(..) => Methods::Get,
   EndPoints::PostUserCodespacescodespaceNameStart(..) => Methods::Post,
   EndPoints::PostUserCodespacescodespaceNameStop(..) => Methods::Post,
@@ -8892,661 +9228,680 @@ impl EndPoints {
     pub fn path(&self) -> String {
         match self { EndPoints::Get() => "/".to_string(),
   EndPoints::GetApp() => "/app".to_string(),
-  EndPoints::PostAppManifestscodeConversions(code) => format!("/app-manifests/{code}/conversions",code = code ),
+  EndPoints::PostAppManifestscodeConversions(code) => format!("/app-manifests/{code}/conversions", code = code),
   EndPoints::GetAppHookConfig() => "/app/hook/config".to_string(),
   EndPoints::PatchAppHookConfig() => "/app/hook/config".to_string(),
   EndPoints::GetAppHookDeliveries() => "/app/hook/deliveries".to_string(),
-  EndPoints::GetAppHookDeliveriesdeliveryId(delivery_id) => format!("/app/hook/deliveries/{delivery_id}",delivery_id = delivery_id ),
-  EndPoints::PostAppHookDeliveriesdeliveryIdAttempts(delivery_id) => format!("/app/hook/deliveries/{delivery_id}/attempts",delivery_id = delivery_id ),
+  EndPoints::GetAppHookDeliveriesdeliveryId(delivery_id) => format!("/app/hook/deliveries/{delivery_id}", delivery_id = delivery_id),
+  EndPoints::PostAppHookDeliveriesdeliveryIdAttempts(delivery_id) => format!("/app/hook/deliveries/{delivery_id}/attempts", delivery_id = delivery_id),
   EndPoints::GetAppInstallations() => "/app/installations".to_string(),
-  EndPoints::GetAppInstallationsinstallationId(installation_id) => format!("/app/installations/{installation_id}",installation_id = installation_id ),
-  EndPoints::DeleteAppInstallationsinstallationId(installation_id) => format!("/app/installations/{installation_id}",installation_id = installation_id ),
-  EndPoints::PostAppInstallationsinstallationIdAccessTokens(installation_id) => format!("/app/installations/{installation_id}/access_tokens",installation_id = installation_id ),
-  EndPoints::PutAppInstallationsinstallationIdSuspended(installation_id) => format!("/app/installations/{installation_id}/suspended",installation_id = installation_id ),
-  EndPoints::DeleteAppInstallationsinstallationIdSuspended(installation_id) => format!("/app/installations/{installation_id}/suspended",installation_id = installation_id ),
+  EndPoints::GetAppInstallationsinstallationId(installation_id) => format!("/app/installations/{installation_id}", installation_id = installation_id),
+  EndPoints::DeleteAppInstallationsinstallationId(installation_id) => format!("/app/installations/{installation_id}", installation_id = installation_id),
+  EndPoints::PostAppInstallationsinstallationIdAccessTokens(installation_id) => format!("/app/installations/{installation_id}/access_tokens", installation_id = installation_id),
+  EndPoints::PutAppInstallationsinstallationIdSuspended(installation_id) => format!("/app/installations/{installation_id}/suspended", installation_id = installation_id),
+  EndPoints::DeleteAppInstallationsinstallationIdSuspended(installation_id) => format!("/app/installations/{installation_id}/suspended", installation_id = installation_id),
   EndPoints::GetApplicationsGrants() => "/applications/grants".to_string(),
-  EndPoints::GetApplicationsGrantsgrantId(grant_id) => format!("/applications/grants/{grant_id}",grant_id = grant_id ),
-  EndPoints::DeleteApplicationsGrantsgrantId(grant_id) => format!("/applications/grants/{grant_id}",grant_id = grant_id ),
-  EndPoints::DeleteApplicationsclientIdGrant(client_id) => format!("/applications/{client_id}/grant",client_id = client_id ),
-  EndPoints::PostApplicationsclientIdToken(client_id) => format!("/applications/{client_id}/token",client_id = client_id ),
-  EndPoints::PatchApplicationsclientIdToken(client_id) => format!("/applications/{client_id}/token",client_id = client_id ),
-  EndPoints::DeleteApplicationsclientIdToken(client_id) => format!("/applications/{client_id}/token",client_id = client_id ),
-  EndPoints::PostApplicationsclientIdTokenScoped(client_id) => format!("/applications/{client_id}/token/scoped",client_id = client_id ),
-  EndPoints::GetAppsappSlug(app_slug) => format!("/apps/{app_slug}",app_slug = app_slug ),
+  EndPoints::GetApplicationsGrantsgrantId(grant_id) => format!("/applications/grants/{grant_id}", grant_id = grant_id),
+  EndPoints::DeleteApplicationsGrantsgrantId(grant_id) => format!("/applications/grants/{grant_id}", grant_id = grant_id),
+  EndPoints::DeleteApplicationsclientIdGrant(client_id) => format!("/applications/{client_id}/grant", client_id = client_id),
+  EndPoints::PostApplicationsclientIdToken(client_id) => format!("/applications/{client_id}/token", client_id = client_id),
+  EndPoints::PatchApplicationsclientIdToken(client_id) => format!("/applications/{client_id}/token", client_id = client_id),
+  EndPoints::DeleteApplicationsclientIdToken(client_id) => format!("/applications/{client_id}/token", client_id = client_id),
+  EndPoints::PostApplicationsclientIdTokenScoped(client_id) => format!("/applications/{client_id}/token/scoped", client_id = client_id),
+  EndPoints::GetAppsappSlug(app_slug) => format!("/apps/{app_slug}", app_slug = app_slug),
   EndPoints::GetAuthorizations() => "/authorizations".to_string(),
   EndPoints::PostAuthorizations() => "/authorizations".to_string(),
-  EndPoints::PutAuthorizationsClientsclientId(client_id) => format!("/authorizations/clients/{client_id}",client_id = client_id ),
-  EndPoints::PutAuthorizationsClientsclientIdfingerprint(client_id,fingerprint) => format!("/authorizations/clients/{client_id}/{fingerprint}",client_id = client_id,fingerprint = fingerprint ),
-  EndPoints::GetAuthorizationsauthorizationId(authorization_id) => format!("/authorizations/{authorization_id}",authorization_id = authorization_id ),
-  EndPoints::PatchAuthorizationsauthorizationId(authorization_id) => format!("/authorizations/{authorization_id}",authorization_id = authorization_id ),
-  EndPoints::DeleteAuthorizationsauthorizationId(authorization_id) => format!("/authorizations/{authorization_id}",authorization_id = authorization_id ),
+  EndPoints::PutAuthorizationsClientsclientId(client_id) => format!("/authorizations/clients/{client_id}", client_id = client_id),
+  EndPoints::PutAuthorizationsClientsclientIdfingerprint(client_id,fingerprint) => format!("/authorizations/clients/{client_id}/{fingerprint}", client_id = client_id,fingerprint = fingerprint),
+  EndPoints::GetAuthorizationsauthorizationId(authorization_id) => format!("/authorizations/{authorization_id}", authorization_id = authorization_id),
+  EndPoints::PatchAuthorizationsauthorizationId(authorization_id) => format!("/authorizations/{authorization_id}", authorization_id = authorization_id),
+  EndPoints::DeleteAuthorizationsauthorizationId(authorization_id) => format!("/authorizations/{authorization_id}", authorization_id = authorization_id),
   EndPoints::GetCodesOfConduct() => "/codes_of_conduct".to_string(),
-  EndPoints::GetCodesOfConductkey(key) => format!("/codes_of_conduct/{key}",key = key ),
+  EndPoints::GetCodesOfConductkey(key) => format!("/codes_of_conduct/{key}", key = key),
   EndPoints::GetEmojis() => "/emojis".to_string(),
-  EndPoints::GetEnterprisesenterpriseActionsPermissions(enterprise) => format!("/enterprises/{enterprise}/actions/permissions",enterprise = enterprise ),
-  EndPoints::PutEnterprisesenterpriseActionsPermissions(enterprise) => format!("/enterprises/{enterprise}/actions/permissions",enterprise = enterprise ),
-  EndPoints::GetEnterprisesenterpriseActionsPermissionsOrganizations(enterprise) => format!("/enterprises/{enterprise}/actions/permissions/organizations",enterprise = enterprise ),
-  EndPoints::PutEnterprisesenterpriseActionsPermissionsOrganizations(enterprise) => format!("/enterprises/{enterprise}/actions/permissions/organizations",enterprise = enterprise ),
-  EndPoints::PutEnterprisesenterpriseActionsPermissionsOrganizationsorgId(enterprise,org_id) => format!("/enterprises/{enterprise}/actions/permissions/organizations/{org_id}",enterprise = enterprise,org_id = org_id ),
-  EndPoints::DeleteEnterprisesenterpriseActionsPermissionsOrganizationsorgId(enterprise,org_id) => format!("/enterprises/{enterprise}/actions/permissions/organizations/{org_id}",enterprise = enterprise,org_id = org_id ),
-  EndPoints::GetEnterprisesenterpriseActionsPermissionsSelectedActions(enterprise) => format!("/enterprises/{enterprise}/actions/permissions/selected-actions",enterprise = enterprise ),
-  EndPoints::PutEnterprisesenterpriseActionsPermissionsSelectedActions(enterprise) => format!("/enterprises/{enterprise}/actions/permissions/selected-actions",enterprise = enterprise ),
-  EndPoints::GetEnterprisesenterpriseActionsRunnerGroups(enterprise) => format!("/enterprises/{enterprise}/actions/runner-groups",enterprise = enterprise ),
-  EndPoints::PostEnterprisesenterpriseActionsRunnerGroups(enterprise) => format!("/enterprises/{enterprise}/actions/runner-groups",enterprise = enterprise ),
-  EndPoints::GetEnterprisesenterpriseActionsRunnerGroupsrunnerGroupId(enterprise,runner_group_id) => format!("/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}",enterprise = enterprise,runner_group_id = runner_group_id ),
-  EndPoints::PatchEnterprisesenterpriseActionsRunnerGroupsrunnerGroupId(enterprise,runner_group_id) => format!("/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}",enterprise = enterprise,runner_group_id = runner_group_id ),
-  EndPoints::DeleteEnterprisesenterpriseActionsRunnerGroupsrunnerGroupId(enterprise,runner_group_id) => format!("/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}",enterprise = enterprise,runner_group_id = runner_group_id ),
-  EndPoints::GetEnterprisesenterpriseActionsRunnerGroupsrunnerGroupIdOrganizations(enterprise,runner_group_id) => format!("/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/organizations",enterprise = enterprise,runner_group_id = runner_group_id ),
-  EndPoints::PutEnterprisesenterpriseActionsRunnerGroupsrunnerGroupIdOrganizations(enterprise,runner_group_id) => format!("/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/organizations",enterprise = enterprise,runner_group_id = runner_group_id ),
-  EndPoints::PutEnterprisesenterpriseActionsRunnerGroupsrunnerGroupIdOrganizationsorgId(enterprise,runner_group_id,org_id) => format!("/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/organizations/{org_id}",enterprise = enterprise,runner_group_id = runner_group_id,org_id = org_id ),
-  EndPoints::DeleteEnterprisesenterpriseActionsRunnerGroupsrunnerGroupIdOrganizationsorgId(enterprise,runner_group_id,org_id) => format!("/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/organizations/{org_id}",enterprise = enterprise,runner_group_id = runner_group_id,org_id = org_id ),
-  EndPoints::GetEnterprisesenterpriseActionsRunnerGroupsrunnerGroupIdRunners(enterprise,runner_group_id) => format!("/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/runners",enterprise = enterprise,runner_group_id = runner_group_id ),
-  EndPoints::PutEnterprisesenterpriseActionsRunnerGroupsrunnerGroupIdRunners(enterprise,runner_group_id) => format!("/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/runners",enterprise = enterprise,runner_group_id = runner_group_id ),
-  EndPoints::PutEnterprisesenterpriseActionsRunnerGroupsrunnerGroupIdRunnersrunnerId(enterprise,runner_group_id,runner_id) => format!("/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/runners/{runner_id}",enterprise = enterprise,runner_group_id = runner_group_id,runner_id = runner_id ),
-  EndPoints::DeleteEnterprisesenterpriseActionsRunnerGroupsrunnerGroupIdRunnersrunnerId(enterprise,runner_group_id,runner_id) => format!("/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/runners/{runner_id}",enterprise = enterprise,runner_group_id = runner_group_id,runner_id = runner_id ),
-  EndPoints::GetEnterprisesenterpriseActionsRunners(enterprise) => format!("/enterprises/{enterprise}/actions/runners",enterprise = enterprise ),
-  EndPoints::GetEnterprisesenterpriseActionsRunnersDownloads(enterprise) => format!("/enterprises/{enterprise}/actions/runners/downloads",enterprise = enterprise ),
-  EndPoints::PostEnterprisesenterpriseActionsRunnersRegistrationToken(enterprise) => format!("/enterprises/{enterprise}/actions/runners/registration-token",enterprise = enterprise ),
-  EndPoints::PostEnterprisesenterpriseActionsRunnersRemoveToken(enterprise) => format!("/enterprises/{enterprise}/actions/runners/remove-token",enterprise = enterprise ),
-  EndPoints::GetEnterprisesenterpriseActionsRunnersrunnerId(enterprise,runner_id) => format!("/enterprises/{enterprise}/actions/runners/{runner_id}",enterprise = enterprise,runner_id = runner_id ),
-  EndPoints::DeleteEnterprisesenterpriseActionsRunnersrunnerId(enterprise,runner_id) => format!("/enterprises/{enterprise}/actions/runners/{runner_id}",enterprise = enterprise,runner_id = runner_id ),
-  EndPoints::GetEnterprisesenterpriseActionsRunnersrunnerIdLabels(enterprise,runner_id) => format!("/enterprises/{enterprise}/actions/runners/{runner_id}/labels",enterprise = enterprise,runner_id = runner_id ),
-  EndPoints::PostEnterprisesenterpriseActionsRunnersrunnerIdLabels(enterprise,runner_id) => format!("/enterprises/{enterprise}/actions/runners/{runner_id}/labels",enterprise = enterprise,runner_id = runner_id ),
-  EndPoints::PutEnterprisesenterpriseActionsRunnersrunnerIdLabels(enterprise,runner_id) => format!("/enterprises/{enterprise}/actions/runners/{runner_id}/labels",enterprise = enterprise,runner_id = runner_id ),
-  EndPoints::DeleteEnterprisesenterpriseActionsRunnersrunnerIdLabels(enterprise,runner_id) => format!("/enterprises/{enterprise}/actions/runners/{runner_id}/labels",enterprise = enterprise,runner_id = runner_id ),
-  EndPoints::DeleteEnterprisesenterpriseActionsRunnersrunnerIdLabelsname(enterprise,runner_id,name) => format!("/enterprises/{enterprise}/actions/runners/{runner_id}/labels/{name}",enterprise = enterprise,runner_id = runner_id,name = name ),
-  EndPoints::GetEnterprisesenterpriseAuditLog(enterprise) => format!("/enterprises/{enterprise}/audit-log",enterprise = enterprise ),
-  EndPoints::GetEnterprisesenterpriseSettingsBillingActions(enterprise) => format!("/enterprises/{enterprise}/settings/billing/actions",enterprise = enterprise ),
-  EndPoints::GetEnterprisesenterpriseSettingsBillingAdvancedSecurity(enterprise) => format!("/enterprises/{enterprise}/settings/billing/advanced-security",enterprise = enterprise ),
-  EndPoints::GetEnterprisesenterpriseSettingsBillingPackages(enterprise) => format!("/enterprises/{enterprise}/settings/billing/packages",enterprise = enterprise ),
-  EndPoints::GetEnterprisesenterpriseSettingsBillingSharedStorage(enterprise) => format!("/enterprises/{enterprise}/settings/billing/shared-storage",enterprise = enterprise ),
+  EndPoints::GetEnterprisesenterpriseActionsPermissions(enterprise) => format!("/enterprises/{enterprise}/actions/permissions", enterprise = enterprise),
+  EndPoints::PutEnterprisesenterpriseActionsPermissions(enterprise) => format!("/enterprises/{enterprise}/actions/permissions", enterprise = enterprise),
+  EndPoints::GetEnterprisesenterpriseActionsPermissionsOrganizations(enterprise) => format!("/enterprises/{enterprise}/actions/permissions/organizations", enterprise = enterprise),
+  EndPoints::PutEnterprisesenterpriseActionsPermissionsOrganizations(enterprise) => format!("/enterprises/{enterprise}/actions/permissions/organizations", enterprise = enterprise),
+  EndPoints::PutEnterprisesenterpriseActionsPermissionsOrganizationsorgId(enterprise,org_id) => format!("/enterprises/{enterprise}/actions/permissions/organizations/{org_id}", enterprise = enterprise,org_id = org_id),
+  EndPoints::DeleteEnterprisesenterpriseActionsPermissionsOrganizationsorgId(enterprise,org_id) => format!("/enterprises/{enterprise}/actions/permissions/organizations/{org_id}", enterprise = enterprise,org_id = org_id),
+  EndPoints::GetEnterprisesenterpriseActionsPermissionsSelectedActions(enterprise) => format!("/enterprises/{enterprise}/actions/permissions/selected-actions", enterprise = enterprise),
+  EndPoints::PutEnterprisesenterpriseActionsPermissionsSelectedActions(enterprise) => format!("/enterprises/{enterprise}/actions/permissions/selected-actions", enterprise = enterprise),
+  EndPoints::GetEnterprisesenterpriseActionsRunnerGroups(enterprise) => format!("/enterprises/{enterprise}/actions/runner-groups", enterprise = enterprise),
+  EndPoints::PostEnterprisesenterpriseActionsRunnerGroups(enterprise) => format!("/enterprises/{enterprise}/actions/runner-groups", enterprise = enterprise),
+  EndPoints::GetEnterprisesenterpriseActionsRunnerGroupsrunnerGroupId(enterprise,runner_group_id) => format!("/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}", enterprise = enterprise,runner_group_id = runner_group_id),
+  EndPoints::PatchEnterprisesenterpriseActionsRunnerGroupsrunnerGroupId(enterprise,runner_group_id) => format!("/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}", enterprise = enterprise,runner_group_id = runner_group_id),
+  EndPoints::DeleteEnterprisesenterpriseActionsRunnerGroupsrunnerGroupId(enterprise,runner_group_id) => format!("/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}", enterprise = enterprise,runner_group_id = runner_group_id),
+  EndPoints::GetEnterprisesenterpriseActionsRunnerGroupsrunnerGroupIdOrganizations(enterprise,runner_group_id) => format!("/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/organizations", enterprise = enterprise,runner_group_id = runner_group_id),
+  EndPoints::PutEnterprisesenterpriseActionsRunnerGroupsrunnerGroupIdOrganizations(enterprise,runner_group_id) => format!("/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/organizations", enterprise = enterprise,runner_group_id = runner_group_id),
+  EndPoints::PutEnterprisesenterpriseActionsRunnerGroupsrunnerGroupIdOrganizationsorgId(enterprise,runner_group_id,org_id) => format!("/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/organizations/{org_id}", enterprise = enterprise,runner_group_id = runner_group_id,org_id = org_id),
+  EndPoints::DeleteEnterprisesenterpriseActionsRunnerGroupsrunnerGroupIdOrganizationsorgId(enterprise,runner_group_id,org_id) => format!("/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/organizations/{org_id}", enterprise = enterprise,runner_group_id = runner_group_id,org_id = org_id),
+  EndPoints::GetEnterprisesenterpriseActionsRunnerGroupsrunnerGroupIdRunners(enterprise,runner_group_id) => format!("/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/runners", enterprise = enterprise,runner_group_id = runner_group_id),
+  EndPoints::PutEnterprisesenterpriseActionsRunnerGroupsrunnerGroupIdRunners(enterprise,runner_group_id) => format!("/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/runners", enterprise = enterprise,runner_group_id = runner_group_id),
+  EndPoints::PutEnterprisesenterpriseActionsRunnerGroupsrunnerGroupIdRunnersrunnerId(enterprise,runner_group_id,runner_id) => format!("/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/runners/{runner_id}", enterprise = enterprise,runner_group_id = runner_group_id,runner_id = runner_id),
+  EndPoints::DeleteEnterprisesenterpriseActionsRunnerGroupsrunnerGroupIdRunnersrunnerId(enterprise,runner_group_id,runner_id) => format!("/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/runners/{runner_id}", enterprise = enterprise,runner_group_id = runner_group_id,runner_id = runner_id),
+  EndPoints::GetEnterprisesenterpriseActionsRunners(enterprise) => format!("/enterprises/{enterprise}/actions/runners", enterprise = enterprise),
+  EndPoints::GetEnterprisesenterpriseActionsRunnersDownloads(enterprise) => format!("/enterprises/{enterprise}/actions/runners/downloads", enterprise = enterprise),
+  EndPoints::PostEnterprisesenterpriseActionsRunnersRegistrationToken(enterprise) => format!("/enterprises/{enterprise}/actions/runners/registration-token", enterprise = enterprise),
+  EndPoints::PostEnterprisesenterpriseActionsRunnersRemoveToken(enterprise) => format!("/enterprises/{enterprise}/actions/runners/remove-token", enterprise = enterprise),
+  EndPoints::GetEnterprisesenterpriseActionsRunnersrunnerId(enterprise,runner_id) => format!("/enterprises/{enterprise}/actions/runners/{runner_id}", enterprise = enterprise,runner_id = runner_id),
+  EndPoints::DeleteEnterprisesenterpriseActionsRunnersrunnerId(enterprise,runner_id) => format!("/enterprises/{enterprise}/actions/runners/{runner_id}", enterprise = enterprise,runner_id = runner_id),
+  EndPoints::GetEnterprisesenterpriseActionsRunnersrunnerIdLabels(enterprise,runner_id) => format!("/enterprises/{enterprise}/actions/runners/{runner_id}/labels", enterprise = enterprise,runner_id = runner_id),
+  EndPoints::PostEnterprisesenterpriseActionsRunnersrunnerIdLabels(enterprise,runner_id) => format!("/enterprises/{enterprise}/actions/runners/{runner_id}/labels", enterprise = enterprise,runner_id = runner_id),
+  EndPoints::PutEnterprisesenterpriseActionsRunnersrunnerIdLabels(enterprise,runner_id) => format!("/enterprises/{enterprise}/actions/runners/{runner_id}/labels", enterprise = enterprise,runner_id = runner_id),
+  EndPoints::DeleteEnterprisesenterpriseActionsRunnersrunnerIdLabels(enterprise,runner_id) => format!("/enterprises/{enterprise}/actions/runners/{runner_id}/labels", enterprise = enterprise,runner_id = runner_id),
+  EndPoints::DeleteEnterprisesenterpriseActionsRunnersrunnerIdLabelsname(enterprise,runner_id,name) => format!("/enterprises/{enterprise}/actions/runners/{runner_id}/labels/{name}", enterprise = enterprise,runner_id = runner_id,name = name),
+  EndPoints::GetEnterprisesenterpriseAuditLog(enterprise) => format!("/enterprises/{enterprise}/audit-log", enterprise = enterprise),
+  EndPoints::GetEnterprisesenterpriseSecretScanningAlerts(enterprise) => format!("/enterprises/{enterprise}/secret-scanning/alerts", enterprise = enterprise),
+  EndPoints::GetEnterprisesenterpriseSettingsBillingActions(enterprise) => format!("/enterprises/{enterprise}/settings/billing/actions", enterprise = enterprise),
+  EndPoints::GetEnterprisesenterpriseSettingsBillingAdvancedSecurity(enterprise) => format!("/enterprises/{enterprise}/settings/billing/advanced-security", enterprise = enterprise),
+  EndPoints::GetEnterprisesenterpriseSettingsBillingPackages(enterprise) => format!("/enterprises/{enterprise}/settings/billing/packages", enterprise = enterprise),
+  EndPoints::GetEnterprisesenterpriseSettingsBillingSharedStorage(enterprise) => format!("/enterprises/{enterprise}/settings/billing/shared-storage", enterprise = enterprise),
   EndPoints::GetEvents() => "/events".to_string(),
   EndPoints::GetFeeds() => "/feeds".to_string(),
   EndPoints::GetGists() => "/gists".to_string(),
   EndPoints::PostGists() => "/gists".to_string(),
   EndPoints::GetGistsPublic() => "/gists/public".to_string(),
   EndPoints::GetGistsStarred() => "/gists/starred".to_string(),
-  EndPoints::GetGistsgistId(gist_id) => format!("/gists/{gist_id}",gist_id = gist_id ),
-  EndPoints::PatchGistsgistId(gist_id) => format!("/gists/{gist_id}",gist_id = gist_id ),
-  EndPoints::DeleteGistsgistId(gist_id) => format!("/gists/{gist_id}",gist_id = gist_id ),
-  EndPoints::GetGistsgistIdComments(gist_id) => format!("/gists/{gist_id}/comments",gist_id = gist_id ),
-  EndPoints::PostGistsgistIdComments(gist_id) => format!("/gists/{gist_id}/comments",gist_id = gist_id ),
-  EndPoints::GetGistsgistIdCommentscommentId(gist_id,comment_id) => format!("/gists/{gist_id}/comments/{comment_id}",gist_id = gist_id,comment_id = comment_id ),
-  EndPoints::PatchGistsgistIdCommentscommentId(gist_id,comment_id) => format!("/gists/{gist_id}/comments/{comment_id}",gist_id = gist_id,comment_id = comment_id ),
-  EndPoints::DeleteGistsgistIdCommentscommentId(gist_id,comment_id) => format!("/gists/{gist_id}/comments/{comment_id}",gist_id = gist_id,comment_id = comment_id ),
-  EndPoints::GetGistsgistIdCommits(gist_id) => format!("/gists/{gist_id}/commits",gist_id = gist_id ),
-  EndPoints::GetGistsgistIdForks(gist_id) => format!("/gists/{gist_id}/forks",gist_id = gist_id ),
-  EndPoints::PostGistsgistIdForks(gist_id) => format!("/gists/{gist_id}/forks",gist_id = gist_id ),
-  EndPoints::GetGistsgistIdStar(gist_id) => format!("/gists/{gist_id}/star",gist_id = gist_id ),
-  EndPoints::PutGistsgistIdStar(gist_id) => format!("/gists/{gist_id}/star",gist_id = gist_id ),
-  EndPoints::DeleteGistsgistIdStar(gist_id) => format!("/gists/{gist_id}/star",gist_id = gist_id ),
-  EndPoints::GetGistsgistIdsha(gist_id,sha) => format!("/gists/{gist_id}/{sha}",gist_id = gist_id,sha = sha ),
+  EndPoints::GetGistsgistId(gist_id) => format!("/gists/{gist_id}", gist_id = gist_id),
+  EndPoints::PatchGistsgistId(gist_id) => format!("/gists/{gist_id}", gist_id = gist_id),
+  EndPoints::DeleteGistsgistId(gist_id) => format!("/gists/{gist_id}", gist_id = gist_id),
+  EndPoints::GetGistsgistIdComments(gist_id) => format!("/gists/{gist_id}/comments", gist_id = gist_id),
+  EndPoints::PostGistsgistIdComments(gist_id) => format!("/gists/{gist_id}/comments", gist_id = gist_id),
+  EndPoints::GetGistsgistIdCommentscommentId(gist_id,comment_id) => format!("/gists/{gist_id}/comments/{comment_id}", gist_id = gist_id,comment_id = comment_id),
+  EndPoints::PatchGistsgistIdCommentscommentId(gist_id,comment_id) => format!("/gists/{gist_id}/comments/{comment_id}", gist_id = gist_id,comment_id = comment_id),
+  EndPoints::DeleteGistsgistIdCommentscommentId(gist_id,comment_id) => format!("/gists/{gist_id}/comments/{comment_id}", gist_id = gist_id,comment_id = comment_id),
+  EndPoints::GetGistsgistIdCommits(gist_id) => format!("/gists/{gist_id}/commits", gist_id = gist_id),
+  EndPoints::GetGistsgistIdForks(gist_id) => format!("/gists/{gist_id}/forks", gist_id = gist_id),
+  EndPoints::PostGistsgistIdForks(gist_id) => format!("/gists/{gist_id}/forks", gist_id = gist_id),
+  EndPoints::GetGistsgistIdStar(gist_id) => format!("/gists/{gist_id}/star", gist_id = gist_id),
+  EndPoints::PutGistsgistIdStar(gist_id) => format!("/gists/{gist_id}/star", gist_id = gist_id),
+  EndPoints::DeleteGistsgistIdStar(gist_id) => format!("/gists/{gist_id}/star", gist_id = gist_id),
+  EndPoints::GetGistsgistIdsha(gist_id,sha) => format!("/gists/{gist_id}/{sha}", gist_id = gist_id,sha = sha),
   EndPoints::GetGitignoreTemplates() => "/gitignore/templates".to_string(),
-  EndPoints::GetGitignoreTemplatesname(name) => format!("/gitignore/templates/{name}",name = name ),
+  EndPoints::GetGitignoreTemplatesname(name) => format!("/gitignore/templates/{name}", name = name),
   EndPoints::GetInstallationRepositories() => "/installation/repositories".to_string(),
   EndPoints::DeleteInstallationToken() => "/installation/token".to_string(),
   EndPoints::GetIssues() => "/issues".to_string(),
   EndPoints::GetLicenses() => "/licenses".to_string(),
-  EndPoints::GetLicenseslicense(license) => format!("/licenses/{license}",license = license ),
+  EndPoints::GetLicenseslicense(license) => format!("/licenses/{license}", license = license),
   EndPoints::PostMarkdown() => "/markdown".to_string(),
   EndPoints::PostMarkdownRaw() => "/markdown/raw".to_string(),
-  EndPoints::GetMarketplaceListingAccountsaccountId(account_id) => format!("/marketplace_listing/accounts/{account_id}",account_id = account_id ),
+  EndPoints::GetMarketplaceListingAccountsaccountId(account_id) => format!("/marketplace_listing/accounts/{account_id}", account_id = account_id),
   EndPoints::GetMarketplaceListingPlans() => "/marketplace_listing/plans".to_string(),
-  EndPoints::GetMarketplaceListingPlansplanIdAccounts(plan_id) => format!("/marketplace_listing/plans/{plan_id}/accounts",plan_id = plan_id ),
-  EndPoints::GetMarketplaceListingStubbedAccountsaccountId(account_id) => format!("/marketplace_listing/stubbed/accounts/{account_id}",account_id = account_id ),
+  EndPoints::GetMarketplaceListingPlansplanIdAccounts(plan_id) => format!("/marketplace_listing/plans/{plan_id}/accounts", plan_id = plan_id),
+  EndPoints::GetMarketplaceListingStubbedAccountsaccountId(account_id) => format!("/marketplace_listing/stubbed/accounts/{account_id}", account_id = account_id),
   EndPoints::GetMarketplaceListingStubbedPlans() => "/marketplace_listing/stubbed/plans".to_string(),
-  EndPoints::GetMarketplaceListingStubbedPlansplanIdAccounts(plan_id) => format!("/marketplace_listing/stubbed/plans/{plan_id}/accounts",plan_id = plan_id ),
+  EndPoints::GetMarketplaceListingStubbedPlansplanIdAccounts(plan_id) => format!("/marketplace_listing/stubbed/plans/{plan_id}/accounts", plan_id = plan_id),
   EndPoints::GetMeta() => "/meta".to_string(),
-  EndPoints::GetNetworksownerrepoEvents(owner,repo) => format!("/networks/{owner}/{repo}/events",owner = owner,repo = repo ),
+  EndPoints::GetNetworksownerrepoEvents(owner,repo) => format!("/networks/{owner}/{repo}/events", owner = owner,repo = repo),
   EndPoints::GetNotifications() => "/notifications".to_string(),
   EndPoints::PutNotifications() => "/notifications".to_string(),
-  EndPoints::GetNotificationsThreadsthreadId(thread_id) => format!("/notifications/threads/{thread_id}",thread_id = thread_id ),
-  EndPoints::PatchNotificationsThreadsthreadId(thread_id) => format!("/notifications/threads/{thread_id}",thread_id = thread_id ),
-  EndPoints::GetNotificationsThreadsthreadIdSubscription(thread_id) => format!("/notifications/threads/{thread_id}/subscription",thread_id = thread_id ),
-  EndPoints::PutNotificationsThreadsthreadIdSubscription(thread_id) => format!("/notifications/threads/{thread_id}/subscription",thread_id = thread_id ),
-  EndPoints::DeleteNotificationsThreadsthreadIdSubscription(thread_id) => format!("/notifications/threads/{thread_id}/subscription",thread_id = thread_id ),
+  EndPoints::GetNotificationsThreadsthreadId(thread_id) => format!("/notifications/threads/{thread_id}", thread_id = thread_id),
+  EndPoints::PatchNotificationsThreadsthreadId(thread_id) => format!("/notifications/threads/{thread_id}", thread_id = thread_id),
+  EndPoints::GetNotificationsThreadsthreadIdSubscription(thread_id) => format!("/notifications/threads/{thread_id}/subscription", thread_id = thread_id),
+  EndPoints::PutNotificationsThreadsthreadIdSubscription(thread_id) => format!("/notifications/threads/{thread_id}/subscription", thread_id = thread_id),
+  EndPoints::DeleteNotificationsThreadsthreadIdSubscription(thread_id) => format!("/notifications/threads/{thread_id}/subscription", thread_id = thread_id),
   EndPoints::GetOctocat() => "/octocat".to_string(),
   EndPoints::GetOrganizations() => "/organizations".to_string(),
-  EndPoints::GetOrganizationsorganizationIdCustomRoles(organization_id) => format!("/organizations/{organization_id}/custom_roles",organization_id = organization_id ),
-  EndPoints::GetOrgsorg(org) => format!("/orgs/{org}",org = org ),
-  EndPoints::PatchOrgsorg(org) => format!("/orgs/{org}",org = org ),
-  EndPoints::GetOrgsorgActionsPermissions(org) => format!("/orgs/{org}/actions/permissions",org = org ),
-  EndPoints::PutOrgsorgActionsPermissions(org) => format!("/orgs/{org}/actions/permissions",org = org ),
-  EndPoints::GetOrgsorgActionsPermissionsRepositories(org) => format!("/orgs/{org}/actions/permissions/repositories",org = org ),
-  EndPoints::PutOrgsorgActionsPermissionsRepositories(org) => format!("/orgs/{org}/actions/permissions/repositories",org = org ),
-  EndPoints::PutOrgsorgActionsPermissionsRepositoriesrepositoryId(org,repository_id) => format!("/orgs/{org}/actions/permissions/repositories/{repository_id}",org = org,repository_id = repository_id ),
-  EndPoints::DeleteOrgsorgActionsPermissionsRepositoriesrepositoryId(org,repository_id) => format!("/orgs/{org}/actions/permissions/repositories/{repository_id}",org = org,repository_id = repository_id ),
-  EndPoints::GetOrgsorgActionsPermissionsSelectedActions(org) => format!("/orgs/{org}/actions/permissions/selected-actions",org = org ),
-  EndPoints::PutOrgsorgActionsPermissionsSelectedActions(org) => format!("/orgs/{org}/actions/permissions/selected-actions",org = org ),
-  EndPoints::GetOrgsorgActionsRunnerGroups(org) => format!("/orgs/{org}/actions/runner-groups",org = org ),
-  EndPoints::PostOrgsorgActionsRunnerGroups(org) => format!("/orgs/{org}/actions/runner-groups",org = org ),
-  EndPoints::GetOrgsorgActionsRunnerGroupsrunnerGroupId(org,runner_group_id) => format!("/orgs/{org}/actions/runner-groups/{runner_group_id}",org = org,runner_group_id = runner_group_id ),
-  EndPoints::PatchOrgsorgActionsRunnerGroupsrunnerGroupId(org,runner_group_id) => format!("/orgs/{org}/actions/runner-groups/{runner_group_id}",org = org,runner_group_id = runner_group_id ),
-  EndPoints::DeleteOrgsorgActionsRunnerGroupsrunnerGroupId(org,runner_group_id) => format!("/orgs/{org}/actions/runner-groups/{runner_group_id}",org = org,runner_group_id = runner_group_id ),
-  EndPoints::GetOrgsorgActionsRunnerGroupsrunnerGroupIdRepositories(org,runner_group_id) => format!("/orgs/{org}/actions/runner-groups/{runner_group_id}/repositories",org = org,runner_group_id = runner_group_id ),
-  EndPoints::PutOrgsorgActionsRunnerGroupsrunnerGroupIdRepositories(org,runner_group_id) => format!("/orgs/{org}/actions/runner-groups/{runner_group_id}/repositories",org = org,runner_group_id = runner_group_id ),
-  EndPoints::PutOrgsorgActionsRunnerGroupsrunnerGroupIdRepositoriesrepositoryId(org,runner_group_id,repository_id) => format!("/orgs/{org}/actions/runner-groups/{runner_group_id}/repositories/{repository_id}",org = org,runner_group_id = runner_group_id,repository_id = repository_id ),
-  EndPoints::DeleteOrgsorgActionsRunnerGroupsrunnerGroupIdRepositoriesrepositoryId(org,runner_group_id,repository_id) => format!("/orgs/{org}/actions/runner-groups/{runner_group_id}/repositories/{repository_id}",org = org,runner_group_id = runner_group_id,repository_id = repository_id ),
-  EndPoints::GetOrgsorgActionsRunnerGroupsrunnerGroupIdRunners(org,runner_group_id) => format!("/orgs/{org}/actions/runner-groups/{runner_group_id}/runners",org = org,runner_group_id = runner_group_id ),
-  EndPoints::PutOrgsorgActionsRunnerGroupsrunnerGroupIdRunners(org,runner_group_id) => format!("/orgs/{org}/actions/runner-groups/{runner_group_id}/runners",org = org,runner_group_id = runner_group_id ),
-  EndPoints::PutOrgsorgActionsRunnerGroupsrunnerGroupIdRunnersrunnerId(org,runner_group_id,runner_id) => format!("/orgs/{org}/actions/runner-groups/{runner_group_id}/runners/{runner_id}",org = org,runner_group_id = runner_group_id,runner_id = runner_id ),
-  EndPoints::DeleteOrgsorgActionsRunnerGroupsrunnerGroupIdRunnersrunnerId(org,runner_group_id,runner_id) => format!("/orgs/{org}/actions/runner-groups/{runner_group_id}/runners/{runner_id}",org = org,runner_group_id = runner_group_id,runner_id = runner_id ),
-  EndPoints::GetOrgsorgActionsRunners(org) => format!("/orgs/{org}/actions/runners",org = org ),
-  EndPoints::GetOrgsorgActionsRunnersDownloads(org) => format!("/orgs/{org}/actions/runners/downloads",org = org ),
-  EndPoints::PostOrgsorgActionsRunnersRegistrationToken(org) => format!("/orgs/{org}/actions/runners/registration-token",org = org ),
-  EndPoints::PostOrgsorgActionsRunnersRemoveToken(org) => format!("/orgs/{org}/actions/runners/remove-token",org = org ),
-  EndPoints::GetOrgsorgActionsRunnersrunnerId(org,runner_id) => format!("/orgs/{org}/actions/runners/{runner_id}",org = org,runner_id = runner_id ),
-  EndPoints::DeleteOrgsorgActionsRunnersrunnerId(org,runner_id) => format!("/orgs/{org}/actions/runners/{runner_id}",org = org,runner_id = runner_id ),
-  EndPoints::GetOrgsorgActionsRunnersrunnerIdLabels(org,runner_id) => format!("/orgs/{org}/actions/runners/{runner_id}/labels",org = org,runner_id = runner_id ),
-  EndPoints::PostOrgsorgActionsRunnersrunnerIdLabels(org,runner_id) => format!("/orgs/{org}/actions/runners/{runner_id}/labels",org = org,runner_id = runner_id ),
-  EndPoints::PutOrgsorgActionsRunnersrunnerIdLabels(org,runner_id) => format!("/orgs/{org}/actions/runners/{runner_id}/labels",org = org,runner_id = runner_id ),
-  EndPoints::DeleteOrgsorgActionsRunnersrunnerIdLabels(org,runner_id) => format!("/orgs/{org}/actions/runners/{runner_id}/labels",org = org,runner_id = runner_id ),
-  EndPoints::DeleteOrgsorgActionsRunnersrunnerIdLabelsname(org,runner_id,name) => format!("/orgs/{org}/actions/runners/{runner_id}/labels/{name}",org = org,runner_id = runner_id,name = name ),
-  EndPoints::GetOrgsorgActionsSecrets(org) => format!("/orgs/{org}/actions/secrets",org = org ),
-  EndPoints::GetOrgsorgActionsSecretsPublicKey(org) => format!("/orgs/{org}/actions/secrets/public-key",org = org ),
-  EndPoints::GetOrgsorgActionsSecretssecretName(org,secret_name) => format!("/orgs/{org}/actions/secrets/{secret_name}",org = org,secret_name = secret_name ),
-  EndPoints::PutOrgsorgActionsSecretssecretName(org,secret_name) => format!("/orgs/{org}/actions/secrets/{secret_name}",org = org,secret_name = secret_name ),
-  EndPoints::DeleteOrgsorgActionsSecretssecretName(org,secret_name) => format!("/orgs/{org}/actions/secrets/{secret_name}",org = org,secret_name = secret_name ),
-  EndPoints::GetOrgsorgActionsSecretssecretNameRepositories(org,secret_name) => format!("/orgs/{org}/actions/secrets/{secret_name}/repositories",org = org,secret_name = secret_name ),
-  EndPoints::PutOrgsorgActionsSecretssecretNameRepositories(org,secret_name) => format!("/orgs/{org}/actions/secrets/{secret_name}/repositories",org = org,secret_name = secret_name ),
-  EndPoints::PutOrgsorgActionsSecretssecretNameRepositoriesrepositoryId(org,secret_name,repository_id) => format!("/orgs/{org}/actions/secrets/{secret_name}/repositories/{repository_id}",org = org,secret_name = secret_name,repository_id = repository_id ),
-  EndPoints::DeleteOrgsorgActionsSecretssecretNameRepositoriesrepositoryId(org,secret_name,repository_id) => format!("/orgs/{org}/actions/secrets/{secret_name}/repositories/{repository_id}",org = org,secret_name = secret_name,repository_id = repository_id ),
-  EndPoints::GetOrgsorgAuditLog(org) => format!("/orgs/{org}/audit-log",org = org ),
-  EndPoints::GetOrgsorgBlocks(org) => format!("/orgs/{org}/blocks",org = org ),
-  EndPoints::GetOrgsorgBlocksusername(org,username) => format!("/orgs/{org}/blocks/{username}",org = org,username = username ),
-  EndPoints::PutOrgsorgBlocksusername(org,username) => format!("/orgs/{org}/blocks/{username}",org = org,username = username ),
-  EndPoints::DeleteOrgsorgBlocksusername(org,username) => format!("/orgs/{org}/blocks/{username}",org = org,username = username ),
-  EndPoints::GetOrgsorgCredentialAuthorizations(org) => format!("/orgs/{org}/credential-authorizations",org = org ),
-  EndPoints::DeleteOrgsorgCredentialAuthorizationscredentialId(org,credential_id) => format!("/orgs/{org}/credential-authorizations/{credential_id}",org = org,credential_id = credential_id ),
-  EndPoints::GetOrgsorgEvents(org) => format!("/orgs/{org}/events",org = org ),
-  EndPoints::GetOrgsorgExternalGroupgroupId(org,group_id) => format!("/orgs/{org}/external-group/{group_id}",org = org,group_id = group_id ),
-  EndPoints::GetOrgsorgExternalGroups(org) => format!("/orgs/{org}/external-groups",org = org ),
-  EndPoints::GetOrgsorgFailedInvitations(org) => format!("/orgs/{org}/failed_invitations",org = org ),
-  EndPoints::GetOrgsorgHooks(org) => format!("/orgs/{org}/hooks",org = org ),
-  EndPoints::PostOrgsorgHooks(org) => format!("/orgs/{org}/hooks",org = org ),
-  EndPoints::GetOrgsorgHookshookId(org,hook_id) => format!("/orgs/{org}/hooks/{hook_id}",org = org,hook_id = hook_id ),
-  EndPoints::PatchOrgsorgHookshookId(org,hook_id) => format!("/orgs/{org}/hooks/{hook_id}",org = org,hook_id = hook_id ),
-  EndPoints::DeleteOrgsorgHookshookId(org,hook_id) => format!("/orgs/{org}/hooks/{hook_id}",org = org,hook_id = hook_id ),
-  EndPoints::GetOrgsorgHookshookIdConfig(org,hook_id) => format!("/orgs/{org}/hooks/{hook_id}/config",org = org,hook_id = hook_id ),
-  EndPoints::PatchOrgsorgHookshookIdConfig(org,hook_id) => format!("/orgs/{org}/hooks/{hook_id}/config",org = org,hook_id = hook_id ),
-  EndPoints::GetOrgsorgHookshookIdDeliveries(org,hook_id) => format!("/orgs/{org}/hooks/{hook_id}/deliveries",org = org,hook_id = hook_id ),
-  EndPoints::GetOrgsorgHookshookIdDeliveriesdeliveryId(org,hook_id,delivery_id) => format!("/orgs/{org}/hooks/{hook_id}/deliveries/{delivery_id}",org = org,hook_id = hook_id,delivery_id = delivery_id ),
-  EndPoints::PostOrgsorgHookshookIdDeliveriesdeliveryIdAttempts(org,hook_id,delivery_id) => format!("/orgs/{org}/hooks/{hook_id}/deliveries/{delivery_id}/attempts",org = org,hook_id = hook_id,delivery_id = delivery_id ),
-  EndPoints::PostOrgsorgHookshookIdPings(org,hook_id) => format!("/orgs/{org}/hooks/{hook_id}/pings",org = org,hook_id = hook_id ),
-  EndPoints::GetOrgsorgInstallation(org) => format!("/orgs/{org}/installation",org = org ),
-  EndPoints::GetOrgsorgInstallations(org) => format!("/orgs/{org}/installations",org = org ),
-  EndPoints::GetOrgsorgInteractionLimits(org) => format!("/orgs/{org}/interaction-limits",org = org ),
-  EndPoints::PutOrgsorgInteractionLimits(org) => format!("/orgs/{org}/interaction-limits",org = org ),
-  EndPoints::DeleteOrgsorgInteractionLimits(org) => format!("/orgs/{org}/interaction-limits",org = org ),
-  EndPoints::GetOrgsorgInvitations(org) => format!("/orgs/{org}/invitations",org = org ),
-  EndPoints::PostOrgsorgInvitations(org) => format!("/orgs/{org}/invitations",org = org ),
-  EndPoints::DeleteOrgsorgInvitationsinvitationId(org,invitation_id) => format!("/orgs/{org}/invitations/{invitation_id}",org = org,invitation_id = invitation_id ),
-  EndPoints::GetOrgsorgInvitationsinvitationIdTeams(org,invitation_id) => format!("/orgs/{org}/invitations/{invitation_id}/teams",org = org,invitation_id = invitation_id ),
-  EndPoints::GetOrgsorgIssues(org) => format!("/orgs/{org}/issues",org = org ),
-  EndPoints::GetOrgsorgMembers(org) => format!("/orgs/{org}/members",org = org ),
-  EndPoints::GetOrgsorgMembersusername(org,username) => format!("/orgs/{org}/members/{username}",org = org,username = username ),
-  EndPoints::DeleteOrgsorgMembersusername(org,username) => format!("/orgs/{org}/members/{username}",org = org,username = username ),
-  EndPoints::GetOrgsorgMembershipsusername(org,username) => format!("/orgs/{org}/memberships/{username}",org = org,username = username ),
-  EndPoints::PutOrgsorgMembershipsusername(org,username) => format!("/orgs/{org}/memberships/{username}",org = org,username = username ),
-  EndPoints::DeleteOrgsorgMembershipsusername(org,username) => format!("/orgs/{org}/memberships/{username}",org = org,username = username ),
-  EndPoints::GetOrgsorgMigrations(org) => format!("/orgs/{org}/migrations",org = org ),
-  EndPoints::PostOrgsorgMigrations(org) => format!("/orgs/{org}/migrations",org = org ),
-  EndPoints::GetOrgsorgMigrationsmigrationId(org,migration_id) => format!("/orgs/{org}/migrations/{migration_id}",org = org,migration_id = migration_id ),
-  EndPoints::GetOrgsorgMigrationsmigrationIdArchive(org,migration_id) => format!("/orgs/{org}/migrations/{migration_id}/archive",org = org,migration_id = migration_id ),
-  EndPoints::DeleteOrgsorgMigrationsmigrationIdArchive(org,migration_id) => format!("/orgs/{org}/migrations/{migration_id}/archive",org = org,migration_id = migration_id ),
-  EndPoints::DeleteOrgsorgMigrationsmigrationIdReposrepoNameLock(org,migration_id,repo_name) => format!("/orgs/{org}/migrations/{migration_id}/repos/{repo_name}/lock",org = org,migration_id = migration_id,repo_name = repo_name ),
-  EndPoints::GetOrgsorgMigrationsmigrationIdRepositories(org,migration_id) => format!("/orgs/{org}/migrations/{migration_id}/repositories",org = org,migration_id = migration_id ),
-  EndPoints::GetOrgsorgOutsideCollaborators(org) => format!("/orgs/{org}/outside_collaborators",org = org ),
-  EndPoints::PutOrgsorgOutsideCollaboratorsusername(org,username) => format!("/orgs/{org}/outside_collaborators/{username}",org = org,username = username ),
-  EndPoints::DeleteOrgsorgOutsideCollaboratorsusername(org,username) => format!("/orgs/{org}/outside_collaborators/{username}",org = org,username = username ),
-  EndPoints::GetOrgsorgPackages(org) => format!("/orgs/{org}/packages",org = org ),
-  EndPoints::GetOrgsorgPackagespackageTypepackageName(org,package_type,package_name) => format!("/orgs/{org}/packages/{package_type}/{package_name}",org = org,package_type = package_type,package_name = package_name ),
-  EndPoints::DeleteOrgsorgPackagespackageTypepackageName(org,package_type,package_name) => format!("/orgs/{org}/packages/{package_type}/{package_name}",org = org,package_type = package_type,package_name = package_name ),
-  EndPoints::PostOrgsorgPackagespackageTypepackageNameRestore(org,package_type,package_name) => format!("/orgs/{org}/packages/{package_type}/{package_name}/restore",org = org,package_type = package_type,package_name = package_name ),
-  EndPoints::GetOrgsorgPackagespackageTypepackageNameVersions(org,package_type,package_name) => format!("/orgs/{org}/packages/{package_type}/{package_name}/versions",org = org,package_type = package_type,package_name = package_name ),
-  EndPoints::GetOrgsorgPackagespackageTypepackageNameVersionspackageVersionId(org,package_type,package_name,package_version_id) => format!("/orgs/{org}/packages/{package_type}/{package_name}/versions/{package_version_id}",org = org,package_type = package_type,package_name = package_name,package_version_id = package_version_id ),
-  EndPoints::DeleteOrgsorgPackagespackageTypepackageNameVersionspackageVersionId(org,package_type,package_name,package_version_id) => format!("/orgs/{org}/packages/{package_type}/{package_name}/versions/{package_version_id}",org = org,package_type = package_type,package_name = package_name,package_version_id = package_version_id ),
-  EndPoints::PostOrgsorgPackagespackageTypepackageNameVersionspackageVersionIdRestore(org,package_type,package_name,package_version_id) => format!("/orgs/{org}/packages/{package_type}/{package_name}/versions/{package_version_id}/restore",org = org,package_type = package_type,package_name = package_name,package_version_id = package_version_id ),
-  EndPoints::GetOrgsorgProjects(org) => format!("/orgs/{org}/projects",org = org ),
-  EndPoints::PostOrgsorgProjects(org) => format!("/orgs/{org}/projects",org = org ),
-  EndPoints::GetOrgsorgPublicMembers(org) => format!("/orgs/{org}/public_members",org = org ),
-  EndPoints::GetOrgsorgPublicMembersusername(org,username) => format!("/orgs/{org}/public_members/{username}",org = org,username = username ),
-  EndPoints::PutOrgsorgPublicMembersusername(org,username) => format!("/orgs/{org}/public_members/{username}",org = org,username = username ),
-  EndPoints::DeleteOrgsorgPublicMembersusername(org,username) => format!("/orgs/{org}/public_members/{username}",org = org,username = username ),
-  EndPoints::GetOrgsorgRepos(org) => format!("/orgs/{org}/repos",org = org ),
-  EndPoints::PostOrgsorgRepos(org) => format!("/orgs/{org}/repos",org = org ),
-  EndPoints::GetOrgsorgSecretScanningAlerts(org) => format!("/orgs/{org}/secret-scanning/alerts",org = org ),
-  EndPoints::GetOrgsorgSettingsBillingActions(org) => format!("/orgs/{org}/settings/billing/actions",org = org ),
-  EndPoints::GetOrgsorgSettingsBillingAdvancedSecurity(org) => format!("/orgs/{org}/settings/billing/advanced-security",org = org ),
-  EndPoints::GetOrgsorgSettingsBillingPackages(org) => format!("/orgs/{org}/settings/billing/packages",org = org ),
-  EndPoints::GetOrgsorgSettingsBillingSharedStorage(org) => format!("/orgs/{org}/settings/billing/shared-storage",org = org ),
-  EndPoints::GetOrgsorgTeamSyncGroups(org) => format!("/orgs/{org}/team-sync/groups",org = org ),
-  EndPoints::GetOrgsorgTeams(org) => format!("/orgs/{org}/teams",org = org ),
-  EndPoints::PostOrgsorgTeams(org) => format!("/orgs/{org}/teams",org = org ),
-  EndPoints::GetOrgsorgTeamsteamSlug(org,team_slug) => format!("/orgs/{org}/teams/{team_slug}",org = org,team_slug = team_slug ),
-  EndPoints::PatchOrgsorgTeamsteamSlug(org,team_slug) => format!("/orgs/{org}/teams/{team_slug}",org = org,team_slug = team_slug ),
-  EndPoints::DeleteOrgsorgTeamsteamSlug(org,team_slug) => format!("/orgs/{org}/teams/{team_slug}",org = org,team_slug = team_slug ),
-  EndPoints::GetOrgsorgTeamsteamSlugDiscussions(org,team_slug) => format!("/orgs/{org}/teams/{team_slug}/discussions",org = org,team_slug = team_slug ),
-  EndPoints::PostOrgsorgTeamsteamSlugDiscussions(org,team_slug) => format!("/orgs/{org}/teams/{team_slug}/discussions",org = org,team_slug = team_slug ),
-  EndPoints::GetOrgsorgTeamsteamSlugDiscussionsdiscussionNumber(org,team_slug,discussion_number) => format!("/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}",org = org,team_slug = team_slug,discussion_number = discussion_number ),
-  EndPoints::PatchOrgsorgTeamsteamSlugDiscussionsdiscussionNumber(org,team_slug,discussion_number) => format!("/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}",org = org,team_slug = team_slug,discussion_number = discussion_number ),
-  EndPoints::DeleteOrgsorgTeamsteamSlugDiscussionsdiscussionNumber(org,team_slug,discussion_number) => format!("/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}",org = org,team_slug = team_slug,discussion_number = discussion_number ),
-  EndPoints::GetOrgsorgTeamsteamSlugDiscussionsdiscussionNumberComments(org,team_slug,discussion_number) => format!("/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments",org = org,team_slug = team_slug,discussion_number = discussion_number ),
-  EndPoints::PostOrgsorgTeamsteamSlugDiscussionsdiscussionNumberComments(org,team_slug,discussion_number) => format!("/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments",org = org,team_slug = team_slug,discussion_number = discussion_number ),
-  EndPoints::GetOrgsorgTeamsteamSlugDiscussionsdiscussionNumberCommentscommentNumber(org,team_slug,discussion_number,comment_number) => format!("/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}",org = org,team_slug = team_slug,discussion_number = discussion_number,comment_number = comment_number ),
-  EndPoints::PatchOrgsorgTeamsteamSlugDiscussionsdiscussionNumberCommentscommentNumber(org,team_slug,discussion_number,comment_number) => format!("/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}",org = org,team_slug = team_slug,discussion_number = discussion_number,comment_number = comment_number ),
-  EndPoints::DeleteOrgsorgTeamsteamSlugDiscussionsdiscussionNumberCommentscommentNumber(org,team_slug,discussion_number,comment_number) => format!("/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}",org = org,team_slug = team_slug,discussion_number = discussion_number,comment_number = comment_number ),
-  EndPoints::GetOrgsorgTeamsteamSlugDiscussionsdiscussionNumberCommentscommentNumberReactions(org,team_slug,discussion_number,comment_number) => format!("/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions",org = org,team_slug = team_slug,discussion_number = discussion_number,comment_number = comment_number ),
-  EndPoints::PostOrgsorgTeamsteamSlugDiscussionsdiscussionNumberCommentscommentNumberReactions(org,team_slug,discussion_number,comment_number) => format!("/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions",org = org,team_slug = team_slug,discussion_number = discussion_number,comment_number = comment_number ),
-  EndPoints::DeleteOrgsorgTeamsteamSlugDiscussionsdiscussionNumberCommentscommentNumberReactionsreactionId(org,team_slug,discussion_number,comment_number,reaction_id) => format!("/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions/{reaction_id}",org = org,team_slug = team_slug,discussion_number = discussion_number,comment_number = comment_number,reaction_id = reaction_id ),
-  EndPoints::GetOrgsorgTeamsteamSlugDiscussionsdiscussionNumberReactions(org,team_slug,discussion_number) => format!("/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions",org = org,team_slug = team_slug,discussion_number = discussion_number ),
-  EndPoints::PostOrgsorgTeamsteamSlugDiscussionsdiscussionNumberReactions(org,team_slug,discussion_number) => format!("/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions",org = org,team_slug = team_slug,discussion_number = discussion_number ),
-  EndPoints::DeleteOrgsorgTeamsteamSlugDiscussionsdiscussionNumberReactionsreactionId(org,team_slug,discussion_number,reaction_id) => format!("/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions/{reaction_id}",org = org,team_slug = team_slug,discussion_number = discussion_number,reaction_id = reaction_id ),
-  EndPoints::PatchOrgsorgTeamsteamSlugExternalGroups(org,team_slug) => format!("/orgs/{org}/teams/{team_slug}/external-groups",org = org,team_slug = team_slug ),
-  EndPoints::DeleteOrgsorgTeamsteamSlugExternalGroups(org,team_slug) => format!("/orgs/{org}/teams/{team_slug}/external-groups",org = org,team_slug = team_slug ),
-  EndPoints::GetOrgsorgTeamsteamSlugInvitations(org,team_slug) => format!("/orgs/{org}/teams/{team_slug}/invitations",org = org,team_slug = team_slug ),
-  EndPoints::GetOrgsorgTeamsteamSlugMembers(org,team_slug) => format!("/orgs/{org}/teams/{team_slug}/members",org = org,team_slug = team_slug ),
-  EndPoints::GetOrgsorgTeamsteamSlugMembershipsusername(org,team_slug,username) => format!("/orgs/{org}/teams/{team_slug}/memberships/{username}",org = org,team_slug = team_slug,username = username ),
-  EndPoints::PutOrgsorgTeamsteamSlugMembershipsusername(org,team_slug,username) => format!("/orgs/{org}/teams/{team_slug}/memberships/{username}",org = org,team_slug = team_slug,username = username ),
-  EndPoints::DeleteOrgsorgTeamsteamSlugMembershipsusername(org,team_slug,username) => format!("/orgs/{org}/teams/{team_slug}/memberships/{username}",org = org,team_slug = team_slug,username = username ),
-  EndPoints::GetOrgsorgTeamsteamSlugProjects(org,team_slug) => format!("/orgs/{org}/teams/{team_slug}/projects",org = org,team_slug = team_slug ),
-  EndPoints::GetOrgsorgTeamsteamSlugProjectsprojectId(org,team_slug,project_id) => format!("/orgs/{org}/teams/{team_slug}/projects/{project_id}",org = org,team_slug = team_slug,project_id = project_id ),
-  EndPoints::PutOrgsorgTeamsteamSlugProjectsprojectId(org,team_slug,project_id) => format!("/orgs/{org}/teams/{team_slug}/projects/{project_id}",org = org,team_slug = team_slug,project_id = project_id ),
-  EndPoints::DeleteOrgsorgTeamsteamSlugProjectsprojectId(org,team_slug,project_id) => format!("/orgs/{org}/teams/{team_slug}/projects/{project_id}",org = org,team_slug = team_slug,project_id = project_id ),
-  EndPoints::GetOrgsorgTeamsteamSlugRepos(org,team_slug) => format!("/orgs/{org}/teams/{team_slug}/repos",org = org,team_slug = team_slug ),
-  EndPoints::GetOrgsorgTeamsteamSlugReposownerrepo(org,team_slug,owner,repo) => format!("/orgs/{org}/teams/{team_slug}/repos/{owner}/{repo}",org = org,team_slug = team_slug,owner = owner,repo = repo ),
-  EndPoints::PutOrgsorgTeamsteamSlugReposownerrepo(org,team_slug,owner,repo) => format!("/orgs/{org}/teams/{team_slug}/repos/{owner}/{repo}",org = org,team_slug = team_slug,owner = owner,repo = repo ),
-  EndPoints::DeleteOrgsorgTeamsteamSlugReposownerrepo(org,team_slug,owner,repo) => format!("/orgs/{org}/teams/{team_slug}/repos/{owner}/{repo}",org = org,team_slug = team_slug,owner = owner,repo = repo ),
-  EndPoints::GetOrgsorgTeamsteamSlugTeamSyncGroupMappings(org,team_slug) => format!("/orgs/{org}/teams/{team_slug}/team-sync/group-mappings",org = org,team_slug = team_slug ),
-  EndPoints::PatchOrgsorgTeamsteamSlugTeamSyncGroupMappings(org,team_slug) => format!("/orgs/{org}/teams/{team_slug}/team-sync/group-mappings",org = org,team_slug = team_slug ),
-  EndPoints::GetOrgsorgTeamsteamSlugTeams(org,team_slug) => format!("/orgs/{org}/teams/{team_slug}/teams",org = org,team_slug = team_slug ),
-  EndPoints::GetProjectsColumnsCardscardId(card_id) => format!("/projects/columns/cards/{card_id}",card_id = card_id ),
-  EndPoints::PatchProjectsColumnsCardscardId(card_id) => format!("/projects/columns/cards/{card_id}",card_id = card_id ),
-  EndPoints::DeleteProjectsColumnsCardscardId(card_id) => format!("/projects/columns/cards/{card_id}",card_id = card_id ),
-  EndPoints::PostProjectsColumnsCardscardIdMoves(card_id) => format!("/projects/columns/cards/{card_id}/moves",card_id = card_id ),
-  EndPoints::GetProjectsColumnscolumnId(column_id) => format!("/projects/columns/{column_id}",column_id = column_id ),
-  EndPoints::PatchProjectsColumnscolumnId(column_id) => format!("/projects/columns/{column_id}",column_id = column_id ),
-  EndPoints::DeleteProjectsColumnscolumnId(column_id) => format!("/projects/columns/{column_id}",column_id = column_id ),
-  EndPoints::GetProjectsColumnscolumnIdCards(column_id) => format!("/projects/columns/{column_id}/cards",column_id = column_id ),
-  EndPoints::PostProjectsColumnscolumnIdCards(column_id) => format!("/projects/columns/{column_id}/cards",column_id = column_id ),
-  EndPoints::PostProjectsColumnscolumnIdMoves(column_id) => format!("/projects/columns/{column_id}/moves",column_id = column_id ),
-  EndPoints::GetProjectsprojectId(project_id) => format!("/projects/{project_id}",project_id = project_id ),
-  EndPoints::PatchProjectsprojectId(project_id) => format!("/projects/{project_id}",project_id = project_id ),
-  EndPoints::DeleteProjectsprojectId(project_id) => format!("/projects/{project_id}",project_id = project_id ),
-  EndPoints::GetProjectsprojectIdCollaborators(project_id) => format!("/projects/{project_id}/collaborators",project_id = project_id ),
-  EndPoints::PutProjectsprojectIdCollaboratorsusername(project_id,username) => format!("/projects/{project_id}/collaborators/{username}",project_id = project_id,username = username ),
-  EndPoints::DeleteProjectsprojectIdCollaboratorsusername(project_id,username) => format!("/projects/{project_id}/collaborators/{username}",project_id = project_id,username = username ),
-  EndPoints::GetProjectsprojectIdCollaboratorsusernamePermission(project_id,username) => format!("/projects/{project_id}/collaborators/{username}/permission",project_id = project_id,username = username ),
-  EndPoints::GetProjectsprojectIdColumns(project_id) => format!("/projects/{project_id}/columns",project_id = project_id ),
-  EndPoints::PostProjectsprojectIdColumns(project_id) => format!("/projects/{project_id}/columns",project_id = project_id ),
+  EndPoints::GetOrganizationsorganizationIdCustomRoles(organization_id) => format!("/organizations/{organization_id}/custom_roles", organization_id = organization_id),
+  EndPoints::GetOrganizationsorgTeamteamSlugExternalGroups(org,team_slug) => format!("/organizations/{org}/team/{team_slug}/external-groups", org = org,team_slug = team_slug),
+  EndPoints::GetOrgsorg(org) => format!("/orgs/{org}", org = org),
+  EndPoints::PatchOrgsorg(org) => format!("/orgs/{org}", org = org),
+  EndPoints::GetOrgsorgActionsPermissions(org) => format!("/orgs/{org}/actions/permissions", org = org),
+  EndPoints::PutOrgsorgActionsPermissions(org) => format!("/orgs/{org}/actions/permissions", org = org),
+  EndPoints::GetOrgsorgActionsPermissionsRepositories(org) => format!("/orgs/{org}/actions/permissions/repositories", org = org),
+  EndPoints::PutOrgsorgActionsPermissionsRepositories(org) => format!("/orgs/{org}/actions/permissions/repositories", org = org),
+  EndPoints::PutOrgsorgActionsPermissionsRepositoriesrepositoryId(org,repository_id) => format!("/orgs/{org}/actions/permissions/repositories/{repository_id}", org = org,repository_id = repository_id),
+  EndPoints::DeleteOrgsorgActionsPermissionsRepositoriesrepositoryId(org,repository_id) => format!("/orgs/{org}/actions/permissions/repositories/{repository_id}", org = org,repository_id = repository_id),
+  EndPoints::GetOrgsorgActionsPermissionsSelectedActions(org) => format!("/orgs/{org}/actions/permissions/selected-actions", org = org),
+  EndPoints::PutOrgsorgActionsPermissionsSelectedActions(org) => format!("/orgs/{org}/actions/permissions/selected-actions", org = org),
+  EndPoints::GetOrgsorgActionsPermissionsWorkflow(org) => format!("/orgs/{org}/actions/permissions/workflow", org = org),
+  EndPoints::PutOrgsorgActionsPermissionsWorkflow(org) => format!("/orgs/{org}/actions/permissions/workflow", org = org),
+  EndPoints::GetOrgsorgActionsRunnerGroups(org) => format!("/orgs/{org}/actions/runner-groups", org = org),
+  EndPoints::PostOrgsorgActionsRunnerGroups(org) => format!("/orgs/{org}/actions/runner-groups", org = org),
+  EndPoints::GetOrgsorgActionsRunnerGroupsrunnerGroupId(org,runner_group_id) => format!("/orgs/{org}/actions/runner-groups/{runner_group_id}", org = org,runner_group_id = runner_group_id),
+  EndPoints::PatchOrgsorgActionsRunnerGroupsrunnerGroupId(org,runner_group_id) => format!("/orgs/{org}/actions/runner-groups/{runner_group_id}", org = org,runner_group_id = runner_group_id),
+  EndPoints::DeleteOrgsorgActionsRunnerGroupsrunnerGroupId(org,runner_group_id) => format!("/orgs/{org}/actions/runner-groups/{runner_group_id}", org = org,runner_group_id = runner_group_id),
+  EndPoints::GetOrgsorgActionsRunnerGroupsrunnerGroupIdRepositories(org,runner_group_id) => format!("/orgs/{org}/actions/runner-groups/{runner_group_id}/repositories", org = org,runner_group_id = runner_group_id),
+  EndPoints::PutOrgsorgActionsRunnerGroupsrunnerGroupIdRepositories(org,runner_group_id) => format!("/orgs/{org}/actions/runner-groups/{runner_group_id}/repositories", org = org,runner_group_id = runner_group_id),
+  EndPoints::PutOrgsorgActionsRunnerGroupsrunnerGroupIdRepositoriesrepositoryId(org,runner_group_id,repository_id) => format!("/orgs/{org}/actions/runner-groups/{runner_group_id}/repositories/{repository_id}", org = org,runner_group_id = runner_group_id,repository_id = repository_id),
+  EndPoints::DeleteOrgsorgActionsRunnerGroupsrunnerGroupIdRepositoriesrepositoryId(org,runner_group_id,repository_id) => format!("/orgs/{org}/actions/runner-groups/{runner_group_id}/repositories/{repository_id}", org = org,runner_group_id = runner_group_id,repository_id = repository_id),
+  EndPoints::GetOrgsorgActionsRunnerGroupsrunnerGroupIdRunners(org,runner_group_id) => format!("/orgs/{org}/actions/runner-groups/{runner_group_id}/runners", org = org,runner_group_id = runner_group_id),
+  EndPoints::PutOrgsorgActionsRunnerGroupsrunnerGroupIdRunners(org,runner_group_id) => format!("/orgs/{org}/actions/runner-groups/{runner_group_id}/runners", org = org,runner_group_id = runner_group_id),
+  EndPoints::PutOrgsorgActionsRunnerGroupsrunnerGroupIdRunnersrunnerId(org,runner_group_id,runner_id) => format!("/orgs/{org}/actions/runner-groups/{runner_group_id}/runners/{runner_id}", org = org,runner_group_id = runner_group_id,runner_id = runner_id),
+  EndPoints::DeleteOrgsorgActionsRunnerGroupsrunnerGroupIdRunnersrunnerId(org,runner_group_id,runner_id) => format!("/orgs/{org}/actions/runner-groups/{runner_group_id}/runners/{runner_id}", org = org,runner_group_id = runner_group_id,runner_id = runner_id),
+  EndPoints::GetOrgsorgActionsRunners(org) => format!("/orgs/{org}/actions/runners", org = org),
+  EndPoints::GetOrgsorgActionsRunnersDownloads(org) => format!("/orgs/{org}/actions/runners/downloads", org = org),
+  EndPoints::PostOrgsorgActionsRunnersRegistrationToken(org) => format!("/orgs/{org}/actions/runners/registration-token", org = org),
+  EndPoints::PostOrgsorgActionsRunnersRemoveToken(org) => format!("/orgs/{org}/actions/runners/remove-token", org = org),
+  EndPoints::GetOrgsorgActionsRunnersrunnerId(org,runner_id) => format!("/orgs/{org}/actions/runners/{runner_id}", org = org,runner_id = runner_id),
+  EndPoints::DeleteOrgsorgActionsRunnersrunnerId(org,runner_id) => format!("/orgs/{org}/actions/runners/{runner_id}", org = org,runner_id = runner_id),
+  EndPoints::GetOrgsorgActionsRunnersrunnerIdLabels(org,runner_id) => format!("/orgs/{org}/actions/runners/{runner_id}/labels", org = org,runner_id = runner_id),
+  EndPoints::PostOrgsorgActionsRunnersrunnerIdLabels(org,runner_id) => format!("/orgs/{org}/actions/runners/{runner_id}/labels", org = org,runner_id = runner_id),
+  EndPoints::PutOrgsorgActionsRunnersrunnerIdLabels(org,runner_id) => format!("/orgs/{org}/actions/runners/{runner_id}/labels", org = org,runner_id = runner_id),
+  EndPoints::DeleteOrgsorgActionsRunnersrunnerIdLabels(org,runner_id) => format!("/orgs/{org}/actions/runners/{runner_id}/labels", org = org,runner_id = runner_id),
+  EndPoints::DeleteOrgsorgActionsRunnersrunnerIdLabelsname(org,runner_id,name) => format!("/orgs/{org}/actions/runners/{runner_id}/labels/{name}", org = org,runner_id = runner_id,name = name),
+  EndPoints::GetOrgsorgActionsSecrets(org) => format!("/orgs/{org}/actions/secrets", org = org),
+  EndPoints::GetOrgsorgActionsSecretsPublicKey(org) => format!("/orgs/{org}/actions/secrets/public-key", org = org),
+  EndPoints::GetOrgsorgActionsSecretssecretName(org,secret_name) => format!("/orgs/{org}/actions/secrets/{secret_name}", org = org,secret_name = secret_name),
+  EndPoints::PutOrgsorgActionsSecretssecretName(org,secret_name) => format!("/orgs/{org}/actions/secrets/{secret_name}", org = org,secret_name = secret_name),
+  EndPoints::DeleteOrgsorgActionsSecretssecretName(org,secret_name) => format!("/orgs/{org}/actions/secrets/{secret_name}", org = org,secret_name = secret_name),
+  EndPoints::GetOrgsorgActionsSecretssecretNameRepositories(org,secret_name) => format!("/orgs/{org}/actions/secrets/{secret_name}/repositories", org = org,secret_name = secret_name),
+  EndPoints::PutOrgsorgActionsSecretssecretNameRepositories(org,secret_name) => format!("/orgs/{org}/actions/secrets/{secret_name}/repositories", org = org,secret_name = secret_name),
+  EndPoints::PutOrgsorgActionsSecretssecretNameRepositoriesrepositoryId(org,secret_name,repository_id) => format!("/orgs/{org}/actions/secrets/{secret_name}/repositories/{repository_id}", org = org,secret_name = secret_name,repository_id = repository_id),
+  EndPoints::DeleteOrgsorgActionsSecretssecretNameRepositoriesrepositoryId(org,secret_name,repository_id) => format!("/orgs/{org}/actions/secrets/{secret_name}/repositories/{repository_id}", org = org,secret_name = secret_name,repository_id = repository_id),
+  EndPoints::GetOrgsorgAuditLog(org) => format!("/orgs/{org}/audit-log", org = org),
+  EndPoints::GetOrgsorgBlocks(org) => format!("/orgs/{org}/blocks", org = org),
+  EndPoints::GetOrgsorgBlocksusername(org,username) => format!("/orgs/{org}/blocks/{username}", org = org,username = username),
+  EndPoints::PutOrgsorgBlocksusername(org,username) => format!("/orgs/{org}/blocks/{username}", org = org,username = username),
+  EndPoints::DeleteOrgsorgBlocksusername(org,username) => format!("/orgs/{org}/blocks/{username}", org = org,username = username),
+  EndPoints::GetOrgsorgCodeScanningAlerts(org) => format!("/orgs/{org}/code-scanning/alerts", org = org),
+  EndPoints::GetOrgsorgCredentialAuthorizations(org) => format!("/orgs/{org}/credential-authorizations", org = org),
+  EndPoints::DeleteOrgsorgCredentialAuthorizationscredentialId(org,credential_id) => format!("/orgs/{org}/credential-authorizations/{credential_id}", org = org,credential_id = credential_id),
+  EndPoints::GetOrgsorgDependabotSecrets(org) => format!("/orgs/{org}/dependabot/secrets", org = org),
+  EndPoints::GetOrgsorgDependabotSecretsPublicKey(org) => format!("/orgs/{org}/dependabot/secrets/public-key", org = org),
+  EndPoints::GetOrgsorgDependabotSecretssecretName(org,secret_name) => format!("/orgs/{org}/dependabot/secrets/{secret_name}", org = org,secret_name = secret_name),
+  EndPoints::PutOrgsorgDependabotSecretssecretName(org,secret_name) => format!("/orgs/{org}/dependabot/secrets/{secret_name}", org = org,secret_name = secret_name),
+  EndPoints::DeleteOrgsorgDependabotSecretssecretName(org,secret_name) => format!("/orgs/{org}/dependabot/secrets/{secret_name}", org = org,secret_name = secret_name),
+  EndPoints::GetOrgsorgDependabotSecretssecretNameRepositories(org,secret_name) => format!("/orgs/{org}/dependabot/secrets/{secret_name}/repositories", org = org,secret_name = secret_name),
+  EndPoints::PutOrgsorgDependabotSecretssecretNameRepositories(org,secret_name) => format!("/orgs/{org}/dependabot/secrets/{secret_name}/repositories", org = org,secret_name = secret_name),
+  EndPoints::PutOrgsorgDependabotSecretssecretNameRepositoriesrepositoryId(org,secret_name,repository_id) => format!("/orgs/{org}/dependabot/secrets/{secret_name}/repositories/{repository_id}", org = org,secret_name = secret_name,repository_id = repository_id),
+  EndPoints::DeleteOrgsorgDependabotSecretssecretNameRepositoriesrepositoryId(org,secret_name,repository_id) => format!("/orgs/{org}/dependabot/secrets/{secret_name}/repositories/{repository_id}", org = org,secret_name = secret_name,repository_id = repository_id),
+  EndPoints::GetOrgsorgEvents(org) => format!("/orgs/{org}/events", org = org),
+  EndPoints::GetOrgsorgExternalGroupgroupId(org,group_id) => format!("/orgs/{org}/external-group/{group_id}", org = org,group_id = group_id),
+  EndPoints::GetOrgsorgExternalGroups(org) => format!("/orgs/{org}/external-groups", org = org),
+  EndPoints::GetOrgsorgFailedInvitations(org) => format!("/orgs/{org}/failed_invitations", org = org),
+  EndPoints::GetOrgsorgHooks(org) => format!("/orgs/{org}/hooks", org = org),
+  EndPoints::PostOrgsorgHooks(org) => format!("/orgs/{org}/hooks", org = org),
+  EndPoints::GetOrgsorgHookshookId(org,hook_id) => format!("/orgs/{org}/hooks/{hook_id}", org = org,hook_id = hook_id),
+  EndPoints::PatchOrgsorgHookshookId(org,hook_id) => format!("/orgs/{org}/hooks/{hook_id}", org = org,hook_id = hook_id),
+  EndPoints::DeleteOrgsorgHookshookId(org,hook_id) => format!("/orgs/{org}/hooks/{hook_id}", org = org,hook_id = hook_id),
+  EndPoints::GetOrgsorgHookshookIdConfig(org,hook_id) => format!("/orgs/{org}/hooks/{hook_id}/config", org = org,hook_id = hook_id),
+  EndPoints::PatchOrgsorgHookshookIdConfig(org,hook_id) => format!("/orgs/{org}/hooks/{hook_id}/config", org = org,hook_id = hook_id),
+  EndPoints::GetOrgsorgHookshookIdDeliveries(org,hook_id) => format!("/orgs/{org}/hooks/{hook_id}/deliveries", org = org,hook_id = hook_id),
+  EndPoints::GetOrgsorgHookshookIdDeliveriesdeliveryId(org,hook_id,delivery_id) => format!("/orgs/{org}/hooks/{hook_id}/deliveries/{delivery_id}", org = org,hook_id = hook_id,delivery_id = delivery_id),
+  EndPoints::PostOrgsorgHookshookIdDeliveriesdeliveryIdAttempts(org,hook_id,delivery_id) => format!("/orgs/{org}/hooks/{hook_id}/deliveries/{delivery_id}/attempts", org = org,hook_id = hook_id,delivery_id = delivery_id),
+  EndPoints::PostOrgsorgHookshookIdPings(org,hook_id) => format!("/orgs/{org}/hooks/{hook_id}/pings", org = org,hook_id = hook_id),
+  EndPoints::GetOrgsorgInstallation(org) => format!("/orgs/{org}/installation", org = org),
+  EndPoints::GetOrgsorgInstallations(org) => format!("/orgs/{org}/installations", org = org),
+  EndPoints::GetOrgsorgInteractionLimits(org) => format!("/orgs/{org}/interaction-limits", org = org),
+  EndPoints::PutOrgsorgInteractionLimits(org) => format!("/orgs/{org}/interaction-limits", org = org),
+  EndPoints::DeleteOrgsorgInteractionLimits(org) => format!("/orgs/{org}/interaction-limits", org = org),
+  EndPoints::GetOrgsorgInvitations(org) => format!("/orgs/{org}/invitations", org = org),
+  EndPoints::PostOrgsorgInvitations(org) => format!("/orgs/{org}/invitations", org = org),
+  EndPoints::DeleteOrgsorgInvitationsinvitationId(org,invitation_id) => format!("/orgs/{org}/invitations/{invitation_id}", org = org,invitation_id = invitation_id),
+  EndPoints::GetOrgsorgInvitationsinvitationIdTeams(org,invitation_id) => format!("/orgs/{org}/invitations/{invitation_id}/teams", org = org,invitation_id = invitation_id),
+  EndPoints::GetOrgsorgIssues(org) => format!("/orgs/{org}/issues", org = org),
+  EndPoints::GetOrgsorgMembers(org) => format!("/orgs/{org}/members", org = org),
+  EndPoints::GetOrgsorgMembersusername(org,username) => format!("/orgs/{org}/members/{username}", org = org,username = username),
+  EndPoints::DeleteOrgsorgMembersusername(org,username) => format!("/orgs/{org}/members/{username}", org = org,username = username),
+  EndPoints::GetOrgsorgMembershipsusername(org,username) => format!("/orgs/{org}/memberships/{username}", org = org,username = username),
+  EndPoints::PutOrgsorgMembershipsusername(org,username) => format!("/orgs/{org}/memberships/{username}", org = org,username = username),
+  EndPoints::DeleteOrgsorgMembershipsusername(org,username) => format!("/orgs/{org}/memberships/{username}", org = org,username = username),
+  EndPoints::GetOrgsorgMigrations(org) => format!("/orgs/{org}/migrations", org = org),
+  EndPoints::PostOrgsorgMigrations(org) => format!("/orgs/{org}/migrations", org = org),
+  EndPoints::GetOrgsorgMigrationsmigrationId(org,migration_id) => format!("/orgs/{org}/migrations/{migration_id}", org = org,migration_id = migration_id),
+  EndPoints::GetOrgsorgMigrationsmigrationIdArchive(org,migration_id) => format!("/orgs/{org}/migrations/{migration_id}/archive", org = org,migration_id = migration_id),
+  EndPoints::DeleteOrgsorgMigrationsmigrationIdArchive(org,migration_id) => format!("/orgs/{org}/migrations/{migration_id}/archive", org = org,migration_id = migration_id),
+  EndPoints::DeleteOrgsorgMigrationsmigrationIdReposrepoNameLock(org,migration_id,repo_name) => format!("/orgs/{org}/migrations/{migration_id}/repos/{repo_name}/lock", org = org,migration_id = migration_id,repo_name = repo_name),
+  EndPoints::GetOrgsorgMigrationsmigrationIdRepositories(org,migration_id) => format!("/orgs/{org}/migrations/{migration_id}/repositories", org = org,migration_id = migration_id),
+  EndPoints::GetOrgsorgOutsideCollaborators(org) => format!("/orgs/{org}/outside_collaborators", org = org),
+  EndPoints::PutOrgsorgOutsideCollaboratorsusername(org,username) => format!("/orgs/{org}/outside_collaborators/{username}", org = org,username = username),
+  EndPoints::DeleteOrgsorgOutsideCollaboratorsusername(org,username) => format!("/orgs/{org}/outside_collaborators/{username}", org = org,username = username),
+  EndPoints::GetOrgsorgPackages(org) => format!("/orgs/{org}/packages", org = org),
+  EndPoints::GetOrgsorgPackagespackageTypepackageName(org,package_type,package_name) => format!("/orgs/{org}/packages/{package_type}/{package_name}", org = org,package_type = package_type,package_name = package_name),
+  EndPoints::DeleteOrgsorgPackagespackageTypepackageName(org,package_type,package_name) => format!("/orgs/{org}/packages/{package_type}/{package_name}", org = org,package_type = package_type,package_name = package_name),
+  EndPoints::PostOrgsorgPackagespackageTypepackageNameRestore(org,package_type,package_name) => format!("/orgs/{org}/packages/{package_type}/{package_name}/restore", org = org,package_type = package_type,package_name = package_name),
+  EndPoints::GetOrgsorgPackagespackageTypepackageNameVersions(org,package_type,package_name) => format!("/orgs/{org}/packages/{package_type}/{package_name}/versions", org = org,package_type = package_type,package_name = package_name),
+  EndPoints::GetOrgsorgPackagespackageTypepackageNameVersionspackageVersionId(org,package_type,package_name,package_version_id) => format!("/orgs/{org}/packages/{package_type}/{package_name}/versions/{package_version_id}", org = org,package_type = package_type,package_name = package_name,package_version_id = package_version_id),
+  EndPoints::DeleteOrgsorgPackagespackageTypepackageNameVersionspackageVersionId(org,package_type,package_name,package_version_id) => format!("/orgs/{org}/packages/{package_type}/{package_name}/versions/{package_version_id}", org = org,package_type = package_type,package_name = package_name,package_version_id = package_version_id),
+  EndPoints::PostOrgsorgPackagespackageTypepackageNameVersionspackageVersionIdRestore(org,package_type,package_name,package_version_id) => format!("/orgs/{org}/packages/{package_type}/{package_name}/versions/{package_version_id}/restore", org = org,package_type = package_type,package_name = package_name,package_version_id = package_version_id),
+  EndPoints::GetOrgsorgProjects(org) => format!("/orgs/{org}/projects", org = org),
+  EndPoints::PostOrgsorgProjects(org) => format!("/orgs/{org}/projects", org = org),
+  EndPoints::GetOrgsorgPublicMembers(org) => format!("/orgs/{org}/public_members", org = org),
+  EndPoints::GetOrgsorgPublicMembersusername(org,username) => format!("/orgs/{org}/public_members/{username}", org = org,username = username),
+  EndPoints::PutOrgsorgPublicMembersusername(org,username) => format!("/orgs/{org}/public_members/{username}", org = org,username = username),
+  EndPoints::DeleteOrgsorgPublicMembersusername(org,username) => format!("/orgs/{org}/public_members/{username}", org = org,username = username),
+  EndPoints::GetOrgsorgRepos(org) => format!("/orgs/{org}/repos", org = org),
+  EndPoints::PostOrgsorgRepos(org) => format!("/orgs/{org}/repos", org = org),
+  EndPoints::GetOrgsorgSecretScanningAlerts(org) => format!("/orgs/{org}/secret-scanning/alerts", org = org),
+  EndPoints::GetOrgsorgSettingsBillingActions(org) => format!("/orgs/{org}/settings/billing/actions", org = org),
+  EndPoints::GetOrgsorgSettingsBillingAdvancedSecurity(org) => format!("/orgs/{org}/settings/billing/advanced-security", org = org),
+  EndPoints::GetOrgsorgSettingsBillingPackages(org) => format!("/orgs/{org}/settings/billing/packages", org = org),
+  EndPoints::GetOrgsorgSettingsBillingSharedStorage(org) => format!("/orgs/{org}/settings/billing/shared-storage", org = org),
+  EndPoints::GetOrgsorgTeamSyncGroups(org) => format!("/orgs/{org}/team-sync/groups", org = org),
+  EndPoints::GetOrgsorgTeams(org) => format!("/orgs/{org}/teams", org = org),
+  EndPoints::PostOrgsorgTeams(org) => format!("/orgs/{org}/teams", org = org),
+  EndPoints::GetOrgsorgTeamsteamSlug(org,team_slug) => format!("/orgs/{org}/teams/{team_slug}", org = org,team_slug = team_slug),
+  EndPoints::PatchOrgsorgTeamsteamSlug(org,team_slug) => format!("/orgs/{org}/teams/{team_slug}", org = org,team_slug = team_slug),
+  EndPoints::DeleteOrgsorgTeamsteamSlug(org,team_slug) => format!("/orgs/{org}/teams/{team_slug}", org = org,team_slug = team_slug),
+  EndPoints::GetOrgsorgTeamsteamSlugDiscussions(org,team_slug) => format!("/orgs/{org}/teams/{team_slug}/discussions", org = org,team_slug = team_slug),
+  EndPoints::PostOrgsorgTeamsteamSlugDiscussions(org,team_slug) => format!("/orgs/{org}/teams/{team_slug}/discussions", org = org,team_slug = team_slug),
+  EndPoints::GetOrgsorgTeamsteamSlugDiscussionsdiscussionNumber(org,team_slug,discussion_number) => format!("/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}", org = org,team_slug = team_slug,discussion_number = discussion_number),
+  EndPoints::PatchOrgsorgTeamsteamSlugDiscussionsdiscussionNumber(org,team_slug,discussion_number) => format!("/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}", org = org,team_slug = team_slug,discussion_number = discussion_number),
+  EndPoints::DeleteOrgsorgTeamsteamSlugDiscussionsdiscussionNumber(org,team_slug,discussion_number) => format!("/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}", org = org,team_slug = team_slug,discussion_number = discussion_number),
+  EndPoints::GetOrgsorgTeamsteamSlugDiscussionsdiscussionNumberComments(org,team_slug,discussion_number) => format!("/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments", org = org,team_slug = team_slug,discussion_number = discussion_number),
+  EndPoints::PostOrgsorgTeamsteamSlugDiscussionsdiscussionNumberComments(org,team_slug,discussion_number) => format!("/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments", org = org,team_slug = team_slug,discussion_number = discussion_number),
+  EndPoints::GetOrgsorgTeamsteamSlugDiscussionsdiscussionNumberCommentscommentNumber(org,team_slug,discussion_number,comment_number) => format!("/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}", org = org,team_slug = team_slug,discussion_number = discussion_number,comment_number = comment_number),
+  EndPoints::PatchOrgsorgTeamsteamSlugDiscussionsdiscussionNumberCommentscommentNumber(org,team_slug,discussion_number,comment_number) => format!("/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}", org = org,team_slug = team_slug,discussion_number = discussion_number,comment_number = comment_number),
+  EndPoints::DeleteOrgsorgTeamsteamSlugDiscussionsdiscussionNumberCommentscommentNumber(org,team_slug,discussion_number,comment_number) => format!("/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}", org = org,team_slug = team_slug,discussion_number = discussion_number,comment_number = comment_number),
+  EndPoints::GetOrgsorgTeamsteamSlugDiscussionsdiscussionNumberCommentscommentNumberReactions(org,team_slug,discussion_number,comment_number) => format!("/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions", org = org,team_slug = team_slug,discussion_number = discussion_number,comment_number = comment_number),
+  EndPoints::PostOrgsorgTeamsteamSlugDiscussionsdiscussionNumberCommentscommentNumberReactions(org,team_slug,discussion_number,comment_number) => format!("/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions", org = org,team_slug = team_slug,discussion_number = discussion_number,comment_number = comment_number),
+  EndPoints::DeleteOrgsorgTeamsteamSlugDiscussionsdiscussionNumberCommentscommentNumberReactionsreactionId(org,team_slug,discussion_number,comment_number,reaction_id) => format!("/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions/{reaction_id}", org = org,team_slug = team_slug,discussion_number = discussion_number,comment_number = comment_number,reaction_id = reaction_id),
+  EndPoints::GetOrgsorgTeamsteamSlugDiscussionsdiscussionNumberReactions(org,team_slug,discussion_number) => format!("/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions", org = org,team_slug = team_slug,discussion_number = discussion_number),
+  EndPoints::PostOrgsorgTeamsteamSlugDiscussionsdiscussionNumberReactions(org,team_slug,discussion_number) => format!("/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions", org = org,team_slug = team_slug,discussion_number = discussion_number),
+  EndPoints::DeleteOrgsorgTeamsteamSlugDiscussionsdiscussionNumberReactionsreactionId(org,team_slug,discussion_number,reaction_id) => format!("/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions/{reaction_id}", org = org,team_slug = team_slug,discussion_number = discussion_number,reaction_id = reaction_id),
+  EndPoints::PatchOrgsorgTeamsteamSlugExternalGroups(org,team_slug) => format!("/orgs/{org}/teams/{team_slug}/external-groups", org = org,team_slug = team_slug),
+  EndPoints::DeleteOrgsorgTeamsteamSlugExternalGroups(org,team_slug) => format!("/orgs/{org}/teams/{team_slug}/external-groups", org = org,team_slug = team_slug),
+  EndPoints::GetOrgsorgTeamsteamSlugInvitations(org,team_slug) => format!("/orgs/{org}/teams/{team_slug}/invitations", org = org,team_slug = team_slug),
+  EndPoints::GetOrgsorgTeamsteamSlugMembers(org,team_slug) => format!("/orgs/{org}/teams/{team_slug}/members", org = org,team_slug = team_slug),
+  EndPoints::GetOrgsorgTeamsteamSlugMembershipsusername(org,team_slug,username) => format!("/orgs/{org}/teams/{team_slug}/memberships/{username}", org = org,team_slug = team_slug,username = username),
+  EndPoints::PutOrgsorgTeamsteamSlugMembershipsusername(org,team_slug,username) => format!("/orgs/{org}/teams/{team_slug}/memberships/{username}", org = org,team_slug = team_slug,username = username),
+  EndPoints::DeleteOrgsorgTeamsteamSlugMembershipsusername(org,team_slug,username) => format!("/orgs/{org}/teams/{team_slug}/memberships/{username}", org = org,team_slug = team_slug,username = username),
+  EndPoints::GetOrgsorgTeamsteamSlugProjects(org,team_slug) => format!("/orgs/{org}/teams/{team_slug}/projects", org = org,team_slug = team_slug),
+  EndPoints::GetOrgsorgTeamsteamSlugProjectsprojectId(org,team_slug,project_id) => format!("/orgs/{org}/teams/{team_slug}/projects/{project_id}", org = org,team_slug = team_slug,project_id = project_id),
+  EndPoints::PutOrgsorgTeamsteamSlugProjectsprojectId(org,team_slug,project_id) => format!("/orgs/{org}/teams/{team_slug}/projects/{project_id}", org = org,team_slug = team_slug,project_id = project_id),
+  EndPoints::DeleteOrgsorgTeamsteamSlugProjectsprojectId(org,team_slug,project_id) => format!("/orgs/{org}/teams/{team_slug}/projects/{project_id}", org = org,team_slug = team_slug,project_id = project_id),
+  EndPoints::GetOrgsorgTeamsteamSlugRepos(org,team_slug) => format!("/orgs/{org}/teams/{team_slug}/repos", org = org,team_slug = team_slug),
+  EndPoints::GetOrgsorgTeamsteamSlugReposownerrepo(org,team_slug,owner,repo) => format!("/orgs/{org}/teams/{team_slug}/repos/{owner}/{repo}", org = org,team_slug = team_slug,owner = owner,repo = repo),
+  EndPoints::PutOrgsorgTeamsteamSlugReposownerrepo(org,team_slug,owner,repo) => format!("/orgs/{org}/teams/{team_slug}/repos/{owner}/{repo}", org = org,team_slug = team_slug,owner = owner,repo = repo),
+  EndPoints::DeleteOrgsorgTeamsteamSlugReposownerrepo(org,team_slug,owner,repo) => format!("/orgs/{org}/teams/{team_slug}/repos/{owner}/{repo}", org = org,team_slug = team_slug,owner = owner,repo = repo),
+  EndPoints::GetOrgsorgTeamsteamSlugTeamSyncGroupMappings(org,team_slug) => format!("/orgs/{org}/teams/{team_slug}/team-sync/group-mappings", org = org,team_slug = team_slug),
+  EndPoints::PatchOrgsorgTeamsteamSlugTeamSyncGroupMappings(org,team_slug) => format!("/orgs/{org}/teams/{team_slug}/team-sync/group-mappings", org = org,team_slug = team_slug),
+  EndPoints::GetOrgsorgTeamsteamSlugTeams(org,team_slug) => format!("/orgs/{org}/teams/{team_slug}/teams", org = org,team_slug = team_slug),
+  EndPoints::GetProjectsColumnsCardscardId(card_id) => format!("/projects/columns/cards/{card_id}", card_id = card_id),
+  EndPoints::PatchProjectsColumnsCardscardId(card_id) => format!("/projects/columns/cards/{card_id}", card_id = card_id),
+  EndPoints::DeleteProjectsColumnsCardscardId(card_id) => format!("/projects/columns/cards/{card_id}", card_id = card_id),
+  EndPoints::PostProjectsColumnsCardscardIdMoves(card_id) => format!("/projects/columns/cards/{card_id}/moves", card_id = card_id),
+  EndPoints::GetProjectsColumnscolumnId(column_id) => format!("/projects/columns/{column_id}", column_id = column_id),
+  EndPoints::PatchProjectsColumnscolumnId(column_id) => format!("/projects/columns/{column_id}", column_id = column_id),
+  EndPoints::DeleteProjectsColumnscolumnId(column_id) => format!("/projects/columns/{column_id}", column_id = column_id),
+  EndPoints::GetProjectsColumnscolumnIdCards(column_id) => format!("/projects/columns/{column_id}/cards", column_id = column_id),
+  EndPoints::PostProjectsColumnscolumnIdCards(column_id) => format!("/projects/columns/{column_id}/cards", column_id = column_id),
+  EndPoints::PostProjectsColumnscolumnIdMoves(column_id) => format!("/projects/columns/{column_id}/moves", column_id = column_id),
+  EndPoints::GetProjectsprojectId(project_id) => format!("/projects/{project_id}", project_id = project_id),
+  EndPoints::PatchProjectsprojectId(project_id) => format!("/projects/{project_id}", project_id = project_id),
+  EndPoints::DeleteProjectsprojectId(project_id) => format!("/projects/{project_id}", project_id = project_id),
+  EndPoints::GetProjectsprojectIdCollaborators(project_id) => format!("/projects/{project_id}/collaborators", project_id = project_id),
+  EndPoints::PutProjectsprojectIdCollaboratorsusername(project_id,username) => format!("/projects/{project_id}/collaborators/{username}", project_id = project_id,username = username),
+  EndPoints::DeleteProjectsprojectIdCollaboratorsusername(project_id,username) => format!("/projects/{project_id}/collaborators/{username}", project_id = project_id,username = username),
+  EndPoints::GetProjectsprojectIdCollaboratorsusernamePermission(project_id,username) => format!("/projects/{project_id}/collaborators/{username}/permission", project_id = project_id,username = username),
+  EndPoints::GetProjectsprojectIdColumns(project_id) => format!("/projects/{project_id}/columns", project_id = project_id),
+  EndPoints::PostProjectsprojectIdColumns(project_id) => format!("/projects/{project_id}/columns", project_id = project_id),
   EndPoints::GetRateLimit() => "/rate_limit".to_string(),
-  EndPoints::DeleteReactionsreactionId(reaction_id) => format!("/reactions/{reaction_id}",reaction_id = reaction_id ),
-  EndPoints::GetReposownerrepo(owner,repo) => format!("/repos/{owner}/{repo}",owner = owner,repo = repo ),
-  EndPoints::PatchReposownerrepo(owner,repo) => format!("/repos/{owner}/{repo}",owner = owner,repo = repo ),
-  EndPoints::DeleteReposownerrepo(owner,repo) => format!("/repos/{owner}/{repo}",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoActionsArtifacts(owner,repo) => format!("/repos/{owner}/{repo}/actions/artifacts",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoActionsArtifactsartifactId(owner,repo,artifact_id) => format!("/repos/{owner}/{repo}/actions/artifacts/{artifact_id}",owner = owner,repo = repo,artifact_id = artifact_id ),
-  EndPoints::DeleteReposownerrepoActionsArtifactsartifactId(owner,repo,artifact_id) => format!("/repos/{owner}/{repo}/actions/artifacts/{artifact_id}",owner = owner,repo = repo,artifact_id = artifact_id ),
-  EndPoints::GetReposownerrepoActionsArtifactsartifactIdarchiveFormat(owner,repo,artifact_id,archive_format) => format!("/repos/{owner}/{repo}/actions/artifacts/{artifact_id}/{archive_format}",owner = owner,repo = repo,artifact_id = artifact_id,archive_format = archive_format ),
-  EndPoints::GetReposownerrepoActionsJobsjobId(owner,repo,job_id) => format!("/repos/{owner}/{repo}/actions/jobs/{job_id}",owner = owner,repo = repo,job_id = job_id ),
-  EndPoints::GetReposownerrepoActionsJobsjobIdLogs(owner,repo,job_id) => format!("/repos/{owner}/{repo}/actions/jobs/{job_id}/logs",owner = owner,repo = repo,job_id = job_id ),
-  EndPoints::GetReposownerrepoActionsPermissions(owner,repo) => format!("/repos/{owner}/{repo}/actions/permissions",owner = owner,repo = repo ),
-  EndPoints::PutReposownerrepoActionsPermissions(owner,repo) => format!("/repos/{owner}/{repo}/actions/permissions",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoActionsPermissionsSelectedActions(owner,repo) => format!("/repos/{owner}/{repo}/actions/permissions/selected-actions",owner = owner,repo = repo ),
-  EndPoints::PutReposownerrepoActionsPermissionsSelectedActions(owner,repo) => format!("/repos/{owner}/{repo}/actions/permissions/selected-actions",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoActionsRunners(owner,repo) => format!("/repos/{owner}/{repo}/actions/runners",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoActionsRunnersDownloads(owner,repo) => format!("/repos/{owner}/{repo}/actions/runners/downloads",owner = owner,repo = repo ),
-  EndPoints::PostReposownerrepoActionsRunnersRegistrationToken(owner,repo) => format!("/repos/{owner}/{repo}/actions/runners/registration-token",owner = owner,repo = repo ),
-  EndPoints::PostReposownerrepoActionsRunnersRemoveToken(owner,repo) => format!("/repos/{owner}/{repo}/actions/runners/remove-token",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoActionsRunnersrunnerId(owner,repo,runner_id) => format!("/repos/{owner}/{repo}/actions/runners/{runner_id}",owner = owner,repo = repo,runner_id = runner_id ),
-  EndPoints::DeleteReposownerrepoActionsRunnersrunnerId(owner,repo,runner_id) => format!("/repos/{owner}/{repo}/actions/runners/{runner_id}",owner = owner,repo = repo,runner_id = runner_id ),
-  EndPoints::GetReposownerrepoActionsRunnersrunnerIdLabels(owner,repo,runner_id) => format!("/repos/{owner}/{repo}/actions/runners/{runner_id}/labels",owner = owner,repo = repo,runner_id = runner_id ),
-  EndPoints::PostReposownerrepoActionsRunnersrunnerIdLabels(owner,repo,runner_id) => format!("/repos/{owner}/{repo}/actions/runners/{runner_id}/labels",owner = owner,repo = repo,runner_id = runner_id ),
-  EndPoints::PutReposownerrepoActionsRunnersrunnerIdLabels(owner,repo,runner_id) => format!("/repos/{owner}/{repo}/actions/runners/{runner_id}/labels",owner = owner,repo = repo,runner_id = runner_id ),
-  EndPoints::DeleteReposownerrepoActionsRunnersrunnerIdLabels(owner,repo,runner_id) => format!("/repos/{owner}/{repo}/actions/runners/{runner_id}/labels",owner = owner,repo = repo,runner_id = runner_id ),
-  EndPoints::DeleteReposownerrepoActionsRunnersrunnerIdLabelsname(owner,repo,runner_id,name) => format!("/repos/{owner}/{repo}/actions/runners/{runner_id}/labels/{name}",owner = owner,repo = repo,runner_id = runner_id,name = name ),
-  EndPoints::GetReposownerrepoActionsRuns(owner,repo) => format!("/repos/{owner}/{repo}/actions/runs",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoActionsRunsrunId(owner,repo,run_id) => format!("/repos/{owner}/{repo}/actions/runs/{run_id}",owner = owner,repo = repo,run_id = run_id ),
-  EndPoints::DeleteReposownerrepoActionsRunsrunId(owner,repo,run_id) => format!("/repos/{owner}/{repo}/actions/runs/{run_id}",owner = owner,repo = repo,run_id = run_id ),
-  EndPoints::GetReposownerrepoActionsRunsrunIdApprovals(owner,repo,run_id) => format!("/repos/{owner}/{repo}/actions/runs/{run_id}/approvals",owner = owner,repo = repo,run_id = run_id ),
-  EndPoints::PostReposownerrepoActionsRunsrunIdApprove(owner,repo,run_id) => format!("/repos/{owner}/{repo}/actions/runs/{run_id}/approve",owner = owner,repo = repo,run_id = run_id ),
-  EndPoints::GetReposownerrepoActionsRunsrunIdArtifacts(owner,repo,run_id) => format!("/repos/{owner}/{repo}/actions/runs/{run_id}/artifacts",owner = owner,repo = repo,run_id = run_id ),
-  EndPoints::GetReposownerrepoActionsRunsrunIdAttemptsattemptNumber(owner,repo,run_id,attempt_number) => format!("/repos/{owner}/{repo}/actions/runs/{run_id}/attempts/{attempt_number}",owner = owner,repo = repo,run_id = run_id,attempt_number = attempt_number ),
-  EndPoints::GetReposownerrepoActionsRunsrunIdAttemptsattemptNumberJobs(owner,repo,run_id,attempt_number) => format!("/repos/{owner}/{repo}/actions/runs/{run_id}/attempts/{attempt_number}/jobs",owner = owner,repo = repo,run_id = run_id,attempt_number = attempt_number ),
-  EndPoints::GetReposownerrepoActionsRunsrunIdAttemptsattemptNumberLogs(owner,repo,run_id,attempt_number) => format!("/repos/{owner}/{repo}/actions/runs/{run_id}/attempts/{attempt_number}/logs",owner = owner,repo = repo,run_id = run_id,attempt_number = attempt_number ),
-  EndPoints::PostReposownerrepoActionsRunsrunIdCancel(owner,repo,run_id) => format!("/repos/{owner}/{repo}/actions/runs/{run_id}/cancel",owner = owner,repo = repo,run_id = run_id ),
-  EndPoints::GetReposownerrepoActionsRunsrunIdJobs(owner,repo,run_id) => format!("/repos/{owner}/{repo}/actions/runs/{run_id}/jobs",owner = owner,repo = repo,run_id = run_id ),
-  EndPoints::GetReposownerrepoActionsRunsrunIdLogs(owner,repo,run_id) => format!("/repos/{owner}/{repo}/actions/runs/{run_id}/logs",owner = owner,repo = repo,run_id = run_id ),
-  EndPoints::DeleteReposownerrepoActionsRunsrunIdLogs(owner,repo,run_id) => format!("/repos/{owner}/{repo}/actions/runs/{run_id}/logs",owner = owner,repo = repo,run_id = run_id ),
-  EndPoints::GetReposownerrepoActionsRunsrunIdPendingDeployments(owner,repo,run_id) => format!("/repos/{owner}/{repo}/actions/runs/{run_id}/pending_deployments",owner = owner,repo = repo,run_id = run_id ),
-  EndPoints::PostReposownerrepoActionsRunsrunIdPendingDeployments(owner,repo,run_id) => format!("/repos/{owner}/{repo}/actions/runs/{run_id}/pending_deployments",owner = owner,repo = repo,run_id = run_id ),
-  EndPoints::PostReposownerrepoActionsRunsrunIdRerun(owner,repo,run_id) => format!("/repos/{owner}/{repo}/actions/runs/{run_id}/rerun",owner = owner,repo = repo,run_id = run_id ),
-  EndPoints::GetReposownerrepoActionsRunsrunIdTiming(owner,repo,run_id) => format!("/repos/{owner}/{repo}/actions/runs/{run_id}/timing",owner = owner,repo = repo,run_id = run_id ),
-  EndPoints::GetReposownerrepoActionsSecrets(owner,repo) => format!("/repos/{owner}/{repo}/actions/secrets",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoActionsSecretsPublicKey(owner,repo) => format!("/repos/{owner}/{repo}/actions/secrets/public-key",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoActionsSecretssecretName(owner,repo,secret_name) => format!("/repos/{owner}/{repo}/actions/secrets/{secret_name}",owner = owner,repo = repo,secret_name = secret_name ),
-  EndPoints::PutReposownerrepoActionsSecretssecretName(owner,repo,secret_name) => format!("/repos/{owner}/{repo}/actions/secrets/{secret_name}",owner = owner,repo = repo,secret_name = secret_name ),
-  EndPoints::DeleteReposownerrepoActionsSecretssecretName(owner,repo,secret_name) => format!("/repos/{owner}/{repo}/actions/secrets/{secret_name}",owner = owner,repo = repo,secret_name = secret_name ),
-  EndPoints::GetReposownerrepoActionsWorkflows(owner,repo) => format!("/repos/{owner}/{repo}/actions/workflows",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoActionsWorkflowsworkflowId(owner,repo,workflow_id) => format!("/repos/{owner}/{repo}/actions/workflows/{workflow_id}",owner = owner,repo = repo,workflow_id = workflow_id ),
-  EndPoints::PutReposownerrepoActionsWorkflowsworkflowIdDisable(owner,repo,workflow_id) => format!("/repos/{owner}/{repo}/actions/workflows/{workflow_id}/disable",owner = owner,repo = repo,workflow_id = workflow_id ),
-  EndPoints::PostReposownerrepoActionsWorkflowsworkflowIdDispatches(owner,repo,workflow_id) => format!("/repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches",owner = owner,repo = repo,workflow_id = workflow_id ),
-  EndPoints::PutReposownerrepoActionsWorkflowsworkflowIdEnable(owner,repo,workflow_id) => format!("/repos/{owner}/{repo}/actions/workflows/{workflow_id}/enable",owner = owner,repo = repo,workflow_id = workflow_id ),
-  EndPoints::GetReposownerrepoActionsWorkflowsworkflowIdRuns(owner,repo,workflow_id) => format!("/repos/{owner}/{repo}/actions/workflows/{workflow_id}/runs",owner = owner,repo = repo,workflow_id = workflow_id ),
-  EndPoints::GetReposownerrepoActionsWorkflowsworkflowIdTiming(owner,repo,workflow_id) => format!("/repos/{owner}/{repo}/actions/workflows/{workflow_id}/timing",owner = owner,repo = repo,workflow_id = workflow_id ),
-  EndPoints::GetReposownerrepoAssignees(owner,repo) => format!("/repos/{owner}/{repo}/assignees",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoAssigneesassignee(owner,repo,assignee) => format!("/repos/{owner}/{repo}/assignees/{assignee}",owner = owner,repo = repo,assignee = assignee ),
-  EndPoints::GetReposownerrepoAutolinks(owner,repo) => format!("/repos/{owner}/{repo}/autolinks",owner = owner,repo = repo ),
-  EndPoints::PostReposownerrepoAutolinks(owner,repo) => format!("/repos/{owner}/{repo}/autolinks",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoAutolinksautolinkId(owner,repo,autolink_id) => format!("/repos/{owner}/{repo}/autolinks/{autolink_id}",owner = owner,repo = repo,autolink_id = autolink_id ),
-  EndPoints::DeleteReposownerrepoAutolinksautolinkId(owner,repo,autolink_id) => format!("/repos/{owner}/{repo}/autolinks/{autolink_id}",owner = owner,repo = repo,autolink_id = autolink_id ),
-  EndPoints::PutReposownerrepoAutomatedSecurityFixes(owner,repo) => format!("/repos/{owner}/{repo}/automated-security-fixes",owner = owner,repo = repo ),
-  EndPoints::DeleteReposownerrepoAutomatedSecurityFixes(owner,repo) => format!("/repos/{owner}/{repo}/automated-security-fixes",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoBranches(owner,repo) => format!("/repos/{owner}/{repo}/branches",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoBranchesbranch(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}",owner = owner,repo = repo,branch = branch ),
-  EndPoints::GetReposownerrepoBranchesbranchProtection(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection",owner = owner,repo = repo,branch = branch ),
-  EndPoints::PutReposownerrepoBranchesbranchProtection(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection",owner = owner,repo = repo,branch = branch ),
-  EndPoints::DeleteReposownerrepoBranchesbranchProtection(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection",owner = owner,repo = repo,branch = branch ),
-  EndPoints::GetReposownerrepoBranchesbranchProtectionEnforceAdmins(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/enforce_admins",owner = owner,repo = repo,branch = branch ),
-  EndPoints::PostReposownerrepoBranchesbranchProtectionEnforceAdmins(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/enforce_admins",owner = owner,repo = repo,branch = branch ),
-  EndPoints::DeleteReposownerrepoBranchesbranchProtectionEnforceAdmins(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/enforce_admins",owner = owner,repo = repo,branch = branch ),
-  EndPoints::GetReposownerrepoBranchesbranchProtectionRequiredPullRequestReviews(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/required_pull_request_reviews",owner = owner,repo = repo,branch = branch ),
-  EndPoints::PatchReposownerrepoBranchesbranchProtectionRequiredPullRequestReviews(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/required_pull_request_reviews",owner = owner,repo = repo,branch = branch ),
-  EndPoints::DeleteReposownerrepoBranchesbranchProtectionRequiredPullRequestReviews(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/required_pull_request_reviews",owner = owner,repo = repo,branch = branch ),
-  EndPoints::GetReposownerrepoBranchesbranchProtectionRequiredSignatures(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/required_signatures",owner = owner,repo = repo,branch = branch ),
-  EndPoints::PostReposownerrepoBranchesbranchProtectionRequiredSignatures(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/required_signatures",owner = owner,repo = repo,branch = branch ),
-  EndPoints::DeleteReposownerrepoBranchesbranchProtectionRequiredSignatures(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/required_signatures",owner = owner,repo = repo,branch = branch ),
-  EndPoints::GetReposownerrepoBranchesbranchProtectionRequiredStatusChecks(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks",owner = owner,repo = repo,branch = branch ),
-  EndPoints::PatchReposownerrepoBranchesbranchProtectionRequiredStatusChecks(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks",owner = owner,repo = repo,branch = branch ),
-  EndPoints::DeleteReposownerrepoBranchesbranchProtectionRequiredStatusChecks(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks",owner = owner,repo = repo,branch = branch ),
-  EndPoints::GetReposownerrepoBranchesbranchProtectionRequiredStatusChecksContexts(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts",owner = owner,repo = repo,branch = branch ),
-  EndPoints::PostReposownerrepoBranchesbranchProtectionRequiredStatusChecksContexts(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts",owner = owner,repo = repo,branch = branch ),
-  EndPoints::PutReposownerrepoBranchesbranchProtectionRequiredStatusChecksContexts(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts",owner = owner,repo = repo,branch = branch ),
-  EndPoints::DeleteReposownerrepoBranchesbranchProtectionRequiredStatusChecksContexts(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts",owner = owner,repo = repo,branch = branch ),
-  EndPoints::GetReposownerrepoBranchesbranchProtectionRestrictions(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/restrictions",owner = owner,repo = repo,branch = branch ),
-  EndPoints::DeleteReposownerrepoBranchesbranchProtectionRestrictions(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/restrictions",owner = owner,repo = repo,branch = branch ),
-  EndPoints::GetReposownerrepoBranchesbranchProtectionRestrictionsApps(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps",owner = owner,repo = repo,branch = branch ),
-  EndPoints::PostReposownerrepoBranchesbranchProtectionRestrictionsApps(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps",owner = owner,repo = repo,branch = branch ),
-  EndPoints::PutReposownerrepoBranchesbranchProtectionRestrictionsApps(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps",owner = owner,repo = repo,branch = branch ),
-  EndPoints::DeleteReposownerrepoBranchesbranchProtectionRestrictionsApps(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps",owner = owner,repo = repo,branch = branch ),
-  EndPoints::GetReposownerrepoBranchesbranchProtectionRestrictionsTeams(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams",owner = owner,repo = repo,branch = branch ),
-  EndPoints::PostReposownerrepoBranchesbranchProtectionRestrictionsTeams(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams",owner = owner,repo = repo,branch = branch ),
-  EndPoints::PutReposownerrepoBranchesbranchProtectionRestrictionsTeams(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams",owner = owner,repo = repo,branch = branch ),
-  EndPoints::DeleteReposownerrepoBranchesbranchProtectionRestrictionsTeams(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams",owner = owner,repo = repo,branch = branch ),
-  EndPoints::GetReposownerrepoBranchesbranchProtectionRestrictionsUsers(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users",owner = owner,repo = repo,branch = branch ),
-  EndPoints::PostReposownerrepoBranchesbranchProtectionRestrictionsUsers(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users",owner = owner,repo = repo,branch = branch ),
-  EndPoints::PutReposownerrepoBranchesbranchProtectionRestrictionsUsers(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users",owner = owner,repo = repo,branch = branch ),
-  EndPoints::DeleteReposownerrepoBranchesbranchProtectionRestrictionsUsers(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users",owner = owner,repo = repo,branch = branch ),
-  EndPoints::PostReposownerrepoBranchesbranchRename(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/rename",owner = owner,repo = repo,branch = branch ),
-  EndPoints::PostReposownerrepoCheckRuns(owner,repo) => format!("/repos/{owner}/{repo}/check-runs",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoCheckRunscheckRunId(owner,repo,check_run_id) => format!("/repos/{owner}/{repo}/check-runs/{check_run_id}",owner = owner,repo = repo,check_run_id = check_run_id ),
-  EndPoints::PatchReposownerrepoCheckRunscheckRunId(owner,repo,check_run_id) => format!("/repos/{owner}/{repo}/check-runs/{check_run_id}",owner = owner,repo = repo,check_run_id = check_run_id ),
-  EndPoints::GetReposownerrepoCheckRunscheckRunIdAnnotations(owner,repo,check_run_id) => format!("/repos/{owner}/{repo}/check-runs/{check_run_id}/annotations",owner = owner,repo = repo,check_run_id = check_run_id ),
-  EndPoints::PostReposownerrepoCheckRunscheckRunIdRerequest(owner,repo,check_run_id) => format!("/repos/{owner}/{repo}/check-runs/{check_run_id}/rerequest",owner = owner,repo = repo,check_run_id = check_run_id ),
-  EndPoints::PostReposownerrepoCheckSuites(owner,repo) => format!("/repos/{owner}/{repo}/check-suites",owner = owner,repo = repo ),
-  EndPoints::PatchReposownerrepoCheckSuitesPreferences(owner,repo) => format!("/repos/{owner}/{repo}/check-suites/preferences",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoCheckSuitescheckSuiteId(owner,repo,check_suite_id) => format!("/repos/{owner}/{repo}/check-suites/{check_suite_id}",owner = owner,repo = repo,check_suite_id = check_suite_id ),
-  EndPoints::GetReposownerrepoCheckSuitescheckSuiteIdCheckRuns(owner,repo,check_suite_id) => format!("/repos/{owner}/{repo}/check-suites/{check_suite_id}/check-runs",owner = owner,repo = repo,check_suite_id = check_suite_id ),
-  EndPoints::PostReposownerrepoCheckSuitescheckSuiteIdRerequest(owner,repo,check_suite_id) => format!("/repos/{owner}/{repo}/check-suites/{check_suite_id}/rerequest",owner = owner,repo = repo,check_suite_id = check_suite_id ),
-  EndPoints::GetReposownerrepoCodeScanningAlerts(owner,repo) => format!("/repos/{owner}/{repo}/code-scanning/alerts",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoCodeScanningAlertsalertNumber(owner,repo,alert_number) => format!("/repos/{owner}/{repo}/code-scanning/alerts/{alert_number}",owner = owner,repo = repo,alert_number = alert_number ),
-  EndPoints::PatchReposownerrepoCodeScanningAlertsalertNumber(owner,repo,alert_number) => format!("/repos/{owner}/{repo}/code-scanning/alerts/{alert_number}",owner = owner,repo = repo,alert_number = alert_number ),
-  EndPoints::GetReposownerrepoCodeScanningAlertsalertNumberInstances(owner,repo,alert_number) => format!("/repos/{owner}/{repo}/code-scanning/alerts/{alert_number}/instances",owner = owner,repo = repo,alert_number = alert_number ),
-  EndPoints::GetReposownerrepoCodeScanningAnalyses(owner,repo) => format!("/repos/{owner}/{repo}/code-scanning/analyses",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoCodeScanningAnalysesanalysisId(owner,repo,analysis_id) => format!("/repos/{owner}/{repo}/code-scanning/analyses/{analysis_id}",owner = owner,repo = repo,analysis_id = analysis_id ),
-  EndPoints::DeleteReposownerrepoCodeScanningAnalysesanalysisId(owner,repo,analysis_id) => format!("/repos/{owner}/{repo}/code-scanning/analyses/{analysis_id}",owner = owner,repo = repo,analysis_id = analysis_id ),
-  EndPoints::PostReposownerrepoCodeScanningSarifs(owner,repo) => format!("/repos/{owner}/{repo}/code-scanning/sarifs",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoCodeScanningSarifssarifId(owner,repo,sarif_id) => format!("/repos/{owner}/{repo}/code-scanning/sarifs/{sarif_id}",owner = owner,repo = repo,sarif_id = sarif_id ),
-  EndPoints::GetReposownerrepoCodespaces(owner,repo) => format!("/repos/{owner}/{repo}/codespaces",owner = owner,repo = repo ),
-  EndPoints::PostReposownerrepoCodespaces(owner,repo) => format!("/repos/{owner}/{repo}/codespaces",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoCodespacesMachines(owner,repo) => format!("/repos/{owner}/{repo}/codespaces/machines",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoCollaborators(owner,repo) => format!("/repos/{owner}/{repo}/collaborators",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoCollaboratorsusername(owner,repo,username) => format!("/repos/{owner}/{repo}/collaborators/{username}",owner = owner,repo = repo,username = username ),
-  EndPoints::PutReposownerrepoCollaboratorsusername(owner,repo,username) => format!("/repos/{owner}/{repo}/collaborators/{username}",owner = owner,repo = repo,username = username ),
-  EndPoints::DeleteReposownerrepoCollaboratorsusername(owner,repo,username) => format!("/repos/{owner}/{repo}/collaborators/{username}",owner = owner,repo = repo,username = username ),
-  EndPoints::GetReposownerrepoCollaboratorsusernamePermission(owner,repo,username) => format!("/repos/{owner}/{repo}/collaborators/{username}/permission",owner = owner,repo = repo,username = username ),
-  EndPoints::GetReposownerrepoComments(owner,repo) => format!("/repos/{owner}/{repo}/comments",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoCommentscommentId(owner,repo,comment_id) => format!("/repos/{owner}/{repo}/comments/{comment_id}",owner = owner,repo = repo,comment_id = comment_id ),
-  EndPoints::PatchReposownerrepoCommentscommentId(owner,repo,comment_id) => format!("/repos/{owner}/{repo}/comments/{comment_id}",owner = owner,repo = repo,comment_id = comment_id ),
-  EndPoints::DeleteReposownerrepoCommentscommentId(owner,repo,comment_id) => format!("/repos/{owner}/{repo}/comments/{comment_id}",owner = owner,repo = repo,comment_id = comment_id ),
-  EndPoints::GetReposownerrepoCommentscommentIdReactions(owner,repo,comment_id) => format!("/repos/{owner}/{repo}/comments/{comment_id}/reactions",owner = owner,repo = repo,comment_id = comment_id ),
-  EndPoints::PostReposownerrepoCommentscommentIdReactions(owner,repo,comment_id) => format!("/repos/{owner}/{repo}/comments/{comment_id}/reactions",owner = owner,repo = repo,comment_id = comment_id ),
-  EndPoints::DeleteReposownerrepoCommentscommentIdReactionsreactionId(owner,repo,comment_id,reaction_id) => format!("/repos/{owner}/{repo}/comments/{comment_id}/reactions/{reaction_id}",owner = owner,repo = repo,comment_id = comment_id,reaction_id = reaction_id ),
-  EndPoints::GetReposownerrepoCommits(owner,repo) => format!("/repos/{owner}/{repo}/commits",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoCommitscommitShaBranchesWhereHead(owner,repo,commit_sha) => format!("/repos/{owner}/{repo}/commits/{commit_sha}/branches-where-head",owner = owner,repo = repo,commit_sha = commit_sha ),
-  EndPoints::GetReposownerrepoCommitscommitShaComments(owner,repo,commit_sha) => format!("/repos/{owner}/{repo}/commits/{commit_sha}/comments",owner = owner,repo = repo,commit_sha = commit_sha ),
-  EndPoints::PostReposownerrepoCommitscommitShaComments(owner,repo,commit_sha) => format!("/repos/{owner}/{repo}/commits/{commit_sha}/comments",owner = owner,repo = repo,commit_sha = commit_sha ),
-  EndPoints::GetReposownerrepoCommitscommitShaPulls(owner,repo,commit_sha) => format!("/repos/{owner}/{repo}/commits/{commit_sha}/pulls",owner = owner,repo = repo,commit_sha = commit_sha ),
-  EndPoints::GetReposownerrepoCommitsref(owner,repo,aref) => format!("/repos/{owner}/{repo}/commits/{aref}",owner = owner,repo = repo,aref = aref ),
-  EndPoints::GetReposownerrepoCommitsrefCheckRuns(owner,repo,aref) => format!("/repos/{owner}/{repo}/commits/{aref}/check-runs",owner = owner,repo = repo,aref = aref ),
-  EndPoints::GetReposownerrepoCommitsrefCheckSuites(owner,repo,aref) => format!("/repos/{owner}/{repo}/commits/{aref}/check-suites",owner = owner,repo = repo,aref = aref ),
-  EndPoints::GetReposownerrepoCommitsrefStatus(owner,repo,aref) => format!("/repos/{owner}/{repo}/commits/{aref}/status",owner = owner,repo = repo,aref = aref ),
-  EndPoints::GetReposownerrepoCommitsrefStatuses(owner,repo,aref) => format!("/repos/{owner}/{repo}/commits/{aref}/statuses",owner = owner,repo = repo,aref = aref ),
-  EndPoints::GetReposownerrepoCommunityProfile(owner,repo) => format!("/repos/{owner}/{repo}/community/profile",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoComparebasehead(owner,repo,basehead) => format!("/repos/{owner}/{repo}/compare/{basehead}",owner = owner,repo = repo,basehead = basehead ),
-  EndPoints::GetReposownerrepoContentspath(owner,repo,path) => format!("/repos/{owner}/{repo}/contents/{path}",owner = owner,repo = repo,path = path ),
-  EndPoints::PutReposownerrepoContentspath(owner,repo,path) => format!("/repos/{owner}/{repo}/contents/{path}",owner = owner,repo = repo,path = path ),
-  EndPoints::DeleteReposownerrepoContentspath(owner,repo,path) => format!("/repos/{owner}/{repo}/contents/{path}",owner = owner,repo = repo,path = path ),
-  EndPoints::GetReposownerrepoContributors(owner,repo) => format!("/repos/{owner}/{repo}/contributors",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoDeployments(owner,repo) => format!("/repos/{owner}/{repo}/deployments",owner = owner,repo = repo ),
-  EndPoints::PostReposownerrepoDeployments(owner,repo) => format!("/repos/{owner}/{repo}/deployments",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoDeploymentsdeploymentId(owner,repo,deployment_id) => format!("/repos/{owner}/{repo}/deployments/{deployment_id}",owner = owner,repo = repo,deployment_id = deployment_id ),
-  EndPoints::DeleteReposownerrepoDeploymentsdeploymentId(owner,repo,deployment_id) => format!("/repos/{owner}/{repo}/deployments/{deployment_id}",owner = owner,repo = repo,deployment_id = deployment_id ),
-  EndPoints::GetReposownerrepoDeploymentsdeploymentIdStatuses(owner,repo,deployment_id) => format!("/repos/{owner}/{repo}/deployments/{deployment_id}/statuses",owner = owner,repo = repo,deployment_id = deployment_id ),
-  EndPoints::PostReposownerrepoDeploymentsdeploymentIdStatuses(owner,repo,deployment_id) => format!("/repos/{owner}/{repo}/deployments/{deployment_id}/statuses",owner = owner,repo = repo,deployment_id = deployment_id ),
-  EndPoints::GetReposownerrepoDeploymentsdeploymentIdStatusesstatusId(owner,repo,deployment_id,status_id) => format!("/repos/{owner}/{repo}/deployments/{deployment_id}/statuses/{status_id}",owner = owner,repo = repo,deployment_id = deployment_id,status_id = status_id ),
-  EndPoints::PostReposownerrepoDispatches(owner,repo) => format!("/repos/{owner}/{repo}/dispatches",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoEnvironments(owner,repo) => format!("/repos/{owner}/{repo}/environments",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoEnvironmentsenvironmentName(owner,repo,environment_name) => format!("/repos/{owner}/{repo}/environments/{environment_name}",owner = owner,repo = repo,environment_name = environment_name ),
-  EndPoints::PutReposownerrepoEnvironmentsenvironmentName(owner,repo,environment_name) => format!("/repos/{owner}/{repo}/environments/{environment_name}",owner = owner,repo = repo,environment_name = environment_name ),
-  EndPoints::DeleteReposownerrepoEnvironmentsenvironmentName(owner,repo,environment_name) => format!("/repos/{owner}/{repo}/environments/{environment_name}",owner = owner,repo = repo,environment_name = environment_name ),
-  EndPoints::GetReposownerrepoEvents(owner,repo) => format!("/repos/{owner}/{repo}/events",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoForks(owner,repo) => format!("/repos/{owner}/{repo}/forks",owner = owner,repo = repo ),
-  EndPoints::PostReposownerrepoForks(owner,repo) => format!("/repos/{owner}/{repo}/forks",owner = owner,repo = repo ),
-  EndPoints::PostReposownerrepoGitBlobs(owner,repo) => format!("/repos/{owner}/{repo}/git/blobs",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoGitBlobsfileSha(owner,repo,file_sha) => format!("/repos/{owner}/{repo}/git/blobs/{file_sha}",owner = owner,repo = repo,file_sha = file_sha ),
-  EndPoints::PostReposownerrepoGitCommits(owner,repo) => format!("/repos/{owner}/{repo}/git/commits",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoGitCommitscommitSha(owner,repo,commit_sha) => format!("/repos/{owner}/{repo}/git/commits/{commit_sha}",owner = owner,repo = repo,commit_sha = commit_sha ),
-  EndPoints::GetReposownerrepoGitMatchingRefsref(owner,repo,aref) => format!("/repos/{owner}/{repo}/git/matching-refs/{aref}",owner = owner,repo = repo,aref = aref ),
-  EndPoints::GetReposownerrepoGitRefref(owner,repo,aref) => format!("/repos/{owner}/{repo}/git/ref/{aref}",owner = owner,repo = repo,aref = aref ),
-  EndPoints::PostReposownerrepoGitRefs(owner,repo) => format!("/repos/{owner}/{repo}/git/refs",owner = owner,repo = repo ),
-  EndPoints::PatchReposownerrepoGitRefsref(owner,repo,aref) => format!("/repos/{owner}/{repo}/git/refs/{aref}",owner = owner,repo = repo,aref = aref ),
-  EndPoints::DeleteReposownerrepoGitRefsref(owner,repo,aref) => format!("/repos/{owner}/{repo}/git/refs/{aref}",owner = owner,repo = repo,aref = aref ),
-  EndPoints::PostReposownerrepoGitTags(owner,repo) => format!("/repos/{owner}/{repo}/git/tags",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoGitTagstagSha(owner,repo,tag_sha) => format!("/repos/{owner}/{repo}/git/tags/{tag_sha}",owner = owner,repo = repo,tag_sha = tag_sha ),
-  EndPoints::PostReposownerrepoGitTrees(owner,repo) => format!("/repos/{owner}/{repo}/git/trees",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoGitTreestreeSha(owner,repo,tree_sha) => format!("/repos/{owner}/{repo}/git/trees/{tree_sha}",owner = owner,repo = repo,tree_sha = tree_sha ),
-  EndPoints::GetReposownerrepoHooks(owner,repo) => format!("/repos/{owner}/{repo}/hooks",owner = owner,repo = repo ),
-  EndPoints::PostReposownerrepoHooks(owner,repo) => format!("/repos/{owner}/{repo}/hooks",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoHookshookId(owner,repo,hook_id) => format!("/repos/{owner}/{repo}/hooks/{hook_id}",owner = owner,repo = repo,hook_id = hook_id ),
-  EndPoints::PatchReposownerrepoHookshookId(owner,repo,hook_id) => format!("/repos/{owner}/{repo}/hooks/{hook_id}",owner = owner,repo = repo,hook_id = hook_id ),
-  EndPoints::DeleteReposownerrepoHookshookId(owner,repo,hook_id) => format!("/repos/{owner}/{repo}/hooks/{hook_id}",owner = owner,repo = repo,hook_id = hook_id ),
-  EndPoints::GetReposownerrepoHookshookIdConfig(owner,repo,hook_id) => format!("/repos/{owner}/{repo}/hooks/{hook_id}/config",owner = owner,repo = repo,hook_id = hook_id ),
-  EndPoints::PatchReposownerrepoHookshookIdConfig(owner,repo,hook_id) => format!("/repos/{owner}/{repo}/hooks/{hook_id}/config",owner = owner,repo = repo,hook_id = hook_id ),
-  EndPoints::GetReposownerrepoHookshookIdDeliveries(owner,repo,hook_id) => format!("/repos/{owner}/{repo}/hooks/{hook_id}/deliveries",owner = owner,repo = repo,hook_id = hook_id ),
-  EndPoints::GetReposownerrepoHookshookIdDeliveriesdeliveryId(owner,repo,hook_id,delivery_id) => format!("/repos/{owner}/{repo}/hooks/{hook_id}/deliveries/{delivery_id}",owner = owner,repo = repo,hook_id = hook_id,delivery_id = delivery_id ),
-  EndPoints::PostReposownerrepoHookshookIdDeliveriesdeliveryIdAttempts(owner,repo,hook_id,delivery_id) => format!("/repos/{owner}/{repo}/hooks/{hook_id}/deliveries/{delivery_id}/attempts",owner = owner,repo = repo,hook_id = hook_id,delivery_id = delivery_id ),
-  EndPoints::PostReposownerrepoHookshookIdPings(owner,repo,hook_id) => format!("/repos/{owner}/{repo}/hooks/{hook_id}/pings",owner = owner,repo = repo,hook_id = hook_id ),
-  EndPoints::PostReposownerrepoHookshookIdTests(owner,repo,hook_id) => format!("/repos/{owner}/{repo}/hooks/{hook_id}/tests",owner = owner,repo = repo,hook_id = hook_id ),
-  EndPoints::GetReposownerrepoImport(owner,repo) => format!("/repos/{owner}/{repo}/import",owner = owner,repo = repo ),
-  EndPoints::PutReposownerrepoImport(owner,repo) => format!("/repos/{owner}/{repo}/import",owner = owner,repo = repo ),
-  EndPoints::PatchReposownerrepoImport(owner,repo) => format!("/repos/{owner}/{repo}/import",owner = owner,repo = repo ),
-  EndPoints::DeleteReposownerrepoImport(owner,repo) => format!("/repos/{owner}/{repo}/import",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoImportAuthors(owner,repo) => format!("/repos/{owner}/{repo}/import/authors",owner = owner,repo = repo ),
-  EndPoints::PatchReposownerrepoImportAuthorsauthorId(owner,repo,author_id) => format!("/repos/{owner}/{repo}/import/authors/{author_id}",owner = owner,repo = repo,author_id = author_id ),
-  EndPoints::GetReposownerrepoImportLargeFiles(owner,repo) => format!("/repos/{owner}/{repo}/import/large_files",owner = owner,repo = repo ),
-  EndPoints::PatchReposownerrepoImportLfs(owner,repo) => format!("/repos/{owner}/{repo}/import/lfs",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoInstallation(owner,repo) => format!("/repos/{owner}/{repo}/installation",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoInteractionLimits(owner,repo) => format!("/repos/{owner}/{repo}/interaction-limits",owner = owner,repo = repo ),
-  EndPoints::PutReposownerrepoInteractionLimits(owner,repo) => format!("/repos/{owner}/{repo}/interaction-limits",owner = owner,repo = repo ),
-  EndPoints::DeleteReposownerrepoInteractionLimits(owner,repo) => format!("/repos/{owner}/{repo}/interaction-limits",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoInvitations(owner,repo) => format!("/repos/{owner}/{repo}/invitations",owner = owner,repo = repo ),
-  EndPoints::PatchReposownerrepoInvitationsinvitationId(owner,repo,invitation_id) => format!("/repos/{owner}/{repo}/invitations/{invitation_id}",owner = owner,repo = repo,invitation_id = invitation_id ),
-  EndPoints::DeleteReposownerrepoInvitationsinvitationId(owner,repo,invitation_id) => format!("/repos/{owner}/{repo}/invitations/{invitation_id}",owner = owner,repo = repo,invitation_id = invitation_id ),
-  EndPoints::GetReposownerrepoIssues(owner,repo) => format!("/repos/{owner}/{repo}/issues",owner = owner,repo = repo ),
-  EndPoints::PostReposownerrepoIssues(owner,repo) => format!("/repos/{owner}/{repo}/issues",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoIssuesComments(owner,repo) => format!("/repos/{owner}/{repo}/issues/comments",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoIssuesCommentscommentId(owner,repo,comment_id) => format!("/repos/{owner}/{repo}/issues/comments/{comment_id}",owner = owner,repo = repo,comment_id = comment_id ),
-  EndPoints::PatchReposownerrepoIssuesCommentscommentId(owner,repo,comment_id) => format!("/repos/{owner}/{repo}/issues/comments/{comment_id}",owner = owner,repo = repo,comment_id = comment_id ),
-  EndPoints::DeleteReposownerrepoIssuesCommentscommentId(owner,repo,comment_id) => format!("/repos/{owner}/{repo}/issues/comments/{comment_id}",owner = owner,repo = repo,comment_id = comment_id ),
-  EndPoints::GetReposownerrepoIssuesCommentscommentIdReactions(owner,repo,comment_id) => format!("/repos/{owner}/{repo}/issues/comments/{comment_id}/reactions",owner = owner,repo = repo,comment_id = comment_id ),
-  EndPoints::PostReposownerrepoIssuesCommentscommentIdReactions(owner,repo,comment_id) => format!("/repos/{owner}/{repo}/issues/comments/{comment_id}/reactions",owner = owner,repo = repo,comment_id = comment_id ),
-  EndPoints::DeleteReposownerrepoIssuesCommentscommentIdReactionsreactionId(owner,repo,comment_id,reaction_id) => format!("/repos/{owner}/{repo}/issues/comments/{comment_id}/reactions/{reaction_id}",owner = owner,repo = repo,comment_id = comment_id,reaction_id = reaction_id ),
-  EndPoints::GetReposownerrepoIssuesEvents(owner,repo) => format!("/repos/{owner}/{repo}/issues/events",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoIssuesEventseventId(owner,repo,event_id) => format!("/repos/{owner}/{repo}/issues/events/{event_id}",owner = owner,repo = repo,event_id = event_id ),
-  EndPoints::GetReposownerrepoIssuesissueNumber(owner,repo,issue_number) => format!("/repos/{owner}/{repo}/issues/{issue_number}",owner = owner,repo = repo,issue_number = issue_number ),
-  EndPoints::PatchReposownerrepoIssuesissueNumber(owner,repo,issue_number) => format!("/repos/{owner}/{repo}/issues/{issue_number}",owner = owner,repo = repo,issue_number = issue_number ),
-  EndPoints::PostReposownerrepoIssuesissueNumberAssignees(owner,repo,issue_number) => format!("/repos/{owner}/{repo}/issues/{issue_number}/assignees",owner = owner,repo = repo,issue_number = issue_number ),
-  EndPoints::DeleteReposownerrepoIssuesissueNumberAssignees(owner,repo,issue_number) => format!("/repos/{owner}/{repo}/issues/{issue_number}/assignees",owner = owner,repo = repo,issue_number = issue_number ),
-  EndPoints::GetReposownerrepoIssuesissueNumberComments(owner,repo,issue_number) => format!("/repos/{owner}/{repo}/issues/{issue_number}/comments",owner = owner,repo = repo,issue_number = issue_number ),
-  EndPoints::PostReposownerrepoIssuesissueNumberComments(owner,repo,issue_number) => format!("/repos/{owner}/{repo}/issues/{issue_number}/comments",owner = owner,repo = repo,issue_number = issue_number ),
-  EndPoints::GetReposownerrepoIssuesissueNumberEvents(owner,repo,issue_number) => format!("/repos/{owner}/{repo}/issues/{issue_number}/events",owner = owner,repo = repo,issue_number = issue_number ),
-  EndPoints::GetReposownerrepoIssuesissueNumberLabels(owner,repo,issue_number) => format!("/repos/{owner}/{repo}/issues/{issue_number}/labels",owner = owner,repo = repo,issue_number = issue_number ),
-  EndPoints::PostReposownerrepoIssuesissueNumberLabels(owner,repo,issue_number) => format!("/repos/{owner}/{repo}/issues/{issue_number}/labels",owner = owner,repo = repo,issue_number = issue_number ),
-  EndPoints::PutReposownerrepoIssuesissueNumberLabels(owner,repo,issue_number) => format!("/repos/{owner}/{repo}/issues/{issue_number}/labels",owner = owner,repo = repo,issue_number = issue_number ),
-  EndPoints::DeleteReposownerrepoIssuesissueNumberLabels(owner,repo,issue_number) => format!("/repos/{owner}/{repo}/issues/{issue_number}/labels",owner = owner,repo = repo,issue_number = issue_number ),
-  EndPoints::DeleteReposownerrepoIssuesissueNumberLabelsname(owner,repo,issue_number,name) => format!("/repos/{owner}/{repo}/issues/{issue_number}/labels/{name}",owner = owner,repo = repo,issue_number = issue_number,name = name ),
-  EndPoints::PutReposownerrepoIssuesissueNumberLock(owner,repo,issue_number) => format!("/repos/{owner}/{repo}/issues/{issue_number}/lock",owner = owner,repo = repo,issue_number = issue_number ),
-  EndPoints::DeleteReposownerrepoIssuesissueNumberLock(owner,repo,issue_number) => format!("/repos/{owner}/{repo}/issues/{issue_number}/lock",owner = owner,repo = repo,issue_number = issue_number ),
-  EndPoints::GetReposownerrepoIssuesissueNumberReactions(owner,repo,issue_number) => format!("/repos/{owner}/{repo}/issues/{issue_number}/reactions",owner = owner,repo = repo,issue_number = issue_number ),
-  EndPoints::PostReposownerrepoIssuesissueNumberReactions(owner,repo,issue_number) => format!("/repos/{owner}/{repo}/issues/{issue_number}/reactions",owner = owner,repo = repo,issue_number = issue_number ),
-  EndPoints::DeleteReposownerrepoIssuesissueNumberReactionsreactionId(owner,repo,issue_number,reaction_id) => format!("/repos/{owner}/{repo}/issues/{issue_number}/reactions/{reaction_id}",owner = owner,repo = repo,issue_number = issue_number,reaction_id = reaction_id ),
-  EndPoints::GetReposownerrepoIssuesissueNumberTimeline(owner,repo,issue_number) => format!("/repos/{owner}/{repo}/issues/{issue_number}/timeline",owner = owner,repo = repo,issue_number = issue_number ),
-  EndPoints::GetReposownerrepoKeys(owner,repo) => format!("/repos/{owner}/{repo}/keys",owner = owner,repo = repo ),
-  EndPoints::PostReposownerrepoKeys(owner,repo) => format!("/repos/{owner}/{repo}/keys",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoKeyskeyId(owner,repo,key_id) => format!("/repos/{owner}/{repo}/keys/{key_id}",owner = owner,repo = repo,key_id = key_id ),
-  EndPoints::DeleteReposownerrepoKeyskeyId(owner,repo,key_id) => format!("/repos/{owner}/{repo}/keys/{key_id}",owner = owner,repo = repo,key_id = key_id ),
-  EndPoints::GetReposownerrepoLabels(owner,repo) => format!("/repos/{owner}/{repo}/labels",owner = owner,repo = repo ),
-  EndPoints::PostReposownerrepoLabels(owner,repo) => format!("/repos/{owner}/{repo}/labels",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoLabelsname(owner,repo,name) => format!("/repos/{owner}/{repo}/labels/{name}",owner = owner,repo = repo,name = name ),
-  EndPoints::PatchReposownerrepoLabelsname(owner,repo,name) => format!("/repos/{owner}/{repo}/labels/{name}",owner = owner,repo = repo,name = name ),
-  EndPoints::DeleteReposownerrepoLabelsname(owner,repo,name) => format!("/repos/{owner}/{repo}/labels/{name}",owner = owner,repo = repo,name = name ),
-  EndPoints::GetReposownerrepoLanguages(owner,repo) => format!("/repos/{owner}/{repo}/languages",owner = owner,repo = repo ),
-  EndPoints::PutReposownerrepoLfs(owner,repo) => format!("/repos/{owner}/{repo}/lfs",owner = owner,repo = repo ),
-  EndPoints::DeleteReposownerrepoLfs(owner,repo) => format!("/repos/{owner}/{repo}/lfs",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoLicense(owner,repo) => format!("/repos/{owner}/{repo}/license",owner = owner,repo = repo ),
-  EndPoints::PostReposownerrepoMergeUpstream(owner,repo) => format!("/repos/{owner}/{repo}/merge-upstream",owner = owner,repo = repo ),
-  EndPoints::PostReposownerrepoMerges(owner,repo) => format!("/repos/{owner}/{repo}/merges",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoMilestones(owner,repo) => format!("/repos/{owner}/{repo}/milestones",owner = owner,repo = repo ),
-  EndPoints::PostReposownerrepoMilestones(owner,repo) => format!("/repos/{owner}/{repo}/milestones",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoMilestonesmilestoneNumber(owner,repo,milestone_number) => format!("/repos/{owner}/{repo}/milestones/{milestone_number}",owner = owner,repo = repo,milestone_number = milestone_number ),
-  EndPoints::PatchReposownerrepoMilestonesmilestoneNumber(owner,repo,milestone_number) => format!("/repos/{owner}/{repo}/milestones/{milestone_number}",owner = owner,repo = repo,milestone_number = milestone_number ),
-  EndPoints::DeleteReposownerrepoMilestonesmilestoneNumber(owner,repo,milestone_number) => format!("/repos/{owner}/{repo}/milestones/{milestone_number}",owner = owner,repo = repo,milestone_number = milestone_number ),
-  EndPoints::GetReposownerrepoMilestonesmilestoneNumberLabels(owner,repo,milestone_number) => format!("/repos/{owner}/{repo}/milestones/{milestone_number}/labels",owner = owner,repo = repo,milestone_number = milestone_number ),
-  EndPoints::GetReposownerrepoNotifications(owner,repo) => format!("/repos/{owner}/{repo}/notifications",owner = owner,repo = repo ),
-  EndPoints::PutReposownerrepoNotifications(owner,repo) => format!("/repos/{owner}/{repo}/notifications",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoPages(owner,repo) => format!("/repos/{owner}/{repo}/pages",owner = owner,repo = repo ),
-  EndPoints::PostReposownerrepoPages(owner,repo) => format!("/repos/{owner}/{repo}/pages",owner = owner,repo = repo ),
-  EndPoints::PutReposownerrepoPages(owner,repo) => format!("/repos/{owner}/{repo}/pages",owner = owner,repo = repo ),
-  EndPoints::DeleteReposownerrepoPages(owner,repo) => format!("/repos/{owner}/{repo}/pages",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoPagesBuilds(owner,repo) => format!("/repos/{owner}/{repo}/pages/builds",owner = owner,repo = repo ),
-  EndPoints::PostReposownerrepoPagesBuilds(owner,repo) => format!("/repos/{owner}/{repo}/pages/builds",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoPagesBuildsLatest(owner,repo) => format!("/repos/{owner}/{repo}/pages/builds/latest",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoPagesBuildsbuildId(owner,repo,build_id) => format!("/repos/{owner}/{repo}/pages/builds/{build_id}",owner = owner,repo = repo,build_id = build_id ),
-  EndPoints::GetReposownerrepoPagesHealth(owner,repo) => format!("/repos/{owner}/{repo}/pages/health",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoProjects(owner,repo) => format!("/repos/{owner}/{repo}/projects",owner = owner,repo = repo ),
-  EndPoints::PostReposownerrepoProjects(owner,repo) => format!("/repos/{owner}/{repo}/projects",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoPulls(owner,repo) => format!("/repos/{owner}/{repo}/pulls",owner = owner,repo = repo ),
-  EndPoints::PostReposownerrepoPulls(owner,repo) => format!("/repos/{owner}/{repo}/pulls",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoPullsComments(owner,repo) => format!("/repos/{owner}/{repo}/pulls/comments",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoPullsCommentscommentId(owner,repo,comment_id) => format!("/repos/{owner}/{repo}/pulls/comments/{comment_id}",owner = owner,repo = repo,comment_id = comment_id ),
-  EndPoints::PatchReposownerrepoPullsCommentscommentId(owner,repo,comment_id) => format!("/repos/{owner}/{repo}/pulls/comments/{comment_id}",owner = owner,repo = repo,comment_id = comment_id ),
-  EndPoints::DeleteReposownerrepoPullsCommentscommentId(owner,repo,comment_id) => format!("/repos/{owner}/{repo}/pulls/comments/{comment_id}",owner = owner,repo = repo,comment_id = comment_id ),
-  EndPoints::GetReposownerrepoPullsCommentscommentIdReactions(owner,repo,comment_id) => format!("/repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions",owner = owner,repo = repo,comment_id = comment_id ),
-  EndPoints::PostReposownerrepoPullsCommentscommentIdReactions(owner,repo,comment_id) => format!("/repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions",owner = owner,repo = repo,comment_id = comment_id ),
-  EndPoints::DeleteReposownerrepoPullsCommentscommentIdReactionsreactionId(owner,repo,comment_id,reaction_id) => format!("/repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions/{reaction_id}",owner = owner,repo = repo,comment_id = comment_id,reaction_id = reaction_id ),
-  EndPoints::GetReposownerrepoPullspullNumber(owner,repo,pull_number) => format!("/repos/{owner}/{repo}/pulls/{pull_number}",owner = owner,repo = repo,pull_number = pull_number ),
-  EndPoints::PatchReposownerrepoPullspullNumber(owner,repo,pull_number) => format!("/repos/{owner}/{repo}/pulls/{pull_number}",owner = owner,repo = repo,pull_number = pull_number ),
-  EndPoints::PostReposownerrepoPullspullNumberCodespaces(owner,repo,pull_number) => format!("/repos/{owner}/{repo}/pulls/{pull_number}/codespaces",owner = owner,repo = repo,pull_number = pull_number ),
-  EndPoints::GetReposownerrepoPullspullNumberComments(owner,repo,pull_number) => format!("/repos/{owner}/{repo}/pulls/{pull_number}/comments",owner = owner,repo = repo,pull_number = pull_number ),
-  EndPoints::PostReposownerrepoPullspullNumberComments(owner,repo,pull_number) => format!("/repos/{owner}/{repo}/pulls/{pull_number}/comments",owner = owner,repo = repo,pull_number = pull_number ),
-  EndPoints::PostReposownerrepoPullspullNumberCommentscommentIdReplies(owner,repo,pull_number,comment_id) => format!("/repos/{owner}/{repo}/pulls/{pull_number}/comments/{comment_id}/replies",owner = owner,repo = repo,pull_number = pull_number,comment_id = comment_id ),
-  EndPoints::GetReposownerrepoPullspullNumberCommits(owner,repo,pull_number) => format!("/repos/{owner}/{repo}/pulls/{pull_number}/commits",owner = owner,repo = repo,pull_number = pull_number ),
-  EndPoints::GetReposownerrepoPullspullNumberFiles(owner,repo,pull_number) => format!("/repos/{owner}/{repo}/pulls/{pull_number}/files",owner = owner,repo = repo,pull_number = pull_number ),
-  EndPoints::GetReposownerrepoPullspullNumberMerge(owner,repo,pull_number) => format!("/repos/{owner}/{repo}/pulls/{pull_number}/merge",owner = owner,repo = repo,pull_number = pull_number ),
-  EndPoints::PutReposownerrepoPullspullNumberMerge(owner,repo,pull_number) => format!("/repos/{owner}/{repo}/pulls/{pull_number}/merge",owner = owner,repo = repo,pull_number = pull_number ),
-  EndPoints::GetReposownerrepoPullspullNumberRequestedReviewers(owner,repo,pull_number) => format!("/repos/{owner}/{repo}/pulls/{pull_number}/requested_reviewers",owner = owner,repo = repo,pull_number = pull_number ),
-  EndPoints::PostReposownerrepoPullspullNumberRequestedReviewers(owner,repo,pull_number) => format!("/repos/{owner}/{repo}/pulls/{pull_number}/requested_reviewers",owner = owner,repo = repo,pull_number = pull_number ),
-  EndPoints::DeleteReposownerrepoPullspullNumberRequestedReviewers(owner,repo,pull_number) => format!("/repos/{owner}/{repo}/pulls/{pull_number}/requested_reviewers",owner = owner,repo = repo,pull_number = pull_number ),
-  EndPoints::GetReposownerrepoPullspullNumberReviews(owner,repo,pull_number) => format!("/repos/{owner}/{repo}/pulls/{pull_number}/reviews",owner = owner,repo = repo,pull_number = pull_number ),
-  EndPoints::PostReposownerrepoPullspullNumberReviews(owner,repo,pull_number) => format!("/repos/{owner}/{repo}/pulls/{pull_number}/reviews",owner = owner,repo = repo,pull_number = pull_number ),
-  EndPoints::GetReposownerrepoPullspullNumberReviewsreviewId(owner,repo,pull_number,review_id) => format!("/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}",owner = owner,repo = repo,pull_number = pull_number,review_id = review_id ),
-  EndPoints::PutReposownerrepoPullspullNumberReviewsreviewId(owner,repo,pull_number,review_id) => format!("/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}",owner = owner,repo = repo,pull_number = pull_number,review_id = review_id ),
-  EndPoints::DeleteReposownerrepoPullspullNumberReviewsreviewId(owner,repo,pull_number,review_id) => format!("/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}",owner = owner,repo = repo,pull_number = pull_number,review_id = review_id ),
-  EndPoints::GetReposownerrepoPullspullNumberReviewsreviewIdComments(owner,repo,pull_number,review_id) => format!("/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/comments",owner = owner,repo = repo,pull_number = pull_number,review_id = review_id ),
-  EndPoints::PutReposownerrepoPullspullNumberReviewsreviewIdDismissals(owner,repo,pull_number,review_id) => format!("/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/dismissals",owner = owner,repo = repo,pull_number = pull_number,review_id = review_id ),
-  EndPoints::PostReposownerrepoPullspullNumberReviewsreviewIdEvents(owner,repo,pull_number,review_id) => format!("/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/events",owner = owner,repo = repo,pull_number = pull_number,review_id = review_id ),
-  EndPoints::PutReposownerrepoPullspullNumberUpdateBranch(owner,repo,pull_number) => format!("/repos/{owner}/{repo}/pulls/{pull_number}/update-branch",owner = owner,repo = repo,pull_number = pull_number ),
-  EndPoints::GetReposownerrepoReadme(owner,repo) => format!("/repos/{owner}/{repo}/readme",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoReadmedir(owner,repo,dir) => format!("/repos/{owner}/{repo}/readme/{dir}",owner = owner,repo = repo,dir = dir ),
-  EndPoints::GetReposownerrepoReleases(owner,repo) => format!("/repos/{owner}/{repo}/releases",owner = owner,repo = repo ),
-  EndPoints::PostReposownerrepoReleases(owner,repo) => format!("/repos/{owner}/{repo}/releases",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoReleasesAssetsassetId(owner,repo,asset_id) => format!("/repos/{owner}/{repo}/releases/assets/{asset_id}",owner = owner,repo = repo,asset_id = asset_id ),
-  EndPoints::PatchReposownerrepoReleasesAssetsassetId(owner,repo,asset_id) => format!("/repos/{owner}/{repo}/releases/assets/{asset_id}",owner = owner,repo = repo,asset_id = asset_id ),
-  EndPoints::DeleteReposownerrepoReleasesAssetsassetId(owner,repo,asset_id) => format!("/repos/{owner}/{repo}/releases/assets/{asset_id}",owner = owner,repo = repo,asset_id = asset_id ),
-  EndPoints::PostReposownerrepoReleasesGenerateNotes(owner,repo) => format!("/repos/{owner}/{repo}/releases/generate-notes",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoReleasesLatest(owner,repo) => format!("/repos/{owner}/{repo}/releases/latest",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoReleasesTagstag(owner,repo,tag) => format!("/repos/{owner}/{repo}/releases/tags/{tag}",owner = owner,repo = repo,tag = tag ),
-  EndPoints::GetReposownerrepoReleasesreleaseId(owner,repo,release_id) => format!("/repos/{owner}/{repo}/releases/{release_id}",owner = owner,repo = repo,release_id = release_id ),
-  EndPoints::PatchReposownerrepoReleasesreleaseId(owner,repo,release_id) => format!("/repos/{owner}/{repo}/releases/{release_id}",owner = owner,repo = repo,release_id = release_id ),
-  EndPoints::DeleteReposownerrepoReleasesreleaseId(owner,repo,release_id) => format!("/repos/{owner}/{repo}/releases/{release_id}",owner = owner,repo = repo,release_id = release_id ),
-  EndPoints::GetReposownerrepoReleasesreleaseIdAssets(owner,repo,release_id) => format!("/repos/{owner}/{repo}/releases/{release_id}/assets",owner = owner,repo = repo,release_id = release_id ),
-  EndPoints::PostReposownerrepoReleasesreleaseIdAssets(owner,repo,release_id) => format!("/repos/{owner}/{repo}/releases/{release_id}/assets",owner = owner,repo = repo,release_id = release_id ),
-  EndPoints::PostReposownerrepoReleasesreleaseIdReactions(owner,repo,release_id) => format!("/repos/{owner}/{repo}/releases/{release_id}/reactions",owner = owner,repo = repo,release_id = release_id ),
-  EndPoints::GetReposownerrepoSecretScanningAlerts(owner,repo) => format!("/repos/{owner}/{repo}/secret-scanning/alerts",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoSecretScanningAlertsalertNumber(owner,repo,alert_number) => format!("/repos/{owner}/{repo}/secret-scanning/alerts/{alert_number}",owner = owner,repo = repo,alert_number = alert_number ),
-  EndPoints::PatchReposownerrepoSecretScanningAlertsalertNumber(owner,repo,alert_number) => format!("/repos/{owner}/{repo}/secret-scanning/alerts/{alert_number}",owner = owner,repo = repo,alert_number = alert_number ),
-  EndPoints::GetReposownerrepoSecretScanningAlertsalertNumberLocations(owner,repo,alert_number) => format!("/repos/{owner}/{repo}/secret-scanning/alerts/{alert_number}/locations",owner = owner,repo = repo,alert_number = alert_number ),
-  EndPoints::GetReposownerrepoStargazers(owner,repo) => format!("/repos/{owner}/{repo}/stargazers",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoStatsCodeFrequency(owner,repo) => format!("/repos/{owner}/{repo}/stats/code_frequency",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoStatsCommitActivity(owner,repo) => format!("/repos/{owner}/{repo}/stats/commit_activity",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoStatsContributors(owner,repo) => format!("/repos/{owner}/{repo}/stats/contributors",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoStatsParticipation(owner,repo) => format!("/repos/{owner}/{repo}/stats/participation",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoStatsPunchCard(owner,repo) => format!("/repos/{owner}/{repo}/stats/punch_card",owner = owner,repo = repo ),
-  EndPoints::PostReposownerrepoStatusessha(owner,repo,sha) => format!("/repos/{owner}/{repo}/statuses/{sha}",owner = owner,repo = repo,sha = sha ),
-  EndPoints::GetReposownerrepoSubscribers(owner,repo) => format!("/repos/{owner}/{repo}/subscribers",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoSubscription(owner,repo) => format!("/repos/{owner}/{repo}/subscription",owner = owner,repo = repo ),
-  EndPoints::PutReposownerrepoSubscription(owner,repo) => format!("/repos/{owner}/{repo}/subscription",owner = owner,repo = repo ),
-  EndPoints::DeleteReposownerrepoSubscription(owner,repo) => format!("/repos/{owner}/{repo}/subscription",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoTags(owner,repo) => format!("/repos/{owner}/{repo}/tags",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoTarballref(owner,repo,aref) => format!("/repos/{owner}/{repo}/tarball/{aref}",owner = owner,repo = repo,aref = aref ),
-  EndPoints::GetReposownerrepoTeams(owner,repo) => format!("/repos/{owner}/{repo}/teams",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoTopics(owner,repo) => format!("/repos/{owner}/{repo}/topics",owner = owner,repo = repo ),
-  EndPoints::PutReposownerrepoTopics(owner,repo) => format!("/repos/{owner}/{repo}/topics",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoTrafficClones(owner,repo) => format!("/repos/{owner}/{repo}/traffic/clones",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoTrafficPopularPaths(owner,repo) => format!("/repos/{owner}/{repo}/traffic/popular/paths",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoTrafficPopularReferrers(owner,repo) => format!("/repos/{owner}/{repo}/traffic/popular/referrers",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoTrafficViews(owner,repo) => format!("/repos/{owner}/{repo}/traffic/views",owner = owner,repo = repo ),
-  EndPoints::PostReposownerrepoTransfer(owner,repo) => format!("/repos/{owner}/{repo}/transfer",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoVulnerabilityAlerts(owner,repo) => format!("/repos/{owner}/{repo}/vulnerability-alerts",owner = owner,repo = repo ),
-  EndPoints::PutReposownerrepoVulnerabilityAlerts(owner,repo) => format!("/repos/{owner}/{repo}/vulnerability-alerts",owner = owner,repo = repo ),
-  EndPoints::DeleteReposownerrepoVulnerabilityAlerts(owner,repo) => format!("/repos/{owner}/{repo}/vulnerability-alerts",owner = owner,repo = repo ),
-  EndPoints::GetReposownerrepoZipballref(owner,repo,aref) => format!("/repos/{owner}/{repo}/zipball/{aref}",owner = owner,repo = repo,aref = aref ),
-  EndPoints::PostRepostemplateOwnertemplateRepoGenerate(template_owner,template_repo) => format!("/repos/{template_owner}/{template_repo}/generate",template_owner = template_owner,template_repo = template_repo ),
+  EndPoints::DeleteReactionsreactionId(reaction_id) => format!("/reactions/{reaction_id}", reaction_id = reaction_id),
+  EndPoints::GetReposownerrepo(owner,repo) => format!("/repos/{owner}/{repo}", owner = owner,repo = repo),
+  EndPoints::PatchReposownerrepo(owner,repo) => format!("/repos/{owner}/{repo}", owner = owner,repo = repo),
+  EndPoints::DeleteReposownerrepo(owner,repo) => format!("/repos/{owner}/{repo}", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoActionsArtifacts(owner,repo) => format!("/repos/{owner}/{repo}/actions/artifacts", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoActionsArtifactsartifactId(owner,repo,artifact_id) => format!("/repos/{owner}/{repo}/actions/artifacts/{artifact_id}", owner = owner,repo = repo,artifact_id = artifact_id),
+  EndPoints::DeleteReposownerrepoActionsArtifactsartifactId(owner,repo,artifact_id) => format!("/repos/{owner}/{repo}/actions/artifacts/{artifact_id}", owner = owner,repo = repo,artifact_id = artifact_id),
+  EndPoints::GetReposownerrepoActionsArtifactsartifactIdarchiveFormat(owner,repo,artifact_id,archive_format) => format!("/repos/{owner}/{repo}/actions/artifacts/{artifact_id}/{archive_format}", owner = owner,repo = repo,artifact_id = artifact_id,archive_format = archive_format),
+  EndPoints::GetReposownerrepoActionsJobsjobId(owner,repo,job_id) => format!("/repos/{owner}/{repo}/actions/jobs/{job_id}", owner = owner,repo = repo,job_id = job_id),
+  EndPoints::GetReposownerrepoActionsJobsjobIdLogs(owner,repo,job_id) => format!("/repos/{owner}/{repo}/actions/jobs/{job_id}/logs", owner = owner,repo = repo,job_id = job_id),
+  EndPoints::GetReposownerrepoActionsPermissions(owner,repo) => format!("/repos/{owner}/{repo}/actions/permissions", owner = owner,repo = repo),
+  EndPoints::PutReposownerrepoActionsPermissions(owner,repo) => format!("/repos/{owner}/{repo}/actions/permissions", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoActionsPermissionsSelectedActions(owner,repo) => format!("/repos/{owner}/{repo}/actions/permissions/selected-actions", owner = owner,repo = repo),
+  EndPoints::PutReposownerrepoActionsPermissionsSelectedActions(owner,repo) => format!("/repos/{owner}/{repo}/actions/permissions/selected-actions", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoActionsRunners(owner,repo) => format!("/repos/{owner}/{repo}/actions/runners", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoActionsRunnersDownloads(owner,repo) => format!("/repos/{owner}/{repo}/actions/runners/downloads", owner = owner,repo = repo),
+  EndPoints::PostReposownerrepoActionsRunnersRegistrationToken(owner,repo) => format!("/repos/{owner}/{repo}/actions/runners/registration-token", owner = owner,repo = repo),
+  EndPoints::PostReposownerrepoActionsRunnersRemoveToken(owner,repo) => format!("/repos/{owner}/{repo}/actions/runners/remove-token", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoActionsRunnersrunnerId(owner,repo,runner_id) => format!("/repos/{owner}/{repo}/actions/runners/{runner_id}", owner = owner,repo = repo,runner_id = runner_id),
+  EndPoints::DeleteReposownerrepoActionsRunnersrunnerId(owner,repo,runner_id) => format!("/repos/{owner}/{repo}/actions/runners/{runner_id}", owner = owner,repo = repo,runner_id = runner_id),
+  EndPoints::GetReposownerrepoActionsRunnersrunnerIdLabels(owner,repo,runner_id) => format!("/repos/{owner}/{repo}/actions/runners/{runner_id}/labels", owner = owner,repo = repo,runner_id = runner_id),
+  EndPoints::PostReposownerrepoActionsRunnersrunnerIdLabels(owner,repo,runner_id) => format!("/repos/{owner}/{repo}/actions/runners/{runner_id}/labels", owner = owner,repo = repo,runner_id = runner_id),
+  EndPoints::PutReposownerrepoActionsRunnersrunnerIdLabels(owner,repo,runner_id) => format!("/repos/{owner}/{repo}/actions/runners/{runner_id}/labels", owner = owner,repo = repo,runner_id = runner_id),
+  EndPoints::DeleteReposownerrepoActionsRunnersrunnerIdLabels(owner,repo,runner_id) => format!("/repos/{owner}/{repo}/actions/runners/{runner_id}/labels", owner = owner,repo = repo,runner_id = runner_id),
+  EndPoints::DeleteReposownerrepoActionsRunnersrunnerIdLabelsname(owner,repo,runner_id,name) => format!("/repos/{owner}/{repo}/actions/runners/{runner_id}/labels/{name}", owner = owner,repo = repo,runner_id = runner_id,name = name),
+  EndPoints::GetReposownerrepoActionsRuns(owner,repo) => format!("/repos/{owner}/{repo}/actions/runs", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoActionsRunsrunId(owner,repo,run_id) => format!("/repos/{owner}/{repo}/actions/runs/{run_id}", owner = owner,repo = repo,run_id = run_id),
+  EndPoints::DeleteReposownerrepoActionsRunsrunId(owner,repo,run_id) => format!("/repos/{owner}/{repo}/actions/runs/{run_id}", owner = owner,repo = repo,run_id = run_id),
+  EndPoints::GetReposownerrepoActionsRunsrunIdApprovals(owner,repo,run_id) => format!("/repos/{owner}/{repo}/actions/runs/{run_id}/approvals", owner = owner,repo = repo,run_id = run_id),
+  EndPoints::PostReposownerrepoActionsRunsrunIdApprove(owner,repo,run_id) => format!("/repos/{owner}/{repo}/actions/runs/{run_id}/approve", owner = owner,repo = repo,run_id = run_id),
+  EndPoints::GetReposownerrepoActionsRunsrunIdArtifacts(owner,repo,run_id) => format!("/repos/{owner}/{repo}/actions/runs/{run_id}/artifacts", owner = owner,repo = repo,run_id = run_id),
+  EndPoints::GetReposownerrepoActionsRunsrunIdAttemptsattemptNumber(owner,repo,run_id,attempt_number) => format!("/repos/{owner}/{repo}/actions/runs/{run_id}/attempts/{attempt_number}", owner = owner,repo = repo,run_id = run_id,attempt_number = attempt_number),
+  EndPoints::GetReposownerrepoActionsRunsrunIdAttemptsattemptNumberJobs(owner,repo,run_id,attempt_number) => format!("/repos/{owner}/{repo}/actions/runs/{run_id}/attempts/{attempt_number}/jobs", owner = owner,repo = repo,run_id = run_id,attempt_number = attempt_number),
+  EndPoints::GetReposownerrepoActionsRunsrunIdAttemptsattemptNumberLogs(owner,repo,run_id,attempt_number) => format!("/repos/{owner}/{repo}/actions/runs/{run_id}/attempts/{attempt_number}/logs", owner = owner,repo = repo,run_id = run_id,attempt_number = attempt_number),
+  EndPoints::PostReposownerrepoActionsRunsrunIdCancel(owner,repo,run_id) => format!("/repos/{owner}/{repo}/actions/runs/{run_id}/cancel", owner = owner,repo = repo,run_id = run_id),
+  EndPoints::GetReposownerrepoActionsRunsrunIdJobs(owner,repo,run_id) => format!("/repos/{owner}/{repo}/actions/runs/{run_id}/jobs", owner = owner,repo = repo,run_id = run_id),
+  EndPoints::GetReposownerrepoActionsRunsrunIdLogs(owner,repo,run_id) => format!("/repos/{owner}/{repo}/actions/runs/{run_id}/logs", owner = owner,repo = repo,run_id = run_id),
+  EndPoints::DeleteReposownerrepoActionsRunsrunIdLogs(owner,repo,run_id) => format!("/repos/{owner}/{repo}/actions/runs/{run_id}/logs", owner = owner,repo = repo,run_id = run_id),
+  EndPoints::GetReposownerrepoActionsRunsrunIdPendingDeployments(owner,repo,run_id) => format!("/repos/{owner}/{repo}/actions/runs/{run_id}/pending_deployments", owner = owner,repo = repo,run_id = run_id),
+  EndPoints::PostReposownerrepoActionsRunsrunIdPendingDeployments(owner,repo,run_id) => format!("/repos/{owner}/{repo}/actions/runs/{run_id}/pending_deployments", owner = owner,repo = repo,run_id = run_id),
+  EndPoints::PostReposownerrepoActionsRunsrunIdRerun(owner,repo,run_id) => format!("/repos/{owner}/{repo}/actions/runs/{run_id}/rerun", owner = owner,repo = repo,run_id = run_id),
+  EndPoints::GetReposownerrepoActionsRunsrunIdTiming(owner,repo,run_id) => format!("/repos/{owner}/{repo}/actions/runs/{run_id}/timing", owner = owner,repo = repo,run_id = run_id),
+  EndPoints::GetReposownerrepoActionsSecrets(owner,repo) => format!("/repos/{owner}/{repo}/actions/secrets", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoActionsSecretsPublicKey(owner,repo) => format!("/repos/{owner}/{repo}/actions/secrets/public-key", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoActionsSecretssecretName(owner,repo,secret_name) => format!("/repos/{owner}/{repo}/actions/secrets/{secret_name}", owner = owner,repo = repo,secret_name = secret_name),
+  EndPoints::PutReposownerrepoActionsSecretssecretName(owner,repo,secret_name) => format!("/repos/{owner}/{repo}/actions/secrets/{secret_name}", owner = owner,repo = repo,secret_name = secret_name),
+  EndPoints::DeleteReposownerrepoActionsSecretssecretName(owner,repo,secret_name) => format!("/repos/{owner}/{repo}/actions/secrets/{secret_name}", owner = owner,repo = repo,secret_name = secret_name),
+  EndPoints::GetReposownerrepoActionsWorkflows(owner,repo) => format!("/repos/{owner}/{repo}/actions/workflows", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoActionsWorkflowsworkflowId(owner,repo,workflow_id) => format!("/repos/{owner}/{repo}/actions/workflows/{workflow_id}", owner = owner,repo = repo,workflow_id = workflow_id),
+  EndPoints::PutReposownerrepoActionsWorkflowsworkflowIdDisable(owner,repo,workflow_id) => format!("/repos/{owner}/{repo}/actions/workflows/{workflow_id}/disable", owner = owner,repo = repo,workflow_id = workflow_id),
+  EndPoints::PostReposownerrepoActionsWorkflowsworkflowIdDispatches(owner,repo,workflow_id) => format!("/repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches", owner = owner,repo = repo,workflow_id = workflow_id),
+  EndPoints::PutReposownerrepoActionsWorkflowsworkflowIdEnable(owner,repo,workflow_id) => format!("/repos/{owner}/{repo}/actions/workflows/{workflow_id}/enable", owner = owner,repo = repo,workflow_id = workflow_id),
+  EndPoints::GetReposownerrepoActionsWorkflowsworkflowIdRuns(owner,repo,workflow_id) => format!("/repos/{owner}/{repo}/actions/workflows/{workflow_id}/runs", owner = owner,repo = repo,workflow_id = workflow_id),
+  EndPoints::GetReposownerrepoActionsWorkflowsworkflowIdTiming(owner,repo,workflow_id) => format!("/repos/{owner}/{repo}/actions/workflows/{workflow_id}/timing", owner = owner,repo = repo,workflow_id = workflow_id),
+  EndPoints::GetReposownerrepoAssignees(owner,repo) => format!("/repos/{owner}/{repo}/assignees", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoAssigneesassignee(owner,repo,assignee) => format!("/repos/{owner}/{repo}/assignees/{assignee}", owner = owner,repo = repo,assignee = assignee),
+  EndPoints::GetReposownerrepoAutolinks(owner,repo) => format!("/repos/{owner}/{repo}/autolinks", owner = owner,repo = repo),
+  EndPoints::PostReposownerrepoAutolinks(owner,repo) => format!("/repos/{owner}/{repo}/autolinks", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoAutolinksautolinkId(owner,repo,autolink_id) => format!("/repos/{owner}/{repo}/autolinks/{autolink_id}", owner = owner,repo = repo,autolink_id = autolink_id),
+  EndPoints::DeleteReposownerrepoAutolinksautolinkId(owner,repo,autolink_id) => format!("/repos/{owner}/{repo}/autolinks/{autolink_id}", owner = owner,repo = repo,autolink_id = autolink_id),
+  EndPoints::PutReposownerrepoAutomatedSecurityFixes(owner,repo) => format!("/repos/{owner}/{repo}/automated-security-fixes", owner = owner,repo = repo),
+  EndPoints::DeleteReposownerrepoAutomatedSecurityFixes(owner,repo) => format!("/repos/{owner}/{repo}/automated-security-fixes", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoBranches(owner,repo) => format!("/repos/{owner}/{repo}/branches", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoBranchesbranch(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}", owner = owner,repo = repo,branch = branch),
+  EndPoints::GetReposownerrepoBranchesbranchProtection(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection", owner = owner,repo = repo,branch = branch),
+  EndPoints::PutReposownerrepoBranchesbranchProtection(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection", owner = owner,repo = repo,branch = branch),
+  EndPoints::DeleteReposownerrepoBranchesbranchProtection(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection", owner = owner,repo = repo,branch = branch),
+  EndPoints::GetReposownerrepoBranchesbranchProtectionEnforceAdmins(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/enforce_admins", owner = owner,repo = repo,branch = branch),
+  EndPoints::PostReposownerrepoBranchesbranchProtectionEnforceAdmins(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/enforce_admins", owner = owner,repo = repo,branch = branch),
+  EndPoints::DeleteReposownerrepoBranchesbranchProtectionEnforceAdmins(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/enforce_admins", owner = owner,repo = repo,branch = branch),
+  EndPoints::GetReposownerrepoBranchesbranchProtectionRequiredPullRequestReviews(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/required_pull_request_reviews", owner = owner,repo = repo,branch = branch),
+  EndPoints::PatchReposownerrepoBranchesbranchProtectionRequiredPullRequestReviews(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/required_pull_request_reviews", owner = owner,repo = repo,branch = branch),
+  EndPoints::DeleteReposownerrepoBranchesbranchProtectionRequiredPullRequestReviews(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/required_pull_request_reviews", owner = owner,repo = repo,branch = branch),
+  EndPoints::GetReposownerrepoBranchesbranchProtectionRequiredSignatures(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/required_signatures", owner = owner,repo = repo,branch = branch),
+  EndPoints::PostReposownerrepoBranchesbranchProtectionRequiredSignatures(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/required_signatures", owner = owner,repo = repo,branch = branch),
+  EndPoints::DeleteReposownerrepoBranchesbranchProtectionRequiredSignatures(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/required_signatures", owner = owner,repo = repo,branch = branch),
+  EndPoints::GetReposownerrepoBranchesbranchProtectionRequiredStatusChecks(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks", owner = owner,repo = repo,branch = branch),
+  EndPoints::PatchReposownerrepoBranchesbranchProtectionRequiredStatusChecks(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks", owner = owner,repo = repo,branch = branch),
+  EndPoints::DeleteReposownerrepoBranchesbranchProtectionRequiredStatusChecks(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks", owner = owner,repo = repo,branch = branch),
+  EndPoints::GetReposownerrepoBranchesbranchProtectionRequiredStatusChecksContexts(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts", owner = owner,repo = repo,branch = branch),
+  EndPoints::PostReposownerrepoBranchesbranchProtectionRequiredStatusChecksContexts(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts", owner = owner,repo = repo,branch = branch),
+  EndPoints::PutReposownerrepoBranchesbranchProtectionRequiredStatusChecksContexts(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts", owner = owner,repo = repo,branch = branch),
+  EndPoints::DeleteReposownerrepoBranchesbranchProtectionRequiredStatusChecksContexts(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts", owner = owner,repo = repo,branch = branch),
+  EndPoints::GetReposownerrepoBranchesbranchProtectionRestrictions(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/restrictions", owner = owner,repo = repo,branch = branch),
+  EndPoints::DeleteReposownerrepoBranchesbranchProtectionRestrictions(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/restrictions", owner = owner,repo = repo,branch = branch),
+  EndPoints::GetReposownerrepoBranchesbranchProtectionRestrictionsApps(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps", owner = owner,repo = repo,branch = branch),
+  EndPoints::PostReposownerrepoBranchesbranchProtectionRestrictionsApps(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps", owner = owner,repo = repo,branch = branch),
+  EndPoints::PutReposownerrepoBranchesbranchProtectionRestrictionsApps(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps", owner = owner,repo = repo,branch = branch),
+  EndPoints::DeleteReposownerrepoBranchesbranchProtectionRestrictionsApps(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps", owner = owner,repo = repo,branch = branch),
+  EndPoints::GetReposownerrepoBranchesbranchProtectionRestrictionsTeams(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams", owner = owner,repo = repo,branch = branch),
+  EndPoints::PostReposownerrepoBranchesbranchProtectionRestrictionsTeams(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams", owner = owner,repo = repo,branch = branch),
+  EndPoints::PutReposownerrepoBranchesbranchProtectionRestrictionsTeams(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams", owner = owner,repo = repo,branch = branch),
+  EndPoints::DeleteReposownerrepoBranchesbranchProtectionRestrictionsTeams(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams", owner = owner,repo = repo,branch = branch),
+  EndPoints::GetReposownerrepoBranchesbranchProtectionRestrictionsUsers(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users", owner = owner,repo = repo,branch = branch),
+  EndPoints::PostReposownerrepoBranchesbranchProtectionRestrictionsUsers(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users", owner = owner,repo = repo,branch = branch),
+  EndPoints::PutReposownerrepoBranchesbranchProtectionRestrictionsUsers(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users", owner = owner,repo = repo,branch = branch),
+  EndPoints::DeleteReposownerrepoBranchesbranchProtectionRestrictionsUsers(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users", owner = owner,repo = repo,branch = branch),
+  EndPoints::PostReposownerrepoBranchesbranchRename(owner,repo,branch) => format!("/repos/{owner}/{repo}/branches/{branch}/rename", owner = owner,repo = repo,branch = branch),
+  EndPoints::PostReposownerrepoCheckRuns(owner,repo) => format!("/repos/{owner}/{repo}/check-runs", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoCheckRunscheckRunId(owner,repo,check_run_id) => format!("/repos/{owner}/{repo}/check-runs/{check_run_id}", owner = owner,repo = repo,check_run_id = check_run_id),
+  EndPoints::PatchReposownerrepoCheckRunscheckRunId(owner,repo,check_run_id) => format!("/repos/{owner}/{repo}/check-runs/{check_run_id}", owner = owner,repo = repo,check_run_id = check_run_id),
+  EndPoints::GetReposownerrepoCheckRunscheckRunIdAnnotations(owner,repo,check_run_id) => format!("/repos/{owner}/{repo}/check-runs/{check_run_id}/annotations", owner = owner,repo = repo,check_run_id = check_run_id),
+  EndPoints::PostReposownerrepoCheckRunscheckRunIdRerequest(owner,repo,check_run_id) => format!("/repos/{owner}/{repo}/check-runs/{check_run_id}/rerequest", owner = owner,repo = repo,check_run_id = check_run_id),
+  EndPoints::PostReposownerrepoCheckSuites(owner,repo) => format!("/repos/{owner}/{repo}/check-suites", owner = owner,repo = repo),
+  EndPoints::PatchReposownerrepoCheckSuitesPreferences(owner,repo) => format!("/repos/{owner}/{repo}/check-suites/preferences", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoCheckSuitescheckSuiteId(owner,repo,check_suite_id) => format!("/repos/{owner}/{repo}/check-suites/{check_suite_id}", owner = owner,repo = repo,check_suite_id = check_suite_id),
+  EndPoints::GetReposownerrepoCheckSuitescheckSuiteIdCheckRuns(owner,repo,check_suite_id) => format!("/repos/{owner}/{repo}/check-suites/{check_suite_id}/check-runs", owner = owner,repo = repo,check_suite_id = check_suite_id),
+  EndPoints::PostReposownerrepoCheckSuitescheckSuiteIdRerequest(owner,repo,check_suite_id) => format!("/repos/{owner}/{repo}/check-suites/{check_suite_id}/rerequest", owner = owner,repo = repo,check_suite_id = check_suite_id),
+  EndPoints::GetReposownerrepoCodeScanningAlerts(owner,repo) => format!("/repos/{owner}/{repo}/code-scanning/alerts", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoCodeScanningAlertsalertNumber(owner,repo,alert_number) => format!("/repos/{owner}/{repo}/code-scanning/alerts/{alert_number}", owner = owner,repo = repo,alert_number = alert_number),
+  EndPoints::PatchReposownerrepoCodeScanningAlertsalertNumber(owner,repo,alert_number) => format!("/repos/{owner}/{repo}/code-scanning/alerts/{alert_number}", owner = owner,repo = repo,alert_number = alert_number),
+  EndPoints::GetReposownerrepoCodeScanningAlertsalertNumberInstances(owner,repo,alert_number) => format!("/repos/{owner}/{repo}/code-scanning/alerts/{alert_number}/instances", owner = owner,repo = repo,alert_number = alert_number),
+  EndPoints::GetReposownerrepoCodeScanningAnalyses(owner,repo) => format!("/repos/{owner}/{repo}/code-scanning/analyses", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoCodeScanningAnalysesanalysisId(owner,repo,analysis_id) => format!("/repos/{owner}/{repo}/code-scanning/analyses/{analysis_id}", owner = owner,repo = repo,analysis_id = analysis_id),
+  EndPoints::DeleteReposownerrepoCodeScanningAnalysesanalysisId(owner,repo,analysis_id) => format!("/repos/{owner}/{repo}/code-scanning/analyses/{analysis_id}", owner = owner,repo = repo,analysis_id = analysis_id),
+  EndPoints::PostReposownerrepoCodeScanningSarifs(owner,repo) => format!("/repos/{owner}/{repo}/code-scanning/sarifs", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoCodeScanningSarifssarifId(owner,repo,sarif_id) => format!("/repos/{owner}/{repo}/code-scanning/sarifs/{sarif_id}", owner = owner,repo = repo,sarif_id = sarif_id),
+  EndPoints::GetReposownerrepoCodespaces(owner,repo) => format!("/repos/{owner}/{repo}/codespaces", owner = owner,repo = repo),
+  EndPoints::PostReposownerrepoCodespaces(owner,repo) => format!("/repos/{owner}/{repo}/codespaces", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoCodespacesMachines(owner,repo) => format!("/repos/{owner}/{repo}/codespaces/machines", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoCollaborators(owner,repo) => format!("/repos/{owner}/{repo}/collaborators", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoCollaboratorsusername(owner,repo,username) => format!("/repos/{owner}/{repo}/collaborators/{username}", owner = owner,repo = repo,username = username),
+  EndPoints::PutReposownerrepoCollaboratorsusername(owner,repo,username) => format!("/repos/{owner}/{repo}/collaborators/{username}", owner = owner,repo = repo,username = username),
+  EndPoints::DeleteReposownerrepoCollaboratorsusername(owner,repo,username) => format!("/repos/{owner}/{repo}/collaborators/{username}", owner = owner,repo = repo,username = username),
+  EndPoints::GetReposownerrepoCollaboratorsusernamePermission(owner,repo,username) => format!("/repos/{owner}/{repo}/collaborators/{username}/permission", owner = owner,repo = repo,username = username),
+  EndPoints::GetReposownerrepoComments(owner,repo) => format!("/repos/{owner}/{repo}/comments", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoCommentscommentId(owner,repo,comment_id) => format!("/repos/{owner}/{repo}/comments/{comment_id}", owner = owner,repo = repo,comment_id = comment_id),
+  EndPoints::PatchReposownerrepoCommentscommentId(owner,repo,comment_id) => format!("/repos/{owner}/{repo}/comments/{comment_id}", owner = owner,repo = repo,comment_id = comment_id),
+  EndPoints::DeleteReposownerrepoCommentscommentId(owner,repo,comment_id) => format!("/repos/{owner}/{repo}/comments/{comment_id}", owner = owner,repo = repo,comment_id = comment_id),
+  EndPoints::GetReposownerrepoCommentscommentIdReactions(owner,repo,comment_id) => format!("/repos/{owner}/{repo}/comments/{comment_id}/reactions", owner = owner,repo = repo,comment_id = comment_id),
+  EndPoints::PostReposownerrepoCommentscommentIdReactions(owner,repo,comment_id) => format!("/repos/{owner}/{repo}/comments/{comment_id}/reactions", owner = owner,repo = repo,comment_id = comment_id),
+  EndPoints::DeleteReposownerrepoCommentscommentIdReactionsreactionId(owner,repo,comment_id,reaction_id) => format!("/repos/{owner}/{repo}/comments/{comment_id}/reactions/{reaction_id}", owner = owner,repo = repo,comment_id = comment_id,reaction_id = reaction_id),
+  EndPoints::GetReposownerrepoCommits(owner,repo) => format!("/repos/{owner}/{repo}/commits", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoCommitscommitShaBranchesWhereHead(owner,repo,commit_sha) => format!("/repos/{owner}/{repo}/commits/{commit_sha}/branches-where-head", owner = owner,repo = repo,commit_sha = commit_sha),
+  EndPoints::GetReposownerrepoCommitscommitShaComments(owner,repo,commit_sha) => format!("/repos/{owner}/{repo}/commits/{commit_sha}/comments", owner = owner,repo = repo,commit_sha = commit_sha),
+  EndPoints::PostReposownerrepoCommitscommitShaComments(owner,repo,commit_sha) => format!("/repos/{owner}/{repo}/commits/{commit_sha}/comments", owner = owner,repo = repo,commit_sha = commit_sha),
+  EndPoints::GetReposownerrepoCommitscommitShaPulls(owner,repo,commit_sha) => format!("/repos/{owner}/{repo}/commits/{commit_sha}/pulls", owner = owner,repo = repo,commit_sha = commit_sha),
+  EndPoints::GetReposownerrepoCommitsref(owner,repo,aref) => format!("/repos/{owner}/{repo}/commits/{aref}", owner = owner,repo = repo,aref = aref),
+  EndPoints::GetReposownerrepoCommitsrefCheckRuns(owner,repo,aref) => format!("/repos/{owner}/{repo}/commits/{aref}/check-runs", owner = owner,repo = repo,aref = aref),
+  EndPoints::GetReposownerrepoCommitsrefCheckSuites(owner,repo,aref) => format!("/repos/{owner}/{repo}/commits/{aref}/check-suites", owner = owner,repo = repo,aref = aref),
+  EndPoints::GetReposownerrepoCommitsrefStatus(owner,repo,aref) => format!("/repos/{owner}/{repo}/commits/{aref}/status", owner = owner,repo = repo,aref = aref),
+  EndPoints::GetReposownerrepoCommitsrefStatuses(owner,repo,aref) => format!("/repos/{owner}/{repo}/commits/{aref}/statuses", owner = owner,repo = repo,aref = aref),
+  EndPoints::GetReposownerrepoCommunityProfile(owner,repo) => format!("/repos/{owner}/{repo}/community/profile", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoComparebasehead(owner,repo,basehead) => format!("/repos/{owner}/{repo}/compare/{basehead}", owner = owner,repo = repo,basehead = basehead),
+  EndPoints::GetReposownerrepoContentspath(owner,repo,path) => format!("/repos/{owner}/{repo}/contents/{path}", owner = owner,repo = repo,path = path),
+  EndPoints::PutReposownerrepoContentspath(owner,repo,path) => format!("/repos/{owner}/{repo}/contents/{path}", owner = owner,repo = repo,path = path),
+  EndPoints::DeleteReposownerrepoContentspath(owner,repo,path) => format!("/repos/{owner}/{repo}/contents/{path}", owner = owner,repo = repo,path = path),
+  EndPoints::GetReposownerrepoContributors(owner,repo) => format!("/repos/{owner}/{repo}/contributors", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoDependabotSecrets(owner,repo) => format!("/repos/{owner}/{repo}/dependabot/secrets", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoDependabotSecretsPublicKey(owner,repo) => format!("/repos/{owner}/{repo}/dependabot/secrets/public-key", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoDependabotSecretssecretName(owner,repo,secret_name) => format!("/repos/{owner}/{repo}/dependabot/secrets/{secret_name}", owner = owner,repo = repo,secret_name = secret_name),
+  EndPoints::PutReposownerrepoDependabotSecretssecretName(owner,repo,secret_name) => format!("/repos/{owner}/{repo}/dependabot/secrets/{secret_name}", owner = owner,repo = repo,secret_name = secret_name),
+  EndPoints::DeleteReposownerrepoDependabotSecretssecretName(owner,repo,secret_name) => format!("/repos/{owner}/{repo}/dependabot/secrets/{secret_name}", owner = owner,repo = repo,secret_name = secret_name),
+  EndPoints::GetReposownerrepoDeployments(owner,repo) => format!("/repos/{owner}/{repo}/deployments", owner = owner,repo = repo),
+  EndPoints::PostReposownerrepoDeployments(owner,repo) => format!("/repos/{owner}/{repo}/deployments", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoDeploymentsdeploymentId(owner,repo,deployment_id) => format!("/repos/{owner}/{repo}/deployments/{deployment_id}", owner = owner,repo = repo,deployment_id = deployment_id),
+  EndPoints::DeleteReposownerrepoDeploymentsdeploymentId(owner,repo,deployment_id) => format!("/repos/{owner}/{repo}/deployments/{deployment_id}", owner = owner,repo = repo,deployment_id = deployment_id),
+  EndPoints::GetReposownerrepoDeploymentsdeploymentIdStatuses(owner,repo,deployment_id) => format!("/repos/{owner}/{repo}/deployments/{deployment_id}/statuses", owner = owner,repo = repo,deployment_id = deployment_id),
+  EndPoints::PostReposownerrepoDeploymentsdeploymentIdStatuses(owner,repo,deployment_id) => format!("/repos/{owner}/{repo}/deployments/{deployment_id}/statuses", owner = owner,repo = repo,deployment_id = deployment_id),
+  EndPoints::GetReposownerrepoDeploymentsdeploymentIdStatusesstatusId(owner,repo,deployment_id,status_id) => format!("/repos/{owner}/{repo}/deployments/{deployment_id}/statuses/{status_id}", owner = owner,repo = repo,deployment_id = deployment_id,status_id = status_id),
+  EndPoints::PostReposownerrepoDispatches(owner,repo) => format!("/repos/{owner}/{repo}/dispatches", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoEnvironments(owner,repo) => format!("/repos/{owner}/{repo}/environments", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoEnvironmentsenvironmentName(owner,repo,environment_name) => format!("/repos/{owner}/{repo}/environments/{environment_name}", owner = owner,repo = repo,environment_name = environment_name),
+  EndPoints::PutReposownerrepoEnvironmentsenvironmentName(owner,repo,environment_name) => format!("/repos/{owner}/{repo}/environments/{environment_name}", owner = owner,repo = repo,environment_name = environment_name),
+  EndPoints::DeleteReposownerrepoEnvironmentsenvironmentName(owner,repo,environment_name) => format!("/repos/{owner}/{repo}/environments/{environment_name}", owner = owner,repo = repo,environment_name = environment_name),
+  EndPoints::GetReposownerrepoEvents(owner,repo) => format!("/repos/{owner}/{repo}/events", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoForks(owner,repo) => format!("/repos/{owner}/{repo}/forks", owner = owner,repo = repo),
+  EndPoints::PostReposownerrepoForks(owner,repo) => format!("/repos/{owner}/{repo}/forks", owner = owner,repo = repo),
+  EndPoints::PostReposownerrepoGitBlobs(owner,repo) => format!("/repos/{owner}/{repo}/git/blobs", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoGitBlobsfileSha(owner,repo,file_sha) => format!("/repos/{owner}/{repo}/git/blobs/{file_sha}", owner = owner,repo = repo,file_sha = file_sha),
+  EndPoints::PostReposownerrepoGitCommits(owner,repo) => format!("/repos/{owner}/{repo}/git/commits", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoGitCommitscommitSha(owner,repo,commit_sha) => format!("/repos/{owner}/{repo}/git/commits/{commit_sha}", owner = owner,repo = repo,commit_sha = commit_sha),
+  EndPoints::GetReposownerrepoGitMatchingRefsref(owner,repo,aref) => format!("/repos/{owner}/{repo}/git/matching-refs/{aref}", owner = owner,repo = repo,aref = aref),
+  EndPoints::GetReposownerrepoGitRefref(owner,repo,aref) => format!("/repos/{owner}/{repo}/git/ref/{aref}", owner = owner,repo = repo,aref = aref),
+  EndPoints::PostReposownerrepoGitRefs(owner,repo) => format!("/repos/{owner}/{repo}/git/refs", owner = owner,repo = repo),
+  EndPoints::PatchReposownerrepoGitRefsref(owner,repo,aref) => format!("/repos/{owner}/{repo}/git/refs/{aref}", owner = owner,repo = repo,aref = aref),
+  EndPoints::DeleteReposownerrepoGitRefsref(owner,repo,aref) => format!("/repos/{owner}/{repo}/git/refs/{aref}", owner = owner,repo = repo,aref = aref),
+  EndPoints::PostReposownerrepoGitTags(owner,repo) => format!("/repos/{owner}/{repo}/git/tags", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoGitTagstagSha(owner,repo,tag_sha) => format!("/repos/{owner}/{repo}/git/tags/{tag_sha}", owner = owner,repo = repo,tag_sha = tag_sha),
+  EndPoints::PostReposownerrepoGitTrees(owner,repo) => format!("/repos/{owner}/{repo}/git/trees", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoGitTreestreeSha(owner,repo,tree_sha) => format!("/repos/{owner}/{repo}/git/trees/{tree_sha}", owner = owner,repo = repo,tree_sha = tree_sha),
+  EndPoints::GetReposownerrepoHooks(owner,repo) => format!("/repos/{owner}/{repo}/hooks", owner = owner,repo = repo),
+  EndPoints::PostReposownerrepoHooks(owner,repo) => format!("/repos/{owner}/{repo}/hooks", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoHookshookId(owner,repo,hook_id) => format!("/repos/{owner}/{repo}/hooks/{hook_id}", owner = owner,repo = repo,hook_id = hook_id),
+  EndPoints::PatchReposownerrepoHookshookId(owner,repo,hook_id) => format!("/repos/{owner}/{repo}/hooks/{hook_id}", owner = owner,repo = repo,hook_id = hook_id),
+  EndPoints::DeleteReposownerrepoHookshookId(owner,repo,hook_id) => format!("/repos/{owner}/{repo}/hooks/{hook_id}", owner = owner,repo = repo,hook_id = hook_id),
+  EndPoints::GetReposownerrepoHookshookIdConfig(owner,repo,hook_id) => format!("/repos/{owner}/{repo}/hooks/{hook_id}/config", owner = owner,repo = repo,hook_id = hook_id),
+  EndPoints::PatchReposownerrepoHookshookIdConfig(owner,repo,hook_id) => format!("/repos/{owner}/{repo}/hooks/{hook_id}/config", owner = owner,repo = repo,hook_id = hook_id),
+  EndPoints::GetReposownerrepoHookshookIdDeliveries(owner,repo,hook_id) => format!("/repos/{owner}/{repo}/hooks/{hook_id}/deliveries", owner = owner,repo = repo,hook_id = hook_id),
+  EndPoints::GetReposownerrepoHookshookIdDeliveriesdeliveryId(owner,repo,hook_id,delivery_id) => format!("/repos/{owner}/{repo}/hooks/{hook_id}/deliveries/{delivery_id}", owner = owner,repo = repo,hook_id = hook_id,delivery_id = delivery_id),
+  EndPoints::PostReposownerrepoHookshookIdDeliveriesdeliveryIdAttempts(owner,repo,hook_id,delivery_id) => format!("/repos/{owner}/{repo}/hooks/{hook_id}/deliveries/{delivery_id}/attempts", owner = owner,repo = repo,hook_id = hook_id,delivery_id = delivery_id),
+  EndPoints::PostReposownerrepoHookshookIdPings(owner,repo,hook_id) => format!("/repos/{owner}/{repo}/hooks/{hook_id}/pings", owner = owner,repo = repo,hook_id = hook_id),
+  EndPoints::PostReposownerrepoHookshookIdTests(owner,repo,hook_id) => format!("/repos/{owner}/{repo}/hooks/{hook_id}/tests", owner = owner,repo = repo,hook_id = hook_id),
+  EndPoints::GetReposownerrepoImport(owner,repo) => format!("/repos/{owner}/{repo}/import", owner = owner,repo = repo),
+  EndPoints::PutReposownerrepoImport(owner,repo) => format!("/repos/{owner}/{repo}/import", owner = owner,repo = repo),
+  EndPoints::PatchReposownerrepoImport(owner,repo) => format!("/repos/{owner}/{repo}/import", owner = owner,repo = repo),
+  EndPoints::DeleteReposownerrepoImport(owner,repo) => format!("/repos/{owner}/{repo}/import", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoImportAuthors(owner,repo) => format!("/repos/{owner}/{repo}/import/authors", owner = owner,repo = repo),
+  EndPoints::PatchReposownerrepoImportAuthorsauthorId(owner,repo,author_id) => format!("/repos/{owner}/{repo}/import/authors/{author_id}", owner = owner,repo = repo,author_id = author_id),
+  EndPoints::GetReposownerrepoImportLargeFiles(owner,repo) => format!("/repos/{owner}/{repo}/import/large_files", owner = owner,repo = repo),
+  EndPoints::PatchReposownerrepoImportLfs(owner,repo) => format!("/repos/{owner}/{repo}/import/lfs", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoInstallation(owner,repo) => format!("/repos/{owner}/{repo}/installation", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoInteractionLimits(owner,repo) => format!("/repos/{owner}/{repo}/interaction-limits", owner = owner,repo = repo),
+  EndPoints::PutReposownerrepoInteractionLimits(owner,repo) => format!("/repos/{owner}/{repo}/interaction-limits", owner = owner,repo = repo),
+  EndPoints::DeleteReposownerrepoInteractionLimits(owner,repo) => format!("/repos/{owner}/{repo}/interaction-limits", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoInvitations(owner,repo) => format!("/repos/{owner}/{repo}/invitations", owner = owner,repo = repo),
+  EndPoints::PatchReposownerrepoInvitationsinvitationId(owner,repo,invitation_id) => format!("/repos/{owner}/{repo}/invitations/{invitation_id}", owner = owner,repo = repo,invitation_id = invitation_id),
+  EndPoints::DeleteReposownerrepoInvitationsinvitationId(owner,repo,invitation_id) => format!("/repos/{owner}/{repo}/invitations/{invitation_id}", owner = owner,repo = repo,invitation_id = invitation_id),
+  EndPoints::GetReposownerrepoIssues(owner,repo) => format!("/repos/{owner}/{repo}/issues", owner = owner,repo = repo),
+  EndPoints::PostReposownerrepoIssues(owner,repo) => format!("/repos/{owner}/{repo}/issues", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoIssuesComments(owner,repo) => format!("/repos/{owner}/{repo}/issues/comments", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoIssuesCommentscommentId(owner,repo,comment_id) => format!("/repos/{owner}/{repo}/issues/comments/{comment_id}", owner = owner,repo = repo,comment_id = comment_id),
+  EndPoints::PatchReposownerrepoIssuesCommentscommentId(owner,repo,comment_id) => format!("/repos/{owner}/{repo}/issues/comments/{comment_id}", owner = owner,repo = repo,comment_id = comment_id),
+  EndPoints::DeleteReposownerrepoIssuesCommentscommentId(owner,repo,comment_id) => format!("/repos/{owner}/{repo}/issues/comments/{comment_id}", owner = owner,repo = repo,comment_id = comment_id),
+  EndPoints::GetReposownerrepoIssuesCommentscommentIdReactions(owner,repo,comment_id) => format!("/repos/{owner}/{repo}/issues/comments/{comment_id}/reactions", owner = owner,repo = repo,comment_id = comment_id),
+  EndPoints::PostReposownerrepoIssuesCommentscommentIdReactions(owner,repo,comment_id) => format!("/repos/{owner}/{repo}/issues/comments/{comment_id}/reactions", owner = owner,repo = repo,comment_id = comment_id),
+  EndPoints::DeleteReposownerrepoIssuesCommentscommentIdReactionsreactionId(owner,repo,comment_id,reaction_id) => format!("/repos/{owner}/{repo}/issues/comments/{comment_id}/reactions/{reaction_id}", owner = owner,repo = repo,comment_id = comment_id,reaction_id = reaction_id),
+  EndPoints::GetReposownerrepoIssuesEvents(owner,repo) => format!("/repos/{owner}/{repo}/issues/events", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoIssuesEventseventId(owner,repo,event_id) => format!("/repos/{owner}/{repo}/issues/events/{event_id}", owner = owner,repo = repo,event_id = event_id),
+  EndPoints::GetReposownerrepoIssuesissueNumber(owner,repo,issue_number) => format!("/repos/{owner}/{repo}/issues/{issue_number}", owner = owner,repo = repo,issue_number = issue_number),
+  EndPoints::PatchReposownerrepoIssuesissueNumber(owner,repo,issue_number) => format!("/repos/{owner}/{repo}/issues/{issue_number}", owner = owner,repo = repo,issue_number = issue_number),
+  EndPoints::PostReposownerrepoIssuesissueNumberAssignees(owner,repo,issue_number) => format!("/repos/{owner}/{repo}/issues/{issue_number}/assignees", owner = owner,repo = repo,issue_number = issue_number),
+  EndPoints::DeleteReposownerrepoIssuesissueNumberAssignees(owner,repo,issue_number) => format!("/repos/{owner}/{repo}/issues/{issue_number}/assignees", owner = owner,repo = repo,issue_number = issue_number),
+  EndPoints::GetReposownerrepoIssuesissueNumberComments(owner,repo,issue_number) => format!("/repos/{owner}/{repo}/issues/{issue_number}/comments", owner = owner,repo = repo,issue_number = issue_number),
+  EndPoints::PostReposownerrepoIssuesissueNumberComments(owner,repo,issue_number) => format!("/repos/{owner}/{repo}/issues/{issue_number}/comments", owner = owner,repo = repo,issue_number = issue_number),
+  EndPoints::GetReposownerrepoIssuesissueNumberEvents(owner,repo,issue_number) => format!("/repos/{owner}/{repo}/issues/{issue_number}/events", owner = owner,repo = repo,issue_number = issue_number),
+  EndPoints::GetReposownerrepoIssuesissueNumberLabels(owner,repo,issue_number) => format!("/repos/{owner}/{repo}/issues/{issue_number}/labels", owner = owner,repo = repo,issue_number = issue_number),
+  EndPoints::PostReposownerrepoIssuesissueNumberLabels(owner,repo,issue_number) => format!("/repos/{owner}/{repo}/issues/{issue_number}/labels", owner = owner,repo = repo,issue_number = issue_number),
+  EndPoints::PutReposownerrepoIssuesissueNumberLabels(owner,repo,issue_number) => format!("/repos/{owner}/{repo}/issues/{issue_number}/labels", owner = owner,repo = repo,issue_number = issue_number),
+  EndPoints::DeleteReposownerrepoIssuesissueNumberLabels(owner,repo,issue_number) => format!("/repos/{owner}/{repo}/issues/{issue_number}/labels", owner = owner,repo = repo,issue_number = issue_number),
+  EndPoints::DeleteReposownerrepoIssuesissueNumberLabelsname(owner,repo,issue_number,name) => format!("/repos/{owner}/{repo}/issues/{issue_number}/labels/{name}", owner = owner,repo = repo,issue_number = issue_number,name = name),
+  EndPoints::PutReposownerrepoIssuesissueNumberLock(owner,repo,issue_number) => format!("/repos/{owner}/{repo}/issues/{issue_number}/lock", owner = owner,repo = repo,issue_number = issue_number),
+  EndPoints::DeleteReposownerrepoIssuesissueNumberLock(owner,repo,issue_number) => format!("/repos/{owner}/{repo}/issues/{issue_number}/lock", owner = owner,repo = repo,issue_number = issue_number),
+  EndPoints::GetReposownerrepoIssuesissueNumberReactions(owner,repo,issue_number) => format!("/repos/{owner}/{repo}/issues/{issue_number}/reactions", owner = owner,repo = repo,issue_number = issue_number),
+  EndPoints::PostReposownerrepoIssuesissueNumberReactions(owner,repo,issue_number) => format!("/repos/{owner}/{repo}/issues/{issue_number}/reactions", owner = owner,repo = repo,issue_number = issue_number),
+  EndPoints::DeleteReposownerrepoIssuesissueNumberReactionsreactionId(owner,repo,issue_number,reaction_id) => format!("/repos/{owner}/{repo}/issues/{issue_number}/reactions/{reaction_id}", owner = owner,repo = repo,issue_number = issue_number,reaction_id = reaction_id),
+  EndPoints::GetReposownerrepoIssuesissueNumberTimeline(owner,repo,issue_number) => format!("/repos/{owner}/{repo}/issues/{issue_number}/timeline", owner = owner,repo = repo,issue_number = issue_number),
+  EndPoints::GetReposownerrepoKeys(owner,repo) => format!("/repos/{owner}/{repo}/keys", owner = owner,repo = repo),
+  EndPoints::PostReposownerrepoKeys(owner,repo) => format!("/repos/{owner}/{repo}/keys", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoKeyskeyId(owner,repo,key_id) => format!("/repos/{owner}/{repo}/keys/{key_id}", owner = owner,repo = repo,key_id = key_id),
+  EndPoints::DeleteReposownerrepoKeyskeyId(owner,repo,key_id) => format!("/repos/{owner}/{repo}/keys/{key_id}", owner = owner,repo = repo,key_id = key_id),
+  EndPoints::GetReposownerrepoLabels(owner,repo) => format!("/repos/{owner}/{repo}/labels", owner = owner,repo = repo),
+  EndPoints::PostReposownerrepoLabels(owner,repo) => format!("/repos/{owner}/{repo}/labels", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoLabelsname(owner,repo,name) => format!("/repos/{owner}/{repo}/labels/{name}", owner = owner,repo = repo,name = name),
+  EndPoints::PatchReposownerrepoLabelsname(owner,repo,name) => format!("/repos/{owner}/{repo}/labels/{name}", owner = owner,repo = repo,name = name),
+  EndPoints::DeleteReposownerrepoLabelsname(owner,repo,name) => format!("/repos/{owner}/{repo}/labels/{name}", owner = owner,repo = repo,name = name),
+  EndPoints::GetReposownerrepoLanguages(owner,repo) => format!("/repos/{owner}/{repo}/languages", owner = owner,repo = repo),
+  EndPoints::PutReposownerrepoLfs(owner,repo) => format!("/repos/{owner}/{repo}/lfs", owner = owner,repo = repo),
+  EndPoints::DeleteReposownerrepoLfs(owner,repo) => format!("/repos/{owner}/{repo}/lfs", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoLicense(owner,repo) => format!("/repos/{owner}/{repo}/license", owner = owner,repo = repo),
+  EndPoints::PostReposownerrepoMergeUpstream(owner,repo) => format!("/repos/{owner}/{repo}/merge-upstream", owner = owner,repo = repo),
+  EndPoints::PostReposownerrepoMerges(owner,repo) => format!("/repos/{owner}/{repo}/merges", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoMilestones(owner,repo) => format!("/repos/{owner}/{repo}/milestones", owner = owner,repo = repo),
+  EndPoints::PostReposownerrepoMilestones(owner,repo) => format!("/repos/{owner}/{repo}/milestones", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoMilestonesmilestoneNumber(owner,repo,milestone_number) => format!("/repos/{owner}/{repo}/milestones/{milestone_number}", owner = owner,repo = repo,milestone_number = milestone_number),
+  EndPoints::PatchReposownerrepoMilestonesmilestoneNumber(owner,repo,milestone_number) => format!("/repos/{owner}/{repo}/milestones/{milestone_number}", owner = owner,repo = repo,milestone_number = milestone_number),
+  EndPoints::DeleteReposownerrepoMilestonesmilestoneNumber(owner,repo,milestone_number) => format!("/repos/{owner}/{repo}/milestones/{milestone_number}", owner = owner,repo = repo,milestone_number = milestone_number),
+  EndPoints::GetReposownerrepoMilestonesmilestoneNumberLabels(owner,repo,milestone_number) => format!("/repos/{owner}/{repo}/milestones/{milestone_number}/labels", owner = owner,repo = repo,milestone_number = milestone_number),
+  EndPoints::GetReposownerrepoNotifications(owner,repo) => format!("/repos/{owner}/{repo}/notifications", owner = owner,repo = repo),
+  EndPoints::PutReposownerrepoNotifications(owner,repo) => format!("/repos/{owner}/{repo}/notifications", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoPages(owner,repo) => format!("/repos/{owner}/{repo}/pages", owner = owner,repo = repo),
+  EndPoints::PostReposownerrepoPages(owner,repo) => format!("/repos/{owner}/{repo}/pages", owner = owner,repo = repo),
+  EndPoints::PutReposownerrepoPages(owner,repo) => format!("/repos/{owner}/{repo}/pages", owner = owner,repo = repo),
+  EndPoints::DeleteReposownerrepoPages(owner,repo) => format!("/repos/{owner}/{repo}/pages", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoPagesBuilds(owner,repo) => format!("/repos/{owner}/{repo}/pages/builds", owner = owner,repo = repo),
+  EndPoints::PostReposownerrepoPagesBuilds(owner,repo) => format!("/repos/{owner}/{repo}/pages/builds", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoPagesBuildsLatest(owner,repo) => format!("/repos/{owner}/{repo}/pages/builds/latest", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoPagesBuildsbuildId(owner,repo,build_id) => format!("/repos/{owner}/{repo}/pages/builds/{build_id}", owner = owner,repo = repo,build_id = build_id),
+  EndPoints::GetReposownerrepoPagesHealth(owner,repo) => format!("/repos/{owner}/{repo}/pages/health", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoProjects(owner,repo) => format!("/repos/{owner}/{repo}/projects", owner = owner,repo = repo),
+  EndPoints::PostReposownerrepoProjects(owner,repo) => format!("/repos/{owner}/{repo}/projects", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoPulls(owner,repo) => format!("/repos/{owner}/{repo}/pulls", owner = owner,repo = repo),
+  EndPoints::PostReposownerrepoPulls(owner,repo) => format!("/repos/{owner}/{repo}/pulls", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoPullsComments(owner,repo) => format!("/repos/{owner}/{repo}/pulls/comments", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoPullsCommentscommentId(owner,repo,comment_id) => format!("/repos/{owner}/{repo}/pulls/comments/{comment_id}", owner = owner,repo = repo,comment_id = comment_id),
+  EndPoints::PatchReposownerrepoPullsCommentscommentId(owner,repo,comment_id) => format!("/repos/{owner}/{repo}/pulls/comments/{comment_id}", owner = owner,repo = repo,comment_id = comment_id),
+  EndPoints::DeleteReposownerrepoPullsCommentscommentId(owner,repo,comment_id) => format!("/repos/{owner}/{repo}/pulls/comments/{comment_id}", owner = owner,repo = repo,comment_id = comment_id),
+  EndPoints::GetReposownerrepoPullsCommentscommentIdReactions(owner,repo,comment_id) => format!("/repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions", owner = owner,repo = repo,comment_id = comment_id),
+  EndPoints::PostReposownerrepoPullsCommentscommentIdReactions(owner,repo,comment_id) => format!("/repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions", owner = owner,repo = repo,comment_id = comment_id),
+  EndPoints::DeleteReposownerrepoPullsCommentscommentIdReactionsreactionId(owner,repo,comment_id,reaction_id) => format!("/repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions/{reaction_id}", owner = owner,repo = repo,comment_id = comment_id,reaction_id = reaction_id),
+  EndPoints::GetReposownerrepoPullspullNumber(owner,repo,pull_number) => format!("/repos/{owner}/{repo}/pulls/{pull_number}", owner = owner,repo = repo,pull_number = pull_number),
+  EndPoints::PatchReposownerrepoPullspullNumber(owner,repo,pull_number) => format!("/repos/{owner}/{repo}/pulls/{pull_number}", owner = owner,repo = repo,pull_number = pull_number),
+  EndPoints::PostReposownerrepoPullspullNumberCodespaces(owner,repo,pull_number) => format!("/repos/{owner}/{repo}/pulls/{pull_number}/codespaces", owner = owner,repo = repo,pull_number = pull_number),
+  EndPoints::GetReposownerrepoPullspullNumberComments(owner,repo,pull_number) => format!("/repos/{owner}/{repo}/pulls/{pull_number}/comments", owner = owner,repo = repo,pull_number = pull_number),
+  EndPoints::PostReposownerrepoPullspullNumberComments(owner,repo,pull_number) => format!("/repos/{owner}/{repo}/pulls/{pull_number}/comments", owner = owner,repo = repo,pull_number = pull_number),
+  EndPoints::PostReposownerrepoPullspullNumberCommentscommentIdReplies(owner,repo,pull_number,comment_id) => format!("/repos/{owner}/{repo}/pulls/{pull_number}/comments/{comment_id}/replies", owner = owner,repo = repo,pull_number = pull_number,comment_id = comment_id),
+  EndPoints::GetReposownerrepoPullspullNumberCommits(owner,repo,pull_number) => format!("/repos/{owner}/{repo}/pulls/{pull_number}/commits", owner = owner,repo = repo,pull_number = pull_number),
+  EndPoints::GetReposownerrepoPullspullNumberFiles(owner,repo,pull_number) => format!("/repos/{owner}/{repo}/pulls/{pull_number}/files", owner = owner,repo = repo,pull_number = pull_number),
+  EndPoints::GetReposownerrepoPullspullNumberMerge(owner,repo,pull_number) => format!("/repos/{owner}/{repo}/pulls/{pull_number}/merge", owner = owner,repo = repo,pull_number = pull_number),
+  EndPoints::PutReposownerrepoPullspullNumberMerge(owner,repo,pull_number) => format!("/repos/{owner}/{repo}/pulls/{pull_number}/merge", owner = owner,repo = repo,pull_number = pull_number),
+  EndPoints::GetReposownerrepoPullspullNumberRequestedReviewers(owner,repo,pull_number) => format!("/repos/{owner}/{repo}/pulls/{pull_number}/requested_reviewers", owner = owner,repo = repo,pull_number = pull_number),
+  EndPoints::PostReposownerrepoPullspullNumberRequestedReviewers(owner,repo,pull_number) => format!("/repos/{owner}/{repo}/pulls/{pull_number}/requested_reviewers", owner = owner,repo = repo,pull_number = pull_number),
+  EndPoints::DeleteReposownerrepoPullspullNumberRequestedReviewers(owner,repo,pull_number) => format!("/repos/{owner}/{repo}/pulls/{pull_number}/requested_reviewers", owner = owner,repo = repo,pull_number = pull_number),
+  EndPoints::GetReposownerrepoPullspullNumberReviews(owner,repo,pull_number) => format!("/repos/{owner}/{repo}/pulls/{pull_number}/reviews", owner = owner,repo = repo,pull_number = pull_number),
+  EndPoints::PostReposownerrepoPullspullNumberReviews(owner,repo,pull_number) => format!("/repos/{owner}/{repo}/pulls/{pull_number}/reviews", owner = owner,repo = repo,pull_number = pull_number),
+  EndPoints::GetReposownerrepoPullspullNumberReviewsreviewId(owner,repo,pull_number,review_id) => format!("/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}", owner = owner,repo = repo,pull_number = pull_number,review_id = review_id),
+  EndPoints::PutReposownerrepoPullspullNumberReviewsreviewId(owner,repo,pull_number,review_id) => format!("/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}", owner = owner,repo = repo,pull_number = pull_number,review_id = review_id),
+  EndPoints::DeleteReposownerrepoPullspullNumberReviewsreviewId(owner,repo,pull_number,review_id) => format!("/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}", owner = owner,repo = repo,pull_number = pull_number,review_id = review_id),
+  EndPoints::GetReposownerrepoPullspullNumberReviewsreviewIdComments(owner,repo,pull_number,review_id) => format!("/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/comments", owner = owner,repo = repo,pull_number = pull_number,review_id = review_id),
+  EndPoints::PutReposownerrepoPullspullNumberReviewsreviewIdDismissals(owner,repo,pull_number,review_id) => format!("/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/dismissals", owner = owner,repo = repo,pull_number = pull_number,review_id = review_id),
+  EndPoints::PostReposownerrepoPullspullNumberReviewsreviewIdEvents(owner,repo,pull_number,review_id) => format!("/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/events", owner = owner,repo = repo,pull_number = pull_number,review_id = review_id),
+  EndPoints::PutReposownerrepoPullspullNumberUpdateBranch(owner,repo,pull_number) => format!("/repos/{owner}/{repo}/pulls/{pull_number}/update-branch", owner = owner,repo = repo,pull_number = pull_number),
+  EndPoints::GetReposownerrepoReadme(owner,repo) => format!("/repos/{owner}/{repo}/readme", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoReadmedir(owner,repo,dir) => format!("/repos/{owner}/{repo}/readme/{dir}", owner = owner,repo = repo,dir = dir),
+  EndPoints::GetReposownerrepoReleases(owner,repo) => format!("/repos/{owner}/{repo}/releases", owner = owner,repo = repo),
+  EndPoints::PostReposownerrepoReleases(owner,repo) => format!("/repos/{owner}/{repo}/releases", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoReleasesAssetsassetId(owner,repo,asset_id) => format!("/repos/{owner}/{repo}/releases/assets/{asset_id}", owner = owner,repo = repo,asset_id = asset_id),
+  EndPoints::PatchReposownerrepoReleasesAssetsassetId(owner,repo,asset_id) => format!("/repos/{owner}/{repo}/releases/assets/{asset_id}", owner = owner,repo = repo,asset_id = asset_id),
+  EndPoints::DeleteReposownerrepoReleasesAssetsassetId(owner,repo,asset_id) => format!("/repos/{owner}/{repo}/releases/assets/{asset_id}", owner = owner,repo = repo,asset_id = asset_id),
+  EndPoints::PostReposownerrepoReleasesGenerateNotes(owner,repo) => format!("/repos/{owner}/{repo}/releases/generate-notes", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoReleasesLatest(owner,repo) => format!("/repos/{owner}/{repo}/releases/latest", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoReleasesTagstag(owner,repo,tag) => format!("/repos/{owner}/{repo}/releases/tags/{tag}", owner = owner,repo = repo,tag = tag),
+  EndPoints::GetReposownerrepoReleasesreleaseId(owner,repo,release_id) => format!("/repos/{owner}/{repo}/releases/{release_id}", owner = owner,repo = repo,release_id = release_id),
+  EndPoints::PatchReposownerrepoReleasesreleaseId(owner,repo,release_id) => format!("/repos/{owner}/{repo}/releases/{release_id}", owner = owner,repo = repo,release_id = release_id),
+  EndPoints::DeleteReposownerrepoReleasesreleaseId(owner,repo,release_id) => format!("/repos/{owner}/{repo}/releases/{release_id}", owner = owner,repo = repo,release_id = release_id),
+  EndPoints::GetReposownerrepoReleasesreleaseIdAssets(owner,repo,release_id) => format!("/repos/{owner}/{repo}/releases/{release_id}/assets", owner = owner,repo = repo,release_id = release_id),
+  EndPoints::PostReposownerrepoReleasesreleaseIdAssets(owner,repo,release_id) => format!("/repos/{owner}/{repo}/releases/{release_id}/assets", owner = owner,repo = repo,release_id = release_id),
+  EndPoints::PostReposownerrepoReleasesreleaseIdReactions(owner,repo,release_id) => format!("/repos/{owner}/{repo}/releases/{release_id}/reactions", owner = owner,repo = repo,release_id = release_id),
+  EndPoints::GetReposownerrepoSecretScanningAlerts(owner,repo) => format!("/repos/{owner}/{repo}/secret-scanning/alerts", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoSecretScanningAlertsalertNumber(owner,repo,alert_number) => format!("/repos/{owner}/{repo}/secret-scanning/alerts/{alert_number}", owner = owner,repo = repo,alert_number = alert_number),
+  EndPoints::PatchReposownerrepoSecretScanningAlertsalertNumber(owner,repo,alert_number) => format!("/repos/{owner}/{repo}/secret-scanning/alerts/{alert_number}", owner = owner,repo = repo,alert_number = alert_number),
+  EndPoints::GetReposownerrepoSecretScanningAlertsalertNumberLocations(owner,repo,alert_number) => format!("/repos/{owner}/{repo}/secret-scanning/alerts/{alert_number}/locations", owner = owner,repo = repo,alert_number = alert_number),
+  EndPoints::GetReposownerrepoStargazers(owner,repo) => format!("/repos/{owner}/{repo}/stargazers", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoStatsCodeFrequency(owner,repo) => format!("/repos/{owner}/{repo}/stats/code_frequency", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoStatsCommitActivity(owner,repo) => format!("/repos/{owner}/{repo}/stats/commit_activity", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoStatsContributors(owner,repo) => format!("/repos/{owner}/{repo}/stats/contributors", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoStatsParticipation(owner,repo) => format!("/repos/{owner}/{repo}/stats/participation", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoStatsPunchCard(owner,repo) => format!("/repos/{owner}/{repo}/stats/punch_card", owner = owner,repo = repo),
+  EndPoints::PostReposownerrepoStatusessha(owner,repo,sha) => format!("/repos/{owner}/{repo}/statuses/{sha}", owner = owner,repo = repo,sha = sha),
+  EndPoints::GetReposownerrepoSubscribers(owner,repo) => format!("/repos/{owner}/{repo}/subscribers", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoSubscription(owner,repo) => format!("/repos/{owner}/{repo}/subscription", owner = owner,repo = repo),
+  EndPoints::PutReposownerrepoSubscription(owner,repo) => format!("/repos/{owner}/{repo}/subscription", owner = owner,repo = repo),
+  EndPoints::DeleteReposownerrepoSubscription(owner,repo) => format!("/repos/{owner}/{repo}/subscription", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoTags(owner,repo) => format!("/repos/{owner}/{repo}/tags", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoTarballref(owner,repo,aref) => format!("/repos/{owner}/{repo}/tarball/{aref}", owner = owner,repo = repo,aref = aref),
+  EndPoints::GetReposownerrepoTeams(owner,repo) => format!("/repos/{owner}/{repo}/teams", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoTopics(owner,repo) => format!("/repos/{owner}/{repo}/topics", owner = owner,repo = repo),
+  EndPoints::PutReposownerrepoTopics(owner,repo) => format!("/repos/{owner}/{repo}/topics", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoTrafficClones(owner,repo) => format!("/repos/{owner}/{repo}/traffic/clones", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoTrafficPopularPaths(owner,repo) => format!("/repos/{owner}/{repo}/traffic/popular/paths", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoTrafficPopularReferrers(owner,repo) => format!("/repos/{owner}/{repo}/traffic/popular/referrers", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoTrafficViews(owner,repo) => format!("/repos/{owner}/{repo}/traffic/views", owner = owner,repo = repo),
+  EndPoints::PostReposownerrepoTransfer(owner,repo) => format!("/repos/{owner}/{repo}/transfer", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoVulnerabilityAlerts(owner,repo) => format!("/repos/{owner}/{repo}/vulnerability-alerts", owner = owner,repo = repo),
+  EndPoints::PutReposownerrepoVulnerabilityAlerts(owner,repo) => format!("/repos/{owner}/{repo}/vulnerability-alerts", owner = owner,repo = repo),
+  EndPoints::DeleteReposownerrepoVulnerabilityAlerts(owner,repo) => format!("/repos/{owner}/{repo}/vulnerability-alerts", owner = owner,repo = repo),
+  EndPoints::GetReposownerrepoZipballref(owner,repo,aref) => format!("/repos/{owner}/{repo}/zipball/{aref}", owner = owner,repo = repo,aref = aref),
+  EndPoints::PostRepostemplateOwnertemplateRepoGenerate(template_owner,template_repo) => format!("/repos/{template_owner}/{template_repo}/generate", template_owner = template_owner,template_repo = template_repo),
   EndPoints::GetRepositories() => "/repositories".to_string(),
-  EndPoints::GetRepositoriesrepositoryIdEnvironmentsenvironmentNameSecrets(repository_id,environment_name) => format!("/repositories/{repository_id}/environments/{environment_name}/secrets",repository_id = repository_id,environment_name = environment_name ),
-  EndPoints::GetRepositoriesrepositoryIdEnvironmentsenvironmentNameSecretsPublicKey(repository_id,environment_name) => format!("/repositories/{repository_id}/environments/{environment_name}/secrets/public-key",repository_id = repository_id,environment_name = environment_name ),
-  EndPoints::GetRepositoriesrepositoryIdEnvironmentsenvironmentNameSecretssecretName(repository_id,environment_name,secret_name) => format!("/repositories/{repository_id}/environments/{environment_name}/secrets/{secret_name}",repository_id = repository_id,environment_name = environment_name,secret_name = secret_name ),
-  EndPoints::PutRepositoriesrepositoryIdEnvironmentsenvironmentNameSecretssecretName(repository_id,environment_name,secret_name) => format!("/repositories/{repository_id}/environments/{environment_name}/secrets/{secret_name}",repository_id = repository_id,environment_name = environment_name,secret_name = secret_name ),
-  EndPoints::DeleteRepositoriesrepositoryIdEnvironmentsenvironmentNameSecretssecretName(repository_id,environment_name,secret_name) => format!("/repositories/{repository_id}/environments/{environment_name}/secrets/{secret_name}",repository_id = repository_id,environment_name = environment_name,secret_name = secret_name ),
-  EndPoints::GetScimV2EnterprisesenterpriseGroups(enterprise) => format!("/scim/v2/enterprises/{enterprise}/Groups",enterprise = enterprise ),
-  EndPoints::PostScimV2EnterprisesenterpriseGroups(enterprise) => format!("/scim/v2/enterprises/{enterprise}/Groups",enterprise = enterprise ),
-  EndPoints::GetScimV2EnterprisesenterpriseGroupsscimGroupId(enterprise,scim_group_id) => format!("/scim/v2/enterprises/{enterprise}/Groups/{scim_group_id}",enterprise = enterprise,scim_group_id = scim_group_id ),
-  EndPoints::PutScimV2EnterprisesenterpriseGroupsscimGroupId(enterprise,scim_group_id) => format!("/scim/v2/enterprises/{enterprise}/Groups/{scim_group_id}",enterprise = enterprise,scim_group_id = scim_group_id ),
-  EndPoints::PatchScimV2EnterprisesenterpriseGroupsscimGroupId(enterprise,scim_group_id) => format!("/scim/v2/enterprises/{enterprise}/Groups/{scim_group_id}",enterprise = enterprise,scim_group_id = scim_group_id ),
-  EndPoints::DeleteScimV2EnterprisesenterpriseGroupsscimGroupId(enterprise,scim_group_id) => format!("/scim/v2/enterprises/{enterprise}/Groups/{scim_group_id}",enterprise = enterprise,scim_group_id = scim_group_id ),
-  EndPoints::GetScimV2EnterprisesenterpriseUsers(enterprise) => format!("/scim/v2/enterprises/{enterprise}/Users",enterprise = enterprise ),
-  EndPoints::PostScimV2EnterprisesenterpriseUsers(enterprise) => format!("/scim/v2/enterprises/{enterprise}/Users",enterprise = enterprise ),
-  EndPoints::GetScimV2EnterprisesenterpriseUsersscimUserId(enterprise,scim_user_id) => format!("/scim/v2/enterprises/{enterprise}/Users/{scim_user_id}",enterprise = enterprise,scim_user_id = scim_user_id ),
-  EndPoints::PutScimV2EnterprisesenterpriseUsersscimUserId(enterprise,scim_user_id) => format!("/scim/v2/enterprises/{enterprise}/Users/{scim_user_id}",enterprise = enterprise,scim_user_id = scim_user_id ),
-  EndPoints::PatchScimV2EnterprisesenterpriseUsersscimUserId(enterprise,scim_user_id) => format!("/scim/v2/enterprises/{enterprise}/Users/{scim_user_id}",enterprise = enterprise,scim_user_id = scim_user_id ),
-  EndPoints::DeleteScimV2EnterprisesenterpriseUsersscimUserId(enterprise,scim_user_id) => format!("/scim/v2/enterprises/{enterprise}/Users/{scim_user_id}",enterprise = enterprise,scim_user_id = scim_user_id ),
-  EndPoints::GetScimV2OrganizationsorgUsers(org) => format!("/scim/v2/organizations/{org}/Users",org = org ),
-  EndPoints::PostScimV2OrganizationsorgUsers(org) => format!("/scim/v2/organizations/{org}/Users",org = org ),
-  EndPoints::GetScimV2OrganizationsorgUsersscimUserId(org,scim_user_id) => format!("/scim/v2/organizations/{org}/Users/{scim_user_id}",org = org,scim_user_id = scim_user_id ),
-  EndPoints::PutScimV2OrganizationsorgUsersscimUserId(org,scim_user_id) => format!("/scim/v2/organizations/{org}/Users/{scim_user_id}",org = org,scim_user_id = scim_user_id ),
-  EndPoints::PatchScimV2OrganizationsorgUsersscimUserId(org,scim_user_id) => format!("/scim/v2/organizations/{org}/Users/{scim_user_id}",org = org,scim_user_id = scim_user_id ),
-  EndPoints::DeleteScimV2OrganizationsorgUsersscimUserId(org,scim_user_id) => format!("/scim/v2/organizations/{org}/Users/{scim_user_id}",org = org,scim_user_id = scim_user_id ),
+  EndPoints::GetRepositoriesrepositoryIdEnvironmentsenvironmentNameSecrets(repository_id,environment_name) => format!("/repositories/{repository_id}/environments/{environment_name}/secrets", repository_id = repository_id,environment_name = environment_name),
+  EndPoints::GetRepositoriesrepositoryIdEnvironmentsenvironmentNameSecretsPublicKey(repository_id,environment_name) => format!("/repositories/{repository_id}/environments/{environment_name}/secrets/public-key", repository_id = repository_id,environment_name = environment_name),
+  EndPoints::GetRepositoriesrepositoryIdEnvironmentsenvironmentNameSecretssecretName(repository_id,environment_name,secret_name) => format!("/repositories/{repository_id}/environments/{environment_name}/secrets/{secret_name}", repository_id = repository_id,environment_name = environment_name,secret_name = secret_name),
+  EndPoints::PutRepositoriesrepositoryIdEnvironmentsenvironmentNameSecretssecretName(repository_id,environment_name,secret_name) => format!("/repositories/{repository_id}/environments/{environment_name}/secrets/{secret_name}", repository_id = repository_id,environment_name = environment_name,secret_name = secret_name),
+  EndPoints::DeleteRepositoriesrepositoryIdEnvironmentsenvironmentNameSecretssecretName(repository_id,environment_name,secret_name) => format!("/repositories/{repository_id}/environments/{environment_name}/secrets/{secret_name}", repository_id = repository_id,environment_name = environment_name,secret_name = secret_name),
+  EndPoints::GetScimV2EnterprisesenterpriseGroups(enterprise) => format!("/scim/v2/enterprises/{enterprise}/Groups", enterprise = enterprise),
+  EndPoints::PostScimV2EnterprisesenterpriseGroups(enterprise) => format!("/scim/v2/enterprises/{enterprise}/Groups", enterprise = enterprise),
+  EndPoints::GetScimV2EnterprisesenterpriseGroupsscimGroupId(enterprise,scim_group_id) => format!("/scim/v2/enterprises/{enterprise}/Groups/{scim_group_id}", enterprise = enterprise,scim_group_id = scim_group_id),
+  EndPoints::PutScimV2EnterprisesenterpriseGroupsscimGroupId(enterprise,scim_group_id) => format!("/scim/v2/enterprises/{enterprise}/Groups/{scim_group_id}", enterprise = enterprise,scim_group_id = scim_group_id),
+  EndPoints::PatchScimV2EnterprisesenterpriseGroupsscimGroupId(enterprise,scim_group_id) => format!("/scim/v2/enterprises/{enterprise}/Groups/{scim_group_id}", enterprise = enterprise,scim_group_id = scim_group_id),
+  EndPoints::DeleteScimV2EnterprisesenterpriseGroupsscimGroupId(enterprise,scim_group_id) => format!("/scim/v2/enterprises/{enterprise}/Groups/{scim_group_id}", enterprise = enterprise,scim_group_id = scim_group_id),
+  EndPoints::GetScimV2EnterprisesenterpriseUsers(enterprise) => format!("/scim/v2/enterprises/{enterprise}/Users", enterprise = enterprise),
+  EndPoints::PostScimV2EnterprisesenterpriseUsers(enterprise) => format!("/scim/v2/enterprises/{enterprise}/Users", enterprise = enterprise),
+  EndPoints::GetScimV2EnterprisesenterpriseUsersscimUserId(enterprise,scim_user_id) => format!("/scim/v2/enterprises/{enterprise}/Users/{scim_user_id}", enterprise = enterprise,scim_user_id = scim_user_id),
+  EndPoints::PutScimV2EnterprisesenterpriseUsersscimUserId(enterprise,scim_user_id) => format!("/scim/v2/enterprises/{enterprise}/Users/{scim_user_id}", enterprise = enterprise,scim_user_id = scim_user_id),
+  EndPoints::PatchScimV2EnterprisesenterpriseUsersscimUserId(enterprise,scim_user_id) => format!("/scim/v2/enterprises/{enterprise}/Users/{scim_user_id}", enterprise = enterprise,scim_user_id = scim_user_id),
+  EndPoints::DeleteScimV2EnterprisesenterpriseUsersscimUserId(enterprise,scim_user_id) => format!("/scim/v2/enterprises/{enterprise}/Users/{scim_user_id}", enterprise = enterprise,scim_user_id = scim_user_id),
+  EndPoints::GetScimV2OrganizationsorgUsers(org) => format!("/scim/v2/organizations/{org}/Users", org = org),
+  EndPoints::PostScimV2OrganizationsorgUsers(org) => format!("/scim/v2/organizations/{org}/Users", org = org),
+  EndPoints::GetScimV2OrganizationsorgUsersscimUserId(org,scim_user_id) => format!("/scim/v2/organizations/{org}/Users/{scim_user_id}", org = org,scim_user_id = scim_user_id),
+  EndPoints::PutScimV2OrganizationsorgUsersscimUserId(org,scim_user_id) => format!("/scim/v2/organizations/{org}/Users/{scim_user_id}", org = org,scim_user_id = scim_user_id),
+  EndPoints::PatchScimV2OrganizationsorgUsersscimUserId(org,scim_user_id) => format!("/scim/v2/organizations/{org}/Users/{scim_user_id}", org = org,scim_user_id = scim_user_id),
+  EndPoints::DeleteScimV2OrganizationsorgUsersscimUserId(org,scim_user_id) => format!("/scim/v2/organizations/{org}/Users/{scim_user_id}", org = org,scim_user_id = scim_user_id),
   EndPoints::GetSearchCode() => "/search/code".to_string(),
   EndPoints::GetSearchCommits() => "/search/commits".to_string(),
   EndPoints::GetSearchIssues() => "/search/issues".to_string(),
@@ -9554,10073 +9909,157 @@ impl EndPoints {
   EndPoints::GetSearchRepositories() => "/search/repositories".to_string(),
   EndPoints::GetSearchTopics() => "/search/topics".to_string(),
   EndPoints::GetSearchUsers() => "/search/users".to_string(),
-  EndPoints::GetTeamsteamId(team_id) => format!("/teams/{team_id}",team_id = team_id ),
-  EndPoints::PatchTeamsteamId(team_id) => format!("/teams/{team_id}",team_id = team_id ),
-  EndPoints::DeleteTeamsteamId(team_id) => format!("/teams/{team_id}",team_id = team_id ),
-  EndPoints::GetTeamsteamIdDiscussions(team_id) => format!("/teams/{team_id}/discussions",team_id = team_id ),
-  EndPoints::PostTeamsteamIdDiscussions(team_id) => format!("/teams/{team_id}/discussions",team_id = team_id ),
-  EndPoints::GetTeamsteamIdDiscussionsdiscussionNumber(team_id,discussion_number) => format!("/teams/{team_id}/discussions/{discussion_number}",team_id = team_id,discussion_number = discussion_number ),
-  EndPoints::PatchTeamsteamIdDiscussionsdiscussionNumber(team_id,discussion_number) => format!("/teams/{team_id}/discussions/{discussion_number}",team_id = team_id,discussion_number = discussion_number ),
-  EndPoints::DeleteTeamsteamIdDiscussionsdiscussionNumber(team_id,discussion_number) => format!("/teams/{team_id}/discussions/{discussion_number}",team_id = team_id,discussion_number = discussion_number ),
-  EndPoints::GetTeamsteamIdDiscussionsdiscussionNumberComments(team_id,discussion_number) => format!("/teams/{team_id}/discussions/{discussion_number}/comments",team_id = team_id,discussion_number = discussion_number ),
-  EndPoints::PostTeamsteamIdDiscussionsdiscussionNumberComments(team_id,discussion_number) => format!("/teams/{team_id}/discussions/{discussion_number}/comments",team_id = team_id,discussion_number = discussion_number ),
-  EndPoints::GetTeamsteamIdDiscussionsdiscussionNumberCommentscommentNumber(team_id,discussion_number,comment_number) => format!("/teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}",team_id = team_id,discussion_number = discussion_number,comment_number = comment_number ),
-  EndPoints::PatchTeamsteamIdDiscussionsdiscussionNumberCommentscommentNumber(team_id,discussion_number,comment_number) => format!("/teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}",team_id = team_id,discussion_number = discussion_number,comment_number = comment_number ),
-  EndPoints::DeleteTeamsteamIdDiscussionsdiscussionNumberCommentscommentNumber(team_id,discussion_number,comment_number) => format!("/teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}",team_id = team_id,discussion_number = discussion_number,comment_number = comment_number ),
-  EndPoints::GetTeamsteamIdDiscussionsdiscussionNumberCommentscommentNumberReactions(team_id,discussion_number,comment_number) => format!("/teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}/reactions",team_id = team_id,discussion_number = discussion_number,comment_number = comment_number ),
-  EndPoints::PostTeamsteamIdDiscussionsdiscussionNumberCommentscommentNumberReactions(team_id,discussion_number,comment_number) => format!("/teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}/reactions",team_id = team_id,discussion_number = discussion_number,comment_number = comment_number ),
-  EndPoints::GetTeamsteamIdDiscussionsdiscussionNumberReactions(team_id,discussion_number) => format!("/teams/{team_id}/discussions/{discussion_number}/reactions",team_id = team_id,discussion_number = discussion_number ),
-  EndPoints::PostTeamsteamIdDiscussionsdiscussionNumberReactions(team_id,discussion_number) => format!("/teams/{team_id}/discussions/{discussion_number}/reactions",team_id = team_id,discussion_number = discussion_number ),
-  EndPoints::GetTeamsteamIdInvitations(team_id) => format!("/teams/{team_id}/invitations",team_id = team_id ),
-  EndPoints::GetTeamsteamIdMembers(team_id) => format!("/teams/{team_id}/members",team_id = team_id ),
-  EndPoints::GetTeamsteamIdMembersusername(team_id,username) => format!("/teams/{team_id}/members/{username}",team_id = team_id,username = username ),
-  EndPoints::PutTeamsteamIdMembersusername(team_id,username) => format!("/teams/{team_id}/members/{username}",team_id = team_id,username = username ),
-  EndPoints::DeleteTeamsteamIdMembersusername(team_id,username) => format!("/teams/{team_id}/members/{username}",team_id = team_id,username = username ),
-  EndPoints::GetTeamsteamIdMembershipsusername(team_id,username) => format!("/teams/{team_id}/memberships/{username}",team_id = team_id,username = username ),
-  EndPoints::PutTeamsteamIdMembershipsusername(team_id,username) => format!("/teams/{team_id}/memberships/{username}",team_id = team_id,username = username ),
-  EndPoints::DeleteTeamsteamIdMembershipsusername(team_id,username) => format!("/teams/{team_id}/memberships/{username}",team_id = team_id,username = username ),
-  EndPoints::GetTeamsteamIdProjects(team_id) => format!("/teams/{team_id}/projects",team_id = team_id ),
-  EndPoints::GetTeamsteamIdProjectsprojectId(team_id,project_id) => format!("/teams/{team_id}/projects/{project_id}",team_id = team_id,project_id = project_id ),
-  EndPoints::PutTeamsteamIdProjectsprojectId(team_id,project_id) => format!("/teams/{team_id}/projects/{project_id}",team_id = team_id,project_id = project_id ),
-  EndPoints::DeleteTeamsteamIdProjectsprojectId(team_id,project_id) => format!("/teams/{team_id}/projects/{project_id}",team_id = team_id,project_id = project_id ),
-  EndPoints::GetTeamsteamIdRepos(team_id) => format!("/teams/{team_id}/repos",team_id = team_id ),
-  EndPoints::GetTeamsteamIdReposownerrepo(team_id,owner,repo) => format!("/teams/{team_id}/repos/{owner}/{repo}",team_id = team_id,owner = owner,repo = repo ),
-  EndPoints::PutTeamsteamIdReposownerrepo(team_id,owner,repo) => format!("/teams/{team_id}/repos/{owner}/{repo}",team_id = team_id,owner = owner,repo = repo ),
-  EndPoints::DeleteTeamsteamIdReposownerrepo(team_id,owner,repo) => format!("/teams/{team_id}/repos/{owner}/{repo}",team_id = team_id,owner = owner,repo = repo ),
-  EndPoints::GetTeamsteamIdTeamSyncGroupMappings(team_id) => format!("/teams/{team_id}/team-sync/group-mappings",team_id = team_id ),
-  EndPoints::PatchTeamsteamIdTeamSyncGroupMappings(team_id) => format!("/teams/{team_id}/team-sync/group-mappings",team_id = team_id ),
-  EndPoints::GetTeamsteamIdTeams(team_id) => format!("/teams/{team_id}/teams",team_id = team_id ),
+  EndPoints::GetTeamsteamId(team_id) => format!("/teams/{team_id}", team_id = team_id),
+  EndPoints::PatchTeamsteamId(team_id) => format!("/teams/{team_id}", team_id = team_id),
+  EndPoints::DeleteTeamsteamId(team_id) => format!("/teams/{team_id}", team_id = team_id),
+  EndPoints::GetTeamsteamIdDiscussions(team_id) => format!("/teams/{team_id}/discussions", team_id = team_id),
+  EndPoints::PostTeamsteamIdDiscussions(team_id) => format!("/teams/{team_id}/discussions", team_id = team_id),
+  EndPoints::GetTeamsteamIdDiscussionsdiscussionNumber(team_id,discussion_number) => format!("/teams/{team_id}/discussions/{discussion_number}", team_id = team_id,discussion_number = discussion_number),
+  EndPoints::PatchTeamsteamIdDiscussionsdiscussionNumber(team_id,discussion_number) => format!("/teams/{team_id}/discussions/{discussion_number}", team_id = team_id,discussion_number = discussion_number),
+  EndPoints::DeleteTeamsteamIdDiscussionsdiscussionNumber(team_id,discussion_number) => format!("/teams/{team_id}/discussions/{discussion_number}", team_id = team_id,discussion_number = discussion_number),
+  EndPoints::GetTeamsteamIdDiscussionsdiscussionNumberComments(team_id,discussion_number) => format!("/teams/{team_id}/discussions/{discussion_number}/comments", team_id = team_id,discussion_number = discussion_number),
+  EndPoints::PostTeamsteamIdDiscussionsdiscussionNumberComments(team_id,discussion_number) => format!("/teams/{team_id}/discussions/{discussion_number}/comments", team_id = team_id,discussion_number = discussion_number),
+  EndPoints::GetTeamsteamIdDiscussionsdiscussionNumberCommentscommentNumber(team_id,discussion_number,comment_number) => format!("/teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}", team_id = team_id,discussion_number = discussion_number,comment_number = comment_number),
+  EndPoints::PatchTeamsteamIdDiscussionsdiscussionNumberCommentscommentNumber(team_id,discussion_number,comment_number) => format!("/teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}", team_id = team_id,discussion_number = discussion_number,comment_number = comment_number),
+  EndPoints::DeleteTeamsteamIdDiscussionsdiscussionNumberCommentscommentNumber(team_id,discussion_number,comment_number) => format!("/teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}", team_id = team_id,discussion_number = discussion_number,comment_number = comment_number),
+  EndPoints::GetTeamsteamIdDiscussionsdiscussionNumberCommentscommentNumberReactions(team_id,discussion_number,comment_number) => format!("/teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}/reactions", team_id = team_id,discussion_number = discussion_number,comment_number = comment_number),
+  EndPoints::PostTeamsteamIdDiscussionsdiscussionNumberCommentscommentNumberReactions(team_id,discussion_number,comment_number) => format!("/teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}/reactions", team_id = team_id,discussion_number = discussion_number,comment_number = comment_number),
+  EndPoints::GetTeamsteamIdDiscussionsdiscussionNumberReactions(team_id,discussion_number) => format!("/teams/{team_id}/discussions/{discussion_number}/reactions", team_id = team_id,discussion_number = discussion_number),
+  EndPoints::PostTeamsteamIdDiscussionsdiscussionNumberReactions(team_id,discussion_number) => format!("/teams/{team_id}/discussions/{discussion_number}/reactions", team_id = team_id,discussion_number = discussion_number),
+  EndPoints::GetTeamsteamIdInvitations(team_id) => format!("/teams/{team_id}/invitations", team_id = team_id),
+  EndPoints::GetTeamsteamIdMembers(team_id) => format!("/teams/{team_id}/members", team_id = team_id),
+  EndPoints::GetTeamsteamIdMembersusername(team_id,username) => format!("/teams/{team_id}/members/{username}", team_id = team_id,username = username),
+  EndPoints::PutTeamsteamIdMembersusername(team_id,username) => format!("/teams/{team_id}/members/{username}", team_id = team_id,username = username),
+  EndPoints::DeleteTeamsteamIdMembersusername(team_id,username) => format!("/teams/{team_id}/members/{username}", team_id = team_id,username = username),
+  EndPoints::GetTeamsteamIdMembershipsusername(team_id,username) => format!("/teams/{team_id}/memberships/{username}", team_id = team_id,username = username),
+  EndPoints::PutTeamsteamIdMembershipsusername(team_id,username) => format!("/teams/{team_id}/memberships/{username}", team_id = team_id,username = username),
+  EndPoints::DeleteTeamsteamIdMembershipsusername(team_id,username) => format!("/teams/{team_id}/memberships/{username}", team_id = team_id,username = username),
+  EndPoints::GetTeamsteamIdProjects(team_id) => format!("/teams/{team_id}/projects", team_id = team_id),
+  EndPoints::GetTeamsteamIdProjectsprojectId(team_id,project_id) => format!("/teams/{team_id}/projects/{project_id}", team_id = team_id,project_id = project_id),
+  EndPoints::PutTeamsteamIdProjectsprojectId(team_id,project_id) => format!("/teams/{team_id}/projects/{project_id}", team_id = team_id,project_id = project_id),
+  EndPoints::DeleteTeamsteamIdProjectsprojectId(team_id,project_id) => format!("/teams/{team_id}/projects/{project_id}", team_id = team_id,project_id = project_id),
+  EndPoints::GetTeamsteamIdRepos(team_id) => format!("/teams/{team_id}/repos", team_id = team_id),
+  EndPoints::GetTeamsteamIdReposownerrepo(team_id,owner,repo) => format!("/teams/{team_id}/repos/{owner}/{repo}", team_id = team_id,owner = owner,repo = repo),
+  EndPoints::PutTeamsteamIdReposownerrepo(team_id,owner,repo) => format!("/teams/{team_id}/repos/{owner}/{repo}", team_id = team_id,owner = owner,repo = repo),
+  EndPoints::DeleteTeamsteamIdReposownerrepo(team_id,owner,repo) => format!("/teams/{team_id}/repos/{owner}/{repo}", team_id = team_id,owner = owner,repo = repo),
+  EndPoints::GetTeamsteamIdTeamSyncGroupMappings(team_id) => format!("/teams/{team_id}/team-sync/group-mappings", team_id = team_id),
+  EndPoints::PatchTeamsteamIdTeamSyncGroupMappings(team_id) => format!("/teams/{team_id}/team-sync/group-mappings", team_id = team_id),
+  EndPoints::GetTeamsteamIdTeams(team_id) => format!("/teams/{team_id}/teams", team_id = team_id),
   EndPoints::GetUser() => "/user".to_string(),
   EndPoints::PatchUser() => "/user".to_string(),
   EndPoints::GetUserBlocks() => "/user/blocks".to_string(),
-  EndPoints::GetUserBlocksusername(username) => format!("/user/blocks/{username}",username = username ),
-  EndPoints::PutUserBlocksusername(username) => format!("/user/blocks/{username}",username = username ),
-  EndPoints::DeleteUserBlocksusername(username) => format!("/user/blocks/{username}",username = username ),
+  EndPoints::GetUserBlocksusername(username) => format!("/user/blocks/{username}", username = username),
+  EndPoints::PutUserBlocksusername(username) => format!("/user/blocks/{username}", username = username),
+  EndPoints::DeleteUserBlocksusername(username) => format!("/user/blocks/{username}", username = username),
   EndPoints::GetUserCodespaces() => "/user/codespaces".to_string(),
   EndPoints::PostUserCodespaces() => "/user/codespaces".to_string(),
   EndPoints::GetUserCodespacesSecrets() => "/user/codespaces/secrets".to_string(),
   EndPoints::GetUserCodespacesSecretsPublicKey() => "/user/codespaces/secrets/public-key".to_string(),
-  EndPoints::GetUserCodespacesSecretssecretName(secret_name) => format!("/user/codespaces/secrets/{secret_name}",secret_name = secret_name ),
-  EndPoints::PutUserCodespacesSecretssecretName(secret_name) => format!("/user/codespaces/secrets/{secret_name}",secret_name = secret_name ),
-  EndPoints::DeleteUserCodespacesSecretssecretName(secret_name) => format!("/user/codespaces/secrets/{secret_name}",secret_name = secret_name ),
-  EndPoints::GetUserCodespacesSecretssecretNameRepositories(secret_name) => format!("/user/codespaces/secrets/{secret_name}/repositories",secret_name = secret_name ),
-  EndPoints::PutUserCodespacesSecretssecretNameRepositories(secret_name) => format!("/user/codespaces/secrets/{secret_name}/repositories",secret_name = secret_name ),
-  EndPoints::PutUserCodespacesSecretssecretNameRepositoriesrepositoryId(secret_name,repository_id) => format!("/user/codespaces/secrets/{secret_name}/repositories/{repository_id}",secret_name = secret_name,repository_id = repository_id ),
-  EndPoints::DeleteUserCodespacesSecretssecretNameRepositoriesrepositoryId(secret_name,repository_id) => format!("/user/codespaces/secrets/{secret_name}/repositories/{repository_id}",secret_name = secret_name,repository_id = repository_id ),
-  EndPoints::GetUserCodespacescodespaceName(codespace_name) => format!("/user/codespaces/{codespace_name}",codespace_name = codespace_name ),
-  EndPoints::PatchUserCodespacescodespaceName(codespace_name) => format!("/user/codespaces/{codespace_name}",codespace_name = codespace_name ),
-  EndPoints::DeleteUserCodespacescodespaceName(codespace_name) => format!("/user/codespaces/{codespace_name}",codespace_name = codespace_name ),
-  EndPoints::GetUserCodespacescodespaceNameMachines(codespace_name) => format!("/user/codespaces/{codespace_name}/machines",codespace_name = codespace_name ),
-  EndPoints::PostUserCodespacescodespaceNameStart(codespace_name) => format!("/user/codespaces/{codespace_name}/start",codespace_name = codespace_name ),
-  EndPoints::PostUserCodespacescodespaceNameStop(codespace_name) => format!("/user/codespaces/{codespace_name}/stop",codespace_name = codespace_name ),
+  EndPoints::GetUserCodespacesSecretssecretName(secret_name) => format!("/user/codespaces/secrets/{secret_name}", secret_name = secret_name),
+  EndPoints::PutUserCodespacesSecretssecretName(secret_name) => format!("/user/codespaces/secrets/{secret_name}", secret_name = secret_name),
+  EndPoints::DeleteUserCodespacesSecretssecretName(secret_name) => format!("/user/codespaces/secrets/{secret_name}", secret_name = secret_name),
+  EndPoints::GetUserCodespacesSecretssecretNameRepositories(secret_name) => format!("/user/codespaces/secrets/{secret_name}/repositories", secret_name = secret_name),
+  EndPoints::PutUserCodespacesSecretssecretNameRepositories(secret_name) => format!("/user/codespaces/secrets/{secret_name}/repositories", secret_name = secret_name),
+  EndPoints::PutUserCodespacesSecretssecretNameRepositoriesrepositoryId(secret_name,repository_id) => format!("/user/codespaces/secrets/{secret_name}/repositories/{repository_id}", secret_name = secret_name,repository_id = repository_id),
+  EndPoints::DeleteUserCodespacesSecretssecretNameRepositoriesrepositoryId(secret_name,repository_id) => format!("/user/codespaces/secrets/{secret_name}/repositories/{repository_id}", secret_name = secret_name,repository_id = repository_id),
+  EndPoints::GetUserCodespacescodespaceName(codespace_name) => format!("/user/codespaces/{codespace_name}", codespace_name = codespace_name),
+  EndPoints::PatchUserCodespacescodespaceName(codespace_name) => format!("/user/codespaces/{codespace_name}", codespace_name = codespace_name),
+  EndPoints::DeleteUserCodespacescodespaceName(codespace_name) => format!("/user/codespaces/{codespace_name}", codespace_name = codespace_name),
+  EndPoints::PostUserCodespacescodespaceNameExports(codespace_name) => format!("/user/codespaces/{codespace_name}/exports", codespace_name = codespace_name),
+  EndPoints::GetUserCodespacescodespaceNameExportsexportId(codespace_name,export_id) => format!("/user/codespaces/{codespace_name}/exports/{export_id}", codespace_name = codespace_name,export_id = export_id),
+  EndPoints::GetUserCodespacescodespaceNameMachines(codespace_name) => format!("/user/codespaces/{codespace_name}/machines", codespace_name = codespace_name),
+  EndPoints::PostUserCodespacescodespaceNameStart(codespace_name) => format!("/user/codespaces/{codespace_name}/start", codespace_name = codespace_name),
+  EndPoints::PostUserCodespacescodespaceNameStop(codespace_name) => format!("/user/codespaces/{codespace_name}/stop", codespace_name = codespace_name),
   EndPoints::PatchUserEmailVisibility() => "/user/email/visibility".to_string(),
   EndPoints::GetUserEmails() => "/user/emails".to_string(),
   EndPoints::PostUserEmails() => "/user/emails".to_string(),
   EndPoints::DeleteUserEmails() => "/user/emails".to_string(),
   EndPoints::GetUserFollowers() => "/user/followers".to_string(),
   EndPoints::GetUserFollowing() => "/user/following".to_string(),
-  EndPoints::GetUserFollowingusername(username) => format!("/user/following/{username}",username = username ),
-  EndPoints::PutUserFollowingusername(username) => format!("/user/following/{username}",username = username ),
-  EndPoints::DeleteUserFollowingusername(username) => format!("/user/following/{username}",username = username ),
+  EndPoints::GetUserFollowingusername(username) => format!("/user/following/{username}", username = username),
+  EndPoints::PutUserFollowingusername(username) => format!("/user/following/{username}", username = username),
+  EndPoints::DeleteUserFollowingusername(username) => format!("/user/following/{username}", username = username),
   EndPoints::GetUserGpgKeys() => "/user/gpg_keys".to_string(),
   EndPoints::PostUserGpgKeys() => "/user/gpg_keys".to_string(),
-  EndPoints::GetUserGpgKeysgpgKeyId(gpg_key_id) => format!("/user/gpg_keys/{gpg_key_id}",gpg_key_id = gpg_key_id ),
-  EndPoints::DeleteUserGpgKeysgpgKeyId(gpg_key_id) => format!("/user/gpg_keys/{gpg_key_id}",gpg_key_id = gpg_key_id ),
+  EndPoints::GetUserGpgKeysgpgKeyId(gpg_key_id) => format!("/user/gpg_keys/{gpg_key_id}", gpg_key_id = gpg_key_id),
+  EndPoints::DeleteUserGpgKeysgpgKeyId(gpg_key_id) => format!("/user/gpg_keys/{gpg_key_id}", gpg_key_id = gpg_key_id),
   EndPoints::GetUserInstallations() => "/user/installations".to_string(),
-  EndPoints::GetUserInstallationsinstallationIdRepositories(installation_id) => format!("/user/installations/{installation_id}/repositories",installation_id = installation_id ),
-  EndPoints::PutUserInstallationsinstallationIdRepositoriesrepositoryId(installation_id,repository_id) => format!("/user/installations/{installation_id}/repositories/{repository_id}",installation_id = installation_id,repository_id = repository_id ),
-  EndPoints::DeleteUserInstallationsinstallationIdRepositoriesrepositoryId(installation_id,repository_id) => format!("/user/installations/{installation_id}/repositories/{repository_id}",installation_id = installation_id,repository_id = repository_id ),
+  EndPoints::GetUserInstallationsinstallationIdRepositories(installation_id) => format!("/user/installations/{installation_id}/repositories", installation_id = installation_id),
+  EndPoints::PutUserInstallationsinstallationIdRepositoriesrepositoryId(installation_id,repository_id) => format!("/user/installations/{installation_id}/repositories/{repository_id}", installation_id = installation_id,repository_id = repository_id),
+  EndPoints::DeleteUserInstallationsinstallationIdRepositoriesrepositoryId(installation_id,repository_id) => format!("/user/installations/{installation_id}/repositories/{repository_id}", installation_id = installation_id,repository_id = repository_id),
   EndPoints::GetUserInteractionLimits() => "/user/interaction-limits".to_string(),
   EndPoints::PutUserInteractionLimits() => "/user/interaction-limits".to_string(),
   EndPoints::DeleteUserInteractionLimits() => "/user/interaction-limits".to_string(),
   EndPoints::GetUserIssues() => "/user/issues".to_string(),
   EndPoints::GetUserKeys() => "/user/keys".to_string(),
   EndPoints::PostUserKeys() => "/user/keys".to_string(),
-  EndPoints::GetUserKeyskeyId(key_id) => format!("/user/keys/{key_id}",key_id = key_id ),
-  EndPoints::DeleteUserKeyskeyId(key_id) => format!("/user/keys/{key_id}",key_id = key_id ),
+  EndPoints::GetUserKeyskeyId(key_id) => format!("/user/keys/{key_id}", key_id = key_id),
+  EndPoints::DeleteUserKeyskeyId(key_id) => format!("/user/keys/{key_id}", key_id = key_id),
   EndPoints::GetUserMarketplacePurchases() => "/user/marketplace_purchases".to_string(),
   EndPoints::GetUserMarketplacePurchasesStubbed() => "/user/marketplace_purchases/stubbed".to_string(),
   EndPoints::GetUserMembershipsOrgs() => "/user/memberships/orgs".to_string(),
-  EndPoints::GetUserMembershipsOrgsorg(org) => format!("/user/memberships/orgs/{org}",org = org ),
-  EndPoints::PatchUserMembershipsOrgsorg(org) => format!("/user/memberships/orgs/{org}",org = org ),
+  EndPoints::GetUserMembershipsOrgsorg(org) => format!("/user/memberships/orgs/{org}", org = org),
+  EndPoints::PatchUserMembershipsOrgsorg(org) => format!("/user/memberships/orgs/{org}", org = org),
   EndPoints::GetUserMigrations() => "/user/migrations".to_string(),
   EndPoints::PostUserMigrations() => "/user/migrations".to_string(),
-  EndPoints::GetUserMigrationsmigrationId(migration_id) => format!("/user/migrations/{migration_id}",migration_id = migration_id ),
-  EndPoints::GetUserMigrationsmigrationIdArchive(migration_id) => format!("/user/migrations/{migration_id}/archive",migration_id = migration_id ),
-  EndPoints::DeleteUserMigrationsmigrationIdArchive(migration_id) => format!("/user/migrations/{migration_id}/archive",migration_id = migration_id ),
-  EndPoints::DeleteUserMigrationsmigrationIdReposrepoNameLock(migration_id,repo_name) => format!("/user/migrations/{migration_id}/repos/{repo_name}/lock",migration_id = migration_id,repo_name = repo_name ),
-  EndPoints::GetUserMigrationsmigrationIdRepositories(migration_id) => format!("/user/migrations/{migration_id}/repositories",migration_id = migration_id ),
+  EndPoints::GetUserMigrationsmigrationId(migration_id) => format!("/user/migrations/{migration_id}", migration_id = migration_id),
+  EndPoints::GetUserMigrationsmigrationIdArchive(migration_id) => format!("/user/migrations/{migration_id}/archive", migration_id = migration_id),
+  EndPoints::DeleteUserMigrationsmigrationIdArchive(migration_id) => format!("/user/migrations/{migration_id}/archive", migration_id = migration_id),
+  EndPoints::DeleteUserMigrationsmigrationIdReposrepoNameLock(migration_id,repo_name) => format!("/user/migrations/{migration_id}/repos/{repo_name}/lock", migration_id = migration_id,repo_name = repo_name),
+  EndPoints::GetUserMigrationsmigrationIdRepositories(migration_id) => format!("/user/migrations/{migration_id}/repositories", migration_id = migration_id),
   EndPoints::GetUserOrgs() => "/user/orgs".to_string(),
   EndPoints::GetUserPackages() => "/user/packages".to_string(),
-  EndPoints::GetUserPackagespackageTypepackageName(package_type,package_name) => format!("/user/packages/{package_type}/{package_name}",package_type = package_type,package_name = package_name ),
-  EndPoints::DeleteUserPackagespackageTypepackageName(package_type,package_name) => format!("/user/packages/{package_type}/{package_name}",package_type = package_type,package_name = package_name ),
-  EndPoints::PostUserPackagespackageTypepackageNameRestore(package_type,package_name) => format!("/user/packages/{package_type}/{package_name}/restore",package_type = package_type,package_name = package_name ),
-  EndPoints::GetUserPackagespackageTypepackageNameVersions(package_type,package_name) => format!("/user/packages/{package_type}/{package_name}/versions",package_type = package_type,package_name = package_name ),
-  EndPoints::GetUserPackagespackageTypepackageNameVersionspackageVersionId(package_type,package_name,package_version_id) => format!("/user/packages/{package_type}/{package_name}/versions/{package_version_id}",package_type = package_type,package_name = package_name,package_version_id = package_version_id ),
-  EndPoints::DeleteUserPackagespackageTypepackageNameVersionspackageVersionId(package_type,package_name,package_version_id) => format!("/user/packages/{package_type}/{package_name}/versions/{package_version_id}",package_type = package_type,package_name = package_name,package_version_id = package_version_id ),
-  EndPoints::PostUserPackagespackageTypepackageNameVersionspackageVersionIdRestore(package_type,package_name,package_version_id) => format!("/user/packages/{package_type}/{package_name}/versions/{package_version_id}/restore",package_type = package_type,package_name = package_name,package_version_id = package_version_id ),
+  EndPoints::GetUserPackagespackageTypepackageName(package_type,package_name) => format!("/user/packages/{package_type}/{package_name}", package_type = package_type,package_name = package_name),
+  EndPoints::DeleteUserPackagespackageTypepackageName(package_type,package_name) => format!("/user/packages/{package_type}/{package_name}", package_type = package_type,package_name = package_name),
+  EndPoints::PostUserPackagespackageTypepackageNameRestore(package_type,package_name) => format!("/user/packages/{package_type}/{package_name}/restore", package_type = package_type,package_name = package_name),
+  EndPoints::GetUserPackagespackageTypepackageNameVersions(package_type,package_name) => format!("/user/packages/{package_type}/{package_name}/versions", package_type = package_type,package_name = package_name),
+  EndPoints::GetUserPackagespackageTypepackageNameVersionspackageVersionId(package_type,package_name,package_version_id) => format!("/user/packages/{package_type}/{package_name}/versions/{package_version_id}", package_type = package_type,package_name = package_name,package_version_id = package_version_id),
+  EndPoints::DeleteUserPackagespackageTypepackageNameVersionspackageVersionId(package_type,package_name,package_version_id) => format!("/user/packages/{package_type}/{package_name}/versions/{package_version_id}", package_type = package_type,package_name = package_name,package_version_id = package_version_id),
+  EndPoints::PostUserPackagespackageTypepackageNameVersionspackageVersionIdRestore(package_type,package_name,package_version_id) => format!("/user/packages/{package_type}/{package_name}/versions/{package_version_id}/restore", package_type = package_type,package_name = package_name,package_version_id = package_version_id),
   EndPoints::PostUserProjects() => "/user/projects".to_string(),
   EndPoints::GetUserPublicEmails() => "/user/public_emails".to_string(),
   EndPoints::GetUserRepos() => "/user/repos".to_string(),
   EndPoints::PostUserRepos() => "/user/repos".to_string(),
   EndPoints::GetUserRepositoryInvitations() => "/user/repository_invitations".to_string(),
-  EndPoints::PatchUserRepositoryInvitationsinvitationId(invitation_id) => format!("/user/repository_invitations/{invitation_id}",invitation_id = invitation_id ),
-  EndPoints::DeleteUserRepositoryInvitationsinvitationId(invitation_id) => format!("/user/repository_invitations/{invitation_id}",invitation_id = invitation_id ),
+  EndPoints::PatchUserRepositoryInvitationsinvitationId(invitation_id) => format!("/user/repository_invitations/{invitation_id}", invitation_id = invitation_id),
+  EndPoints::DeleteUserRepositoryInvitationsinvitationId(invitation_id) => format!("/user/repository_invitations/{invitation_id}", invitation_id = invitation_id),
   EndPoints::GetUserStarred() => "/user/starred".to_string(),
-  EndPoints::GetUserStarredownerrepo(owner,repo) => format!("/user/starred/{owner}/{repo}",owner = owner,repo = repo ),
-  EndPoints::PutUserStarredownerrepo(owner,repo) => format!("/user/starred/{owner}/{repo}",owner = owner,repo = repo ),
-  EndPoints::DeleteUserStarredownerrepo(owner,repo) => format!("/user/starred/{owner}/{repo}",owner = owner,repo = repo ),
+  EndPoints::GetUserStarredownerrepo(owner,repo) => format!("/user/starred/{owner}/{repo}", owner = owner,repo = repo),
+  EndPoints::PutUserStarredownerrepo(owner,repo) => format!("/user/starred/{owner}/{repo}", owner = owner,repo = repo),
+  EndPoints::DeleteUserStarredownerrepo(owner,repo) => format!("/user/starred/{owner}/{repo}", owner = owner,repo = repo),
   EndPoints::GetUserSubscriptions() => "/user/subscriptions".to_string(),
   EndPoints::GetUserTeams() => "/user/teams".to_string(),
   EndPoints::GetUsers() => "/users".to_string(),
-  EndPoints::GetUsersusername(username) => format!("/users/{username}",username = username ),
-  EndPoints::GetUsersusernameEvents(username) => format!("/users/{username}/events",username = username ),
-  EndPoints::GetUsersusernameEventsOrgsorg(username,org) => format!("/users/{username}/events/orgs/{org}",username = username,org = org ),
-  EndPoints::GetUsersusernameEventsPublic(username) => format!("/users/{username}/events/public",username = username ),
-  EndPoints::GetUsersusernameFollowers(username) => format!("/users/{username}/followers",username = username ),
-  EndPoints::GetUsersusernameFollowing(username) => format!("/users/{username}/following",username = username ),
-  EndPoints::GetUsersusernameFollowingtargetUser(username,target_user) => format!("/users/{username}/following/{target_user}",username = username,target_user = target_user ),
-  EndPoints::GetUsersusernameGists(username) => format!("/users/{username}/gists",username = username ),
-  EndPoints::GetUsersusernameGpgKeys(username) => format!("/users/{username}/gpg_keys",username = username ),
-  EndPoints::GetUsersusernameHovercard(username) => format!("/users/{username}/hovercard",username = username ),
-  EndPoints::GetUsersusernameInstallation(username) => format!("/users/{username}/installation",username = username ),
-  EndPoints::GetUsersusernameKeys(username) => format!("/users/{username}/keys",username = username ),
-  EndPoints::GetUsersusernameOrgs(username) => format!("/users/{username}/orgs",username = username ),
-  EndPoints::GetUsersusernamePackages(username) => format!("/users/{username}/packages",username = username ),
-  EndPoints::GetUsersusernamePackagespackageTypepackageName(username,package_type,package_name) => format!("/users/{username}/packages/{package_type}/{package_name}",username = username,package_type = package_type,package_name = package_name ),
-  EndPoints::DeleteUsersusernamePackagespackageTypepackageName(username,package_type,package_name) => format!("/users/{username}/packages/{package_type}/{package_name}",username = username,package_type = package_type,package_name = package_name ),
-  EndPoints::PostUsersusernamePackagespackageTypepackageNameRestore(username,package_type,package_name) => format!("/users/{username}/packages/{package_type}/{package_name}/restore",username = username,package_type = package_type,package_name = package_name ),
-  EndPoints::GetUsersusernamePackagespackageTypepackageNameVersions(username,package_type,package_name) => format!("/users/{username}/packages/{package_type}/{package_name}/versions",username = username,package_type = package_type,package_name = package_name ),
-  EndPoints::GetUsersusernamePackagespackageTypepackageNameVersionspackageVersionId(username,package_type,package_name,package_version_id) => format!("/users/{username}/packages/{package_type}/{package_name}/versions/{package_version_id}",username = username,package_type = package_type,package_name = package_name,package_version_id = package_version_id ),
-  EndPoints::DeleteUsersusernamePackagespackageTypepackageNameVersionspackageVersionId(username,package_type,package_name,package_version_id) => format!("/users/{username}/packages/{package_type}/{package_name}/versions/{package_version_id}",username = username,package_type = package_type,package_name = package_name,package_version_id = package_version_id ),
-  EndPoints::PostUsersusernamePackagespackageTypepackageNameVersionspackageVersionIdRestore(username,package_type,package_name,package_version_id) => format!("/users/{username}/packages/{package_type}/{package_name}/versions/{package_version_id}/restore",username = username,package_type = package_type,package_name = package_name,package_version_id = package_version_id ),
-  EndPoints::GetUsersusernameProjects(username) => format!("/users/{username}/projects",username = username ),
-  EndPoints::GetUsersusernameReceivedEvents(username) => format!("/users/{username}/received_events",username = username ),
-  EndPoints::GetUsersusernameReceivedEventsPublic(username) => format!("/users/{username}/received_events/public",username = username ),
-  EndPoints::GetUsersusernameRepos(username) => format!("/users/{username}/repos",username = username ),
-  EndPoints::GetUsersusernameSettingsBillingActions(username) => format!("/users/{username}/settings/billing/actions",username = username ),
-  EndPoints::GetUsersusernameSettingsBillingPackages(username) => format!("/users/{username}/settings/billing/packages",username = username ),
-  EndPoints::GetUsersusernameSettingsBillingSharedStorage(username) => format!("/users/{username}/settings/billing/shared-storage",username = username ),
-  EndPoints::GetUsersusernameStarred(username) => format!("/users/{username}/starred",username = username ),
-  EndPoints::GetUsersusernameSubscriptions(username) => format!("/users/{username}/subscriptions",username = username ),
+  EndPoints::GetUsersusername(username) => format!("/users/{username}", username = username),
+  EndPoints::GetUsersusernameEvents(username) => format!("/users/{username}/events", username = username),
+  EndPoints::GetUsersusernameEventsOrgsorg(username,org) => format!("/users/{username}/events/orgs/{org}", username = username,org = org),
+  EndPoints::GetUsersusernameEventsPublic(username) => format!("/users/{username}/events/public", username = username),
+  EndPoints::GetUsersusernameFollowers(username) => format!("/users/{username}/followers", username = username),
+  EndPoints::GetUsersusernameFollowing(username) => format!("/users/{username}/following", username = username),
+  EndPoints::GetUsersusernameFollowingtargetUser(username,target_user) => format!("/users/{username}/following/{target_user}", username = username,target_user = target_user),
+  EndPoints::GetUsersusernameGists(username) => format!("/users/{username}/gists", username = username),
+  EndPoints::GetUsersusernameGpgKeys(username) => format!("/users/{username}/gpg_keys", username = username),
+  EndPoints::GetUsersusernameHovercard(username) => format!("/users/{username}/hovercard", username = username),
+  EndPoints::GetUsersusernameInstallation(username) => format!("/users/{username}/installation", username = username),
+  EndPoints::GetUsersusernameKeys(username) => format!("/users/{username}/keys", username = username),
+  EndPoints::GetUsersusernameOrgs(username) => format!("/users/{username}/orgs", username = username),
+  EndPoints::GetUsersusernamePackages(username) => format!("/users/{username}/packages", username = username),
+  EndPoints::GetUsersusernamePackagespackageTypepackageName(username,package_type,package_name) => format!("/users/{username}/packages/{package_type}/{package_name}", username = username,package_type = package_type,package_name = package_name),
+  EndPoints::DeleteUsersusernamePackagespackageTypepackageName(username,package_type,package_name) => format!("/users/{username}/packages/{package_type}/{package_name}", username = username,package_type = package_type,package_name = package_name),
+  EndPoints::PostUsersusernamePackagespackageTypepackageNameRestore(username,package_type,package_name) => format!("/users/{username}/packages/{package_type}/{package_name}/restore", username = username,package_type = package_type,package_name = package_name),
+  EndPoints::GetUsersusernamePackagespackageTypepackageNameVersions(username,package_type,package_name) => format!("/users/{username}/packages/{package_type}/{package_name}/versions", username = username,package_type = package_type,package_name = package_name),
+  EndPoints::GetUsersusernamePackagespackageTypepackageNameVersionspackageVersionId(username,package_type,package_name,package_version_id) => format!("/users/{username}/packages/{package_type}/{package_name}/versions/{package_version_id}", username = username,package_type = package_type,package_name = package_name,package_version_id = package_version_id),
+  EndPoints::DeleteUsersusernamePackagespackageTypepackageNameVersionspackageVersionId(username,package_type,package_name,package_version_id) => format!("/users/{username}/packages/{package_type}/{package_name}/versions/{package_version_id}", username = username,package_type = package_type,package_name = package_name,package_version_id = package_version_id),
+  EndPoints::PostUsersusernamePackagespackageTypepackageNameVersionspackageVersionIdRestore(username,package_type,package_name,package_version_id) => format!("/users/{username}/packages/{package_type}/{package_name}/versions/{package_version_id}/restore", username = username,package_type = package_type,package_name = package_name,package_version_id = package_version_id),
+  EndPoints::GetUsersusernameProjects(username) => format!("/users/{username}/projects", username = username),
+  EndPoints::GetUsersusernameReceivedEvents(username) => format!("/users/{username}/received_events", username = username),
+  EndPoints::GetUsersusernameReceivedEventsPublic(username) => format!("/users/{username}/received_events/public", username = username),
+  EndPoints::GetUsersusernameRepos(username) => format!("/users/{username}/repos", username = username),
+  EndPoints::GetUsersusernameSettingsBillingActions(username) => format!("/users/{username}/settings/billing/actions", username = username),
+  EndPoints::GetUsersusernameSettingsBillingPackages(username) => format!("/users/{username}/settings/billing/packages", username = username),
+  EndPoints::GetUsersusernameSettingsBillingSharedStorage(username) => format!("/users/{username}/settings/billing/shared-storage", username = username),
+  EndPoints::GetUsersusernameStarred(username) => format!("/users/{username}/starred", username = username),
+  EndPoints::GetUsersusernameSubscriptions(username) => format!("/users/{username}/subscriptions", username = username),
   EndPoints::GetZen() => "/zen".to_string()}
     }
-}
-
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetResponse {
-    ///
-    current_user_url: String,
-    ///
-    current_user_authorizations_html_url: String,
-    ///
-    authorizations_url: String,
-    ///
-    code_search_url: String,
-    ///
-    commit_search_url: String,
-    ///
-    emails_url: String,
-    ///
-    emojis_url: String,
-    ///
-    events_url: String,
-    ///
-    feeds_url: String,
-    ///
-    followers_url: String,
-    ///
-    following_url: String,
-    ///
-    gists_url: String,
-    ///
-    hub_url: String,
-    ///
-    issue_search_url: String,
-    ///
-    issues_url: String,
-    ///
-    keys_url: String,
-    ///
-    label_search_url: String,
-    ///
-    notifications_url: String,
-    ///
-    organization_url: String,
-    ///
-    organization_repositories_url: String,
-    ///
-    organization_teams_url: String,
-    ///
-    public_gists_url: String,
-    ///
-    rate_limit_url: String,
-    ///
-    repository_url: String,
-    ///
-    repository_search_url: String,
-    ///
-    current_user_repositories_url: String,
-    ///
-    starred_url: String,
-    ///
-    starred_gists_url: String,
-    ///
-    topic_search_url: String,
-    ///
-    user_url: String,
-    ///
-    user_organizations_url: String,
-    ///
-    user_repositories_url: String,
-    ///
-    user_search_url: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetAppResponse {
-    /// Unique identifier of the GitHub app
-    id: i64,
-    /// The slug name of the GitHub app
-    slug: String,
-    ///
-    node_id: String,
-    /// The name of the GitHub app
-    name: String,
-    ///
-    description: Option<String>,
-    ///
-    external_url: String,
-    ///
-    html_url: String,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    /// * example - [object Object]
-    permissions: Value,
-    /// The list of events for the GitHub app
-    events: Vec<String>,
-    /// The number of installations associated with the GitHub app
-    installations_count: i64,
-    ///
-    client_id: String,
-    ///
-    client_secret: String,
-    ///
-    webhook_secret: Option<String>,
-    ///
-    pem: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetAppHookConfigResponse {
-    /// The URL to which the payloads will be delivered.
-    url: String,
-    /// The media type used to serialize the payloads. Supported values include `json` and `form`. The default is `form`.
-    content_type: String,
-    /// If provided, the `secret` will be used as the `key` to generate the HMAC hex digest value for [delivery signature headers](https://docs.github.com/webhooks/event-payloads/#delivery-headers).
-    secret: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PatchAppHookConfigResponse {
-    /// The URL to which the payloads will be delivered.
-    url: String,
-    /// The media type used to serialize the payloads. Supported values include `json` and `form`. The default is `form`.
-    content_type: String,
-    /// If provided, the `secret` will be used as the `key` to generate the HMAC hex digest value for [delivery signature headers](https://docs.github.com/webhooks/event-payloads/#delivery-headers).
-    secret: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetAppHookDeliveriesdeliveryIdResponse {
-    /// Unique identifier of the delivery.
-    id: i64,
-    /// Unique identifier for the event (shared with all deliveries for all webhooks that subscribe to this event).
-    guid: String,
-    /// Time when the delivery was delivered.
-    delivered_at: String,
-    /// Whether the delivery is a redelivery.
-    redelivery: bool,
-    /// Time spent delivering.
-    duration: f64,
-    /// Description of the status of the attempted delivery
-    status: String,
-    /// Status code received when delivery was made.
-    status_code: i64,
-    /// The event that triggered the delivery.
-    event: String,
-    /// The type of activity for the event that triggered the delivery.
-    action: Option<String>,
-    /// The id of the GitHub App installation associated with this event.
-    installation_id: Option<i64>,
-    /// The id of the repository associated with this event.
-    repository_id: Option<i64>,
-    /// The URL target of the delivery.
-    url: String,
-    ///
-    request: Value,
-    ///
-    response: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetAppInstallationsinstallationIdResponse {
-    /// The ID of the installation.
-    id: i64,
-    ///
-    account: Option<Value>,
-    /// Describe whether all repositories have been selected or there's a selection involved
-    repository_selection: String,
-    ///
-    access_tokens_url: String,
-    ///
-    repositories_url: String,
-    ///
-    html_url: String,
-    ///
-    app_id: i64,
-    /// The ID of the user or organization this token is being scoped to.
-    target_id: i64,
-    ///
-    target_type: String,
-    /// * example - [object Object]
-    permissions: Value,
-    ///
-    events: Vec<String>,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    ///
-    single_file_name: Option<String>,
-    ///
-    has_multiple_single_files: bool,
-    ///
-    single_file_paths: Vec<String>,
-    ///
-    app_slug: String,
-    ///
-    suspended_at: Option<String>,
-    ///
-    contact_email: Option<String>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostAppInstallationsinstallationIdAccessTokensResponse {
-    ///
-    token: String,
-    ///
-    expires_at: String,
-    /// * example - [object Object]
-    permissions: Value,
-    ///
-    repository_selection: String,
-    ///
-    repositories: Vec<Value>,
-    ///
-    single_file: String,
-    ///
-    has_multiple_single_files: bool,
-    ///
-    single_file_paths: Vec<String>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetApplicationsGrantsgrantIdResponse {
-    ///
-    id: i64,
-    ///
-    url: String,
-    ///
-    app: Value,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    ///
-    scopes: Vec<String>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostApplicationsclientIdTokenResponse {
-    ///
-    id: i64,
-    ///
-    url: String,
-    /// A list of scopes that this authorization is in.
-    scopes: Option<Vec<String>>,
-    ///
-    token: String,
-    ///
-    token_last_eight: Option<String>,
-    ///
-    hashed_token: Option<String>,
-    ///
-    app: Value,
-    ///
-    note: Option<String>,
-    ///
-    note_url: Option<String>,
-    ///
-    updated_at: String,
-    ///
-    created_at: String,
-    ///
-    fingerprint: Option<String>,
-    ///
-    expires_at: Option<String>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PatchApplicationsclientIdTokenResponse {
-    ///
-    id: i64,
-    ///
-    url: String,
-    /// A list of scopes that this authorization is in.
-    scopes: Option<Vec<String>>,
-    ///
-    token: String,
-    ///
-    token_last_eight: Option<String>,
-    ///
-    hashed_token: Option<String>,
-    ///
-    app: Value,
-    ///
-    note: Option<String>,
-    ///
-    note_url: Option<String>,
-    ///
-    updated_at: String,
-    ///
-    created_at: String,
-    ///
-    fingerprint: Option<String>,
-    ///
-    expires_at: Option<String>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostApplicationsclientIdTokenScopedResponse {
-    ///
-    id: i64,
-    ///
-    url: String,
-    /// A list of scopes that this authorization is in.
-    scopes: Option<Vec<String>>,
-    ///
-    token: String,
-    ///
-    token_last_eight: Option<String>,
-    ///
-    hashed_token: Option<String>,
-    ///
-    app: Value,
-    ///
-    note: Option<String>,
-    ///
-    note_url: Option<String>,
-    ///
-    updated_at: String,
-    ///
-    created_at: String,
-    ///
-    fingerprint: Option<String>,
-    ///
-    expires_at: Option<String>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetAppsappSlugResponse {
-    /// Unique identifier of the GitHub app
-    id: i64,
-    /// The slug name of the GitHub app
-    slug: String,
-    ///
-    node_id: String,
-    /// The name of the GitHub app
-    name: String,
-    ///
-    description: Option<String>,
-    ///
-    external_url: String,
-    ///
-    html_url: String,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    /// * example - [object Object]
-    permissions: Value,
-    /// The list of events for the GitHub app
-    events: Vec<String>,
-    /// The number of installations associated with the GitHub app
-    installations_count: i64,
-    ///
-    client_id: String,
-    ///
-    client_secret: String,
-    ///
-    webhook_secret: Option<String>,
-    ///
-    pem: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostAuthorizationsResponse {
-    ///
-    id: i64,
-    ///
-    url: String,
-    /// A list of scopes that this authorization is in.
-    scopes: Option<Vec<String>>,
-    ///
-    token: String,
-    ///
-    token_last_eight: Option<String>,
-    ///
-    hashed_token: Option<String>,
-    ///
-    app: Value,
-    ///
-    note: Option<String>,
-    ///
-    note_url: Option<String>,
-    ///
-    updated_at: String,
-    ///
-    created_at: String,
-    ///
-    fingerprint: Option<String>,
-    ///
-    expires_at: Option<String>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PutAuthorizationsClientsclientIdResponse {
-    ///
-    id: i64,
-    ///
-    url: String,
-    /// A list of scopes that this authorization is in.
-    scopes: Option<Vec<String>>,
-    ///
-    token: String,
-    ///
-    token_last_eight: Option<String>,
-    ///
-    hashed_token: Option<String>,
-    ///
-    app: Value,
-    ///
-    note: Option<String>,
-    ///
-    note_url: Option<String>,
-    ///
-    updated_at: String,
-    ///
-    created_at: String,
-    ///
-    fingerprint: Option<String>,
-    ///
-    expires_at: Option<String>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PutAuthorizationsClientsclientIdfingerprintResponse {
-    ///
-    id: i64,
-    ///
-    url: String,
-    /// A list of scopes that this authorization is in.
-    scopes: Option<Vec<String>>,
-    ///
-    token: String,
-    ///
-    token_last_eight: Option<String>,
-    ///
-    hashed_token: Option<String>,
-    ///
-    app: Value,
-    ///
-    note: Option<String>,
-    ///
-    note_url: Option<String>,
-    ///
-    updated_at: String,
-    ///
-    created_at: String,
-    ///
-    fingerprint: Option<String>,
-    ///
-    expires_at: Option<String>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetAuthorizationsauthorizationIdResponse {
-    ///
-    id: i64,
-    ///
-    url: String,
-    /// A list of scopes that this authorization is in.
-    scopes: Option<Vec<String>>,
-    ///
-    token: String,
-    ///
-    token_last_eight: Option<String>,
-    ///
-    hashed_token: Option<String>,
-    ///
-    app: Value,
-    ///
-    note: Option<String>,
-    ///
-    note_url: Option<String>,
-    ///
-    updated_at: String,
-    ///
-    created_at: String,
-    ///
-    fingerprint: Option<String>,
-    ///
-    expires_at: Option<String>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PatchAuthorizationsauthorizationIdResponse {
-    ///
-    id: i64,
-    ///
-    url: String,
-    /// A list of scopes that this authorization is in.
-    scopes: Option<Vec<String>>,
-    ///
-    token: String,
-    ///
-    token_last_eight: Option<String>,
-    ///
-    hashed_token: Option<String>,
-    ///
-    app: Value,
-    ///
-    note: Option<String>,
-    ///
-    note_url: Option<String>,
-    ///
-    updated_at: String,
-    ///
-    created_at: String,
-    ///
-    fingerprint: Option<String>,
-    ///
-    expires_at: Option<String>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetCodesOfConductkeyResponse {
-    ///
-    key: String,
-    ///
-    name: String,
-    ///
-    url: String,
-    ///
-    body: String,
-    ///
-    html_url: Option<String>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetEnterprisesenterpriseActionsPermissionsResponse {
-    /// The policy that controls the organizations in the enterprise that are allowed to run GitHub Actions. Can be one of: `all`, `none`, or `selected`.
-    enabled_organizations: String,
-    /// The API URL to use to get or set the selected organizations that are allowed to run GitHub Actions, when `enabled_organizations` is set to `selected`.
-    selected_organizations_url: String,
-    /// The permissions policy that controls the actions that are allowed to run. Can be one of: `all`, `local_only`, or `selected`.
-    allowed_actions: String,
-    /// The API URL to use to get or set the actions that are allowed to run, when `allowed_actions` is set to `selected`.
-    selected_actions_url: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetEnterprisesenterpriseActionsPermissionsOrganizationsResponse {
-    ///
-    total_count: f64,
-    ///
-    organizations: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetEnterprisesenterpriseActionsPermissionsSelectedActionsResponse {
-    /// Whether GitHub-owned actions are allowed. For example, this includes the actions in the `actions` organization.
-    github_owned_allowed: bool,
-    /// Whether actions in GitHub Marketplace from verified creators are allowed. Set to `true` to allow all GitHub Marketplace actions by verified creators.
-    verified_allowed: bool,
-    /// Specifies a list of string-matching patterns to allow specific action(s). Wildcards, tags, and SHAs are allowed. For example, `monalisa/octocat@*`, `monalisa/octocat@v2`, `monalisa/*`."
-    patterns_allowed: Vec<String>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetEnterprisesenterpriseActionsRunnerGroupsResponse {
-    ///
-    total_count: f64,
-    ///
-    runner_groups: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostEnterprisesenterpriseActionsRunnerGroupsResponse {
-    ///
-    id: f64,
-    ///
-    name: String,
-    ///
-    visibility: String,
-    ///
-    default: bool,
-    ///
-    selected_organizations_url: String,
-    ///
-    runners_url: String,
-    ///
-    allows_public_repositories: bool,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetEnterprisesenterpriseActionsRunnerGroupsrunnerGroupIdResponse {
-    ///
-    id: f64,
-    ///
-    name: String,
-    ///
-    visibility: String,
-    ///
-    default: bool,
-    ///
-    selected_organizations_url: String,
-    ///
-    runners_url: String,
-    ///
-    allows_public_repositories: bool,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PatchEnterprisesenterpriseActionsRunnerGroupsrunnerGroupIdResponse {
-    ///
-    id: f64,
-    ///
-    name: String,
-    ///
-    visibility: String,
-    ///
-    default: bool,
-    ///
-    selected_organizations_url: String,
-    ///
-    runners_url: String,
-    ///
-    allows_public_repositories: bool,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetEnterprisesenterpriseActionsRunnerGroupsrunnerGroupIdOrganizationsResponse {
-    ///
-    total_count: f64,
-    ///
-    organizations: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetEnterprisesenterpriseActionsRunnerGroupsrunnerGroupIdRunnersResponse {
-    ///
-    total_count: f64,
-    ///
-    runners: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetEnterprisesenterpriseActionsRunnersResponse {
-    ///
-    total_count: f64,
-    ///
-    runners: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostEnterprisesenterpriseActionsRunnersRegistrationTokenResponse {
-    /// The token used for authentication
-    token: String,
-    /// The time this token expires
-    expires_at: String,
-    ///
-    permissions: Value,
-    /// The repositories this token has access to
-    repositories: Vec<Value>,
-    ///
-    single_file: Option<String>,
-    /// Describe whether all repositories have been selected or there's a selection involved
-    repository_selection: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostEnterprisesenterpriseActionsRunnersRemoveTokenResponse {
-    /// The token used for authentication
-    token: String,
-    /// The time this token expires
-    expires_at: String,
-    ///
-    permissions: Value,
-    /// The repositories this token has access to
-    repositories: Vec<Value>,
-    ///
-    single_file: Option<String>,
-    /// Describe whether all repositories have been selected or there's a selection involved
-    repository_selection: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetEnterprisesenterpriseActionsRunnersrunnerIdResponse {
-    /// The id of the runner.
-    id: i64,
-    /// The name of the runner.
-    name: String,
-    /// The Operating System of the runner.
-    os: String,
-    /// The status of the runner.
-    status: String,
-    ///
-    busy: bool,
-    ///
-    labels: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetEnterprisesenterpriseActionsRunnersrunnerIdLabelsResponse {
-    ///
-    total_count: i64,
-    ///
-    labels: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostEnterprisesenterpriseActionsRunnersrunnerIdLabelsResponse {
-    ///
-    total_count: i64,
-    ///
-    labels: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PutEnterprisesenterpriseActionsRunnersrunnerIdLabelsResponse {
-    ///
-    total_count: i64,
-    ///
-    labels: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct DeleteEnterprisesenterpriseActionsRunnersrunnerIdLabelsResponse {
-    ///
-    total_count: i64,
-    ///
-    labels: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct DeleteEnterprisesenterpriseActionsRunnersrunnerIdLabelsnameResponse {
-    ///
-    total_count: i64,
-    ///
-    labels: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetEnterprisesenterpriseSettingsBillingActionsResponse {
-    /// The sum of the free and paid GitHub Actions minutes used.
-    total_minutes_used: i64,
-    /// The total paid GitHub Actions minutes used.
-    total_paid_minutes_used: i64,
-    /// The amount of free GitHub Actions minutes available.
-    included_minutes: i64,
-    ///
-    minutes_used_breakdown: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetEnterprisesenterpriseSettingsBillingAdvancedSecurityResponse {
-    ///
-    total_advanced_security_committers: i64,
-    ///
-    repositories: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetEnterprisesenterpriseSettingsBillingPackagesResponse {
-    /// Sum of the free and paid storage space (GB) for GitHuub Packages.
-    total_gigabytes_bandwidth_used: i64,
-    /// Total paid storage space (GB) for GitHuub Packages.
-    total_paid_gigabytes_bandwidth_used: i64,
-    /// Free storage space (GB) for GitHub Packages.
-    included_gigabytes_bandwidth: i64,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetEnterprisesenterpriseSettingsBillingSharedStorageResponse {
-    /// Numbers of days left in billing cycle.
-    days_left_in_billing_cycle: i64,
-    /// Estimated storage space (GB) used in billing cycle.
-    estimated_paid_storage_for_month: i64,
-    /// Estimated sum of free and paid storage space (GB) used in billing cycle.
-    estimated_storage_for_month: i64,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetFeedsResponse {
-    ///
-    timeline_url: String,
-    ///
-    user_url: String,
-    ///
-    current_user_public_url: String,
-    ///
-    current_user_url: String,
-    ///
-    current_user_actor_url: String,
-    ///
-    current_user_organization_url: String,
-    ///
-    current_user_organization_urls: Vec<String>,
-    ///
-    security_advisories_url: String,
-    ///
-    _links: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostGistsResponse {
-    ///
-    forks: Option<Vec<Value>>,
-    ///
-    history: Option<Vec<Value>>,
-    /// Gist
-    fork_of: Option<Value>,
-    ///
-    url: String,
-    ///
-    forks_url: String,
-    ///
-    commits_url: String,
-    ///
-    id: String,
-    ///
-    node_id: String,
-    ///
-    git_pull_url: String,
-    ///
-    git_push_url: String,
-    ///
-    html_url: String,
-    ///
-    files: Value,
-    ///
-    public: bool,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    ///
-    description: Option<String>,
-    ///
-    comments: i64,
-    ///
-    user: Option<String>,
-    ///
-    comments_url: String,
-    /// Simple User
-    owner: Value,
-    ///
-    truncated: bool,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetGistsgistIdResponse {
-    ///
-    forks: Option<Vec<Value>>,
-    ///
-    history: Option<Vec<Value>>,
-    /// Gist
-    fork_of: Option<Value>,
-    ///
-    url: String,
-    ///
-    forks_url: String,
-    ///
-    commits_url: String,
-    ///
-    id: String,
-    ///
-    node_id: String,
-    ///
-    git_pull_url: String,
-    ///
-    git_push_url: String,
-    ///
-    html_url: String,
-    ///
-    files: Value,
-    ///
-    public: bool,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    ///
-    description: Option<String>,
-    ///
-    comments: i64,
-    ///
-    user: Option<String>,
-    ///
-    comments_url: String,
-    /// Simple User
-    owner: Value,
-    ///
-    truncated: bool,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PatchGistsgistIdResponse {
-    ///
-    forks: Option<Vec<Value>>,
-    ///
-    history: Option<Vec<Value>>,
-    /// Gist
-    fork_of: Option<Value>,
-    ///
-    url: String,
-    ///
-    forks_url: String,
-    ///
-    commits_url: String,
-    ///
-    id: String,
-    ///
-    node_id: String,
-    ///
-    git_pull_url: String,
-    ///
-    git_push_url: String,
-    ///
-    html_url: String,
-    ///
-    files: Value,
-    ///
-    public: bool,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    ///
-    description: Option<String>,
-    ///
-    comments: i64,
-    ///
-    user: Option<String>,
-    ///
-    comments_url: String,
-    /// Simple User
-    owner: Value,
-    ///
-    truncated: bool,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostGistsgistIdCommentsResponse {
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    ///
-    url: String,
-    /// The comment text.
-    body: String,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    /// How the author is associated with the repository.
-    author_association: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetGistsgistIdCommentscommentIdResponse {
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    ///
-    url: String,
-    /// The comment text.
-    body: String,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    /// How the author is associated with the repository.
-    author_association: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PatchGistsgistIdCommentscommentIdResponse {
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    ///
-    url: String,
-    /// The comment text.
-    body: String,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    /// How the author is associated with the repository.
-    author_association: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostGistsgistIdForksResponse {
-    ///
-    url: String,
-    ///
-    forks_url: String,
-    ///
-    commits_url: String,
-    ///
-    id: String,
-    ///
-    node_id: String,
-    ///
-    git_pull_url: String,
-    ///
-    git_push_url: String,
-    ///
-    html_url: String,
-    ///
-    files: Value,
-    ///
-    public: bool,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    ///
-    description: Option<String>,
-    ///
-    comments: i64,
-    ///
-    comments_url: String,
-    /// Simple User
-    owner: Value,
-    ///
-    truncated: bool,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetGistsgistIdshaResponse {
-    ///
-    forks: Option<Vec<Value>>,
-    ///
-    history: Option<Vec<Value>>,
-    /// Gist
-    fork_of: Option<Value>,
-    ///
-    url: String,
-    ///
-    forks_url: String,
-    ///
-    commits_url: String,
-    ///
-    id: String,
-    ///
-    node_id: String,
-    ///
-    git_pull_url: String,
-    ///
-    git_push_url: String,
-    ///
-    html_url: String,
-    ///
-    files: Value,
-    ///
-    public: bool,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    ///
-    description: Option<String>,
-    ///
-    comments: i64,
-    ///
-    user: Option<String>,
-    ///
-    comments_url: String,
-    /// Simple User
-    owner: Value,
-    ///
-    truncated: bool,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetGitignoreTemplatesnameResponse {
-    ///
-    name: String,
-    ///
-    source: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetInstallationRepositoriesResponse {
-    ///
-    total_count: i64,
-    ///
-    repositories: Vec<Value>,
-    ///
-    repository_selection: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetLicenseslicenseResponse {
-    ///
-    key: String,
-    ///
-    name: String,
-    ///
-    spdx_id: Option<String>,
-    ///
-    url: Option<String>,
-    ///
-    node_id: String,
-    ///
-    html_url: String,
-    ///
-    description: String,
-    ///
-    implementation: String,
-    ///
-    permissions: Vec<String>,
-    ///
-    conditions: Vec<String>,
-    ///
-    limitations: Vec<String>,
-    ///
-    body: String,
-    ///
-    featured: bool,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetMarketplaceListingAccountsaccountIdResponse {
-    ///
-    url: String,
-    ///
-    #[serde(rename = "type")]
-    atype: String,
-    ///
-    id: i64,
-    ///
-    login: String,
-    ///
-    organization_billing_email: String,
-    ///
-    email: Option<String>,
-    ///
-    marketplace_pending_change: Option<Value>,
-    ///
-    marketplace_purchase: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetMarketplaceListingStubbedAccountsaccountIdResponse {
-    ///
-    url: String,
-    ///
-    #[serde(rename = "type")]
-    atype: String,
-    ///
-    id: i64,
-    ///
-    login: String,
-    ///
-    organization_billing_email: String,
-    ///
-    email: Option<String>,
-    ///
-    marketplace_pending_change: Option<Value>,
-    ///
-    marketplace_purchase: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetMetaResponse {
-    ///
-    verifiable_password_authentication: bool,
-    ///
-    ssh_key_fingerprints: Value,
-    ///
-    hooks: Vec<String>,
-    ///
-    web: Vec<String>,
-    ///
-    api: Vec<String>,
-    ///
-    git: Vec<String>,
-    ///
-    packages: Vec<String>,
-    ///
-    pages: Vec<String>,
-    ///
-    importer: Vec<String>,
-    ///
-    actions: Vec<String>,
-    ///
-    dependabot: Vec<String>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PutNotificationsResponse {
-    ///
-    message: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetNotificationsThreadsthreadIdResponse {
-    ///
-    id: String,
-    /// Minimal Repository
-    repository: Value,
-    ///
-    subject: Value,
-    ///
-    reason: String,
-    ///
-    unread: bool,
-    ///
-    updated_at: String,
-    ///
-    last_read_at: Option<String>,
-    ///
-    url: String,
-    ///
-    subscription_url: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetNotificationsThreadsthreadIdSubscriptionResponse {
-    ///
-    subscribed: bool,
-    ///
-    ignored: bool,
-    ///
-    reason: Option<String>,
-    ///
-    created_at: Option<String>,
-    ///
-    url: String,
-    ///
-    thread_url: String,
-    ///
-    repository_url: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PutNotificationsThreadsthreadIdSubscriptionResponse {
-    ///
-    subscribed: bool,
-    ///
-    ignored: bool,
-    ///
-    reason: Option<String>,
-    ///
-    created_at: Option<String>,
-    ///
-    url: String,
-    ///
-    thread_url: String,
-    ///
-    repository_url: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetOrganizationsorganizationIdCustomRolesResponse {
-    /// The number of custom roles in this organization
-    total_count: i64,
-    ///
-    custom_roles: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetOrgsorgResponse {
-    ///
-    login: String,
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    ///
-    url: String,
-    ///
-    repos_url: String,
-    ///
-    events_url: String,
-    ///
-    hooks_url: String,
-    ///
-    issues_url: String,
-    ///
-    members_url: String,
-    ///
-    public_members_url: String,
-    ///
-    avatar_url: String,
-    ///
-    description: Option<String>,
-    ///
-    name: String,
-    ///
-    company: String,
-    ///
-    blog: String,
-    ///
-    location: String,
-    ///
-    email: String,
-    ///
-    twitter_username: Option<String>,
-    ///
-    is_verified: bool,
-    ///
-    has_organization_projects: bool,
-    ///
-    has_repository_projects: bool,
-    ///
-    public_repos: i64,
-    ///
-    public_gists: i64,
-    ///
-    followers: i64,
-    ///
-    following: i64,
-    ///
-    html_url: String,
-    ///
-    created_at: String,
-    ///
-    #[serde(rename = "type")]
-    atype: String,
-    ///
-    total_private_repos: i64,
-    ///
-    owned_private_repos: i64,
-    ///
-    private_gists: Option<i64>,
-    ///
-    disk_usage: Option<i64>,
-    ///
-    collaborators: Option<i64>,
-    ///
-    billing_email: Option<String>,
-    ///
-    plan: Value,
-    ///
-    default_repository_permission: Option<String>,
-    ///
-    members_can_create_repositories: Option<bool>,
-    ///
-    two_factor_requirement_enabled: Option<bool>,
-    ///
-    members_allowed_repository_creation_type: String,
-    ///
-    members_can_create_public_repositories: bool,
-    ///
-    members_can_create_private_repositories: bool,
-    ///
-    members_can_create_internal_repositories: bool,
-    ///
-    members_can_create_pages: bool,
-    ///
-    members_can_create_public_pages: bool,
-    ///
-    members_can_create_private_pages: bool,
-    ///
-    members_can_fork_private_repositories: Option<bool>,
-    ///
-    updated_at: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PatchOrgsorgResponse {
-    ///
-    login: String,
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    ///
-    url: String,
-    ///
-    repos_url: String,
-    ///
-    events_url: String,
-    ///
-    hooks_url: String,
-    ///
-    issues_url: String,
-    ///
-    members_url: String,
-    ///
-    public_members_url: String,
-    ///
-    avatar_url: String,
-    ///
-    description: Option<String>,
-    ///
-    name: String,
-    ///
-    company: String,
-    ///
-    blog: String,
-    ///
-    location: String,
-    ///
-    email: String,
-    ///
-    twitter_username: Option<String>,
-    ///
-    is_verified: bool,
-    ///
-    has_organization_projects: bool,
-    ///
-    has_repository_projects: bool,
-    ///
-    public_repos: i64,
-    ///
-    public_gists: i64,
-    ///
-    followers: i64,
-    ///
-    following: i64,
-    ///
-    html_url: String,
-    ///
-    created_at: String,
-    ///
-    #[serde(rename = "type")]
-    atype: String,
-    ///
-    total_private_repos: i64,
-    ///
-    owned_private_repos: i64,
-    ///
-    private_gists: Option<i64>,
-    ///
-    disk_usage: Option<i64>,
-    ///
-    collaborators: Option<i64>,
-    ///
-    billing_email: Option<String>,
-    ///
-    plan: Value,
-    ///
-    default_repository_permission: Option<String>,
-    ///
-    members_can_create_repositories: Option<bool>,
-    ///
-    two_factor_requirement_enabled: Option<bool>,
-    ///
-    members_allowed_repository_creation_type: String,
-    ///
-    members_can_create_public_repositories: bool,
-    ///
-    members_can_create_private_repositories: bool,
-    ///
-    members_can_create_internal_repositories: bool,
-    ///
-    members_can_create_pages: bool,
-    ///
-    members_can_create_public_pages: bool,
-    ///
-    members_can_create_private_pages: bool,
-    ///
-    members_can_fork_private_repositories: Option<bool>,
-    ///
-    updated_at: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetOrgsorgActionsPermissionsResponse {
-    /// The policy that controls the repositories in the organization that are allowed to run GitHub Actions. Can be one of: `all`, `none`, or `selected`.
-    enabled_repositories: String,
-    /// The API URL to use to get or set the selected repositories that are allowed to run GitHub Actions, when `enabled_repositories` is set to `selected`.
-    selected_repositories_url: String,
-    /// The permissions policy that controls the actions that are allowed to run. Can be one of: `all`, `local_only`, or `selected`.
-    allowed_actions: String,
-    /// The API URL to use to get or set the actions that are allowed to run, when `allowed_actions` is set to `selected`.
-    selected_actions_url: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetOrgsorgActionsPermissionsRepositoriesResponse {
-    ///
-    total_count: f64,
-    ///
-    repositories: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetOrgsorgActionsPermissionsSelectedActionsResponse {
-    /// Whether GitHub-owned actions are allowed. For example, this includes the actions in the `actions` organization.
-    github_owned_allowed: bool,
-    /// Whether actions in GitHub Marketplace from verified creators are allowed. Set to `true` to allow all GitHub Marketplace actions by verified creators.
-    verified_allowed: bool,
-    /// Specifies a list of string-matching patterns to allow specific action(s). Wildcards, tags, and SHAs are allowed. For example, `monalisa/octocat@*`, `monalisa/octocat@v2`, `monalisa/*`."
-    patterns_allowed: Vec<String>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetOrgsorgActionsRunnerGroupsResponse {
-    ///
-    total_count: f64,
-    ///
-    runner_groups: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostOrgsorgActionsRunnerGroupsResponse {
-    ///
-    id: f64,
-    ///
-    name: String,
-    ///
-    visibility: String,
-    ///
-    default: bool,
-    /// Link to the selected repositories resource for this runner group. Not present unless visibility was set to `selected`
-    selected_repositories_url: String,
-    ///
-    runners_url: String,
-    ///
-    inherited: bool,
-    ///
-    inherited_allows_public_repositories: bool,
-    ///
-    allows_public_repositories: bool,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetOrgsorgActionsRunnerGroupsrunnerGroupIdResponse {
-    ///
-    id: f64,
-    ///
-    name: String,
-    ///
-    visibility: String,
-    ///
-    default: bool,
-    /// Link to the selected repositories resource for this runner group. Not present unless visibility was set to `selected`
-    selected_repositories_url: String,
-    ///
-    runners_url: String,
-    ///
-    inherited: bool,
-    ///
-    inherited_allows_public_repositories: bool,
-    ///
-    allows_public_repositories: bool,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PatchOrgsorgActionsRunnerGroupsrunnerGroupIdResponse {
-    ///
-    id: f64,
-    ///
-    name: String,
-    ///
-    visibility: String,
-    ///
-    default: bool,
-    /// Link to the selected repositories resource for this runner group. Not present unless visibility was set to `selected`
-    selected_repositories_url: String,
-    ///
-    runners_url: String,
-    ///
-    inherited: bool,
-    ///
-    inherited_allows_public_repositories: bool,
-    ///
-    allows_public_repositories: bool,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetOrgsorgActionsRunnerGroupsrunnerGroupIdRepositoriesResponse {
-    ///
-    total_count: f64,
-    ///
-    repositories: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetOrgsorgActionsRunnerGroupsrunnerGroupIdRunnersResponse {
-    ///
-    total_count: f64,
-    ///
-    runners: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetOrgsorgActionsRunnersResponse {
-    ///
-    total_count: i64,
-    ///
-    runners: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostOrgsorgActionsRunnersRegistrationTokenResponse {
-    /// The token used for authentication
-    token: String,
-    /// The time this token expires
-    expires_at: String,
-    ///
-    permissions: Value,
-    /// The repositories this token has access to
-    repositories: Vec<Value>,
-    ///
-    single_file: Option<String>,
-    /// Describe whether all repositories have been selected or there's a selection involved
-    repository_selection: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostOrgsorgActionsRunnersRemoveTokenResponse {
-    /// The token used for authentication
-    token: String,
-    /// The time this token expires
-    expires_at: String,
-    ///
-    permissions: Value,
-    /// The repositories this token has access to
-    repositories: Vec<Value>,
-    ///
-    single_file: Option<String>,
-    /// Describe whether all repositories have been selected or there's a selection involved
-    repository_selection: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetOrgsorgActionsRunnersrunnerIdResponse {
-    /// The id of the runner.
-    id: i64,
-    /// The name of the runner.
-    name: String,
-    /// The Operating System of the runner.
-    os: String,
-    /// The status of the runner.
-    status: String,
-    ///
-    busy: bool,
-    ///
-    labels: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetOrgsorgActionsRunnersrunnerIdLabelsResponse {
-    ///
-    total_count: i64,
-    ///
-    labels: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostOrgsorgActionsRunnersrunnerIdLabelsResponse {
-    ///
-    total_count: i64,
-    ///
-    labels: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PutOrgsorgActionsRunnersrunnerIdLabelsResponse {
-    ///
-    total_count: i64,
-    ///
-    labels: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct DeleteOrgsorgActionsRunnersrunnerIdLabelsResponse {
-    ///
-    total_count: i64,
-    ///
-    labels: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct DeleteOrgsorgActionsRunnersrunnerIdLabelsnameResponse {
-    ///
-    total_count: i64,
-    ///
-    labels: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetOrgsorgActionsSecretsResponse {
-    ///
-    total_count: i64,
-    ///
-    secrets: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetOrgsorgActionsSecretsPublicKeyResponse {
-    /// The identifier for the key.
-    key_id: String,
-    /// The Base64 encoded public key.
-    key: String,
-    ///
-    id: i64,
-    ///
-    url: String,
-    ///
-    title: String,
-    ///
-    created_at: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetOrgsorgActionsSecretssecretNameResponse {
-    /// The name of the secret.
-    name: String,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    /// Visibility of a secret
-    visibility: String,
-    ///
-    selected_repositories_url: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetOrgsorgActionsSecretssecretNameRepositoriesResponse {
-    ///
-    total_count: i64,
-    ///
-    repositories: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetOrgsorgExternalGroupgroupIdResponse {
-    /// The internal ID of the group
-    group_id: i64,
-    /// The display name for the group
-    group_name: String,
-    /// The date when the group was last updated_at
-    updated_at: String,
-    /// An array of teams linked to this group
-    teams: Vec<Value>,
-    /// An array of external members linked to this group
-    members: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetOrgsorgExternalGroupsResponse {
-    /// An array of external groups available to be mapped to a team
-    groups: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostOrgsorgHooksResponse {
-    ///
-    id: i64,
-    ///
-    url: String,
-    ///
-    ping_url: String,
-    ///
-    deliveries_url: String,
-    ///
-    name: String,
-    ///
-    events: Vec<String>,
-    ///
-    active: bool,
-    ///
-    config: Value,
-    ///
-    updated_at: String,
-    ///
-    created_at: String,
-    ///
-    #[serde(rename = "type")]
-    atype: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetOrgsorgHookshookIdResponse {
-    ///
-    id: i64,
-    ///
-    url: String,
-    ///
-    ping_url: String,
-    ///
-    deliveries_url: String,
-    ///
-    name: String,
-    ///
-    events: Vec<String>,
-    ///
-    active: bool,
-    ///
-    config: Value,
-    ///
-    updated_at: String,
-    ///
-    created_at: String,
-    ///
-    #[serde(rename = "type")]
-    atype: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PatchOrgsorgHookshookIdResponse {
-    ///
-    id: i64,
-    ///
-    url: String,
-    ///
-    ping_url: String,
-    ///
-    deliveries_url: String,
-    ///
-    name: String,
-    ///
-    events: Vec<String>,
-    ///
-    active: bool,
-    ///
-    config: Value,
-    ///
-    updated_at: String,
-    ///
-    created_at: String,
-    ///
-    #[serde(rename = "type")]
-    atype: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetOrgsorgHookshookIdConfigResponse {
-    /// The URL to which the payloads will be delivered.
-    url: String,
-    /// The media type used to serialize the payloads. Supported values include `json` and `form`. The default is `form`.
-    content_type: String,
-    /// If provided, the `secret` will be used as the `key` to generate the HMAC hex digest value for [delivery signature headers](https://docs.github.com/webhooks/event-payloads/#delivery-headers).
-    secret: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PatchOrgsorgHookshookIdConfigResponse {
-    /// The URL to which the payloads will be delivered.
-    url: String,
-    /// The media type used to serialize the payloads. Supported values include `json` and `form`. The default is `form`.
-    content_type: String,
-    /// If provided, the `secret` will be used as the `key` to generate the HMAC hex digest value for [delivery signature headers](https://docs.github.com/webhooks/event-payloads/#delivery-headers).
-    secret: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetOrgsorgHookshookIdDeliveriesdeliveryIdResponse {
-    /// Unique identifier of the delivery.
-    id: i64,
-    /// Unique identifier for the event (shared with all deliveries for all webhooks that subscribe to this event).
-    guid: String,
-    /// Time when the delivery was delivered.
-    delivered_at: String,
-    /// Whether the delivery is a redelivery.
-    redelivery: bool,
-    /// Time spent delivering.
-    duration: f64,
-    /// Description of the status of the attempted delivery
-    status: String,
-    /// Status code received when delivery was made.
-    status_code: i64,
-    /// The event that triggered the delivery.
-    event: String,
-    /// The type of activity for the event that triggered the delivery.
-    action: Option<String>,
-    /// The id of the GitHub App installation associated with this event.
-    installation_id: Option<i64>,
-    /// The id of the repository associated with this event.
-    repository_id: Option<i64>,
-    /// The URL target of the delivery.
-    url: String,
-    ///
-    request: Value,
-    ///
-    response: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetOrgsorgInstallationResponse {
-    /// The ID of the installation.
-    id: i64,
-    ///
-    account: Option<Value>,
-    /// Describe whether all repositories have been selected or there's a selection involved
-    repository_selection: String,
-    ///
-    access_tokens_url: String,
-    ///
-    repositories_url: String,
-    ///
-    html_url: String,
-    ///
-    app_id: i64,
-    /// The ID of the user or organization this token is being scoped to.
-    target_id: i64,
-    ///
-    target_type: String,
-    /// * example - [object Object]
-    permissions: Value,
-    ///
-    events: Vec<String>,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    ///
-    single_file_name: Option<String>,
-    ///
-    has_multiple_single_files: bool,
-    ///
-    single_file_paths: Vec<String>,
-    ///
-    app_slug: String,
-    ///
-    suspended_at: Option<String>,
-    ///
-    contact_email: Option<String>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetOrgsorgInstallationsResponse {
-    ///
-    total_count: i64,
-    ///
-    installations: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PutOrgsorgInteractionLimitsResponse {
-    /// The type of GitHub user that can comment, open issues, or create pull requests while the interaction limit is in effect. Can be one of: `existing_users`, `contributors_only`, `collaborators_only`.
-    limit: String,
-    ///
-    origin: String,
-    ///
-    expires_at: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostOrgsorgInvitationsResponse {
-    ///
-    id: i64,
-    ///
-    login: Option<String>,
-    ///
-    email: Option<String>,
-    ///
-    role: String,
-    ///
-    created_at: String,
-    ///
-    failed_at: Option<String>,
-    ///
-    failed_reason: Option<String>,
-    /// Simple User
-    inviter: Value,
-    ///
-    team_count: i64,
-    ///
-    node_id: String,
-    ///
-    invitation_teams_url: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetOrgsorgMembershipsusernameResponse {
-    ///
-    url: String,
-    /// The state of the member in the organization. The `pending` state indicates the user has not yet accepted an invitation.
-    state: String,
-    /// The user's membership type in the organization.
-    role: String,
-    ///
-    organization_url: String,
-    /// Organization Simple
-    organization: Value,
-    ///
-    permissions: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PutOrgsorgMembershipsusernameResponse {
-    ///
-    url: String,
-    /// The state of the member in the organization. The `pending` state indicates the user has not yet accepted an invitation.
-    state: String,
-    /// The user's membership type in the organization.
-    role: String,
-    ///
-    organization_url: String,
-    /// Organization Simple
-    organization: Value,
-    ///
-    permissions: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostOrgsorgMigrationsResponse {
-    ///
-    id: i64,
-    ///
-    guid: String,
-    ///
-    state: String,
-    ///
-    lock_repositories: bool,
-    ///
-    exclude_metadata: bool,
-    ///
-    exclude_git_data: bool,
-    ///
-    exclude_attachments: bool,
-    ///
-    exclude_releases: bool,
-    ///
-    exclude_owner_projects: bool,
-    ///
-    repositories: Vec<Value>,
-    ///
-    url: String,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    ///
-    node_id: String,
-    ///
-    archive_url: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetOrgsorgMigrationsmigrationIdResponse {
-    ///
-    id: i64,
-    ///
-    guid: String,
-    ///
-    state: String,
-    ///
-    lock_repositories: bool,
-    ///
-    exclude_metadata: bool,
-    ///
-    exclude_git_data: bool,
-    ///
-    exclude_attachments: bool,
-    ///
-    exclude_releases: bool,
-    ///
-    exclude_owner_projects: bool,
-    ///
-    repositories: Vec<Value>,
-    ///
-    url: String,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    ///
-    node_id: String,
-    ///
-    archive_url: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetOrgsorgPackagespackageTypepackageNameResponse {
-    /// Unique identifier of the package.
-    id: i64,
-    /// The name of the package.
-    name: String,
-    ///
-    package_type: String,
-    ///
-    url: String,
-    ///
-    html_url: String,
-    /// The number of versions of the package.
-    version_count: i64,
-    ///
-    visibility: String,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetOrgsorgPackagespackageTypepackageNameVersionspackageVersionIdResponse {
-    /// Unique identifier of the package version.
-    id: i64,
-    /// The name of the package version.
-    name: String,
-    ///
-    url: String,
-    ///
-    package_html_url: String,
-    ///
-    html_url: String,
-    ///
-    license: String,
-    ///
-    description: String,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    ///
-    deleted_at: String,
-    ///
-    metadata: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostOrgsorgProjectsResponse {
-    ///
-    owner_url: String,
-    ///
-    url: String,
-    ///
-    html_url: String,
-    ///
-    columns_url: String,
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    /// Name of the project
-    name: String,
-    /// Body of the project
-    body: Option<String>,
-    ///
-    number: i64,
-    /// State of the project; either 'open' or 'closed'
-    state: String,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    /// The baseline permission that all organization members have on this project. Only present if owner is an organization.
-    organization_permission: String,
-    /// Whether or not this project can be seen by everyone. Only present if owner is an organization.
-    private: bool,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostOrgsorgReposResponse {
-    /// Unique identifier of the repository
-    id: i64,
-    ///
-    node_id: String,
-    /// The name of the repository.
-    name: String,
-    ///
-    full_name: String,
-    ///
-    forks: i64,
-    ///
-    permissions: Value,
-    /// Simple User
-    owner: Value,
-    /// Whether the repository is private or public.
-    private: bool,
-    ///
-    html_url: String,
-    ///
-    description: Option<String>,
-    ///
-    fork: bool,
-    ///
-    url: String,
-    ///
-    archive_url: String,
-    ///
-    assignees_url: String,
-    ///
-    blobs_url: String,
-    ///
-    branches_url: String,
-    ///
-    collaborators_url: String,
-    ///
-    comments_url: String,
-    ///
-    commits_url: String,
-    ///
-    compare_url: String,
-    ///
-    contents_url: String,
-    ///
-    contributors_url: String,
-    ///
-    deployments_url: String,
-    ///
-    downloads_url: String,
-    ///
-    events_url: String,
-    ///
-    forks_url: String,
-    ///
-    git_commits_url: String,
-    ///
-    git_refs_url: String,
-    ///
-    git_tags_url: String,
-    ///
-    git_url: String,
-    ///
-    issue_comment_url: String,
-    ///
-    issue_events_url: String,
-    ///
-    issues_url: String,
-    ///
-    keys_url: String,
-    ///
-    labels_url: String,
-    ///
-    languages_url: String,
-    ///
-    merges_url: String,
-    ///
-    milestones_url: String,
-    ///
-    notifications_url: String,
-    ///
-    pulls_url: String,
-    ///
-    releases_url: String,
-    ///
-    ssh_url: String,
-    ///
-    stargazers_url: String,
-    ///
-    statuses_url: String,
-    ///
-    subscribers_url: String,
-    ///
-    subscription_url: String,
-    ///
-    tags_url: String,
-    ///
-    teams_url: String,
-    ///
-    trees_url: String,
-    ///
-    clone_url: String,
-    ///
-    mirror_url: Option<String>,
-    ///
-    hooks_url: String,
-    ///
-    svn_url: String,
-    ///
-    homepage: Option<String>,
-    ///
-    language: Option<String>,
-    ///
-    forks_count: i64,
-    ///
-    stargazers_count: i64,
-    ///
-    watchers_count: i64,
-    ///
-    size: i64,
-    /// The default branch of the repository.
-    default_branch: String,
-    ///
-    open_issues_count: i64,
-    /// Whether this repository acts as a template that can be used to generate new repositories.
-    is_template: bool,
-    ///
-    topics: Vec<String>,
-    /// Whether issues are enabled.
-    has_issues: bool,
-    /// Whether projects are enabled.
-    has_projects: bool,
-    /// Whether the wiki is enabled.
-    has_wiki: bool,
-    ///
-    has_pages: bool,
-    /// Whether downloads are enabled.
-    has_downloads: bool,
-    /// Whether the repository is archived.
-    archived: bool,
-    /// Returns whether or not this repository disabled.
-    disabled: bool,
-    /// The repository visibility: public, private, or internal.
-    visibility: String,
-    ///
-    pushed_at: Option<String>,
-    ///
-    created_at: Option<String>,
-    ///
-    updated_at: Option<String>,
-    /// Whether to allow rebase merges for pull requests.
-    allow_rebase_merge: bool,
-    ///
-    template_repository: Option<Value>,
-    ///
-    temp_clone_token: String,
-    /// Whether to allow squash merges for pull requests.
-    allow_squash_merge: bool,
-    /// Whether to allow Auto-merge to be used on pull requests.
-    allow_auto_merge: bool,
-    /// Whether to delete head branches when pull requests are merged
-    delete_branch_on_merge: bool,
-    /// Whether to allow merge commits for pull requests.
-    allow_merge_commit: bool,
-    /// Whether to allow forking this repo
-    allow_forking: bool,
-    ///
-    subscribers_count: i64,
-    ///
-    network_count: i64,
-    ///
-    open_issues: i64,
-    ///
-    watchers: i64,
-    ///
-    master_branch: String,
-    ///
-    starred_at: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetOrgsorgSettingsBillingActionsResponse {
-    /// The sum of the free and paid GitHub Actions minutes used.
-    total_minutes_used: i64,
-    /// The total paid GitHub Actions minutes used.
-    total_paid_minutes_used: i64,
-    /// The amount of free GitHub Actions minutes available.
-    included_minutes: i64,
-    ///
-    minutes_used_breakdown: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetOrgsorgSettingsBillingAdvancedSecurityResponse {
-    ///
-    total_advanced_security_committers: i64,
-    ///
-    repositories: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetOrgsorgSettingsBillingPackagesResponse {
-    /// Sum of the free and paid storage space (GB) for GitHuub Packages.
-    total_gigabytes_bandwidth_used: i64,
-    /// Total paid storage space (GB) for GitHuub Packages.
-    total_paid_gigabytes_bandwidth_used: i64,
-    /// Free storage space (GB) for GitHub Packages.
-    included_gigabytes_bandwidth: i64,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetOrgsorgSettingsBillingSharedStorageResponse {
-    /// Numbers of days left in billing cycle.
-    days_left_in_billing_cycle: i64,
-    /// Estimated storage space (GB) used in billing cycle.
-    estimated_paid_storage_for_month: i64,
-    /// Estimated sum of free and paid storage space (GB) used in billing cycle.
-    estimated_storage_for_month: i64,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetOrgsorgTeamSyncGroupsResponse {
-    /// Array of groups to be mapped to this team
-    groups: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostOrgsorgTeamsResponse {
-    /// Unique identifier of the team
-    id: i64,
-    ///
-    node_id: String,
-    /// URL for the team
-    url: String,
-    ///
-    html_url: String,
-    /// Name of the team
-    name: String,
-    ///
-    slug: String,
-    ///
-    description: Option<String>,
-    /// The level of privacy this team should have
-    privacy: String,
-    /// Permission that the team will have for its repositories
-    permission: String,
-    ///
-    members_url: String,
-    ///
-    repositories_url: String,
-    ///
-    members_count: i64,
-    ///
-    repos_count: i64,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    /// Organization Full
-    organization: Value,
-    /// Distinguished Name (DN) that team maps to within LDAP environment
-    ldap_dn: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetOrgsorgTeamsteamSlugResponse {
-    /// Unique identifier of the team
-    id: i64,
-    ///
-    node_id: String,
-    /// URL for the team
-    url: String,
-    ///
-    html_url: String,
-    /// Name of the team
-    name: String,
-    ///
-    slug: String,
-    ///
-    description: Option<String>,
-    /// The level of privacy this team should have
-    privacy: String,
-    /// Permission that the team will have for its repositories
-    permission: String,
-    ///
-    members_url: String,
-    ///
-    repositories_url: String,
-    ///
-    members_count: i64,
-    ///
-    repos_count: i64,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    /// Organization Full
-    organization: Value,
-    /// Distinguished Name (DN) that team maps to within LDAP environment
-    ldap_dn: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PatchOrgsorgTeamsteamSlugResponse {
-    /// Unique identifier of the team
-    id: i64,
-    ///
-    node_id: String,
-    /// URL for the team
-    url: String,
-    ///
-    html_url: String,
-    /// Name of the team
-    name: String,
-    ///
-    slug: String,
-    ///
-    description: Option<String>,
-    /// The level of privacy this team should have
-    privacy: String,
-    /// Permission that the team will have for its repositories
-    permission: String,
-    ///
-    members_url: String,
-    ///
-    repositories_url: String,
-    ///
-    members_count: i64,
-    ///
-    repos_count: i64,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    /// Organization Full
-    organization: Value,
-    /// Distinguished Name (DN) that team maps to within LDAP environment
-    ldap_dn: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostOrgsorgTeamsteamSlugDiscussionsResponse {
-    /// The main text of the discussion.
-    body: String,
-    ///
-    body_html: String,
-    /// The current version of the body content. If provided, this update operation will be rejected if the given version does not match the latest version on the server.
-    body_version: String,
-    ///
-    comments_count: i64,
-    ///
-    comments_url: String,
-    ///
-    created_at: String,
-    ///
-    last_edited_at: Option<String>,
-    ///
-    html_url: String,
-    ///
-    node_id: String,
-    /// The unique sequence number of a team discussion.
-    number: i64,
-    /// Whether or not this discussion should be pinned for easy retrieval.
-    pinned: bool,
-    /// Whether or not this discussion should be restricted to team members and organization administrators.
-    private: bool,
-    ///
-    team_url: String,
-    /// The title of the discussion.
-    title: String,
-    ///
-    updated_at: String,
-    ///
-    url: String,
-    ///
-    reactions: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetOrgsorgTeamsteamSlugDiscussionsdiscussionNumberResponse {
-    /// The main text of the discussion.
-    body: String,
-    ///
-    body_html: String,
-    /// The current version of the body content. If provided, this update operation will be rejected if the given version does not match the latest version on the server.
-    body_version: String,
-    ///
-    comments_count: i64,
-    ///
-    comments_url: String,
-    ///
-    created_at: String,
-    ///
-    last_edited_at: Option<String>,
-    ///
-    html_url: String,
-    ///
-    node_id: String,
-    /// The unique sequence number of a team discussion.
-    number: i64,
-    /// Whether or not this discussion should be pinned for easy retrieval.
-    pinned: bool,
-    /// Whether or not this discussion should be restricted to team members and organization administrators.
-    private: bool,
-    ///
-    team_url: String,
-    /// The title of the discussion.
-    title: String,
-    ///
-    updated_at: String,
-    ///
-    url: String,
-    ///
-    reactions: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PatchOrgsorgTeamsteamSlugDiscussionsdiscussionNumberResponse {
-    /// The main text of the discussion.
-    body: String,
-    ///
-    body_html: String,
-    /// The current version of the body content. If provided, this update operation will be rejected if the given version does not match the latest version on the server.
-    body_version: String,
-    ///
-    comments_count: i64,
-    ///
-    comments_url: String,
-    ///
-    created_at: String,
-    ///
-    last_edited_at: Option<String>,
-    ///
-    html_url: String,
-    ///
-    node_id: String,
-    /// The unique sequence number of a team discussion.
-    number: i64,
-    /// Whether or not this discussion should be pinned for easy retrieval.
-    pinned: bool,
-    /// Whether or not this discussion should be restricted to team members and organization administrators.
-    private: bool,
-    ///
-    team_url: String,
-    /// The title of the discussion.
-    title: String,
-    ///
-    updated_at: String,
-    ///
-    url: String,
-    ///
-    reactions: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostOrgsorgTeamsteamSlugDiscussionsdiscussionNumberCommentsResponse {
-    /// The main text of the comment.
-    body: String,
-    ///
-    body_html: String,
-    /// The current version of the body content. If provided, this update operation will be rejected if the given version does not match the latest version on the server.
-    body_version: String,
-    ///
-    created_at: String,
-    ///
-    last_edited_at: Option<String>,
-    ///
-    discussion_url: String,
-    ///
-    html_url: String,
-    ///
-    node_id: String,
-    /// The unique sequence number of a team discussion comment.
-    number: i64,
-    ///
-    updated_at: String,
-    ///
-    url: String,
-    ///
-    reactions: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetOrgsorgTeamsteamSlugDiscussionsdiscussionNumberCommentscommentNumberResponse {
-    /// The main text of the comment.
-    body: String,
-    ///
-    body_html: String,
-    /// The current version of the body content. If provided, this update operation will be rejected if the given version does not match the latest version on the server.
-    body_version: String,
-    ///
-    created_at: String,
-    ///
-    last_edited_at: Option<String>,
-    ///
-    discussion_url: String,
-    ///
-    html_url: String,
-    ///
-    node_id: String,
-    /// The unique sequence number of a team discussion comment.
-    number: i64,
-    ///
-    updated_at: String,
-    ///
-    url: String,
-    ///
-    reactions: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PatchOrgsorgTeamsteamSlugDiscussionsdiscussionNumberCommentscommentNumberResponse {
-    /// The main text of the comment.
-    body: String,
-    ///
-    body_html: String,
-    /// The current version of the body content. If provided, this update operation will be rejected if the given version does not match the latest version on the server.
-    body_version: String,
-    ///
-    created_at: String,
-    ///
-    last_edited_at: Option<String>,
-    ///
-    discussion_url: String,
-    ///
-    html_url: String,
-    ///
-    node_id: String,
-    /// The unique sequence number of a team discussion comment.
-    number: i64,
-    ///
-    updated_at: String,
-    ///
-    url: String,
-    ///
-    reactions: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostOrgsorgTeamsteamSlugDiscussionsdiscussionNumberCommentscommentNumberReactionsResponse
-{
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    /// The reaction to use
-    content: String,
-    ///
-    created_at: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostOrgsorgTeamsteamSlugDiscussionsdiscussionNumberReactionsResponse {
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    /// The reaction to use
-    content: String,
-    ///
-    created_at: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PatchOrgsorgTeamsteamSlugExternalGroupsResponse {
-    /// The internal ID of the group
-    group_id: i64,
-    /// The display name for the group
-    group_name: String,
-    /// The date when the group was last updated_at
-    updated_at: String,
-    /// An array of teams linked to this group
-    teams: Vec<Value>,
-    /// An array of external members linked to this group
-    members: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetOrgsorgTeamsteamSlugMembershipsusernameResponse {
-    ///
-    url: String,
-    /// The role of the user in the team.
-    role: String,
-    /// The state of the user's membership in the team.
-    state: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PutOrgsorgTeamsteamSlugMembershipsusernameResponse {
-    ///
-    url: String,
-    /// The role of the user in the team.
-    role: String,
-    /// The state of the user's membership in the team.
-    state: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetOrgsorgTeamsteamSlugProjectsprojectIdResponse {
-    ///
-    owner_url: String,
-    ///
-    url: String,
-    ///
-    html_url: String,
-    ///
-    columns_url: String,
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    ///
-    name: String,
-    ///
-    body: Option<String>,
-    ///
-    number: i64,
-    ///
-    state: String,
-    /// Simple User
-    creator: Value,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    /// The organization permission for this project. Only present when owner is an organization.
-    organization_permission: String,
-    /// Whether the project is private or not. Only present when owner is an organization.
-    private: bool,
-    ///
-    permissions: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetOrgsorgTeamsteamSlugReposownerrepoResponse {
-    /// Unique identifier of the repository
-    id: i64,
-    ///
-    node_id: String,
-    /// The name of the repository.
-    name: String,
-    ///
-    full_name: String,
-    ///
-    forks: i64,
-    ///
-    permissions: Value,
-    ///
-    role_name: String,
-    /// Whether the repository is private or public.
-    private: bool,
-    ///
-    html_url: String,
-    ///
-    description: Option<String>,
-    ///
-    fork: bool,
-    ///
-    url: String,
-    ///
-    archive_url: String,
-    ///
-    assignees_url: String,
-    ///
-    blobs_url: String,
-    ///
-    branches_url: String,
-    ///
-    collaborators_url: String,
-    ///
-    comments_url: String,
-    ///
-    commits_url: String,
-    ///
-    compare_url: String,
-    ///
-    contents_url: String,
-    ///
-    contributors_url: String,
-    ///
-    deployments_url: String,
-    ///
-    downloads_url: String,
-    ///
-    events_url: String,
-    ///
-    forks_url: String,
-    ///
-    git_commits_url: String,
-    ///
-    git_refs_url: String,
-    ///
-    git_tags_url: String,
-    ///
-    git_url: String,
-    ///
-    issue_comment_url: String,
-    ///
-    issue_events_url: String,
-    ///
-    issues_url: String,
-    ///
-    keys_url: String,
-    ///
-    labels_url: String,
-    ///
-    languages_url: String,
-    ///
-    merges_url: String,
-    ///
-    milestones_url: String,
-    ///
-    notifications_url: String,
-    ///
-    pulls_url: String,
-    ///
-    releases_url: String,
-    ///
-    ssh_url: String,
-    ///
-    stargazers_url: String,
-    ///
-    statuses_url: String,
-    ///
-    subscribers_url: String,
-    ///
-    subscription_url: String,
-    ///
-    tags_url: String,
-    ///
-    teams_url: String,
-    ///
-    trees_url: String,
-    ///
-    clone_url: String,
-    ///
-    mirror_url: Option<String>,
-    ///
-    hooks_url: String,
-    ///
-    svn_url: String,
-    ///
-    homepage: Option<String>,
-    ///
-    language: Option<String>,
-    ///
-    forks_count: i64,
-    ///
-    stargazers_count: i64,
-    ///
-    watchers_count: i64,
-    ///
-    size: i64,
-    /// The default branch of the repository.
-    default_branch: String,
-    ///
-    open_issues_count: i64,
-    /// Whether this repository acts as a template that can be used to generate new repositories.
-    is_template: bool,
-    ///
-    topics: Vec<String>,
-    /// Whether issues are enabled.
-    has_issues: bool,
-    /// Whether projects are enabled.
-    has_projects: bool,
-    /// Whether the wiki is enabled.
-    has_wiki: bool,
-    ///
-    has_pages: bool,
-    /// Whether downloads are enabled.
-    has_downloads: bool,
-    /// Whether the repository is archived.
-    archived: bool,
-    /// Returns whether or not this repository disabled.
-    disabled: bool,
-    /// The repository visibility: public, private, or internal.
-    visibility: String,
-    ///
-    pushed_at: Option<String>,
-    ///
-    created_at: Option<String>,
-    ///
-    updated_at: Option<String>,
-    /// Whether to allow rebase merges for pull requests.
-    allow_rebase_merge: bool,
-    ///
-    temp_clone_token: String,
-    /// Whether to allow squash merges for pull requests.
-    allow_squash_merge: bool,
-    /// Whether to allow Auto-merge to be used on pull requests.
-    allow_auto_merge: bool,
-    /// Whether to delete head branches when pull requests are merged
-    delete_branch_on_merge: bool,
-    /// Whether to allow merge commits for pull requests.
-    allow_merge_commit: bool,
-    /// Whether to allow forking this repo
-    allow_forking: bool,
-    ///
-    subscribers_count: i64,
-    ///
-    network_count: i64,
-    ///
-    open_issues: i64,
-    ///
-    watchers: i64,
-    ///
-    master_branch: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetOrgsorgTeamsteamSlugTeamSyncGroupMappingsResponse {
-    /// Array of groups to be mapped to this team
-    groups: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PatchOrgsorgTeamsteamSlugTeamSyncGroupMappingsResponse {
-    /// Array of groups to be mapped to this team
-    groups: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetProjectsColumnsCardscardIdResponse {
-    ///
-    url: String,
-    /// The project card's ID
-    id: i64,
-    ///
-    node_id: String,
-    ///
-    note: Option<String>,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    /// Whether or not the card is archived
-    archived: bool,
-    ///
-    column_name: String,
-    ///
-    project_id: String,
-    ///
-    column_url: String,
-    ///
-    content_url: String,
-    ///
-    project_url: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PatchProjectsColumnsCardscardIdResponse {
-    ///
-    url: String,
-    /// The project card's ID
-    id: i64,
-    ///
-    node_id: String,
-    ///
-    note: Option<String>,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    /// Whether or not the card is archived
-    archived: bool,
-    ///
-    column_name: String,
-    ///
-    project_id: String,
-    ///
-    column_url: String,
-    ///
-    content_url: String,
-    ///
-    project_url: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetProjectsColumnscolumnIdResponse {
-    ///
-    url: String,
-    ///
-    project_url: String,
-    ///
-    cards_url: String,
-    /// The unique identifier of the project column
-    id: i64,
-    ///
-    node_id: String,
-    /// Name of the project column
-    name: String,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PatchProjectsColumnscolumnIdResponse {
-    ///
-    url: String,
-    ///
-    project_url: String,
-    ///
-    cards_url: String,
-    /// The unique identifier of the project column
-    id: i64,
-    ///
-    node_id: String,
-    /// Name of the project column
-    name: String,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostProjectsColumnscolumnIdCardsResponse {
-    ///
-    url: String,
-    /// The project card's ID
-    id: i64,
-    ///
-    node_id: String,
-    ///
-    note: Option<String>,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    /// Whether or not the card is archived
-    archived: bool,
-    ///
-    column_name: String,
-    ///
-    project_id: String,
-    ///
-    column_url: String,
-    ///
-    content_url: String,
-    ///
-    project_url: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetProjectsprojectIdResponse {
-    ///
-    owner_url: String,
-    ///
-    url: String,
-    ///
-    html_url: String,
-    ///
-    columns_url: String,
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    /// Name of the project
-    name: String,
-    /// Body of the project
-    body: Option<String>,
-    ///
-    number: i64,
-    /// State of the project; either 'open' or 'closed'
-    state: String,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    /// The baseline permission that all organization members have on this project. Only present if owner is an organization.
-    organization_permission: String,
-    /// Whether or not this project can be seen by everyone. Only present if owner is an organization.
-    private: bool,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PatchProjectsprojectIdResponse {
-    ///
-    owner_url: String,
-    ///
-    url: String,
-    ///
-    html_url: String,
-    ///
-    columns_url: String,
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    /// Name of the project
-    name: String,
-    /// Body of the project
-    body: Option<String>,
-    ///
-    number: i64,
-    /// State of the project; either 'open' or 'closed'
-    state: String,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    /// The baseline permission that all organization members have on this project. Only present if owner is an organization.
-    organization_permission: String,
-    /// Whether or not this project can be seen by everyone. Only present if owner is an organization.
-    private: bool,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetProjectsprojectIdCollaboratorsusernamePermissionResponse {
-    ///
-    permission: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostProjectsprojectIdColumnsResponse {
-    ///
-    url: String,
-    ///
-    project_url: String,
-    ///
-    cards_url: String,
-    /// The unique identifier of the project column
-    id: i64,
-    ///
-    node_id: String,
-    /// Name of the project column
-    name: String,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetRateLimitResponse {
-    ///
-    resources: Value,
-    ///
-    rate: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoResponse {
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    ///
-    name: String,
-    ///
-    full_name: String,
-    /// Simple User
-    owner: Value,
-    ///
-    private: bool,
-    ///
-    html_url: String,
-    ///
-    description: Option<String>,
-    ///
-    fork: bool,
-    ///
-    url: String,
-    ///
-    archive_url: String,
-    ///
-    assignees_url: String,
-    ///
-    blobs_url: String,
-    ///
-    branches_url: String,
-    ///
-    collaborators_url: String,
-    ///
-    comments_url: String,
-    ///
-    commits_url: String,
-    ///
-    compare_url: String,
-    ///
-    contents_url: String,
-    ///
-    contributors_url: String,
-    ///
-    deployments_url: String,
-    ///
-    downloads_url: String,
-    ///
-    events_url: String,
-    ///
-    forks_url: String,
-    ///
-    git_commits_url: String,
-    ///
-    git_refs_url: String,
-    ///
-    git_tags_url: String,
-    ///
-    git_url: String,
-    ///
-    issue_comment_url: String,
-    ///
-    issue_events_url: String,
-    ///
-    issues_url: String,
-    ///
-    keys_url: String,
-    ///
-    labels_url: String,
-    ///
-    languages_url: String,
-    ///
-    merges_url: String,
-    ///
-    milestones_url: String,
-    ///
-    notifications_url: String,
-    ///
-    pulls_url: String,
-    ///
-    releases_url: String,
-    ///
-    ssh_url: String,
-    ///
-    stargazers_url: String,
-    ///
-    statuses_url: String,
-    ///
-    subscribers_url: String,
-    ///
-    subscription_url: String,
-    ///
-    tags_url: String,
-    ///
-    teams_url: String,
-    ///
-    trees_url: String,
-    ///
-    clone_url: String,
-    ///
-    mirror_url: Option<String>,
-    ///
-    hooks_url: String,
-    ///
-    svn_url: String,
-    ///
-    homepage: Option<String>,
-    ///
-    language: Option<String>,
-    ///
-    forks_count: i64,
-    ///
-    stargazers_count: i64,
-    ///
-    watchers_count: i64,
-    ///
-    size: i64,
-    ///
-    default_branch: String,
-    ///
-    open_issues_count: i64,
-    ///
-    is_template: bool,
-    ///
-    topics: Vec<String>,
-    ///
-    has_issues: bool,
-    ///
-    has_projects: bool,
-    ///
-    has_wiki: bool,
-    ///
-    has_pages: bool,
-    ///
-    has_downloads: bool,
-    ///
-    archived: bool,
-    /// Returns whether or not this repository disabled.
-    disabled: bool,
-    /// The repository visibility: public, private, or internal.
-    visibility: String,
-    ///
-    pushed_at: String,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    ///
-    permissions: Value,
-    ///
-    allow_rebase_merge: bool,
-    ///
-    temp_clone_token: Option<String>,
-    ///
-    allow_squash_merge: bool,
-    ///
-    allow_auto_merge: bool,
-    ///
-    delete_branch_on_merge: bool,
-    ///
-    allow_merge_commit: bool,
-    ///
-    allow_forking: bool,
-    ///
-    subscribers_count: i64,
-    ///
-    network_count: i64,
-    /// A git repository
-    parent: Value,
-    /// A git repository
-    source: Value,
-    ///
-    forks: i64,
-    ///
-    master_branch: String,
-    ///
-    open_issues: i64,
-    ///
-    watchers: i64,
-    /// Whether anonymous git access is allowed.
-    anonymous_access_enabled: bool,
-    /// Code of Conduct Simple
-    code_of_conduct: Value,
-    ///
-    security_and_analysis: Option<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PatchReposownerrepoResponse {
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    ///
-    name: String,
-    ///
-    full_name: String,
-    /// Simple User
-    owner: Value,
-    ///
-    private: bool,
-    ///
-    html_url: String,
-    ///
-    description: Option<String>,
-    ///
-    fork: bool,
-    ///
-    url: String,
-    ///
-    archive_url: String,
-    ///
-    assignees_url: String,
-    ///
-    blobs_url: String,
-    ///
-    branches_url: String,
-    ///
-    collaborators_url: String,
-    ///
-    comments_url: String,
-    ///
-    commits_url: String,
-    ///
-    compare_url: String,
-    ///
-    contents_url: String,
-    ///
-    contributors_url: String,
-    ///
-    deployments_url: String,
-    ///
-    downloads_url: String,
-    ///
-    events_url: String,
-    ///
-    forks_url: String,
-    ///
-    git_commits_url: String,
-    ///
-    git_refs_url: String,
-    ///
-    git_tags_url: String,
-    ///
-    git_url: String,
-    ///
-    issue_comment_url: String,
-    ///
-    issue_events_url: String,
-    ///
-    issues_url: String,
-    ///
-    keys_url: String,
-    ///
-    labels_url: String,
-    ///
-    languages_url: String,
-    ///
-    merges_url: String,
-    ///
-    milestones_url: String,
-    ///
-    notifications_url: String,
-    ///
-    pulls_url: String,
-    ///
-    releases_url: String,
-    ///
-    ssh_url: String,
-    ///
-    stargazers_url: String,
-    ///
-    statuses_url: String,
-    ///
-    subscribers_url: String,
-    ///
-    subscription_url: String,
-    ///
-    tags_url: String,
-    ///
-    teams_url: String,
-    ///
-    trees_url: String,
-    ///
-    clone_url: String,
-    ///
-    mirror_url: Option<String>,
-    ///
-    hooks_url: String,
-    ///
-    svn_url: String,
-    ///
-    homepage: Option<String>,
-    ///
-    language: Option<String>,
-    ///
-    forks_count: i64,
-    ///
-    stargazers_count: i64,
-    ///
-    watchers_count: i64,
-    ///
-    size: i64,
-    ///
-    default_branch: String,
-    ///
-    open_issues_count: i64,
-    ///
-    is_template: bool,
-    ///
-    topics: Vec<String>,
-    ///
-    has_issues: bool,
-    ///
-    has_projects: bool,
-    ///
-    has_wiki: bool,
-    ///
-    has_pages: bool,
-    ///
-    has_downloads: bool,
-    ///
-    archived: bool,
-    /// Returns whether or not this repository disabled.
-    disabled: bool,
-    /// The repository visibility: public, private, or internal.
-    visibility: String,
-    ///
-    pushed_at: String,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    ///
-    permissions: Value,
-    ///
-    allow_rebase_merge: bool,
-    ///
-    temp_clone_token: Option<String>,
-    ///
-    allow_squash_merge: bool,
-    ///
-    allow_auto_merge: bool,
-    ///
-    delete_branch_on_merge: bool,
-    ///
-    allow_merge_commit: bool,
-    ///
-    allow_forking: bool,
-    ///
-    subscribers_count: i64,
-    ///
-    network_count: i64,
-    /// A git repository
-    parent: Value,
-    /// A git repository
-    source: Value,
-    ///
-    forks: i64,
-    ///
-    master_branch: String,
-    ///
-    open_issues: i64,
-    ///
-    watchers: i64,
-    /// Whether anonymous git access is allowed.
-    anonymous_access_enabled: bool,
-    /// Code of Conduct Simple
-    code_of_conduct: Value,
-    ///
-    security_and_analysis: Option<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoActionsArtifactsResponse {
-    ///
-    total_count: i64,
-    ///
-    artifacts: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoActionsArtifactsartifactIdResponse {
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    /// The name of the artifact.
-    name: String,
-    /// The size in bytes of the artifact.
-    size_in_bytes: i64,
-    ///
-    url: String,
-    ///
-    archive_download_url: String,
-    /// Whether or not the artifact has expired.
-    expired: bool,
-    ///
-    created_at: Option<String>,
-    ///
-    expires_at: Option<String>,
-    ///
-    updated_at: Option<String>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoActionsJobsjobIdResponse {
-    /// The id of the job.
-    id: i64,
-    /// The id of the associated workflow run.
-    run_id: i64,
-    ///
-    run_url: String,
-    /// Attempt number of the associated workflow run, 1 for first attempt and higher if the workflow was re-run.
-    run_attempt: i64,
-    ///
-    node_id: String,
-    /// The SHA of the commit that is being run.
-    head_sha: String,
-    ///
-    url: String,
-    ///
-    html_url: Option<String>,
-    /// The phase of the lifecycle that the job is currently in.
-    status: String,
-    /// The outcome of the job.
-    conclusion: Option<String>,
-    /// The time that the job started, in ISO 8601 format.
-    started_at: String,
-    /// The time that the job finished, in ISO 8601 format.
-    completed_at: Option<String>,
-    /// The name of the job.
-    name: String,
-    /// Steps in this job.
-    steps: Vec<Value>,
-    ///
-    check_run_url: String,
-    /// Labels for the workflow job. Specified by the "runs_on" attribute in the action's workflow file.
-    labels: Vec<String>,
-    /// The ID of the runner to which this job has been assigned. (If a runner hasn't yet been assigned, this will be null.)
-    runner_id: Option<i64>,
-    /// The name of the runner to which this job has been assigned. (If a runner hasn't yet been assigned, this will be null.)
-    runner_name: Option<String>,
-    /// The ID of the runner group to which this job has been assigned. (If a runner hasn't yet been assigned, this will be null.)
-    runner_group_id: Option<i64>,
-    /// The name of the runner group to which this job has been assigned. (If a runner hasn't yet been assigned, this will be null.)
-    runner_group_name: Option<String>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoActionsPermissionsResponse {
-    /// Whether GitHub Actions is enabled on the repository.
-    enabled: bool,
-    /// The permissions policy that controls the actions that are allowed to run. Can be one of: `all`, `local_only`, or `selected`.
-    allowed_actions: String,
-    /// The API URL to use to get or set the actions that are allowed to run, when `allowed_actions` is set to `selected`.
-    selected_actions_url: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoActionsPermissionsSelectedActionsResponse {
-    /// Whether GitHub-owned actions are allowed. For example, this includes the actions in the `actions` organization.
-    github_owned_allowed: bool,
-    /// Whether actions in GitHub Marketplace from verified creators are allowed. Set to `true` to allow all GitHub Marketplace actions by verified creators.
-    verified_allowed: bool,
-    /// Specifies a list of string-matching patterns to allow specific action(s). Wildcards, tags, and SHAs are allowed. For example, `monalisa/octocat@*`, `monalisa/octocat@v2`, `monalisa/*`."
-    patterns_allowed: Vec<String>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoActionsRunnersResponse {
-    ///
-    total_count: i64,
-    ///
-    runners: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostReposownerrepoActionsRunnersRegistrationTokenResponse {
-    /// The token used for authentication
-    token: String,
-    /// The time this token expires
-    expires_at: String,
-    ///
-    permissions: Value,
-    /// The repositories this token has access to
-    repositories: Vec<Value>,
-    ///
-    single_file: Option<String>,
-    /// Describe whether all repositories have been selected or there's a selection involved
-    repository_selection: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostReposownerrepoActionsRunnersRemoveTokenResponse {
-    /// The token used for authentication
-    token: String,
-    /// The time this token expires
-    expires_at: String,
-    ///
-    permissions: Value,
-    /// The repositories this token has access to
-    repositories: Vec<Value>,
-    ///
-    single_file: Option<String>,
-    /// Describe whether all repositories have been selected or there's a selection involved
-    repository_selection: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoActionsRunnersrunnerIdResponse {
-    /// The id of the runner.
-    id: i64,
-    /// The name of the runner.
-    name: String,
-    /// The Operating System of the runner.
-    os: String,
-    /// The status of the runner.
-    status: String,
-    ///
-    busy: bool,
-    ///
-    labels: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoActionsRunnersrunnerIdLabelsResponse {
-    ///
-    total_count: i64,
-    ///
-    labels: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostReposownerrepoActionsRunnersrunnerIdLabelsResponse {
-    ///
-    total_count: i64,
-    ///
-    labels: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PutReposownerrepoActionsRunnersrunnerIdLabelsResponse {
-    ///
-    total_count: i64,
-    ///
-    labels: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct DeleteReposownerrepoActionsRunnersrunnerIdLabelsResponse {
-    ///
-    total_count: i64,
-    ///
-    labels: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct DeleteReposownerrepoActionsRunnersrunnerIdLabelsnameResponse {
-    ///
-    total_count: i64,
-    ///
-    labels: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoActionsRunsResponse {
-    ///
-    total_count: i64,
-    ///
-    workflow_runs: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoActionsRunsrunIdResponse {
-    /// The ID of the workflow run.
-    id: i64,
-    /// The name of the workflow run.
-    name: Option<String>,
-    ///
-    node_id: String,
-    /// The ID of the associated check suite.
-    check_suite_id: i64,
-    /// The node ID of the associated check suite.
-    check_suite_node_id: String,
-    ///
-    head_branch: Option<String>,
-    /// The SHA of the head commit that points to the version of the worflow being run.
-    head_sha: String,
-    /// The auto incrementing run number for the workflow run.
-    run_number: i64,
-    /// Attempt number of the run, 1 for first attempt and higher if the workflow was re-run.
-    run_attempt: i64,
-    ///
-    event: String,
-    ///
-    status: Option<String>,
-    ///
-    conclusion: Option<String>,
-    /// The ID of the parent workflow.
-    workflow_id: i64,
-    /// The URL to the workflow run.
-    url: String,
-    ///
-    html_url: String,
-    ///
-    pull_requests: Option<Vec<Value>>,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    /// The start time of the latest run. Resets on re-run.
-    run_started_at: String,
-    /// The URL to the jobs for the workflow run.
-    jobs_url: String,
-    /// The URL to download the logs for the workflow run.
-    logs_url: String,
-    /// The URL to the associated check suite.
-    check_suite_url: String,
-    /// The URL to the artifacts for the workflow run.
-    artifacts_url: String,
-    /// The URL to cancel the workflow run.
-    cancel_url: String,
-    /// The URL to rerun the workflow run.
-    rerun_url: String,
-    /// The URL to the previous attempted run of this workflow, if one exists.
-    previous_attempt_url: Option<String>,
-    /// The URL to the workflow.
-    workflow_url: String,
-    /// Minimal Repository
-    repository: Value,
-    /// Minimal Repository
-    head_repository: Value,
-    ///
-    head_repository_id: i64,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoActionsRunsrunIdArtifactsResponse {
-    ///
-    total_count: i64,
-    ///
-    artifacts: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoActionsRunsrunIdAttemptsattemptNumberResponse {
-    /// The ID of the workflow run.
-    id: i64,
-    /// The name of the workflow run.
-    name: Option<String>,
-    ///
-    node_id: String,
-    /// The ID of the associated check suite.
-    check_suite_id: i64,
-    /// The node ID of the associated check suite.
-    check_suite_node_id: String,
-    ///
-    head_branch: Option<String>,
-    /// The SHA of the head commit that points to the version of the worflow being run.
-    head_sha: String,
-    /// The auto incrementing run number for the workflow run.
-    run_number: i64,
-    /// Attempt number of the run, 1 for first attempt and higher if the workflow was re-run.
-    run_attempt: i64,
-    ///
-    event: String,
-    ///
-    status: Option<String>,
-    ///
-    conclusion: Option<String>,
-    /// The ID of the parent workflow.
-    workflow_id: i64,
-    /// The URL to the workflow run.
-    url: String,
-    ///
-    html_url: String,
-    ///
-    pull_requests: Option<Vec<Value>>,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    /// The start time of the latest run. Resets on re-run.
-    run_started_at: String,
-    /// The URL to the jobs for the workflow run.
-    jobs_url: String,
-    /// The URL to download the logs for the workflow run.
-    logs_url: String,
-    /// The URL to the associated check suite.
-    check_suite_url: String,
-    /// The URL to the artifacts for the workflow run.
-    artifacts_url: String,
-    /// The URL to cancel the workflow run.
-    cancel_url: String,
-    /// The URL to rerun the workflow run.
-    rerun_url: String,
-    /// The URL to the previous attempted run of this workflow, if one exists.
-    previous_attempt_url: Option<String>,
-    /// The URL to the workflow.
-    workflow_url: String,
-    /// Minimal Repository
-    repository: Value,
-    /// Minimal Repository
-    head_repository: Value,
-    ///
-    head_repository_id: i64,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoActionsRunsrunIdAttemptsattemptNumberJobsResponse {
-    ///
-    total_count: i64,
-    ///
-    jobs: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoActionsRunsrunIdJobsResponse {
-    ///
-    total_count: i64,
-    ///
-    jobs: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoActionsRunsrunIdTimingResponse {
-    ///
-    billable: Value,
-    ///
-    run_duration_ms: i64,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoActionsSecretsResponse {
-    ///
-    total_count: i64,
-    ///
-    secrets: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoActionsSecretsPublicKeyResponse {
-    /// The identifier for the key.
-    key_id: String,
-    /// The Base64 encoded public key.
-    key: String,
-    ///
-    id: i64,
-    ///
-    url: String,
-    ///
-    title: String,
-    ///
-    created_at: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoActionsSecretssecretNameResponse {
-    /// The name of the secret.
-    name: String,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoActionsWorkflowsResponse {
-    ///
-    total_count: i64,
-    ///
-    workflows: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoActionsWorkflowsworkflowIdResponse {
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    ///
-    name: String,
-    ///
-    path: String,
-    ///
-    state: String,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    ///
-    url: String,
-    ///
-    html_url: String,
-    ///
-    badge_url: String,
-    ///
-    deleted_at: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoActionsWorkflowsworkflowIdRunsResponse {
-    ///
-    total_count: i64,
-    ///
-    workflow_runs: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoActionsWorkflowsworkflowIdTimingResponse {
-    ///
-    billable: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostReposownerrepoAutolinksResponse {
-    ///
-    id: i64,
-    /// The prefix of a key that is linkified.
-    key_prefix: String,
-    /// A template for the target URL that is generated if a key was found.
-    url_template: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoAutolinksautolinkIdResponse {
-    ///
-    id: i64,
-    /// The prefix of a key that is linkified.
-    key_prefix: String,
-    /// A template for the target URL that is generated if a key was found.
-    url_template: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoBranchesbranchResponse {
-    ///
-    name: String,
-    /// Commit
-    commit: Value,
-    ///
-    _links: Value,
-    ///
-    protected: bool,
-    /// Branch Protection
-    protection: Value,
-    ///
-    protection_url: String,
-    ///
-    pattern: String,
-    ///
-    required_approving_review_count: i64,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoBranchesbranchProtectionResponse {
-    ///
-    url: String,
-    ///
-    enabled: bool,
-    /// Protected Branch Required Status Check
-    required_status_checks: Value,
-    /// Protected Branch Admin Enforced
-    enforce_admins: Value,
-    /// Protected Branch Pull Request Review
-    required_pull_request_reviews: Value,
-    /// Branch Restriction Policy
-    restrictions: Value,
-    ///
-    required_linear_history: Value,
-    ///
-    allow_force_pushes: Value,
-    ///
-    allow_deletions: Value,
-    ///
-    required_conversation_resolution: Value,
-    ///
-    name: String,
-    ///
-    protection_url: String,
-    ///
-    required_signatures: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PutReposownerrepoBranchesbranchProtectionResponse {
-    ///
-    url: String,
-    /// Status Check Policy
-    required_status_checks: Value,
-    ///
-    required_pull_request_reviews: Value,
-    ///
-    required_signatures: Value,
-    ///
-    enforce_admins: Value,
-    ///
-    required_linear_history: Value,
-    ///
-    allow_force_pushes: Value,
-    ///
-    allow_deletions: Value,
-    /// Branch Restriction Policy
-    restrictions: Value,
-    ///
-    required_conversation_resolution: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoBranchesbranchProtectionEnforceAdminsResponse {
-    ///
-    url: String,
-    ///
-    enabled: bool,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostReposownerrepoBranchesbranchProtectionEnforceAdminsResponse {
-    ///
-    url: String,
-    ///
-    enabled: bool,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoBranchesbranchProtectionRequiredPullRequestReviewsResponse {
-    ///
-    url: String,
-    ///
-    dismissal_restrictions: Value,
-    /// Allow specific users or teams to bypass pull request requirements. Set to `null` to disable.
-    bypass_pull_request_allowances: Option<Value>,
-    ///
-    dismiss_stale_reviews: bool,
-    ///
-    require_code_owner_reviews: bool,
-    ///
-    required_approving_review_count: i64,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PatchReposownerrepoBranchesbranchProtectionRequiredPullRequestReviewsResponse {
-    ///
-    url: String,
-    ///
-    dismissal_restrictions: Value,
-    /// Allow specific users or teams to bypass pull request requirements. Set to `null` to disable.
-    bypass_pull_request_allowances: Option<Value>,
-    ///
-    dismiss_stale_reviews: bool,
-    ///
-    require_code_owner_reviews: bool,
-    ///
-    required_approving_review_count: i64,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoBranchesbranchProtectionRequiredSignaturesResponse {
-    ///
-    url: String,
-    ///
-    enabled: bool,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostReposownerrepoBranchesbranchProtectionRequiredSignaturesResponse {
-    ///
-    url: String,
-    ///
-    enabled: bool,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoBranchesbranchProtectionRequiredStatusChecksResponse {
-    ///
-    url: String,
-    ///
-    strict: bool,
-    ///
-    contexts: Vec<String>,
-    ///
-    checks: Vec<Value>,
-    ///
-    contexts_url: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PatchReposownerrepoBranchesbranchProtectionRequiredStatusChecksResponse {
-    ///
-    url: String,
-    ///
-    strict: bool,
-    ///
-    contexts: Vec<String>,
-    ///
-    checks: Vec<Value>,
-    ///
-    contexts_url: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoBranchesbranchProtectionRestrictionsResponse {
-    ///
-    url: String,
-    ///
-    users_url: String,
-    ///
-    teams_url: String,
-    ///
-    apps_url: String,
-    ///
-    users: Vec<Value>,
-    ///
-    teams: Vec<Value>,
-    ///
-    apps: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostReposownerrepoBranchesbranchRenameResponse {
-    ///
-    name: String,
-    /// Commit
-    commit: Value,
-    ///
-    _links: Value,
-    ///
-    protected: bool,
-    /// Branch Protection
-    protection: Value,
-    ///
-    protection_url: String,
-    ///
-    pattern: String,
-    ///
-    required_approving_review_count: i64,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostReposownerrepoCheckRunsResponse {
-    /// The id of the check.
-    id: i64,
-    /// The SHA of the commit that is being checked.
-    head_sha: String,
-    ///
-    node_id: String,
-    ///
-    external_id: Option<String>,
-    ///
-    url: String,
-    ///
-    html_url: Option<String>,
-    ///
-    details_url: Option<String>,
-    /// The phase of the lifecycle that the check is currently in.
-    status: String,
-    ///
-    conclusion: Option<String>,
-    ///
-    started_at: Option<String>,
-    ///
-    completed_at: Option<String>,
-    ///
-    output: Value,
-    /// The name of the check.
-    name: String,
-    ///
-    check_suite: Option<Value>,
-    ///
-    pull_requests: Vec<Value>,
-    /// A deployment created as the result of an Actions check run from a workflow that references an environment
-    deployment: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoCheckRunscheckRunIdResponse {
-    /// The id of the check.
-    id: i64,
-    /// The SHA of the commit that is being checked.
-    head_sha: String,
-    ///
-    node_id: String,
-    ///
-    external_id: Option<String>,
-    ///
-    url: String,
-    ///
-    html_url: Option<String>,
-    ///
-    details_url: Option<String>,
-    /// The phase of the lifecycle that the check is currently in.
-    status: String,
-    ///
-    conclusion: Option<String>,
-    ///
-    started_at: Option<String>,
-    ///
-    completed_at: Option<String>,
-    ///
-    output: Value,
-    /// The name of the check.
-    name: String,
-    ///
-    check_suite: Option<Value>,
-    ///
-    pull_requests: Vec<Value>,
-    /// A deployment created as the result of an Actions check run from a workflow that references an environment
-    deployment: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PatchReposownerrepoCheckRunscheckRunIdResponse {
-    /// The id of the check.
-    id: i64,
-    /// The SHA of the commit that is being checked.
-    head_sha: String,
-    ///
-    node_id: String,
-    ///
-    external_id: Option<String>,
-    ///
-    url: String,
-    ///
-    html_url: Option<String>,
-    ///
-    details_url: Option<String>,
-    /// The phase of the lifecycle that the check is currently in.
-    status: String,
-    ///
-    conclusion: Option<String>,
-    ///
-    started_at: Option<String>,
-    ///
-    completed_at: Option<String>,
-    ///
-    output: Value,
-    /// The name of the check.
-    name: String,
-    ///
-    check_suite: Option<Value>,
-    ///
-    pull_requests: Vec<Value>,
-    /// A deployment created as the result of an Actions check run from a workflow that references an environment
-    deployment: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostReposownerrepoCheckSuitesResponse {
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    ///
-    head_branch: Option<String>,
-    /// The SHA of the head commit that is being checked.
-    head_sha: String,
-    ///
-    status: Option<String>,
-    ///
-    conclusion: Option<String>,
-    ///
-    url: Option<String>,
-    ///
-    before: Option<String>,
-    ///
-    after: Option<String>,
-    ///
-    pull_requests: Option<Vec<Value>>,
-    /// Minimal Repository
-    repository: Value,
-    ///
-    created_at: Option<String>,
-    ///
-    updated_at: Option<String>,
-    /// Simple Commit
-    head_commit: Value,
-    ///
-    latest_check_runs_count: i64,
-    ///
-    check_runs_url: String,
-    ///
-    rerequestable: bool,
-    ///
-    runs_rerequestable: bool,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PatchReposownerrepoCheckSuitesPreferencesResponse {
-    ///
-    preferences: Value,
-    /// Minimal Repository
-    repository: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoCheckSuitescheckSuiteIdResponse {
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    ///
-    head_branch: Option<String>,
-    /// The SHA of the head commit that is being checked.
-    head_sha: String,
-    ///
-    status: Option<String>,
-    ///
-    conclusion: Option<String>,
-    ///
-    url: Option<String>,
-    ///
-    before: Option<String>,
-    ///
-    after: Option<String>,
-    ///
-    pull_requests: Option<Vec<Value>>,
-    /// Minimal Repository
-    repository: Value,
-    ///
-    created_at: Option<String>,
-    ///
-    updated_at: Option<String>,
-    /// Simple Commit
-    head_commit: Value,
-    ///
-    latest_check_runs_count: i64,
-    ///
-    check_runs_url: String,
-    ///
-    rerequestable: bool,
-    ///
-    runs_rerequestable: bool,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoCheckSuitescheckSuiteIdCheckRunsResponse {
-    ///
-    total_count: i64,
-    ///
-    check_runs: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoCodeScanningAlertsalertNumberResponse {
-    /// The security alert number.
-    number: i64,
-    /// The time that the alert was created in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.
-    created_at: String,
-    /// The time that the alert was last updated in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.
-    updated_at: String,
-    /// The REST API URL of the alert resource.
-    url: String,
-    /// The GitHub URL of the alert resource.
-    html_url: String,
-    /// The REST API URL for fetching the list of instances for an alert.
-    instances_url: String,
-    /// State of a code scanning alert.
-    state: String,
-    /// The time that the alert was no longer detected and was considered fixed in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.
-    fixed_at: Option<String>,
-    /// The time that the alert was dismissed in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.
-    dismissed_at: Option<String>,
-    /// **Required when the state is dismissed.** The reason for dismissing or closing the alert. Can be one of: `false positive`, `won't fix`, and `used in tests`.
-    dismissed_reason: Option<String>,
-    ///
-    rule: Value,
-    ///
-    tool: Value,
-    ///
-    most_recent_instance: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PatchReposownerrepoCodeScanningAlertsalertNumberResponse {
-    /// The security alert number.
-    number: i64,
-    /// The time that the alert was created in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.
-    created_at: String,
-    /// The time that the alert was last updated in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.
-    updated_at: String,
-    /// The REST API URL of the alert resource.
-    url: String,
-    /// The GitHub URL of the alert resource.
-    html_url: String,
-    /// The REST API URL for fetching the list of instances for an alert.
-    instances_url: String,
-    /// State of a code scanning alert.
-    state: String,
-    /// The time that the alert was no longer detected and was considered fixed in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.
-    fixed_at: Option<String>,
-    /// The time that the alert was dismissed in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.
-    dismissed_at: Option<String>,
-    /// **Required when the state is dismissed.** The reason for dismissing or closing the alert. Can be one of: `false positive`, `won't fix`, and `used in tests`.
-    dismissed_reason: Option<String>,
-    ///
-    rule: Value,
-    ///
-    tool: Value,
-    ///
-    most_recent_instance: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoCodeScanningAnalysesanalysisIdResponse {
-    /// The full Git reference, formatted as `refs/heads/<branch name>`,
-    /// `refs/pull/<number>/merge`, or `refs/pull/<number>/head`.
-    #[serde(rename = "ref")]
-    aref: String,
-    /// The SHA of the commit to which the analysis you are uploading relates.
-    commit_sha: String,
-    /// Identifies the configuration under which the analysis was executed. For example, in GitHub Actions this includes the workflow filename and job name.
-    analysis_key: String,
-    /// Identifies the variable values associated with the environment in which this analysis was performed.
-    environment: String,
-    /// Identifies the configuration under which the analysis was executed. Used to distinguish between multiple analyses for the same tool and commit, but performed on different languages or different parts of the code.
-    category: String,
-    ///
-    error: String,
-    /// The time that the analysis was created in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.
-    created_at: String,
-    /// The total number of results in the analysis.
-    results_count: i64,
-    /// The total number of rules used in the analysis.
-    rules_count: i64,
-    /// Unique identifier for this analysis.
-    id: i64,
-    /// The REST API URL of the analysis resource.
-    url: String,
-    /// An identifier for the upload.
-    sarif_id: String,
-    ///
-    tool: Value,
-    ///
-    deletable: bool,
-    /// Warning generated when processing the analysis
-    warning: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct DeleteReposownerrepoCodeScanningAnalysesanalysisIdResponse {
-    /// Next deletable analysis in chain, without last analysis deletion confirmation
-    next_analysis_url: Option<String>,
-    /// Next deletable analysis in chain, with last analysis deletion confirmation
-    confirm_delete_url: Option<String>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostReposownerrepoCodeScanningSarifsResponse {
-    /// An identifier for the upload.
-    id: String,
-    /// The REST API URL for checking the status of the upload.
-    url: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoCodeScanningSarifssarifIdResponse {
-    /// `pending` files have not yet been processed, while `complete` means results from the SARIF have been stored. `failed` files have either not been processed at all, or could only be partially processed.
-    processing_status: String,
-    /// The REST API URL for getting the analyses associated with the upload.
-    analyses_url: Option<String>,
-    /// Any errors that ocurred during processing of the delivery.
-    errors: Option<Vec<String>>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoCodespacesResponse {
-    ///
-    total_count: i64,
-    ///
-    codespaces: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostReposownerrepoCodespacesResponse {
-    ///
-    id: i64,
-    /// Automatically generated name of this codespace.
-    name: String,
-    /// UUID identifying this codespace's environment.
-    environment_id: Option<String>,
-    /// Simple User
-    owner: Value,
-    /// Simple User
-    billable_owner: Value,
-    /// Minimal Repository
-    repository: Value,
-    /// Whether the codespace was created from a prebuild.
-    prebuild: Option<bool>,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    /// Last known time this codespace was started.
-    last_used_at: String,
-    /// State of this codespace.
-    state: String,
-    /// API URL for this codespace.
-    url: String,
-    /// Details about the codespace's git repository.
-    git_status: Value,
-    /// The Azure region where this codespace is located.
-    location: String,
-    /// The number of minutes of inactivity after which this codespace will be automatically stopped.
-    idle_timeout_minutes: Option<i64>,
-    /// URL to access this codespace on the web.
-    web_url: String,
-    /// API URL to access available alternate machine types for this codespace.
-    machines_url: String,
-    /// API URL to start this codespace.
-    start_url: String,
-    /// API URL to stop this codespace.
-    stop_url: String,
-    /// API URL for the Pull Request associated with this codespace, if any.
-    pulls_url: Option<String>,
-    ///
-    recent_folders: Vec<String>,
-    ///
-    runtime_constraints: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoCodespacesMachinesResponse {
-    ///
-    total_count: i64,
-    ///
-    machines: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PutReposownerrepoCollaboratorsusernameResponse {
-    /// Unique identifier of the repository invitation.
-    id: i64,
-    /// Minimal Repository
-    repository: Value,
-    /// The permission associated with the invitation.
-    permissions: String,
-    ///
-    created_at: String,
-    /// Whether or not the invitation has expired
-    expired: bool,
-    /// URL for the repository invitation
-    url: String,
-    ///
-    html_url: String,
-    ///
-    node_id: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoCollaboratorsusernamePermissionResponse {
-    ///
-    permission: String,
-    ///
-    role_name: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoCommentscommentIdResponse {
-    ///
-    html_url: String,
-    ///
-    url: String,
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    ///
-    body: String,
-    ///
-    path: Option<String>,
-    ///
-    position: Option<i64>,
-    ///
-    line: Option<i64>,
-    ///
-    commit_id: String,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    /// How the author is associated with the repository.
-    author_association: String,
-    ///
-    reactions: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PatchReposownerrepoCommentscommentIdResponse {
-    ///
-    html_url: String,
-    ///
-    url: String,
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    ///
-    body: String,
-    ///
-    path: Option<String>,
-    ///
-    position: Option<i64>,
-    ///
-    line: Option<i64>,
-    ///
-    commit_id: String,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    /// How the author is associated with the repository.
-    author_association: String,
-    ///
-    reactions: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostReposownerrepoCommentscommentIdReactionsResponse {
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    /// The reaction to use
-    content: String,
-    ///
-    created_at: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostReposownerrepoCommitscommitShaCommentsResponse {
-    ///
-    html_url: String,
-    ///
-    url: String,
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    ///
-    body: String,
-    ///
-    path: Option<String>,
-    ///
-    position: Option<i64>,
-    ///
-    line: Option<i64>,
-    ///
-    commit_id: String,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    /// How the author is associated with the repository.
-    author_association: String,
-    ///
-    reactions: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoCommitsrefResponse {
-    ///
-    url: String,
-    ///
-    sha: String,
-    ///
-    node_id: String,
-    ///
-    html_url: String,
-    ///
-    comments_url: String,
-    ///
-    commit: Value,
-    ///
-    parents: Vec<Value>,
-    ///
-    stats: Value,
-    ///
-    files: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoCommitsrefCheckRunsResponse {
-    ///
-    total_count: i64,
-    ///
-    check_runs: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoCommitsrefCheckSuitesResponse {
-    ///
-    total_count: i64,
-    ///
-    check_suites: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoCommitsrefStatusResponse {
-    ///
-    state: String,
-    ///
-    statuses: Vec<Value>,
-    ///
-    sha: String,
-    ///
-    total_count: i64,
-    /// Minimal Repository
-    repository: Value,
-    ///
-    commit_url: String,
-    ///
-    url: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoCommunityProfileResponse {
-    ///
-    health_percentage: i64,
-    ///
-    description: Option<String>,
-    ///
-    documentation: Option<String>,
-    ///
-    files: Value,
-    ///
-    updated_at: Option<String>,
-    ///
-    content_reports_enabled: bool,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoComparebaseheadResponse {
-    ///
-    url: String,
-    ///
-    html_url: String,
-    ///
-    permalink_url: String,
-    ///
-    diff_url: String,
-    ///
-    patch_url: String,
-    /// Commit
-    base_commit: Value,
-    /// Commit
-    merge_base_commit: Value,
-    ///
-    status: String,
-    ///
-    ahead_by: i64,
-    ///
-    behind_by: i64,
-    ///
-    total_commits: i64,
-    ///
-    commits: Vec<Value>,
-    ///
-    files: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PutReposownerrepoContentspathResponse {
-    ///
-    content: Option<Value>,
-    ///
-    commit: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct DeleteReposownerrepoContentspathResponse {
-    ///
-    content: Option<Value>,
-    ///
-    commit: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostReposownerrepoDeploymentsResponse {
-    ///
-    url: String,
-    /// Unique identifier of the deployment
-    id: i64,
-    ///
-    node_id: String,
-    ///
-    sha: String,
-    /// The ref to deploy. This can be a branch, tag, or sha.
-    #[serde(rename = "ref")]
-    aref: String,
-    /// Parameter to specify a task to execute
-    task: String,
-    ///
-    original_environment: String,
-    /// Name for the target deployment environment.
-    environment: String,
-    ///
-    description: Option<String>,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    ///
-    statuses_url: String,
-    ///
-    repository_url: String,
-    /// Specifies if the given environment is will no longer exist at some point in the future. Default: false.
-    transient_environment: bool,
-    /// Specifies if the given environment is one that end-users directly interact with. Default: false.
-    production_environment: bool,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoDeploymentsdeploymentIdResponse {
-    ///
-    url: String,
-    /// Unique identifier of the deployment
-    id: i64,
-    ///
-    node_id: String,
-    ///
-    sha: String,
-    /// The ref to deploy. This can be a branch, tag, or sha.
-    #[serde(rename = "ref")]
-    aref: String,
-    /// Parameter to specify a task to execute
-    task: String,
-    ///
-    original_environment: String,
-    /// Name for the target deployment environment.
-    environment: String,
-    ///
-    description: Option<String>,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    ///
-    statuses_url: String,
-    ///
-    repository_url: String,
-    /// Specifies if the given environment is will no longer exist at some point in the future. Default: false.
-    transient_environment: bool,
-    /// Specifies if the given environment is one that end-users directly interact with. Default: false.
-    production_environment: bool,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostReposownerrepoDeploymentsdeploymentIdStatusesResponse {
-    ///
-    url: String,
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    /// The state of the status.
-    state: String,
-    /// A short description of the status.
-    description: String,
-    /// The environment of the deployment that the status is for.
-    environment: String,
-    /// Deprecated: the URL to associate with this status.
-    target_url: String,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    ///
-    deployment_url: String,
-    ///
-    repository_url: String,
-    /// The URL for accessing your environment.
-    environment_url: String,
-    /// The URL to associate with this status.
-    log_url: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoDeploymentsdeploymentIdStatusesstatusIdResponse {
-    ///
-    url: String,
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    /// The state of the status.
-    state: String,
-    /// A short description of the status.
-    description: String,
-    /// The environment of the deployment that the status is for.
-    environment: String,
-    /// Deprecated: the URL to associate with this status.
-    target_url: String,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    ///
-    deployment_url: String,
-    ///
-    repository_url: String,
-    /// The URL for accessing your environment.
-    environment_url: String,
-    /// The URL to associate with this status.
-    log_url: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoEnvironmentsResponse {
-    /// The number of environments in this repository
-    total_count: i64,
-    ///
-    environments: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoEnvironmentsenvironmentNameResponse {
-    /// The id of the environment.
-    id: i64,
-    ///
-    node_id: String,
-    /// The name of the environment.
-    name: String,
-    ///
-    url: String,
-    ///
-    html_url: String,
-    /// The time that the environment was created, in ISO 8601 format.
-    created_at: String,
-    /// The time that the environment was last updated, in ISO 8601 format.
-    updated_at: String,
-    /// The type of deployment branch policy for this environment. To allow all branches to deploy, set to `null`.
-    deployment_branch_policy: Option<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PutReposownerrepoEnvironmentsenvironmentNameResponse {
-    /// The id of the environment.
-    id: i64,
-    ///
-    node_id: String,
-    /// The name of the environment.
-    name: String,
-    ///
-    url: String,
-    ///
-    html_url: String,
-    /// The time that the environment was created, in ISO 8601 format.
-    created_at: String,
-    /// The time that the environment was last updated, in ISO 8601 format.
-    updated_at: String,
-    /// The type of deployment branch policy for this environment. To allow all branches to deploy, set to `null`.
-    deployment_branch_policy: Option<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostReposownerrepoForksResponse {
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    ///
-    name: String,
-    ///
-    full_name: String,
-    /// Simple User
-    owner: Value,
-    ///
-    private: bool,
-    ///
-    html_url: String,
-    ///
-    description: Option<String>,
-    ///
-    fork: bool,
-    ///
-    url: String,
-    ///
-    archive_url: String,
-    ///
-    assignees_url: String,
-    ///
-    blobs_url: String,
-    ///
-    branches_url: String,
-    ///
-    collaborators_url: String,
-    ///
-    comments_url: String,
-    ///
-    commits_url: String,
-    ///
-    compare_url: String,
-    ///
-    contents_url: String,
-    ///
-    contributors_url: String,
-    ///
-    deployments_url: String,
-    ///
-    downloads_url: String,
-    ///
-    events_url: String,
-    ///
-    forks_url: String,
-    ///
-    git_commits_url: String,
-    ///
-    git_refs_url: String,
-    ///
-    git_tags_url: String,
-    ///
-    git_url: String,
-    ///
-    issue_comment_url: String,
-    ///
-    issue_events_url: String,
-    ///
-    issues_url: String,
-    ///
-    keys_url: String,
-    ///
-    labels_url: String,
-    ///
-    languages_url: String,
-    ///
-    merges_url: String,
-    ///
-    milestones_url: String,
-    ///
-    notifications_url: String,
-    ///
-    pulls_url: String,
-    ///
-    releases_url: String,
-    ///
-    ssh_url: String,
-    ///
-    stargazers_url: String,
-    ///
-    statuses_url: String,
-    ///
-    subscribers_url: String,
-    ///
-    subscription_url: String,
-    ///
-    tags_url: String,
-    ///
-    teams_url: String,
-    ///
-    trees_url: String,
-    ///
-    clone_url: String,
-    ///
-    mirror_url: Option<String>,
-    ///
-    hooks_url: String,
-    ///
-    svn_url: String,
-    ///
-    homepage: Option<String>,
-    ///
-    language: Option<String>,
-    ///
-    forks_count: i64,
-    ///
-    stargazers_count: i64,
-    ///
-    watchers_count: i64,
-    ///
-    size: i64,
-    ///
-    default_branch: String,
-    ///
-    open_issues_count: i64,
-    ///
-    is_template: bool,
-    ///
-    topics: Vec<String>,
-    ///
-    has_issues: bool,
-    ///
-    has_projects: bool,
-    ///
-    has_wiki: bool,
-    ///
-    has_pages: bool,
-    ///
-    has_downloads: bool,
-    ///
-    archived: bool,
-    /// Returns whether or not this repository disabled.
-    disabled: bool,
-    /// The repository visibility: public, private, or internal.
-    visibility: String,
-    ///
-    pushed_at: String,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    ///
-    permissions: Value,
-    ///
-    allow_rebase_merge: bool,
-    ///
-    temp_clone_token: Option<String>,
-    ///
-    allow_squash_merge: bool,
-    ///
-    allow_auto_merge: bool,
-    ///
-    delete_branch_on_merge: bool,
-    ///
-    allow_merge_commit: bool,
-    ///
-    allow_forking: bool,
-    ///
-    subscribers_count: i64,
-    ///
-    network_count: i64,
-    /// A git repository
-    parent: Value,
-    /// A git repository
-    source: Value,
-    ///
-    forks: i64,
-    ///
-    master_branch: String,
-    ///
-    open_issues: i64,
-    ///
-    watchers: i64,
-    /// Whether anonymous git access is allowed.
-    anonymous_access_enabled: bool,
-    /// Code of Conduct Simple
-    code_of_conduct: Value,
-    ///
-    security_and_analysis: Option<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostReposownerrepoGitBlobsResponse {
-    ///
-    url: String,
-    ///
-    sha: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoGitBlobsfileShaResponse {
-    ///
-    content: String,
-    ///
-    encoding: String,
-    ///
-    url: String,
-    ///
-    sha: String,
-    ///
-    size: Option<i64>,
-    ///
-    node_id: String,
-    ///
-    highlighted_content: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostReposownerrepoGitCommitsResponse {
-    /// SHA for the commit
-    sha: String,
-    ///
-    node_id: String,
-    ///
-    url: String,
-    /// Identifying information for the git-user
-    author: Value,
-    /// Identifying information for the git-user
-    committer: Value,
-    /// Message describing the purpose of the commit
-    message: String,
-    ///
-    tree: Value,
-    ///
-    parents: Vec<Value>,
-    ///
-    verification: Value,
-    ///
-    html_url: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoGitCommitscommitShaResponse {
-    /// SHA for the commit
-    sha: String,
-    ///
-    node_id: String,
-    ///
-    url: String,
-    /// Identifying information for the git-user
-    author: Value,
-    /// Identifying information for the git-user
-    committer: Value,
-    /// Message describing the purpose of the commit
-    message: String,
-    ///
-    tree: Value,
-    ///
-    parents: Vec<Value>,
-    ///
-    verification: Value,
-    ///
-    html_url: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoGitRefrefResponse {
-    ///
-    #[serde(rename = "ref")]
-    aref: String,
-    ///
-    node_id: String,
-    ///
-    url: String,
-    ///
-    object: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostReposownerrepoGitRefsResponse {
-    ///
-    #[serde(rename = "ref")]
-    aref: String,
-    ///
-    node_id: String,
-    ///
-    url: String,
-    ///
-    object: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PatchReposownerrepoGitRefsrefResponse {
-    ///
-    #[serde(rename = "ref")]
-    aref: String,
-    ///
-    node_id: String,
-    ///
-    url: String,
-    ///
-    object: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostReposownerrepoGitTagsResponse {
-    ///
-    node_id: String,
-    /// Name of the tag
-    tag: String,
-    ///
-    sha: String,
-    /// URL for the tag
-    url: String,
-    /// Message describing the purpose of the tag
-    message: String,
-    ///
-    tagger: Value,
-    ///
-    object: Value,
-    ///
-    verification: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoGitTagstagShaResponse {
-    ///
-    node_id: String,
-    /// Name of the tag
-    tag: String,
-    ///
-    sha: String,
-    /// URL for the tag
-    url: String,
-    /// Message describing the purpose of the tag
-    message: String,
-    ///
-    tagger: Value,
-    ///
-    object: Value,
-    ///
-    verification: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostReposownerrepoGitTreesResponse {
-    ///
-    sha: String,
-    ///
-    url: String,
-    ///
-    truncated: bool,
-    /// Objects specifying a tree structure
-    tree: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoGitTreestreeShaResponse {
-    ///
-    sha: String,
-    ///
-    url: String,
-    ///
-    truncated: bool,
-    /// Objects specifying a tree structure
-    tree: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostReposownerrepoHooksResponse {
-    ///
-    #[serde(rename = "type")]
-    atype: String,
-    /// Unique identifier of the webhook.
-    id: i64,
-    /// The name of a valid service, use 'web' for a webhook.
-    name: String,
-    /// Determines whether the hook is actually triggered on pushes.
-    active: bool,
-    /// Determines what events the hook is triggered for. Default: ['push'].
-    events: Vec<String>,
-    ///
-    config: Value,
-    ///
-    updated_at: String,
-    ///
-    created_at: String,
-    ///
-    url: String,
-    ///
-    test_url: String,
-    ///
-    ping_url: String,
-    ///
-    deliveries_url: String,
-    ///
-    last_response: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoHookshookIdResponse {
-    ///
-    #[serde(rename = "type")]
-    atype: String,
-    /// Unique identifier of the webhook.
-    id: i64,
-    /// The name of a valid service, use 'web' for a webhook.
-    name: String,
-    /// Determines whether the hook is actually triggered on pushes.
-    active: bool,
-    /// Determines what events the hook is triggered for. Default: ['push'].
-    events: Vec<String>,
-    ///
-    config: Value,
-    ///
-    updated_at: String,
-    ///
-    created_at: String,
-    ///
-    url: String,
-    ///
-    test_url: String,
-    ///
-    ping_url: String,
-    ///
-    deliveries_url: String,
-    ///
-    last_response: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PatchReposownerrepoHookshookIdResponse {
-    ///
-    #[serde(rename = "type")]
-    atype: String,
-    /// Unique identifier of the webhook.
-    id: i64,
-    /// The name of a valid service, use 'web' for a webhook.
-    name: String,
-    /// Determines whether the hook is actually triggered on pushes.
-    active: bool,
-    /// Determines what events the hook is triggered for. Default: ['push'].
-    events: Vec<String>,
-    ///
-    config: Value,
-    ///
-    updated_at: String,
-    ///
-    created_at: String,
-    ///
-    url: String,
-    ///
-    test_url: String,
-    ///
-    ping_url: String,
-    ///
-    deliveries_url: String,
-    ///
-    last_response: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoHookshookIdConfigResponse {
-    /// The URL to which the payloads will be delivered.
-    url: String,
-    /// The media type used to serialize the payloads. Supported values include `json` and `form`. The default is `form`.
-    content_type: String,
-    /// If provided, the `secret` will be used as the `key` to generate the HMAC hex digest value for [delivery signature headers](https://docs.github.com/webhooks/event-payloads/#delivery-headers).
-    secret: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PatchReposownerrepoHookshookIdConfigResponse {
-    /// The URL to which the payloads will be delivered.
-    url: String,
-    /// The media type used to serialize the payloads. Supported values include `json` and `form`. The default is `form`.
-    content_type: String,
-    /// If provided, the `secret` will be used as the `key` to generate the HMAC hex digest value for [delivery signature headers](https://docs.github.com/webhooks/event-payloads/#delivery-headers).
-    secret: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoHookshookIdDeliveriesdeliveryIdResponse {
-    /// Unique identifier of the delivery.
-    id: i64,
-    /// Unique identifier for the event (shared with all deliveries for all webhooks that subscribe to this event).
-    guid: String,
-    /// Time when the delivery was delivered.
-    delivered_at: String,
-    /// Whether the delivery is a redelivery.
-    redelivery: bool,
-    /// Time spent delivering.
-    duration: f64,
-    /// Description of the status of the attempted delivery
-    status: String,
-    /// Status code received when delivery was made.
-    status_code: i64,
-    /// The event that triggered the delivery.
-    event: String,
-    /// The type of activity for the event that triggered the delivery.
-    action: Option<String>,
-    /// The id of the GitHub App installation associated with this event.
-    installation_id: Option<i64>,
-    /// The id of the repository associated with this event.
-    repository_id: Option<i64>,
-    /// The URL target of the delivery.
-    url: String,
-    ///
-    request: Value,
-    ///
-    response: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoImportResponse {
-    ///
-    vcs: Option<String>,
-    ///
-    use_lfs: bool,
-    /// The URL of the originating repository.
-    vcs_url: String,
-    ///
-    svc_root: String,
-    ///
-    tfvc_project: String,
-    ///
-    status: String,
-    ///
-    status_text: Option<String>,
-    ///
-    failed_step: Option<String>,
-    ///
-    error_message: Option<String>,
-    ///
-    import_percent: Option<i64>,
-    ///
-    commit_count: Option<i64>,
-    ///
-    push_percent: Option<i64>,
-    ///
-    has_large_files: bool,
-    ///
-    large_files_size: i64,
-    ///
-    large_files_count: i64,
-    ///
-    project_choices: Vec<Value>,
-    ///
-    message: String,
-    ///
-    authors_count: Option<i64>,
-    ///
-    url: String,
-    ///
-    html_url: String,
-    ///
-    authors_url: String,
-    ///
-    repository_url: String,
-    ///
-    svn_root: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PutReposownerrepoImportResponse {
-    ///
-    vcs: Option<String>,
-    ///
-    use_lfs: bool,
-    /// The URL of the originating repository.
-    vcs_url: String,
-    ///
-    svc_root: String,
-    ///
-    tfvc_project: String,
-    ///
-    status: String,
-    ///
-    status_text: Option<String>,
-    ///
-    failed_step: Option<String>,
-    ///
-    error_message: Option<String>,
-    ///
-    import_percent: Option<i64>,
-    ///
-    commit_count: Option<i64>,
-    ///
-    push_percent: Option<i64>,
-    ///
-    has_large_files: bool,
-    ///
-    large_files_size: i64,
-    ///
-    large_files_count: i64,
-    ///
-    project_choices: Vec<Value>,
-    ///
-    message: String,
-    ///
-    authors_count: Option<i64>,
-    ///
-    url: String,
-    ///
-    html_url: String,
-    ///
-    authors_url: String,
-    ///
-    repository_url: String,
-    ///
-    svn_root: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PatchReposownerrepoImportResponse {
-    ///
-    vcs: Option<String>,
-    ///
-    use_lfs: bool,
-    /// The URL of the originating repository.
-    vcs_url: String,
-    ///
-    svc_root: String,
-    ///
-    tfvc_project: String,
-    ///
-    status: String,
-    ///
-    status_text: Option<String>,
-    ///
-    failed_step: Option<String>,
-    ///
-    error_message: Option<String>,
-    ///
-    import_percent: Option<i64>,
-    ///
-    commit_count: Option<i64>,
-    ///
-    push_percent: Option<i64>,
-    ///
-    has_large_files: bool,
-    ///
-    large_files_size: i64,
-    ///
-    large_files_count: i64,
-    ///
-    project_choices: Vec<Value>,
-    ///
-    message: String,
-    ///
-    authors_count: Option<i64>,
-    ///
-    url: String,
-    ///
-    html_url: String,
-    ///
-    authors_url: String,
-    ///
-    repository_url: String,
-    ///
-    svn_root: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PatchReposownerrepoImportAuthorsauthorIdResponse {
-    ///
-    id: i64,
-    ///
-    remote_id: String,
-    ///
-    remote_name: String,
-    ///
-    email: String,
-    ///
-    name: String,
-    ///
-    url: String,
-    ///
-    import_url: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PatchReposownerrepoImportLfsResponse {
-    ///
-    vcs: Option<String>,
-    ///
-    use_lfs: bool,
-    /// The URL of the originating repository.
-    vcs_url: String,
-    ///
-    svc_root: String,
-    ///
-    tfvc_project: String,
-    ///
-    status: String,
-    ///
-    status_text: Option<String>,
-    ///
-    failed_step: Option<String>,
-    ///
-    error_message: Option<String>,
-    ///
-    import_percent: Option<i64>,
-    ///
-    commit_count: Option<i64>,
-    ///
-    push_percent: Option<i64>,
-    ///
-    has_large_files: bool,
-    ///
-    large_files_size: i64,
-    ///
-    large_files_count: i64,
-    ///
-    project_choices: Vec<Value>,
-    ///
-    message: String,
-    ///
-    authors_count: Option<i64>,
-    ///
-    url: String,
-    ///
-    html_url: String,
-    ///
-    authors_url: String,
-    ///
-    repository_url: String,
-    ///
-    svn_root: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoInstallationResponse {
-    /// The ID of the installation.
-    id: i64,
-    ///
-    account: Option<Value>,
-    /// Describe whether all repositories have been selected or there's a selection involved
-    repository_selection: String,
-    ///
-    access_tokens_url: String,
-    ///
-    repositories_url: String,
-    ///
-    html_url: String,
-    ///
-    app_id: i64,
-    /// The ID of the user or organization this token is being scoped to.
-    target_id: i64,
-    ///
-    target_type: String,
-    /// * example - [object Object]
-    permissions: Value,
-    ///
-    events: Vec<String>,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    ///
-    single_file_name: Option<String>,
-    ///
-    has_multiple_single_files: bool,
-    ///
-    single_file_paths: Vec<String>,
-    ///
-    app_slug: String,
-    ///
-    suspended_at: Option<String>,
-    ///
-    contact_email: Option<String>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PutReposownerrepoInteractionLimitsResponse {
-    /// The type of GitHub user that can comment, open issues, or create pull requests while the interaction limit is in effect. Can be one of: `existing_users`, `contributors_only`, `collaborators_only`.
-    limit: String,
-    ///
-    origin: String,
-    ///
-    expires_at: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PatchReposownerrepoInvitationsinvitationIdResponse {
-    /// Unique identifier of the repository invitation.
-    id: i64,
-    /// Minimal Repository
-    repository: Value,
-    /// The permission associated with the invitation.
-    permissions: String,
-    ///
-    created_at: String,
-    /// Whether or not the invitation has expired
-    expired: bool,
-    /// URL for the repository invitation
-    url: String,
-    ///
-    html_url: String,
-    ///
-    node_id: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostReposownerrepoIssuesResponse {
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    /// URL for the issue
-    url: String,
-    ///
-    repository_url: String,
-    ///
-    labels_url: String,
-    ///
-    comments_url: String,
-    ///
-    events_url: String,
-    ///
-    html_url: String,
-    /// Number uniquely identifying the issue within its repository
-    number: i64,
-    /// State of the issue; either 'open' or 'closed'
-    state: String,
-    /// Title of the issue
-    title: String,
-    /// Contents of the issue
-    body: Option<String>,
-    ///
-    assignees: Option<Vec<Value>>,
-    ///
-    locked: bool,
-    ///
-    active_lock_reason: Option<String>,
-    ///
-    comments: i64,
-    ///
-    pull_request: Value,
-    ///
-    closed_at: Option<String>,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    ///
-    draft: bool,
-    ///
-    body_html: String,
-    ///
-    body_text: String,
-    ///
-    timeline_url: String,
-    /// A git repository
-    repository: Value,
-    /// How the author is associated with the repository.
-    author_association: String,
-    ///
-    reactions: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoIssuesCommentscommentIdResponse {
-    /// Unique identifier of the issue comment
-    id: i64,
-    ///
-    node_id: String,
-    /// URL for the issue comment
-    url: String,
-    /// Contents of the issue comment
-    body: String,
-    ///
-    body_text: String,
-    ///
-    body_html: String,
-    ///
-    html_url: String,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    ///
-    issue_url: String,
-    /// How the author is associated with the repository.
-    author_association: String,
-    ///
-    reactions: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PatchReposownerrepoIssuesCommentscommentIdResponse {
-    /// Unique identifier of the issue comment
-    id: i64,
-    ///
-    node_id: String,
-    /// URL for the issue comment
-    url: String,
-    /// Contents of the issue comment
-    body: String,
-    ///
-    body_text: String,
-    ///
-    body_html: String,
-    ///
-    html_url: String,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    ///
-    issue_url: String,
-    /// How the author is associated with the repository.
-    author_association: String,
-    ///
-    reactions: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostReposownerrepoIssuesCommentscommentIdReactionsResponse {
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    /// The reaction to use
-    content: String,
-    ///
-    created_at: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoIssuesEventseventIdResponse {
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    ///
-    url: String,
-    ///
-    event: String,
-    ///
-    commit_id: Option<String>,
-    ///
-    commit_url: Option<String>,
-    ///
-    created_at: String,
-    /// Issue Event Label
-    label: Value,
-    /// Groups of organization members that gives permissions on specified repositories.
-    requested_team: Value,
-    ///
-    dismissed_review: Value,
-    /// Issue Event Milestone
-    milestone: Value,
-    /// Issue Event Project Card
-    project_card: Value,
-    /// Issue Event Rename
-    rename: Value,
-    /// How the author is associated with the repository.
-    author_association: String,
-    ///
-    lock_reason: Option<String>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoIssuesissueNumberResponse {
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    /// URL for the issue
-    url: String,
-    ///
-    repository_url: String,
-    ///
-    labels_url: String,
-    ///
-    comments_url: String,
-    ///
-    events_url: String,
-    ///
-    html_url: String,
-    /// Number uniquely identifying the issue within its repository
-    number: i64,
-    /// State of the issue; either 'open' or 'closed'
-    state: String,
-    /// Title of the issue
-    title: String,
-    /// Contents of the issue
-    body: Option<String>,
-    ///
-    assignees: Option<Vec<Value>>,
-    ///
-    locked: bool,
-    ///
-    active_lock_reason: Option<String>,
-    ///
-    comments: i64,
-    ///
-    pull_request: Value,
-    ///
-    closed_at: Option<String>,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    ///
-    draft: bool,
-    ///
-    body_html: String,
-    ///
-    body_text: String,
-    ///
-    timeline_url: String,
-    /// A git repository
-    repository: Value,
-    /// How the author is associated with the repository.
-    author_association: String,
-    ///
-    reactions: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PatchReposownerrepoIssuesissueNumberResponse {
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    /// URL for the issue
-    url: String,
-    ///
-    repository_url: String,
-    ///
-    labels_url: String,
-    ///
-    comments_url: String,
-    ///
-    events_url: String,
-    ///
-    html_url: String,
-    /// Number uniquely identifying the issue within its repository
-    number: i64,
-    /// State of the issue; either 'open' or 'closed'
-    state: String,
-    /// Title of the issue
-    title: String,
-    /// Contents of the issue
-    body: Option<String>,
-    ///
-    assignees: Option<Vec<Value>>,
-    ///
-    locked: bool,
-    ///
-    active_lock_reason: Option<String>,
-    ///
-    comments: i64,
-    ///
-    pull_request: Value,
-    ///
-    closed_at: Option<String>,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    ///
-    draft: bool,
-    ///
-    body_html: String,
-    ///
-    body_text: String,
-    ///
-    timeline_url: String,
-    /// A git repository
-    repository: Value,
-    /// How the author is associated with the repository.
-    author_association: String,
-    ///
-    reactions: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostReposownerrepoIssuesissueNumberAssigneesResponse {
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    /// URL for the issue
-    url: String,
-    ///
-    repository_url: String,
-    ///
-    labels_url: String,
-    ///
-    comments_url: String,
-    ///
-    events_url: String,
-    ///
-    html_url: String,
-    /// Number uniquely identifying the issue within its repository
-    number: i64,
-    /// State of the issue; either 'open' or 'closed'
-    state: String,
-    /// Title of the issue
-    title: String,
-    /// Contents of the issue
-    body: Option<String>,
-    ///
-    assignees: Option<Vec<Value>>,
-    ///
-    locked: bool,
-    ///
-    active_lock_reason: Option<String>,
-    ///
-    comments: i64,
-    ///
-    pull_request: Value,
-    ///
-    closed_at: Option<String>,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    ///
-    draft: bool,
-    ///
-    body_html: String,
-    ///
-    body_text: String,
-    ///
-    timeline_url: String,
-    /// A git repository
-    repository: Value,
-    /// How the author is associated with the repository.
-    author_association: String,
-    ///
-    reactions: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct DeleteReposownerrepoIssuesissueNumberAssigneesResponse {
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    /// URL for the issue
-    url: String,
-    ///
-    repository_url: String,
-    ///
-    labels_url: String,
-    ///
-    comments_url: String,
-    ///
-    events_url: String,
-    ///
-    html_url: String,
-    /// Number uniquely identifying the issue within its repository
-    number: i64,
-    /// State of the issue; either 'open' or 'closed'
-    state: String,
-    /// Title of the issue
-    title: String,
-    /// Contents of the issue
-    body: Option<String>,
-    ///
-    assignees: Option<Vec<Value>>,
-    ///
-    locked: bool,
-    ///
-    active_lock_reason: Option<String>,
-    ///
-    comments: i64,
-    ///
-    pull_request: Value,
-    ///
-    closed_at: Option<String>,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    ///
-    draft: bool,
-    ///
-    body_html: String,
-    ///
-    body_text: String,
-    ///
-    timeline_url: String,
-    /// A git repository
-    repository: Value,
-    /// How the author is associated with the repository.
-    author_association: String,
-    ///
-    reactions: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostReposownerrepoIssuesissueNumberCommentsResponse {
-    /// Unique identifier of the issue comment
-    id: i64,
-    ///
-    node_id: String,
-    /// URL for the issue comment
-    url: String,
-    /// Contents of the issue comment
-    body: String,
-    ///
-    body_text: String,
-    ///
-    body_html: String,
-    ///
-    html_url: String,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    ///
-    issue_url: String,
-    /// How the author is associated with the repository.
-    author_association: String,
-    ///
-    reactions: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostReposownerrepoIssuesissueNumberReactionsResponse {
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    /// The reaction to use
-    content: String,
-    ///
-    created_at: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostReposownerrepoKeysResponse {
-    ///
-    id: i64,
-    ///
-    key: String,
-    ///
-    url: String,
-    ///
-    title: String,
-    ///
-    verified: bool,
-    ///
-    created_at: String,
-    ///
-    read_only: bool,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoKeyskeyIdResponse {
-    ///
-    id: i64,
-    ///
-    key: String,
-    ///
-    url: String,
-    ///
-    title: String,
-    ///
-    verified: bool,
-    ///
-    created_at: String,
-    ///
-    read_only: bool,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostReposownerrepoLabelsResponse {
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    /// URL for the label
-    url: String,
-    /// The name of the label.
-    name: String,
-    ///
-    description: Option<String>,
-    /// 6-character hex code, without the leading #, identifying the color
-    color: String,
-    ///
-    default: bool,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoLabelsnameResponse {
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    /// URL for the label
-    url: String,
-    /// The name of the label.
-    name: String,
-    ///
-    description: Option<String>,
-    /// 6-character hex code, without the leading #, identifying the color
-    color: String,
-    ///
-    default: bool,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PatchReposownerrepoLabelsnameResponse {
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    /// URL for the label
-    url: String,
-    /// The name of the label.
-    name: String,
-    ///
-    description: Option<String>,
-    /// 6-character hex code, without the leading #, identifying the color
-    color: String,
-    ///
-    default: bool,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoLicenseResponse {
-    ///
-    name: String,
-    ///
-    path: String,
-    ///
-    sha: String,
-    ///
-    size: i64,
-    ///
-    url: String,
-    ///
-    html_url: Option<String>,
-    ///
-    git_url: Option<String>,
-    ///
-    download_url: Option<String>,
-    ///
-    #[serde(rename = "type")]
-    atype: String,
-    ///
-    content: String,
-    ///
-    encoding: String,
-    ///
-    _links: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostReposownerrepoMergeUpstreamResponse {
-    ///
-    message: String,
-    ///
-    merge_type: String,
-    ///
-    base_branch: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostReposownerrepoMergesResponse {
-    ///
-    url: String,
-    ///
-    sha: String,
-    ///
-    node_id: String,
-    ///
-    html_url: String,
-    ///
-    comments_url: String,
-    ///
-    commit: Value,
-    ///
-    parents: Vec<Value>,
-    ///
-    stats: Value,
-    ///
-    files: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostReposownerrepoMilestonesResponse {
-    ///
-    url: String,
-    ///
-    html_url: String,
-    ///
-    labels_url: String,
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    /// The number of the milestone.
-    number: i64,
-    /// The state of the milestone.
-    state: String,
-    /// The title of the milestone.
-    title: String,
-    ///
-    description: Option<String>,
-    ///
-    open_issues: i64,
-    ///
-    closed_issues: i64,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    ///
-    closed_at: Option<String>,
-    ///
-    due_on: Option<String>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoMilestonesmilestoneNumberResponse {
-    ///
-    url: String,
-    ///
-    html_url: String,
-    ///
-    labels_url: String,
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    /// The number of the milestone.
-    number: i64,
-    /// The state of the milestone.
-    state: String,
-    /// The title of the milestone.
-    title: String,
-    ///
-    description: Option<String>,
-    ///
-    open_issues: i64,
-    ///
-    closed_issues: i64,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    ///
-    closed_at: Option<String>,
-    ///
-    due_on: Option<String>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PatchReposownerrepoMilestonesmilestoneNumberResponse {
-    ///
-    url: String,
-    ///
-    html_url: String,
-    ///
-    labels_url: String,
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    /// The number of the milestone.
-    number: i64,
-    /// The state of the milestone.
-    state: String,
-    /// The title of the milestone.
-    title: String,
-    ///
-    description: Option<String>,
-    ///
-    open_issues: i64,
-    ///
-    closed_issues: i64,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    ///
-    closed_at: Option<String>,
-    ///
-    due_on: Option<String>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PutReposownerrepoNotificationsResponse {
-    ///
-    message: String,
-    ///
-    url: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoPagesResponse {
-    /// The API address for accessing this Page resource.
-    url: String,
-    /// The status of the most recent build of the Page.
-    status: Option<String>,
-    /// The Pages site's custom domain
-    cname: Option<String>,
-    /// The state if the domain is verified
-    protected_domain_state: Option<String>,
-    /// The timestamp when a pending domain becomes unverified.
-    pending_domain_unverified_at: Option<String>,
-    /// Whether the Page has a custom 404 page.
-    custom_404: bool,
-    /// The web address the Page can be accessed from.
-    html_url: String,
-    ///
-    source: Value,
-    /// Whether the GitHub Pages site is publicly visible. If set to `true`, the site is accessible to anyone on the internet. If set to `false`, the site will only be accessible to users who have at least `read` access to the repository that published the site.
-    public: bool,
-    ///
-    https_certificate: Value,
-    /// Whether https is enabled on the domain
-    https_enforced: bool,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostReposownerrepoPagesResponse {
-    /// The API address for accessing this Page resource.
-    url: String,
-    /// The status of the most recent build of the Page.
-    status: Option<String>,
-    /// The Pages site's custom domain
-    cname: Option<String>,
-    /// The state if the domain is verified
-    protected_domain_state: Option<String>,
-    /// The timestamp when a pending domain becomes unverified.
-    pending_domain_unverified_at: Option<String>,
-    /// Whether the Page has a custom 404 page.
-    custom_404: bool,
-    /// The web address the Page can be accessed from.
-    html_url: String,
-    ///
-    source: Value,
-    /// Whether the GitHub Pages site is publicly visible. If set to `true`, the site is accessible to anyone on the internet. If set to `false`, the site will only be accessible to users who have at least `read` access to the repository that published the site.
-    public: bool,
-    ///
-    https_certificate: Value,
-    /// Whether https is enabled on the domain
-    https_enforced: bool,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostReposownerrepoPagesBuildsResponse {
-    ///
-    url: String,
-    ///
-    status: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoPagesBuildsLatestResponse {
-    ///
-    url: String,
-    ///
-    status: String,
-    ///
-    error: Value,
-    ///
-    commit: String,
-    ///
-    duration: i64,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoPagesBuildsbuildIdResponse {
-    ///
-    url: String,
-    ///
-    status: String,
-    ///
-    error: Value,
-    ///
-    commit: String,
-    ///
-    duration: i64,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoPagesHealthResponse {
-    ///
-    domain: Value,
-    ///
-    alt_domain: Option<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostReposownerrepoProjectsResponse {
-    ///
-    owner_url: String,
-    ///
-    url: String,
-    ///
-    html_url: String,
-    ///
-    columns_url: String,
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    /// Name of the project
-    name: String,
-    /// Body of the project
-    body: Option<String>,
-    ///
-    number: i64,
-    /// State of the project; either 'open' or 'closed'
-    state: String,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    /// The baseline permission that all organization members have on this project. Only present if owner is an organization.
-    organization_permission: String,
-    /// Whether or not this project can be seen by everyone. Only present if owner is an organization.
-    private: bool,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostReposownerrepoPullsResponse {
-    ///
-    url: String,
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    ///
-    html_url: String,
-    ///
-    diff_url: String,
-    ///
-    patch_url: String,
-    ///
-    issue_url: String,
-    ///
-    commits_url: String,
-    ///
-    review_comments_url: String,
-    ///
-    review_comment_url: String,
-    ///
-    comments_url: String,
-    ///
-    statuses_url: String,
-    /// Number uniquely identifying the pull request within its repository.
-    number: i64,
-    /// State of this Pull Request. Either `open` or `closed`.
-    state: String,
-    ///
-    locked: bool,
-    /// The title of the pull request.
-    title: String,
-    ///
-    body: Option<String>,
-    ///
-    labels: Vec<Value>,
-    ///
-    active_lock_reason: Option<String>,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    ///
-    closed_at: Option<String>,
-    ///
-    merged_at: Option<String>,
-    ///
-    merge_commit_sha: Option<String>,
-    ///
-    assignees: Option<Vec<Value>>,
-    ///
-    requested_reviewers: Option<Vec<Value>>,
-    ///
-    requested_teams: Option<Vec<Value>>,
-    ///
-    head: Value,
-    ///
-    base: Value,
-    ///
-    _links: Value,
-    /// How the author is associated with the repository.
-    author_association: String,
-    /// The status of auto merging a pull request.
-    auto_merge: Option<Value>,
-    /// Indicates whether or not the pull request is a draft.
-    draft: bool,
-    ///
-    merged: bool,
-    ///
-    mergeable: Option<bool>,
-    ///
-    rebaseable: Option<bool>,
-    ///
-    mergeable_state: String,
-    ///
-    comments: i64,
-    ///
-    review_comments: i64,
-    /// Indicates whether maintainers can modify the pull request.
-    maintainer_can_modify: bool,
-    ///
-    commits: i64,
-    ///
-    additions: i64,
-    ///
-    deletions: i64,
-    ///
-    changed_files: i64,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoPullsCommentscommentIdResponse {
-    /// URL for the pull request review comment
-    url: String,
-    /// The ID of the pull request review to which the comment belongs.
-    pull_request_review_id: Option<i64>,
-    /// The ID of the pull request review comment.
-    id: i64,
-    /// The node ID of the pull request review comment.
-    node_id: String,
-    /// The diff of the line that the comment refers to.
-    diff_hunk: String,
-    /// The relative path of the file to which the comment applies.
-    path: String,
-    /// The line index in the diff to which the comment applies.
-    position: i64,
-    /// The index of the original line in the diff to which the comment applies.
-    original_position: i64,
-    /// The SHA of the commit to which the comment applies.
-    commit_id: String,
-    /// The SHA of the original commit to which the comment applies.
-    original_commit_id: String,
-    /// The comment ID to reply to.
-    in_reply_to_id: i64,
-    /// Simple User
-    user: Value,
-    /// The text of the comment.
-    body: String,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    /// HTML URL for the pull request review comment.
-    html_url: String,
-    /// URL for the pull request that the review comment belongs to.
-    pull_request_url: String,
-    /// How the author is associated with the repository.
-    author_association: String,
-    ///
-    _links: Value,
-    /// The first line of the range for a multi-line comment.
-    start_line: Option<i64>,
-    /// The first line of the range for a multi-line comment.
-    original_start_line: Option<i64>,
-    /// The side of the first line of the range for a multi-line comment.
-    start_side: Option<String>,
-    /// The line of the blob to which the comment applies. The last line of the range for a multi-line comment
-    line: i64,
-    /// The line of the blob to which the comment applies. The last line of the range for a multi-line comment
-    original_line: i64,
-    /// The side of the diff to which the comment applies. The side of the last line of the range for a multi-line comment
-    side: String,
-    ///
-    reactions: Value,
-    ///
-    body_html: String,
-    ///
-    body_text: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PatchReposownerrepoPullsCommentscommentIdResponse {
-    /// URL for the pull request review comment
-    url: String,
-    /// The ID of the pull request review to which the comment belongs.
-    pull_request_review_id: Option<i64>,
-    /// The ID of the pull request review comment.
-    id: i64,
-    /// The node ID of the pull request review comment.
-    node_id: String,
-    /// The diff of the line that the comment refers to.
-    diff_hunk: String,
-    /// The relative path of the file to which the comment applies.
-    path: String,
-    /// The line index in the diff to which the comment applies.
-    position: i64,
-    /// The index of the original line in the diff to which the comment applies.
-    original_position: i64,
-    /// The SHA of the commit to which the comment applies.
-    commit_id: String,
-    /// The SHA of the original commit to which the comment applies.
-    original_commit_id: String,
-    /// The comment ID to reply to.
-    in_reply_to_id: i64,
-    /// Simple User
-    user: Value,
-    /// The text of the comment.
-    body: String,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    /// HTML URL for the pull request review comment.
-    html_url: String,
-    /// URL for the pull request that the review comment belongs to.
-    pull_request_url: String,
-    /// How the author is associated with the repository.
-    author_association: String,
-    ///
-    _links: Value,
-    /// The first line of the range for a multi-line comment.
-    start_line: Option<i64>,
-    /// The first line of the range for a multi-line comment.
-    original_start_line: Option<i64>,
-    /// The side of the first line of the range for a multi-line comment.
-    start_side: Option<String>,
-    /// The line of the blob to which the comment applies. The last line of the range for a multi-line comment
-    line: i64,
-    /// The line of the blob to which the comment applies. The last line of the range for a multi-line comment
-    original_line: i64,
-    /// The side of the diff to which the comment applies. The side of the last line of the range for a multi-line comment
-    side: String,
-    ///
-    reactions: Value,
-    ///
-    body_html: String,
-    ///
-    body_text: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostReposownerrepoPullsCommentscommentIdReactionsResponse {
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    /// The reaction to use
-    content: String,
-    ///
-    created_at: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoPullspullNumberResponse {
-    ///
-    url: String,
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    ///
-    html_url: String,
-    ///
-    diff_url: String,
-    ///
-    patch_url: String,
-    ///
-    issue_url: String,
-    ///
-    commits_url: String,
-    ///
-    review_comments_url: String,
-    ///
-    review_comment_url: String,
-    ///
-    comments_url: String,
-    ///
-    statuses_url: String,
-    /// Number uniquely identifying the pull request within its repository.
-    number: i64,
-    /// State of this Pull Request. Either `open` or `closed`.
-    state: String,
-    ///
-    locked: bool,
-    /// The title of the pull request.
-    title: String,
-    ///
-    body: Option<String>,
-    ///
-    labels: Vec<Value>,
-    ///
-    active_lock_reason: Option<String>,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    ///
-    closed_at: Option<String>,
-    ///
-    merged_at: Option<String>,
-    ///
-    merge_commit_sha: Option<String>,
-    ///
-    assignees: Option<Vec<Value>>,
-    ///
-    requested_reviewers: Option<Vec<Value>>,
-    ///
-    requested_teams: Option<Vec<Value>>,
-    ///
-    head: Value,
-    ///
-    base: Value,
-    ///
-    _links: Value,
-    /// How the author is associated with the repository.
-    author_association: String,
-    /// The status of auto merging a pull request.
-    auto_merge: Option<Value>,
-    /// Indicates whether or not the pull request is a draft.
-    draft: bool,
-    ///
-    merged: bool,
-    ///
-    mergeable: Option<bool>,
-    ///
-    rebaseable: Option<bool>,
-    ///
-    mergeable_state: String,
-    ///
-    comments: i64,
-    ///
-    review_comments: i64,
-    /// Indicates whether maintainers can modify the pull request.
-    maintainer_can_modify: bool,
-    ///
-    commits: i64,
-    ///
-    additions: i64,
-    ///
-    deletions: i64,
-    ///
-    changed_files: i64,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PatchReposownerrepoPullspullNumberResponse {
-    ///
-    url: String,
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    ///
-    html_url: String,
-    ///
-    diff_url: String,
-    ///
-    patch_url: String,
-    ///
-    issue_url: String,
-    ///
-    commits_url: String,
-    ///
-    review_comments_url: String,
-    ///
-    review_comment_url: String,
-    ///
-    comments_url: String,
-    ///
-    statuses_url: String,
-    /// Number uniquely identifying the pull request within its repository.
-    number: i64,
-    /// State of this Pull Request. Either `open` or `closed`.
-    state: String,
-    ///
-    locked: bool,
-    /// The title of the pull request.
-    title: String,
-    ///
-    body: Option<String>,
-    ///
-    labels: Vec<Value>,
-    ///
-    active_lock_reason: Option<String>,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    ///
-    closed_at: Option<String>,
-    ///
-    merged_at: Option<String>,
-    ///
-    merge_commit_sha: Option<String>,
-    ///
-    assignees: Option<Vec<Value>>,
-    ///
-    requested_reviewers: Option<Vec<Value>>,
-    ///
-    requested_teams: Option<Vec<Value>>,
-    ///
-    head: Value,
-    ///
-    base: Value,
-    ///
-    _links: Value,
-    /// How the author is associated with the repository.
-    author_association: String,
-    /// The status of auto merging a pull request.
-    auto_merge: Option<Value>,
-    /// Indicates whether or not the pull request is a draft.
-    draft: bool,
-    ///
-    merged: bool,
-    ///
-    mergeable: Option<bool>,
-    ///
-    rebaseable: Option<bool>,
-    ///
-    mergeable_state: String,
-    ///
-    comments: i64,
-    ///
-    review_comments: i64,
-    /// Indicates whether maintainers can modify the pull request.
-    maintainer_can_modify: bool,
-    ///
-    commits: i64,
-    ///
-    additions: i64,
-    ///
-    deletions: i64,
-    ///
-    changed_files: i64,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostReposownerrepoPullspullNumberCodespacesResponse {
-    ///
-    id: i64,
-    /// Automatically generated name of this codespace.
-    name: String,
-    /// UUID identifying this codespace's environment.
-    environment_id: Option<String>,
-    /// Simple User
-    owner: Value,
-    /// Simple User
-    billable_owner: Value,
-    /// Minimal Repository
-    repository: Value,
-    /// Whether the codespace was created from a prebuild.
-    prebuild: Option<bool>,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    /// Last known time this codespace was started.
-    last_used_at: String,
-    /// State of this codespace.
-    state: String,
-    /// API URL for this codespace.
-    url: String,
-    /// Details about the codespace's git repository.
-    git_status: Value,
-    /// The Azure region where this codespace is located.
-    location: String,
-    /// The number of minutes of inactivity after which this codespace will be automatically stopped.
-    idle_timeout_minutes: Option<i64>,
-    /// URL to access this codespace on the web.
-    web_url: String,
-    /// API URL to access available alternate machine types for this codespace.
-    machines_url: String,
-    /// API URL to start this codespace.
-    start_url: String,
-    /// API URL to stop this codespace.
-    stop_url: String,
-    /// API URL for the Pull Request associated with this codespace, if any.
-    pulls_url: Option<String>,
-    ///
-    recent_folders: Vec<String>,
-    ///
-    runtime_constraints: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostReposownerrepoPullspullNumberCommentsResponse {
-    /// URL for the pull request review comment
-    url: String,
-    /// The ID of the pull request review to which the comment belongs.
-    pull_request_review_id: Option<i64>,
-    /// The ID of the pull request review comment.
-    id: i64,
-    /// The node ID of the pull request review comment.
-    node_id: String,
-    /// The diff of the line that the comment refers to.
-    diff_hunk: String,
-    /// The relative path of the file to which the comment applies.
-    path: String,
-    /// The line index in the diff to which the comment applies.
-    position: i64,
-    /// The index of the original line in the diff to which the comment applies.
-    original_position: i64,
-    /// The SHA of the commit to which the comment applies.
-    commit_id: String,
-    /// The SHA of the original commit to which the comment applies.
-    original_commit_id: String,
-    /// The comment ID to reply to.
-    in_reply_to_id: i64,
-    /// Simple User
-    user: Value,
-    /// The text of the comment.
-    body: String,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    /// HTML URL for the pull request review comment.
-    html_url: String,
-    /// URL for the pull request that the review comment belongs to.
-    pull_request_url: String,
-    /// How the author is associated with the repository.
-    author_association: String,
-    ///
-    _links: Value,
-    /// The first line of the range for a multi-line comment.
-    start_line: Option<i64>,
-    /// The first line of the range for a multi-line comment.
-    original_start_line: Option<i64>,
-    /// The side of the first line of the range for a multi-line comment.
-    start_side: Option<String>,
-    /// The line of the blob to which the comment applies. The last line of the range for a multi-line comment
-    line: i64,
-    /// The line of the blob to which the comment applies. The last line of the range for a multi-line comment
-    original_line: i64,
-    /// The side of the diff to which the comment applies. The side of the last line of the range for a multi-line comment
-    side: String,
-    ///
-    reactions: Value,
-    ///
-    body_html: String,
-    ///
-    body_text: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostReposownerrepoPullspullNumberCommentscommentIdRepliesResponse {
-    /// URL for the pull request review comment
-    url: String,
-    /// The ID of the pull request review to which the comment belongs.
-    pull_request_review_id: Option<i64>,
-    /// The ID of the pull request review comment.
-    id: i64,
-    /// The node ID of the pull request review comment.
-    node_id: String,
-    /// The diff of the line that the comment refers to.
-    diff_hunk: String,
-    /// The relative path of the file to which the comment applies.
-    path: String,
-    /// The line index in the diff to which the comment applies.
-    position: i64,
-    /// The index of the original line in the diff to which the comment applies.
-    original_position: i64,
-    /// The SHA of the commit to which the comment applies.
-    commit_id: String,
-    /// The SHA of the original commit to which the comment applies.
-    original_commit_id: String,
-    /// The comment ID to reply to.
-    in_reply_to_id: i64,
-    /// Simple User
-    user: Value,
-    /// The text of the comment.
-    body: String,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    /// HTML URL for the pull request review comment.
-    html_url: String,
-    /// URL for the pull request that the review comment belongs to.
-    pull_request_url: String,
-    /// How the author is associated with the repository.
-    author_association: String,
-    ///
-    _links: Value,
-    /// The first line of the range for a multi-line comment.
-    start_line: Option<i64>,
-    /// The first line of the range for a multi-line comment.
-    original_start_line: Option<i64>,
-    /// The side of the first line of the range for a multi-line comment.
-    start_side: Option<String>,
-    /// The line of the blob to which the comment applies. The last line of the range for a multi-line comment
-    line: i64,
-    /// The line of the blob to which the comment applies. The last line of the range for a multi-line comment
-    original_line: i64,
-    /// The side of the diff to which the comment applies. The side of the last line of the range for a multi-line comment
-    side: String,
-    ///
-    reactions: Value,
-    ///
-    body_html: String,
-    ///
-    body_text: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PutReposownerrepoPullspullNumberMergeResponse {
-    ///
-    sha: String,
-    ///
-    merged: bool,
-    ///
-    message: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoPullspullNumberRequestedReviewersResponse {
-    ///
-    users: Vec<Value>,
-    ///
-    teams: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostReposownerrepoPullspullNumberRequestedReviewersResponse {
-    ///
-    url: String,
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    ///
-    html_url: String,
-    ///
-    diff_url: String,
-    ///
-    patch_url: String,
-    ///
-    issue_url: String,
-    ///
-    commits_url: String,
-    ///
-    review_comments_url: String,
-    ///
-    review_comment_url: String,
-    ///
-    comments_url: String,
-    ///
-    statuses_url: String,
-    ///
-    number: i64,
-    ///
-    state: String,
-    ///
-    locked: bool,
-    ///
-    title: String,
-    ///
-    body: Option<String>,
-    ///
-    labels: Vec<Value>,
-    ///
-    active_lock_reason: Option<String>,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    ///
-    closed_at: Option<String>,
-    ///
-    merged_at: Option<String>,
-    ///
-    merge_commit_sha: Option<String>,
-    ///
-    assignees: Option<Vec<Value>>,
-    ///
-    requested_reviewers: Option<Vec<Value>>,
-    ///
-    requested_teams: Option<Vec<Value>>,
-    ///
-    head: Value,
-    ///
-    base: Value,
-    ///
-    _links: Value,
-    /// How the author is associated with the repository.
-    author_association: String,
-    /// The status of auto merging a pull request.
-    auto_merge: Option<Value>,
-    /// Indicates whether or not the pull request is a draft.
-    draft: bool,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct DeleteReposownerrepoPullspullNumberRequestedReviewersResponse {
-    ///
-    url: String,
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    ///
-    html_url: String,
-    ///
-    diff_url: String,
-    ///
-    patch_url: String,
-    ///
-    issue_url: String,
-    ///
-    commits_url: String,
-    ///
-    review_comments_url: String,
-    ///
-    review_comment_url: String,
-    ///
-    comments_url: String,
-    ///
-    statuses_url: String,
-    ///
-    number: i64,
-    ///
-    state: String,
-    ///
-    locked: bool,
-    ///
-    title: String,
-    ///
-    body: Option<String>,
-    ///
-    labels: Vec<Value>,
-    ///
-    active_lock_reason: Option<String>,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    ///
-    closed_at: Option<String>,
-    ///
-    merged_at: Option<String>,
-    ///
-    merge_commit_sha: Option<String>,
-    ///
-    assignees: Option<Vec<Value>>,
-    ///
-    requested_reviewers: Option<Vec<Value>>,
-    ///
-    requested_teams: Option<Vec<Value>>,
-    ///
-    head: Value,
-    ///
-    base: Value,
-    ///
-    _links: Value,
-    /// How the author is associated with the repository.
-    author_association: String,
-    /// The status of auto merging a pull request.
-    auto_merge: Option<Value>,
-    /// Indicates whether or not the pull request is a draft.
-    draft: bool,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostReposownerrepoPullspullNumberReviewsResponse {
-    /// Unique identifier of the review
-    id: i64,
-    ///
-    node_id: String,
-    /// The text of the review.
-    body: String,
-    ///
-    state: String,
-    ///
-    html_url: String,
-    ///
-    pull_request_url: String,
-    ///
-    _links: Value,
-    ///
-    submitted_at: String,
-    /// A commit SHA for the review.
-    commit_id: String,
-    ///
-    body_html: String,
-    ///
-    body_text: String,
-    /// How the author is associated with the repository.
-    author_association: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoPullspullNumberReviewsreviewIdResponse {
-    /// Unique identifier of the review
-    id: i64,
-    ///
-    node_id: String,
-    /// The text of the review.
-    body: String,
-    ///
-    state: String,
-    ///
-    html_url: String,
-    ///
-    pull_request_url: String,
-    ///
-    _links: Value,
-    ///
-    submitted_at: String,
-    /// A commit SHA for the review.
-    commit_id: String,
-    ///
-    body_html: String,
-    ///
-    body_text: String,
-    /// How the author is associated with the repository.
-    author_association: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PutReposownerrepoPullspullNumberReviewsreviewIdResponse {
-    /// Unique identifier of the review
-    id: i64,
-    ///
-    node_id: String,
-    /// The text of the review.
-    body: String,
-    ///
-    state: String,
-    ///
-    html_url: String,
-    ///
-    pull_request_url: String,
-    ///
-    _links: Value,
-    ///
-    submitted_at: String,
-    /// A commit SHA for the review.
-    commit_id: String,
-    ///
-    body_html: String,
-    ///
-    body_text: String,
-    /// How the author is associated with the repository.
-    author_association: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct DeleteReposownerrepoPullspullNumberReviewsreviewIdResponse {
-    /// Unique identifier of the review
-    id: i64,
-    ///
-    node_id: String,
-    /// The text of the review.
-    body: String,
-    ///
-    state: String,
-    ///
-    html_url: String,
-    ///
-    pull_request_url: String,
-    ///
-    _links: Value,
-    ///
-    submitted_at: String,
-    /// A commit SHA for the review.
-    commit_id: String,
-    ///
-    body_html: String,
-    ///
-    body_text: String,
-    /// How the author is associated with the repository.
-    author_association: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PutReposownerrepoPullspullNumberReviewsreviewIdDismissalsResponse {
-    /// Unique identifier of the review
-    id: i64,
-    ///
-    node_id: String,
-    /// The text of the review.
-    body: String,
-    ///
-    state: String,
-    ///
-    html_url: String,
-    ///
-    pull_request_url: String,
-    ///
-    _links: Value,
-    ///
-    submitted_at: String,
-    /// A commit SHA for the review.
-    commit_id: String,
-    ///
-    body_html: String,
-    ///
-    body_text: String,
-    /// How the author is associated with the repository.
-    author_association: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostReposownerrepoPullspullNumberReviewsreviewIdEventsResponse {
-    /// Unique identifier of the review
-    id: i64,
-    ///
-    node_id: String,
-    /// The text of the review.
-    body: String,
-    ///
-    state: String,
-    ///
-    html_url: String,
-    ///
-    pull_request_url: String,
-    ///
-    _links: Value,
-    ///
-    submitted_at: String,
-    /// A commit SHA for the review.
-    commit_id: String,
-    ///
-    body_html: String,
-    ///
-    body_text: String,
-    /// How the author is associated with the repository.
-    author_association: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PutReposownerrepoPullspullNumberUpdateBranchResponse {
-    ///
-    message: String,
-    ///
-    url: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoReadmeResponse {
-    ///
-    #[serde(rename = "type")]
-    atype: String,
-    ///
-    encoding: String,
-    ///
-    size: i64,
-    ///
-    name: String,
-    ///
-    path: String,
-    ///
-    content: String,
-    ///
-    sha: String,
-    ///
-    url: String,
-    ///
-    git_url: Option<String>,
-    ///
-    html_url: Option<String>,
-    ///
-    download_url: Option<String>,
-    ///
-    _links: Value,
-    ///
-    target: String,
-    ///
-    submodule_git_url: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoReadmedirResponse {
-    ///
-    #[serde(rename = "type")]
-    atype: String,
-    ///
-    encoding: String,
-    ///
-    size: i64,
-    ///
-    name: String,
-    ///
-    path: String,
-    ///
-    content: String,
-    ///
-    sha: String,
-    ///
-    url: String,
-    ///
-    git_url: Option<String>,
-    ///
-    html_url: Option<String>,
-    ///
-    download_url: Option<String>,
-    ///
-    _links: Value,
-    ///
-    target: String,
-    ///
-    submodule_git_url: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostReposownerrepoReleasesResponse {
-    ///
-    url: String,
-    ///
-    html_url: String,
-    ///
-    assets_url: String,
-    ///
-    upload_url: String,
-    ///
-    tarball_url: Option<String>,
-    ///
-    zipball_url: Option<String>,
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    /// The name of the tag.
-    tag_name: String,
-    /// Specifies the commitish value that determines where the Git tag is created from.
-    target_commitish: String,
-    ///
-    name: Option<String>,
-    ///
-    body: Option<String>,
-    /// true to create a draft (unpublished) release, false to create a published one.
-    draft: bool,
-    /// Whether to identify the release as a prerelease or a full release.
-    prerelease: bool,
-    ///
-    created_at: String,
-    ///
-    published_at: Option<String>,
-    /// Simple User
-    author: Value,
-    ///
-    assets: Vec<Value>,
-    ///
-    body_html: String,
-    ///
-    body_text: String,
-    ///
-    mentions_count: i64,
-    /// The URL of the release discussion.
-    discussion_url: String,
-    ///
-    reactions: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoReleasesAssetsassetIdResponse {
-    ///
-    url: String,
-    ///
-    browser_download_url: String,
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    /// The file name of the asset.
-    name: String,
-    ///
-    label: Option<String>,
-    /// State of the release asset.
-    state: String,
-    ///
-    content_type: String,
-    ///
-    size: i64,
-    ///
-    download_count: i64,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PatchReposownerrepoReleasesAssetsassetIdResponse {
-    ///
-    url: String,
-    ///
-    browser_download_url: String,
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    /// The file name of the asset.
-    name: String,
-    ///
-    label: Option<String>,
-    /// State of the release asset.
-    state: String,
-    ///
-    content_type: String,
-    ///
-    size: i64,
-    ///
-    download_count: i64,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostReposownerrepoReleasesGenerateNotesResponse {
-    /// The generated name of the release
-    name: String,
-    /// The generated body describing the contents of the release supporting markdown formatting
-    body: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoReleasesLatestResponse {
-    ///
-    url: String,
-    ///
-    html_url: String,
-    ///
-    assets_url: String,
-    ///
-    upload_url: String,
-    ///
-    tarball_url: Option<String>,
-    ///
-    zipball_url: Option<String>,
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    /// The name of the tag.
-    tag_name: String,
-    /// Specifies the commitish value that determines where the Git tag is created from.
-    target_commitish: String,
-    ///
-    name: Option<String>,
-    ///
-    body: Option<String>,
-    /// true to create a draft (unpublished) release, false to create a published one.
-    draft: bool,
-    /// Whether to identify the release as a prerelease or a full release.
-    prerelease: bool,
-    ///
-    created_at: String,
-    ///
-    published_at: Option<String>,
-    /// Simple User
-    author: Value,
-    ///
-    assets: Vec<Value>,
-    ///
-    body_html: String,
-    ///
-    body_text: String,
-    ///
-    mentions_count: i64,
-    /// The URL of the release discussion.
-    discussion_url: String,
-    ///
-    reactions: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoReleasesTagstagResponse {
-    ///
-    url: String,
-    ///
-    html_url: String,
-    ///
-    assets_url: String,
-    ///
-    upload_url: String,
-    ///
-    tarball_url: Option<String>,
-    ///
-    zipball_url: Option<String>,
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    /// The name of the tag.
-    tag_name: String,
-    /// Specifies the commitish value that determines where the Git tag is created from.
-    target_commitish: String,
-    ///
-    name: Option<String>,
-    ///
-    body: Option<String>,
-    /// true to create a draft (unpublished) release, false to create a published one.
-    draft: bool,
-    /// Whether to identify the release as a prerelease or a full release.
-    prerelease: bool,
-    ///
-    created_at: String,
-    ///
-    published_at: Option<String>,
-    /// Simple User
-    author: Value,
-    ///
-    assets: Vec<Value>,
-    ///
-    body_html: String,
-    ///
-    body_text: String,
-    ///
-    mentions_count: i64,
-    /// The URL of the release discussion.
-    discussion_url: String,
-    ///
-    reactions: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoReleasesreleaseIdResponse {
-    ///
-    url: String,
-    ///
-    html_url: String,
-    ///
-    assets_url: String,
-    ///
-    upload_url: String,
-    ///
-    tarball_url: Option<String>,
-    ///
-    zipball_url: Option<String>,
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    /// The name of the tag.
-    tag_name: String,
-    /// Specifies the commitish value that determines where the Git tag is created from.
-    target_commitish: String,
-    ///
-    name: Option<String>,
-    ///
-    body: Option<String>,
-    /// true to create a draft (unpublished) release, false to create a published one.
-    draft: bool,
-    /// Whether to identify the release as a prerelease or a full release.
-    prerelease: bool,
-    ///
-    created_at: String,
-    ///
-    published_at: Option<String>,
-    /// Simple User
-    author: Value,
-    ///
-    assets: Vec<Value>,
-    ///
-    body_html: String,
-    ///
-    body_text: String,
-    ///
-    mentions_count: i64,
-    /// The URL of the release discussion.
-    discussion_url: String,
-    ///
-    reactions: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PatchReposownerrepoReleasesreleaseIdResponse {
-    ///
-    url: String,
-    ///
-    html_url: String,
-    ///
-    assets_url: String,
-    ///
-    upload_url: String,
-    ///
-    tarball_url: Option<String>,
-    ///
-    zipball_url: Option<String>,
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    /// The name of the tag.
-    tag_name: String,
-    /// Specifies the commitish value that determines where the Git tag is created from.
-    target_commitish: String,
-    ///
-    name: Option<String>,
-    ///
-    body: Option<String>,
-    /// true to create a draft (unpublished) release, false to create a published one.
-    draft: bool,
-    /// Whether to identify the release as a prerelease or a full release.
-    prerelease: bool,
-    ///
-    created_at: String,
-    ///
-    published_at: Option<String>,
-    /// Simple User
-    author: Value,
-    ///
-    assets: Vec<Value>,
-    ///
-    body_html: String,
-    ///
-    body_text: String,
-    ///
-    mentions_count: i64,
-    /// The URL of the release discussion.
-    discussion_url: String,
-    ///
-    reactions: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostReposownerrepoReleasesreleaseIdAssetsResponse {
-    ///
-    url: String,
-    ///
-    browser_download_url: String,
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    /// The file name of the asset.
-    name: String,
-    ///
-    label: Option<String>,
-    /// State of the release asset.
-    state: String,
-    ///
-    content_type: String,
-    ///
-    size: i64,
-    ///
-    download_count: i64,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostReposownerrepoReleasesreleaseIdReactionsResponse {
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    /// The reaction to use
-    content: String,
-    ///
-    created_at: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoSecretScanningAlertsalertNumberResponse {
-    /// The security alert number.
-    number: i64,
-    /// The time that the alert was created in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.
-    created_at: String,
-    /// The REST API URL of the alert resource.
-    url: String,
-    /// The GitHub URL of the alert resource.
-    html_url: String,
-    /// The REST API URL of the code locations for this alert.
-    locations_url: String,
-    /// Sets the state of the secret scanning alert. Can be either `open` or `resolved`. You must provide `resolution` when you set the state to `resolved`.
-    state: String,
-    /// **Required when the `state` is `resolved`.** The reason for resolving the alert. Can be one of `false_positive`, `wont_fix`, `revoked`, or `used_in_tests`.
-    resolution: Option<String>,
-    /// The time that the alert was resolved in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.
-    resolved_at: Option<String>,
-    /// The type of secret that secret scanning detected.
-    secret_type: String,
-    /// The secret that was detected.
-    secret: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PatchReposownerrepoSecretScanningAlertsalertNumberResponse {
-    /// The security alert number.
-    number: i64,
-    /// The time that the alert was created in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.
-    created_at: String,
-    /// The REST API URL of the alert resource.
-    url: String,
-    /// The GitHub URL of the alert resource.
-    html_url: String,
-    /// The REST API URL of the code locations for this alert.
-    locations_url: String,
-    /// Sets the state of the secret scanning alert. Can be either `open` or `resolved`. You must provide `resolution` when you set the state to `resolved`.
-    state: String,
-    /// **Required when the `state` is `resolved`.** The reason for resolving the alert. Can be one of `false_positive`, `wont_fix`, `revoked`, or `used_in_tests`.
-    resolution: Option<String>,
-    /// The time that the alert was resolved in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.
-    resolved_at: Option<String>,
-    /// The type of secret that secret scanning detected.
-    secret_type: String,
-    /// The secret that was detected.
-    secret: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoStatsParticipationResponse {
-    ///
-    all: Vec<i64>,
-    ///
-    owner: Vec<i64>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostReposownerrepoStatusesshaResponse {
-    ///
-    url: String,
-    ///
-    avatar_url: Option<String>,
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    ///
-    state: String,
-    ///
-    description: String,
-    ///
-    target_url: String,
-    ///
-    context: String,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoSubscriptionResponse {
-    /// Determines if notifications should be received from this repository.
-    subscribed: bool,
-    /// Determines if all notifications should be blocked from this repository.
-    ignored: bool,
-    ///
-    reason: Option<String>,
-    ///
-    created_at: String,
-    ///
-    url: String,
-    ///
-    repository_url: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PutReposownerrepoSubscriptionResponse {
-    /// Determines if notifications should be received from this repository.
-    subscribed: bool,
-    /// Determines if all notifications should be blocked from this repository.
-    ignored: bool,
-    ///
-    reason: Option<String>,
-    ///
-    created_at: String,
-    ///
-    url: String,
-    ///
-    repository_url: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoTopicsResponse {
-    ///
-    names: Vec<String>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PutReposownerrepoTopicsResponse {
-    ///
-    names: Vec<String>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoTrafficClonesResponse {
-    ///
-    count: i64,
-    ///
-    uniques: i64,
-    ///
-    clones: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetReposownerrepoTrafficViewsResponse {
-    ///
-    count: i64,
-    ///
-    uniques: i64,
-    ///
-    views: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostReposownerrepoTransferResponse {
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    ///
-    name: String,
-    ///
-    full_name: String,
-    /// Simple User
-    owner: Value,
-    ///
-    private: bool,
-    ///
-    html_url: String,
-    ///
-    description: Option<String>,
-    ///
-    fork: bool,
-    ///
-    url: String,
-    ///
-    archive_url: String,
-    ///
-    assignees_url: String,
-    ///
-    blobs_url: String,
-    ///
-    branches_url: String,
-    ///
-    collaborators_url: String,
-    ///
-    comments_url: String,
-    ///
-    commits_url: String,
-    ///
-    compare_url: String,
-    ///
-    contents_url: String,
-    ///
-    contributors_url: String,
-    ///
-    deployments_url: String,
-    ///
-    downloads_url: String,
-    ///
-    events_url: String,
-    ///
-    forks_url: String,
-    ///
-    git_commits_url: String,
-    ///
-    git_refs_url: String,
-    ///
-    git_tags_url: String,
-    ///
-    git_url: String,
-    ///
-    issue_comment_url: String,
-    ///
-    issue_events_url: String,
-    ///
-    issues_url: String,
-    ///
-    keys_url: String,
-    ///
-    labels_url: String,
-    ///
-    languages_url: String,
-    ///
-    merges_url: String,
-    ///
-    milestones_url: String,
-    ///
-    notifications_url: String,
-    ///
-    pulls_url: String,
-    ///
-    releases_url: String,
-    ///
-    ssh_url: String,
-    ///
-    stargazers_url: String,
-    ///
-    statuses_url: String,
-    ///
-    subscribers_url: String,
-    ///
-    subscription_url: String,
-    ///
-    tags_url: String,
-    ///
-    teams_url: String,
-    ///
-    trees_url: String,
-    ///
-    clone_url: String,
-    ///
-    mirror_url: Option<String>,
-    ///
-    hooks_url: String,
-    ///
-    svn_url: String,
-    ///
-    homepage: Option<String>,
-    ///
-    language: Option<String>,
-    ///
-    forks_count: i64,
-    ///
-    stargazers_count: i64,
-    ///
-    watchers_count: i64,
-    ///
-    size: i64,
-    ///
-    default_branch: String,
-    ///
-    open_issues_count: i64,
-    ///
-    is_template: bool,
-    ///
-    topics: Vec<String>,
-    ///
-    has_issues: bool,
-    ///
-    has_projects: bool,
-    ///
-    has_wiki: bool,
-    ///
-    has_pages: bool,
-    ///
-    has_downloads: bool,
-    ///
-    archived: bool,
-    ///
-    disabled: bool,
-    ///
-    visibility: String,
-    ///
-    pushed_at: Option<String>,
-    ///
-    created_at: Option<String>,
-    ///
-    updated_at: Option<String>,
-    ///
-    permissions: Value,
-    ///
-    role_name: String,
-    ///
-    temp_clone_token: String,
-    ///
-    delete_branch_on_merge: bool,
-    ///
-    subscribers_count: i64,
-    ///
-    network_count: i64,
-    /// Code Of Conduct
-    code_of_conduct: Value,
-    ///
-    license: Option<Value>,
-    ///
-    forks: i64,
-    ///
-    open_issues: i64,
-    ///
-    watchers: i64,
-    ///
-    allow_forking: bool,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostRepostemplateOwnertemplateRepoGenerateResponse {
-    /// Unique identifier of the repository
-    id: i64,
-    ///
-    node_id: String,
-    /// The name of the repository.
-    name: String,
-    ///
-    full_name: String,
-    ///
-    forks: i64,
-    ///
-    permissions: Value,
-    /// Simple User
-    owner: Value,
-    /// Whether the repository is private or public.
-    private: bool,
-    ///
-    html_url: String,
-    ///
-    description: Option<String>,
-    ///
-    fork: bool,
-    ///
-    url: String,
-    ///
-    archive_url: String,
-    ///
-    assignees_url: String,
-    ///
-    blobs_url: String,
-    ///
-    branches_url: String,
-    ///
-    collaborators_url: String,
-    ///
-    comments_url: String,
-    ///
-    commits_url: String,
-    ///
-    compare_url: String,
-    ///
-    contents_url: String,
-    ///
-    contributors_url: String,
-    ///
-    deployments_url: String,
-    ///
-    downloads_url: String,
-    ///
-    events_url: String,
-    ///
-    forks_url: String,
-    ///
-    git_commits_url: String,
-    ///
-    git_refs_url: String,
-    ///
-    git_tags_url: String,
-    ///
-    git_url: String,
-    ///
-    issue_comment_url: String,
-    ///
-    issue_events_url: String,
-    ///
-    issues_url: String,
-    ///
-    keys_url: String,
-    ///
-    labels_url: String,
-    ///
-    languages_url: String,
-    ///
-    merges_url: String,
-    ///
-    milestones_url: String,
-    ///
-    notifications_url: String,
-    ///
-    pulls_url: String,
-    ///
-    releases_url: String,
-    ///
-    ssh_url: String,
-    ///
-    stargazers_url: String,
-    ///
-    statuses_url: String,
-    ///
-    subscribers_url: String,
-    ///
-    subscription_url: String,
-    ///
-    tags_url: String,
-    ///
-    teams_url: String,
-    ///
-    trees_url: String,
-    ///
-    clone_url: String,
-    ///
-    mirror_url: Option<String>,
-    ///
-    hooks_url: String,
-    ///
-    svn_url: String,
-    ///
-    homepage: Option<String>,
-    ///
-    language: Option<String>,
-    ///
-    forks_count: i64,
-    ///
-    stargazers_count: i64,
-    ///
-    watchers_count: i64,
-    ///
-    size: i64,
-    /// The default branch of the repository.
-    default_branch: String,
-    ///
-    open_issues_count: i64,
-    /// Whether this repository acts as a template that can be used to generate new repositories.
-    is_template: bool,
-    ///
-    topics: Vec<String>,
-    /// Whether issues are enabled.
-    has_issues: bool,
-    /// Whether projects are enabled.
-    has_projects: bool,
-    /// Whether the wiki is enabled.
-    has_wiki: bool,
-    ///
-    has_pages: bool,
-    /// Whether downloads are enabled.
-    has_downloads: bool,
-    /// Whether the repository is archived.
-    archived: bool,
-    /// Returns whether or not this repository disabled.
-    disabled: bool,
-    /// The repository visibility: public, private, or internal.
-    visibility: String,
-    ///
-    pushed_at: Option<String>,
-    ///
-    created_at: Option<String>,
-    ///
-    updated_at: Option<String>,
-    /// Whether to allow rebase merges for pull requests.
-    allow_rebase_merge: bool,
-    ///
-    template_repository: Option<Value>,
-    ///
-    temp_clone_token: String,
-    /// Whether to allow squash merges for pull requests.
-    allow_squash_merge: bool,
-    /// Whether to allow Auto-merge to be used on pull requests.
-    allow_auto_merge: bool,
-    /// Whether to delete head branches when pull requests are merged
-    delete_branch_on_merge: bool,
-    /// Whether to allow merge commits for pull requests.
-    allow_merge_commit: bool,
-    /// Whether to allow forking this repo
-    allow_forking: bool,
-    ///
-    subscribers_count: i64,
-    ///
-    network_count: i64,
-    ///
-    open_issues: i64,
-    ///
-    watchers: i64,
-    ///
-    master_branch: String,
-    ///
-    starred_at: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetRepositoriesrepositoryIdEnvironmentsenvironmentNameSecretsResponse {
-    ///
-    total_count: i64,
-    ///
-    secrets: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetRepositoriesrepositoryIdEnvironmentsenvironmentNameSecretsPublicKeyResponse {
-    /// The identifier for the key.
-    key_id: String,
-    /// The Base64 encoded public key.
-    key: String,
-    ///
-    id: i64,
-    ///
-    url: String,
-    ///
-    title: String,
-    ///
-    created_at: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetRepositoriesrepositoryIdEnvironmentsenvironmentNameSecretssecretNameResponse {
-    /// The name of the secret.
-    name: String,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetScimV2EnterprisesenterpriseGroupsResponse {
-    ///
-    schemas: Vec<String>,
-    ///
-    totalResults: f64,
-    ///
-    itemsPerPage: f64,
-    ///
-    startIndex: f64,
-    ///
-    Resources: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostScimV2EnterprisesenterpriseGroupsResponse {
-    ///
-    schemas: Vec<String>,
-    ///
-    id: String,
-    ///
-    externalId: Option<String>,
-    ///
-    displayName: String,
-    ///
-    members: Vec<Value>,
-    ///
-    meta: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetScimV2EnterprisesenterpriseGroupsscimGroupIdResponse {
-    ///
-    schemas: Vec<String>,
-    ///
-    id: String,
-    ///
-    externalId: Option<String>,
-    ///
-    displayName: String,
-    ///
-    members: Vec<Value>,
-    ///
-    meta: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PutScimV2EnterprisesenterpriseGroupsscimGroupIdResponse {
-    ///
-    schemas: Vec<String>,
-    ///
-    id: String,
-    ///
-    externalId: Option<String>,
-    ///
-    displayName: String,
-    ///
-    members: Vec<Value>,
-    ///
-    meta: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PatchScimV2EnterprisesenterpriseGroupsscimGroupIdResponse {
-    ///
-    schemas: Vec<String>,
-    ///
-    id: String,
-    ///
-    externalId: Option<String>,
-    ///
-    displayName: String,
-    ///
-    members: Vec<Value>,
-    ///
-    meta: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetScimV2EnterprisesenterpriseUsersResponse {
-    ///
-    schemas: Vec<String>,
-    ///
-    totalResults: f64,
-    ///
-    itemsPerPage: f64,
-    ///
-    startIndex: f64,
-    ///
-    Resources: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostScimV2EnterprisesenterpriseUsersResponse {
-    ///
-    schemas: Vec<String>,
-    ///
-    id: String,
-    ///
-    externalId: String,
-    ///
-    userName: String,
-    ///
-    name: Value,
-    ///
-    emails: Vec<Value>,
-    ///
-    groups: Vec<Value>,
-    ///
-    active: bool,
-    ///
-    meta: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetScimV2EnterprisesenterpriseUsersscimUserIdResponse {
-    ///
-    schemas: Vec<String>,
-    ///
-    id: String,
-    ///
-    externalId: String,
-    ///
-    userName: String,
-    ///
-    name: Value,
-    ///
-    emails: Vec<Value>,
-    ///
-    groups: Vec<Value>,
-    ///
-    active: bool,
-    ///
-    meta: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PutScimV2EnterprisesenterpriseUsersscimUserIdResponse {
-    ///
-    schemas: Vec<String>,
-    ///
-    id: String,
-    ///
-    externalId: String,
-    ///
-    userName: String,
-    ///
-    name: Value,
-    ///
-    emails: Vec<Value>,
-    ///
-    groups: Vec<Value>,
-    ///
-    active: bool,
-    ///
-    meta: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PatchScimV2EnterprisesenterpriseUsersscimUserIdResponse {
-    ///
-    schemas: Vec<String>,
-    ///
-    id: String,
-    ///
-    externalId: String,
-    ///
-    userName: String,
-    ///
-    name: Value,
-    ///
-    emails: Vec<Value>,
-    ///
-    groups: Vec<Value>,
-    ///
-    active: bool,
-    ///
-    meta: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetSearchCodeResponse {
-    ///
-    total_count: i64,
-    ///
-    incomplete_results: bool,
-    ///
-    items: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetSearchCommitsResponse {
-    ///
-    total_count: i64,
-    ///
-    incomplete_results: bool,
-    ///
-    items: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetSearchIssuesResponse {
-    ///
-    total_count: i64,
-    ///
-    incomplete_results: bool,
-    ///
-    items: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetSearchLabelsResponse {
-    ///
-    total_count: i64,
-    ///
-    incomplete_results: bool,
-    ///
-    items: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetSearchRepositoriesResponse {
-    ///
-    total_count: i64,
-    ///
-    incomplete_results: bool,
-    ///
-    items: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetSearchTopicsResponse {
-    ///
-    total_count: i64,
-    ///
-    incomplete_results: bool,
-    ///
-    items: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetSearchUsersResponse {
-    ///
-    total_count: i64,
-    ///
-    incomplete_results: bool,
-    ///
-    items: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetTeamsteamIdResponse {
-    /// Unique identifier of the team
-    id: i64,
-    ///
-    node_id: String,
-    /// URL for the team
-    url: String,
-    ///
-    html_url: String,
-    /// Name of the team
-    name: String,
-    ///
-    slug: String,
-    ///
-    description: Option<String>,
-    /// The level of privacy this team should have
-    privacy: String,
-    /// Permission that the team will have for its repositories
-    permission: String,
-    ///
-    members_url: String,
-    ///
-    repositories_url: String,
-    ///
-    members_count: i64,
-    ///
-    repos_count: i64,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    /// Organization Full
-    organization: Value,
-    /// Distinguished Name (DN) that team maps to within LDAP environment
-    ldap_dn: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PatchTeamsteamIdResponse {
-    /// Unique identifier of the team
-    id: i64,
-    ///
-    node_id: String,
-    /// URL for the team
-    url: String,
-    ///
-    html_url: String,
-    /// Name of the team
-    name: String,
-    ///
-    slug: String,
-    ///
-    description: Option<String>,
-    /// The level of privacy this team should have
-    privacy: String,
-    /// Permission that the team will have for its repositories
-    permission: String,
-    ///
-    members_url: String,
-    ///
-    repositories_url: String,
-    ///
-    members_count: i64,
-    ///
-    repos_count: i64,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    /// Organization Full
-    organization: Value,
-    /// Distinguished Name (DN) that team maps to within LDAP environment
-    ldap_dn: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostTeamsteamIdDiscussionsResponse {
-    /// The main text of the discussion.
-    body: String,
-    ///
-    body_html: String,
-    /// The current version of the body content. If provided, this update operation will be rejected if the given version does not match the latest version on the server.
-    body_version: String,
-    ///
-    comments_count: i64,
-    ///
-    comments_url: String,
-    ///
-    created_at: String,
-    ///
-    last_edited_at: Option<String>,
-    ///
-    html_url: String,
-    ///
-    node_id: String,
-    /// The unique sequence number of a team discussion.
-    number: i64,
-    /// Whether or not this discussion should be pinned for easy retrieval.
-    pinned: bool,
-    /// Whether or not this discussion should be restricted to team members and organization administrators.
-    private: bool,
-    ///
-    team_url: String,
-    /// The title of the discussion.
-    title: String,
-    ///
-    updated_at: String,
-    ///
-    url: String,
-    ///
-    reactions: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetTeamsteamIdDiscussionsdiscussionNumberResponse {
-    /// The main text of the discussion.
-    body: String,
-    ///
-    body_html: String,
-    /// The current version of the body content. If provided, this update operation will be rejected if the given version does not match the latest version on the server.
-    body_version: String,
-    ///
-    comments_count: i64,
-    ///
-    comments_url: String,
-    ///
-    created_at: String,
-    ///
-    last_edited_at: Option<String>,
-    ///
-    html_url: String,
-    ///
-    node_id: String,
-    /// The unique sequence number of a team discussion.
-    number: i64,
-    /// Whether or not this discussion should be pinned for easy retrieval.
-    pinned: bool,
-    /// Whether or not this discussion should be restricted to team members and organization administrators.
-    private: bool,
-    ///
-    team_url: String,
-    /// The title of the discussion.
-    title: String,
-    ///
-    updated_at: String,
-    ///
-    url: String,
-    ///
-    reactions: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PatchTeamsteamIdDiscussionsdiscussionNumberResponse {
-    /// The main text of the discussion.
-    body: String,
-    ///
-    body_html: String,
-    /// The current version of the body content. If provided, this update operation will be rejected if the given version does not match the latest version on the server.
-    body_version: String,
-    ///
-    comments_count: i64,
-    ///
-    comments_url: String,
-    ///
-    created_at: String,
-    ///
-    last_edited_at: Option<String>,
-    ///
-    html_url: String,
-    ///
-    node_id: String,
-    /// The unique sequence number of a team discussion.
-    number: i64,
-    /// Whether or not this discussion should be pinned for easy retrieval.
-    pinned: bool,
-    /// Whether or not this discussion should be restricted to team members and organization administrators.
-    private: bool,
-    ///
-    team_url: String,
-    /// The title of the discussion.
-    title: String,
-    ///
-    updated_at: String,
-    ///
-    url: String,
-    ///
-    reactions: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostTeamsteamIdDiscussionsdiscussionNumberCommentsResponse {
-    /// The main text of the comment.
-    body: String,
-    ///
-    body_html: String,
-    /// The current version of the body content. If provided, this update operation will be rejected if the given version does not match the latest version on the server.
-    body_version: String,
-    ///
-    created_at: String,
-    ///
-    last_edited_at: Option<String>,
-    ///
-    discussion_url: String,
-    ///
-    html_url: String,
-    ///
-    node_id: String,
-    /// The unique sequence number of a team discussion comment.
-    number: i64,
-    ///
-    updated_at: String,
-    ///
-    url: String,
-    ///
-    reactions: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetTeamsteamIdDiscussionsdiscussionNumberCommentscommentNumberResponse {
-    /// The main text of the comment.
-    body: String,
-    ///
-    body_html: String,
-    /// The current version of the body content. If provided, this update operation will be rejected if the given version does not match the latest version on the server.
-    body_version: String,
-    ///
-    created_at: String,
-    ///
-    last_edited_at: Option<String>,
-    ///
-    discussion_url: String,
-    ///
-    html_url: String,
-    ///
-    node_id: String,
-    /// The unique sequence number of a team discussion comment.
-    number: i64,
-    ///
-    updated_at: String,
-    ///
-    url: String,
-    ///
-    reactions: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PatchTeamsteamIdDiscussionsdiscussionNumberCommentscommentNumberResponse {
-    /// The main text of the comment.
-    body: String,
-    ///
-    body_html: String,
-    /// The current version of the body content. If provided, this update operation will be rejected if the given version does not match the latest version on the server.
-    body_version: String,
-    ///
-    created_at: String,
-    ///
-    last_edited_at: Option<String>,
-    ///
-    discussion_url: String,
-    ///
-    html_url: String,
-    ///
-    node_id: String,
-    /// The unique sequence number of a team discussion comment.
-    number: i64,
-    ///
-    updated_at: String,
-    ///
-    url: String,
-    ///
-    reactions: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostTeamsteamIdDiscussionsdiscussionNumberCommentscommentNumberReactionsResponse {
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    /// The reaction to use
-    content: String,
-    ///
-    created_at: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostTeamsteamIdDiscussionsdiscussionNumberReactionsResponse {
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    /// The reaction to use
-    content: String,
-    ///
-    created_at: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetTeamsteamIdMembershipsusernameResponse {
-    ///
-    url: String,
-    /// The role of the user in the team.
-    role: String,
-    /// The state of the user's membership in the team.
-    state: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PutTeamsteamIdMembershipsusernameResponse {
-    ///
-    url: String,
-    /// The role of the user in the team.
-    role: String,
-    /// The state of the user's membership in the team.
-    state: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetTeamsteamIdProjectsprojectIdResponse {
-    ///
-    owner_url: String,
-    ///
-    url: String,
-    ///
-    html_url: String,
-    ///
-    columns_url: String,
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    ///
-    name: String,
-    ///
-    body: Option<String>,
-    ///
-    number: i64,
-    ///
-    state: String,
-    /// Simple User
-    creator: Value,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    /// The organization permission for this project. Only present when owner is an organization.
-    organization_permission: String,
-    /// Whether the project is private or not. Only present when owner is an organization.
-    private: bool,
-    ///
-    permissions: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetTeamsteamIdReposownerrepoResponse {
-    /// Unique identifier of the repository
-    id: i64,
-    ///
-    node_id: String,
-    /// The name of the repository.
-    name: String,
-    ///
-    full_name: String,
-    ///
-    forks: i64,
-    ///
-    permissions: Value,
-    ///
-    role_name: String,
-    /// Whether the repository is private or public.
-    private: bool,
-    ///
-    html_url: String,
-    ///
-    description: Option<String>,
-    ///
-    fork: bool,
-    ///
-    url: String,
-    ///
-    archive_url: String,
-    ///
-    assignees_url: String,
-    ///
-    blobs_url: String,
-    ///
-    branches_url: String,
-    ///
-    collaborators_url: String,
-    ///
-    comments_url: String,
-    ///
-    commits_url: String,
-    ///
-    compare_url: String,
-    ///
-    contents_url: String,
-    ///
-    contributors_url: String,
-    ///
-    deployments_url: String,
-    ///
-    downloads_url: String,
-    ///
-    events_url: String,
-    ///
-    forks_url: String,
-    ///
-    git_commits_url: String,
-    ///
-    git_refs_url: String,
-    ///
-    git_tags_url: String,
-    ///
-    git_url: String,
-    ///
-    issue_comment_url: String,
-    ///
-    issue_events_url: String,
-    ///
-    issues_url: String,
-    ///
-    keys_url: String,
-    ///
-    labels_url: String,
-    ///
-    languages_url: String,
-    ///
-    merges_url: String,
-    ///
-    milestones_url: String,
-    ///
-    notifications_url: String,
-    ///
-    pulls_url: String,
-    ///
-    releases_url: String,
-    ///
-    ssh_url: String,
-    ///
-    stargazers_url: String,
-    ///
-    statuses_url: String,
-    ///
-    subscribers_url: String,
-    ///
-    subscription_url: String,
-    ///
-    tags_url: String,
-    ///
-    teams_url: String,
-    ///
-    trees_url: String,
-    ///
-    clone_url: String,
-    ///
-    mirror_url: Option<String>,
-    ///
-    hooks_url: String,
-    ///
-    svn_url: String,
-    ///
-    homepage: Option<String>,
-    ///
-    language: Option<String>,
-    ///
-    forks_count: i64,
-    ///
-    stargazers_count: i64,
-    ///
-    watchers_count: i64,
-    ///
-    size: i64,
-    /// The default branch of the repository.
-    default_branch: String,
-    ///
-    open_issues_count: i64,
-    /// Whether this repository acts as a template that can be used to generate new repositories.
-    is_template: bool,
-    ///
-    topics: Vec<String>,
-    /// Whether issues are enabled.
-    has_issues: bool,
-    /// Whether projects are enabled.
-    has_projects: bool,
-    /// Whether the wiki is enabled.
-    has_wiki: bool,
-    ///
-    has_pages: bool,
-    /// Whether downloads are enabled.
-    has_downloads: bool,
-    /// Whether the repository is archived.
-    archived: bool,
-    /// Returns whether or not this repository disabled.
-    disabled: bool,
-    /// The repository visibility: public, private, or internal.
-    visibility: String,
-    ///
-    pushed_at: Option<String>,
-    ///
-    created_at: Option<String>,
-    ///
-    updated_at: Option<String>,
-    /// Whether to allow rebase merges for pull requests.
-    allow_rebase_merge: bool,
-    ///
-    temp_clone_token: String,
-    /// Whether to allow squash merges for pull requests.
-    allow_squash_merge: bool,
-    /// Whether to allow Auto-merge to be used on pull requests.
-    allow_auto_merge: bool,
-    /// Whether to delete head branches when pull requests are merged
-    delete_branch_on_merge: bool,
-    /// Whether to allow merge commits for pull requests.
-    allow_merge_commit: bool,
-    /// Whether to allow forking this repo
-    allow_forking: bool,
-    ///
-    subscribers_count: i64,
-    ///
-    network_count: i64,
-    ///
-    open_issues: i64,
-    ///
-    watchers: i64,
-    ///
-    master_branch: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetTeamsteamIdTeamSyncGroupMappingsResponse {
-    /// Array of groups to be mapped to this team
-    groups: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PatchTeamsteamIdTeamSyncGroupMappingsResponse {
-    /// Array of groups to be mapped to this team
-    groups: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PatchUserResponse {
-    ///
-    login: String,
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    ///
-    avatar_url: String,
-    ///
-    gravatar_id: Option<String>,
-    ///
-    url: String,
-    ///
-    html_url: String,
-    ///
-    followers_url: String,
-    ///
-    following_url: String,
-    ///
-    gists_url: String,
-    ///
-    starred_url: String,
-    ///
-    subscriptions_url: String,
-    ///
-    organizations_url: String,
-    ///
-    repos_url: String,
-    ///
-    events_url: String,
-    ///
-    received_events_url: String,
-    ///
-    #[serde(rename = "type")]
-    atype: String,
-    ///
-    site_admin: bool,
-    ///
-    name: Option<String>,
-    ///
-    company: Option<String>,
-    ///
-    blog: Option<String>,
-    ///
-    location: Option<String>,
-    ///
-    email: Option<String>,
-    ///
-    hireable: Option<bool>,
-    ///
-    bio: Option<String>,
-    ///
-    twitter_username: Option<String>,
-    ///
-    public_repos: i64,
-    ///
-    public_gists: i64,
-    ///
-    followers: i64,
-    ///
-    following: i64,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    ///
-    private_gists: i64,
-    ///
-    total_private_repos: i64,
-    ///
-    owned_private_repos: i64,
-    ///
-    disk_usage: i64,
-    ///
-    collaborators: i64,
-    ///
-    two_factor_authentication: bool,
-    ///
-    plan: Value,
-    ///
-    suspended_at: Option<String>,
-    ///
-    business_plus: bool,
-    ///
-    ldap_dn: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetUserCodespacesResponse {
-    ///
-    total_count: i64,
-    ///
-    codespaces: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostUserCodespacesResponse {
-    ///
-    id: i64,
-    /// Automatically generated name of this codespace.
-    name: String,
-    /// UUID identifying this codespace's environment.
-    environment_id: Option<String>,
-    /// Simple User
-    owner: Value,
-    /// Simple User
-    billable_owner: Value,
-    /// Minimal Repository
-    repository: Value,
-    /// Whether the codespace was created from a prebuild.
-    prebuild: Option<bool>,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    /// Last known time this codespace was started.
-    last_used_at: String,
-    /// State of this codespace.
-    state: String,
-    /// API URL for this codespace.
-    url: String,
-    /// Details about the codespace's git repository.
-    git_status: Value,
-    /// The Azure region where this codespace is located.
-    location: String,
-    /// The number of minutes of inactivity after which this codespace will be automatically stopped.
-    idle_timeout_minutes: Option<i64>,
-    /// URL to access this codespace on the web.
-    web_url: String,
-    /// API URL to access available alternate machine types for this codespace.
-    machines_url: String,
-    /// API URL to start this codespace.
-    start_url: String,
-    /// API URL to stop this codespace.
-    stop_url: String,
-    /// API URL for the Pull Request associated with this codespace, if any.
-    pulls_url: Option<String>,
-    ///
-    recent_folders: Vec<String>,
-    ///
-    runtime_constraints: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetUserCodespacesSecretsResponse {
-    ///
-    total_count: i64,
-    ///
-    secrets: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetUserCodespacesSecretsPublicKeyResponse {
-    /// The identifier for the key.
-    key_id: String,
-    /// The Base64 encoded public key.
-    key: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetUserCodespacesSecretssecretNameResponse {
-    /// The name of the secret.
-    name: String,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    /// Visibility of a secret
-    visibility: String,
-    ///
-    selected_repositories_url: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetUserCodespacesSecretssecretNameRepositoriesResponse {
-    ///
-    total_count: i64,
-    ///
-    repositories: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetUserCodespacescodespaceNameResponse {
-    ///
-    id: i64,
-    /// Automatically generated name of this codespace.
-    name: String,
-    /// UUID identifying this codespace's environment.
-    environment_id: Option<String>,
-    /// Simple User
-    owner: Value,
-    /// Simple User
-    billable_owner: Value,
-    /// Minimal Repository
-    repository: Value,
-    /// Whether the codespace was created from a prebuild.
-    prebuild: Option<bool>,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    /// Last known time this codespace was started.
-    last_used_at: String,
-    /// State of this codespace.
-    state: String,
-    /// API URL for this codespace.
-    url: String,
-    /// Details about the codespace's git repository.
-    git_status: Value,
-    /// The Azure region where this codespace is located.
-    location: String,
-    /// The number of minutes of inactivity after which this codespace will be automatically stopped.
-    idle_timeout_minutes: Option<i64>,
-    /// URL to access this codespace on the web.
-    web_url: String,
-    /// API URL to access available alternate machine types for this codespace.
-    machines_url: String,
-    /// API URL to start this codespace.
-    start_url: String,
-    /// API URL to stop this codespace.
-    stop_url: String,
-    /// API URL for the Pull Request associated with this codespace, if any.
-    pulls_url: Option<String>,
-    ///
-    recent_folders: Vec<String>,
-    ///
-    runtime_constraints: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PatchUserCodespacescodespaceNameResponse {
-    ///
-    id: i64,
-    /// Automatically generated name of this codespace.
-    name: String,
-    /// UUID identifying this codespace's environment.
-    environment_id: Option<String>,
-    /// Simple User
-    owner: Value,
-    /// Simple User
-    billable_owner: Value,
-    /// Minimal Repository
-    repository: Value,
-    /// Whether the codespace was created from a prebuild.
-    prebuild: Option<bool>,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    /// Last known time this codespace was started.
-    last_used_at: String,
-    /// State of this codespace.
-    state: String,
-    /// API URL for this codespace.
-    url: String,
-    /// Details about the codespace's git repository.
-    git_status: Value,
-    /// The Azure region where this codespace is located.
-    location: String,
-    /// The number of minutes of inactivity after which this codespace will be automatically stopped.
-    idle_timeout_minutes: Option<i64>,
-    /// URL to access this codespace on the web.
-    web_url: String,
-    /// API URL to access available alternate machine types for this codespace.
-    machines_url: String,
-    /// API URL to start this codespace.
-    start_url: String,
-    /// API URL to stop this codespace.
-    stop_url: String,
-    /// API URL for the Pull Request associated with this codespace, if any.
-    pulls_url: Option<String>,
-    ///
-    recent_folders: Vec<String>,
-    ///
-    runtime_constraints: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetUserCodespacescodespaceNameMachinesResponse {
-    ///
-    total_count: i64,
-    ///
-    machines: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostUserCodespacescodespaceNameStartResponse {
-    ///
-    id: i64,
-    /// Automatically generated name of this codespace.
-    name: String,
-    /// UUID identifying this codespace's environment.
-    environment_id: Option<String>,
-    /// Simple User
-    owner: Value,
-    /// Simple User
-    billable_owner: Value,
-    /// Minimal Repository
-    repository: Value,
-    /// Whether the codespace was created from a prebuild.
-    prebuild: Option<bool>,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    /// Last known time this codespace was started.
-    last_used_at: String,
-    /// State of this codespace.
-    state: String,
-    /// API URL for this codespace.
-    url: String,
-    /// Details about the codespace's git repository.
-    git_status: Value,
-    /// The Azure region where this codespace is located.
-    location: String,
-    /// The number of minutes of inactivity after which this codespace will be automatically stopped.
-    idle_timeout_minutes: Option<i64>,
-    /// URL to access this codespace on the web.
-    web_url: String,
-    /// API URL to access available alternate machine types for this codespace.
-    machines_url: String,
-    /// API URL to start this codespace.
-    start_url: String,
-    /// API URL to stop this codespace.
-    stop_url: String,
-    /// API URL for the Pull Request associated with this codespace, if any.
-    pulls_url: Option<String>,
-    ///
-    recent_folders: Vec<String>,
-    ///
-    runtime_constraints: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostUserCodespacescodespaceNameStopResponse {
-    ///
-    id: i64,
-    /// Automatically generated name of this codespace.
-    name: String,
-    /// UUID identifying this codespace's environment.
-    environment_id: Option<String>,
-    /// Simple User
-    owner: Value,
-    /// Simple User
-    billable_owner: Value,
-    /// Minimal Repository
-    repository: Value,
-    /// Whether the codespace was created from a prebuild.
-    prebuild: Option<bool>,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    /// Last known time this codespace was started.
-    last_used_at: String,
-    /// State of this codespace.
-    state: String,
-    /// API URL for this codespace.
-    url: String,
-    /// Details about the codespace's git repository.
-    git_status: Value,
-    /// The Azure region where this codespace is located.
-    location: String,
-    /// The number of minutes of inactivity after which this codespace will be automatically stopped.
-    idle_timeout_minutes: Option<i64>,
-    /// URL to access this codespace on the web.
-    web_url: String,
-    /// API URL to access available alternate machine types for this codespace.
-    machines_url: String,
-    /// API URL to start this codespace.
-    start_url: String,
-    /// API URL to stop this codespace.
-    stop_url: String,
-    /// API URL for the Pull Request associated with this codespace, if any.
-    pulls_url: Option<String>,
-    ///
-    recent_folders: Vec<String>,
-    ///
-    runtime_constraints: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostUserGpgKeysResponse {
-    ///
-    id: i64,
-    ///
-    primary_key_id: Option<i64>,
-    ///
-    key_id: String,
-    ///
-    public_key: String,
-    ///
-    emails: Vec<Value>,
-    ///
-    subkeys: Vec<Value>,
-    ///
-    can_sign: bool,
-    ///
-    can_encrypt_comms: bool,
-    ///
-    can_encrypt_storage: bool,
-    ///
-    can_certify: bool,
-    ///
-    created_at: String,
-    ///
-    expires_at: Option<String>,
-    ///
-    raw_key: Option<String>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetUserGpgKeysgpgKeyIdResponse {
-    ///
-    id: i64,
-    ///
-    primary_key_id: Option<i64>,
-    ///
-    key_id: String,
-    ///
-    public_key: String,
-    ///
-    emails: Vec<Value>,
-    ///
-    subkeys: Vec<Value>,
-    ///
-    can_sign: bool,
-    ///
-    can_encrypt_comms: bool,
-    ///
-    can_encrypt_storage: bool,
-    ///
-    can_certify: bool,
-    ///
-    created_at: String,
-    ///
-    expires_at: Option<String>,
-    ///
-    raw_key: Option<String>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetUserInstallationsResponse {
-    ///
-    total_count: i64,
-    ///
-    installations: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetUserInstallationsinstallationIdRepositoriesResponse {
-    ///
-    total_count: i64,
-    ///
-    repository_selection: String,
-    ///
-    repositories: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PutUserInteractionLimitsResponse {
-    /// The type of GitHub user that can comment, open issues, or create pull requests while the interaction limit is in effect. Can be one of: `existing_users`, `contributors_only`, `collaborators_only`.
-    limit: String,
-    ///
-    origin: String,
-    ///
-    expires_at: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostUserKeysResponse {
-    ///
-    key: String,
-    ///
-    id: i64,
-    ///
-    url: String,
-    ///
-    title: String,
-    ///
-    created_at: String,
-    ///
-    verified: bool,
-    ///
-    read_only: bool,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetUserKeyskeyIdResponse {
-    ///
-    key: String,
-    ///
-    id: i64,
-    ///
-    url: String,
-    ///
-    title: String,
-    ///
-    created_at: String,
-    ///
-    verified: bool,
-    ///
-    read_only: bool,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetUserMembershipsOrgsorgResponse {
-    ///
-    url: String,
-    /// The state of the member in the organization. The `pending` state indicates the user has not yet accepted an invitation.
-    state: String,
-    /// The user's membership type in the organization.
-    role: String,
-    ///
-    organization_url: String,
-    /// Organization Simple
-    organization: Value,
-    ///
-    permissions: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PatchUserMembershipsOrgsorgResponse {
-    ///
-    url: String,
-    /// The state of the member in the organization. The `pending` state indicates the user has not yet accepted an invitation.
-    state: String,
-    /// The user's membership type in the organization.
-    role: String,
-    ///
-    organization_url: String,
-    /// Organization Simple
-    organization: Value,
-    ///
-    permissions: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostUserMigrationsResponse {
-    ///
-    id: i64,
-    ///
-    guid: String,
-    ///
-    state: String,
-    ///
-    lock_repositories: bool,
-    ///
-    exclude_metadata: bool,
-    ///
-    exclude_git_data: bool,
-    ///
-    exclude_attachments: bool,
-    ///
-    exclude_releases: bool,
-    ///
-    exclude_owner_projects: bool,
-    ///
-    repositories: Vec<Value>,
-    ///
-    url: String,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    ///
-    node_id: String,
-    ///
-    archive_url: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetUserMigrationsmigrationIdResponse {
-    ///
-    id: i64,
-    ///
-    guid: String,
-    ///
-    state: String,
-    ///
-    lock_repositories: bool,
-    ///
-    exclude_metadata: bool,
-    ///
-    exclude_git_data: bool,
-    ///
-    exclude_attachments: bool,
-    ///
-    exclude_releases: bool,
-    ///
-    exclude_owner_projects: bool,
-    ///
-    repositories: Vec<Value>,
-    ///
-    url: String,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    ///
-    node_id: String,
-    ///
-    archive_url: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetUserPackagespackageTypepackageNameResponse {
-    /// Unique identifier of the package.
-    id: i64,
-    /// The name of the package.
-    name: String,
-    ///
-    package_type: String,
-    ///
-    url: String,
-    ///
-    html_url: String,
-    /// The number of versions of the package.
-    version_count: i64,
-    ///
-    visibility: String,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetUserPackagespackageTypepackageNameVersionspackageVersionIdResponse {
-    /// Unique identifier of the package version.
-    id: i64,
-    /// The name of the package version.
-    name: String,
-    ///
-    url: String,
-    ///
-    package_html_url: String,
-    ///
-    html_url: String,
-    ///
-    license: String,
-    ///
-    description: String,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    ///
-    deleted_at: String,
-    ///
-    metadata: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostUserProjectsResponse {
-    ///
-    owner_url: String,
-    ///
-    url: String,
-    ///
-    html_url: String,
-    ///
-    columns_url: String,
-    ///
-    id: i64,
-    ///
-    node_id: String,
-    /// Name of the project
-    name: String,
-    /// Body of the project
-    body: Option<String>,
-    ///
-    number: i64,
-    /// State of the project; either 'open' or 'closed'
-    state: String,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    /// The baseline permission that all organization members have on this project. Only present if owner is an organization.
-    organization_permission: String,
-    /// Whether or not this project can be seen by everyone. Only present if owner is an organization.
-    private: bool,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct PostUserReposResponse {
-    /// Unique identifier of the repository
-    id: i64,
-    ///
-    node_id: String,
-    /// The name of the repository.
-    name: String,
-    ///
-    full_name: String,
-    ///
-    forks: i64,
-    ///
-    permissions: Value,
-    /// Simple User
-    owner: Value,
-    /// Whether the repository is private or public.
-    private: bool,
-    ///
-    html_url: String,
-    ///
-    description: Option<String>,
-    ///
-    fork: bool,
-    ///
-    url: String,
-    ///
-    archive_url: String,
-    ///
-    assignees_url: String,
-    ///
-    blobs_url: String,
-    ///
-    branches_url: String,
-    ///
-    collaborators_url: String,
-    ///
-    comments_url: String,
-    ///
-    commits_url: String,
-    ///
-    compare_url: String,
-    ///
-    contents_url: String,
-    ///
-    contributors_url: String,
-    ///
-    deployments_url: String,
-    ///
-    downloads_url: String,
-    ///
-    events_url: String,
-    ///
-    forks_url: String,
-    ///
-    git_commits_url: String,
-    ///
-    git_refs_url: String,
-    ///
-    git_tags_url: String,
-    ///
-    git_url: String,
-    ///
-    issue_comment_url: String,
-    ///
-    issue_events_url: String,
-    ///
-    issues_url: String,
-    ///
-    keys_url: String,
-    ///
-    labels_url: String,
-    ///
-    languages_url: String,
-    ///
-    merges_url: String,
-    ///
-    milestones_url: String,
-    ///
-    notifications_url: String,
-    ///
-    pulls_url: String,
-    ///
-    releases_url: String,
-    ///
-    ssh_url: String,
-    ///
-    stargazers_url: String,
-    ///
-    statuses_url: String,
-    ///
-    subscribers_url: String,
-    ///
-    subscription_url: String,
-    ///
-    tags_url: String,
-    ///
-    teams_url: String,
-    ///
-    trees_url: String,
-    ///
-    clone_url: String,
-    ///
-    mirror_url: Option<String>,
-    ///
-    hooks_url: String,
-    ///
-    svn_url: String,
-    ///
-    homepage: Option<String>,
-    ///
-    language: Option<String>,
-    ///
-    forks_count: i64,
-    ///
-    stargazers_count: i64,
-    ///
-    watchers_count: i64,
-    ///
-    size: i64,
-    /// The default branch of the repository.
-    default_branch: String,
-    ///
-    open_issues_count: i64,
-    /// Whether this repository acts as a template that can be used to generate new repositories.
-    is_template: bool,
-    ///
-    topics: Vec<String>,
-    /// Whether issues are enabled.
-    has_issues: bool,
-    /// Whether projects are enabled.
-    has_projects: bool,
-    /// Whether the wiki is enabled.
-    has_wiki: bool,
-    ///
-    has_pages: bool,
-    /// Whether downloads are enabled.
-    has_downloads: bool,
-    /// Whether the repository is archived.
-    archived: bool,
-    /// Returns whether or not this repository disabled.
-    disabled: bool,
-    /// The repository visibility: public, private, or internal.
-    visibility: String,
-    ///
-    pushed_at: Option<String>,
-    ///
-    created_at: Option<String>,
-    ///
-    updated_at: Option<String>,
-    /// Whether to allow rebase merges for pull requests.
-    allow_rebase_merge: bool,
-    ///
-    template_repository: Option<Value>,
-    ///
-    temp_clone_token: String,
-    /// Whether to allow squash merges for pull requests.
-    allow_squash_merge: bool,
-    /// Whether to allow Auto-merge to be used on pull requests.
-    allow_auto_merge: bool,
-    /// Whether to delete head branches when pull requests are merged
-    delete_branch_on_merge: bool,
-    /// Whether to allow merge commits for pull requests.
-    allow_merge_commit: bool,
-    /// Whether to allow forking this repo
-    allow_forking: bool,
-    ///
-    subscribers_count: i64,
-    ///
-    network_count: i64,
-    ///
-    open_issues: i64,
-    ///
-    watchers: i64,
-    ///
-    master_branch: String,
-    ///
-    starred_at: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetUsersusernameHovercardResponse {
-    ///
-    contexts: Vec<Value>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetUsersusernameInstallationResponse {
-    /// The ID of the installation.
-    id: i64,
-    ///
-    account: Option<Value>,
-    /// Describe whether all repositories have been selected or there's a selection involved
-    repository_selection: String,
-    ///
-    access_tokens_url: String,
-    ///
-    repositories_url: String,
-    ///
-    html_url: String,
-    ///
-    app_id: i64,
-    /// The ID of the user or organization this token is being scoped to.
-    target_id: i64,
-    ///
-    target_type: String,
-    /// * example - [object Object]
-    permissions: Value,
-    ///
-    events: Vec<String>,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    ///
-    single_file_name: Option<String>,
-    ///
-    has_multiple_single_files: bool,
-    ///
-    single_file_paths: Vec<String>,
-    ///
-    app_slug: String,
-    ///
-    suspended_at: Option<String>,
-    ///
-    contact_email: Option<String>,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetUsersusernamePackagespackageTypepackageNameResponse {
-    /// Unique identifier of the package.
-    id: i64,
-    /// The name of the package.
-    name: String,
-    ///
-    package_type: String,
-    ///
-    url: String,
-    ///
-    html_url: String,
-    /// The number of versions of the package.
-    version_count: i64,
-    ///
-    visibility: String,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetUsersusernamePackagespackageTypepackageNameVersionspackageVersionIdResponse {
-    /// Unique identifier of the package version.
-    id: i64,
-    /// The name of the package version.
-    name: String,
-    ///
-    url: String,
-    ///
-    package_html_url: String,
-    ///
-    html_url: String,
-    ///
-    license: String,
-    ///
-    description: String,
-    ///
-    created_at: String,
-    ///
-    updated_at: String,
-    ///
-    deleted_at: String,
-    ///
-    metadata: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetUsersusernameSettingsBillingActionsResponse {
-    /// The sum of the free and paid GitHub Actions minutes used.
-    total_minutes_used: i64,
-    /// The total paid GitHub Actions minutes used.
-    total_paid_minutes_used: i64,
-    /// The amount of free GitHub Actions minutes available.
-    included_minutes: i64,
-    ///
-    minutes_used_breakdown: Value,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetUsersusernameSettingsBillingPackagesResponse {
-    /// Sum of the free and paid storage space (GB) for GitHuub Packages.
-    total_gigabytes_bandwidth_used: i64,
-    /// Total paid storage space (GB) for GitHuub Packages.
-    total_paid_gigabytes_bandwidth_used: i64,
-    /// Free storage space (GB) for GitHub Packages.
-    included_gigabytes_bandwidth: i64,
-}
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct GetUsersusernameSettingsBillingSharedStorageResponse {
-    /// Numbers of days left in billing cycle.
-    days_left_in_billing_cycle: i64,
-    /// Estimated storage space (GB) used in billing cycle.
-    estimated_paid_storage_for_month: i64,
-    /// Estimated sum of free and paid storage space (GB) used in billing cycle.
-    estimated_storage_for_month: i64,
 }
